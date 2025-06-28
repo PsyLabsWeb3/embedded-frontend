@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+
 import { Unity, useUnityContext } from "react-unity-webgl";
 import styles from './Snake2048.module.css';
 const Snake2048Game = ()=> {
