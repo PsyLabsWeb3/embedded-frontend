@@ -1,0 +1,111 @@
+/* Hero stat card component styles */
+.hero-stat-card {
+  align-items: center;
+  background: linear-gradient(45deg, var(--color-primary) 0%, #317017 100%);
+  border-radius: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 2.5rem auto var(--spacing-2xl) auto;
+  max-width: 340px;
+  padding: 2.2rem 1.5rem 1.7rem 1.5rem;
+}
+
+.hero-stat-card__desc {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  margin: 0 0 0.7rem 0;
+  text-align: center;
+}
+
+.hero-stat-card__button {
+  background: var(--color-primary-dark);
+  border: none;
+  border-radius: 0.6rem;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.85rem 2.2rem;
+  transition: var(--transition-fast);
+}
+
+.hero-stat-card__button:hover {
+  background: #1e7c2b;
+}
+
+.hero-stat-card__stat {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  row-gap: 0;
+}
+
+.hero-stat-card__title {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-stat-card__players {
+  -webkit-text-fill-color: var(--color-text);
+  background: none;
+  color: var(--color-text);
+  font-family: var(--font-subheading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-left: 0;
+  margin-top: -1.2rem;
+  text-align: center;
+}
+
+#hero-stat-gradient {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  align-items: flex-end;
+  background: linear-gradient(90deg, var(--color-text) 0%, var(--color-primary) 100%);
+  background-clip: text;
+  color: transparent;
+  display: flex;
+  font-family: var(--font-subheading);
+  font-size: var(--font-size-display);
+  font-weight: 1000;
+  letter-spacing: 0.01em;
+}
+
+/* Mobile styles */
+@media (max-width: 500px) {
+  .hero-stat-card {
+    gap: 0.7rem;
+    max-width: 98vw;
+    padding: 1.3rem 0.7rem 1.1rem 0.7rem;
+  }
+  
+  .hero-stat-card__desc {
+    font-size: 1.5rem;
+  }
+  
+  .hero-stat-card__stat {
+    font-size: 1.5rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1200px) {
+  .hero-stat-card {
+    max-width: 540px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+

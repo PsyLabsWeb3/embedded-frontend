@@ -1,0 +1,29 @@
+/* Connect wallet button styles */
+.connect-wallet-btn {
+  align-items: center;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 1.2rem;
+  box-shadow: none;
+  color: var(--color-bg);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.95rem;
+  height: clamp(1.2rem, 4vw, 1.6rem);
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  transition: var(--transition-fast);
+  width: clamp(2.4rem, 12vw, 3.2rem);
+}
+
+.connect-wallet-btn:focus {
+  outline: 2px solid var(--color-primary-dark);
+}
+
+.connect-wallet-text,
+.connect-wallet-text-short {
+  display: none;
+}

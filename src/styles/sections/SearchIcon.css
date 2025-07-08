@@ -1,0 +1,18 @@
+/* Search icon specific styles */
+.navbar__search-btn {
+  color: var(--color-primary);
+}
+
+.navbar__search-btn svg {
+  height: 28px;
+  stroke: var(--color-primary);
+  width: 28px;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .navbar__search-btn svg {
+    height: 32px;
+    width: 32px;
+  }
+}

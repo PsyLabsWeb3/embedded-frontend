@@ -1,0 +1,14 @@
+/* Logo component styles */
+.logo-container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+
+.logo-image {
+  display: block;
+  height: clamp(2.7rem, 6vw, 3.5rem);
+  max-height: 100%;
+  transform: scale(1.2);
+  width: auto;
+}

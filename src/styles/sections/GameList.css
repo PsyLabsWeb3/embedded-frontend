@@ -1,0 +1,42 @@
+/* Game list section styles */
+.game-list__title {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  background-clip: text;
+  color: transparent;
+  filter: none;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.game-list__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+/* Tablet styles */
+@media (min-width: 600px) {
+  .game-list__title {
+    font-size: 2.7rem;
+    text-align: left;
+  }
+  
+  .game-list__grid {
+    gap: 2.7rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 900px) {
+  .game-list__title {
+    font-size: 3.2rem;
+  }
+  
+  .game-list__grid {
+    gap: var(--spacing-2xl);
+  }
+}

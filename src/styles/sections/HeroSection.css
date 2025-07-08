@@ -1,0 +1,120 @@
+/* Base styles - Mobile first */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+  text-align: left;
+}
+
+.hero-section__row {
+  display: none;
+}
+
+.hero-section__mobile {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.hero-section__subtitle {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+  margin-top: var(--spacing-xs);
+  text-align: center;
+}
+
+.hero-section__row--cta {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-top: var(--spacing-sm);
+  width: 100%;
+}
+
+
+.hero-section__cta {
+  background: var(--color-primary-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text);
+  cursor: pointer;
+  display: block;
+  font-size: 1.15rem;
+  font-weight: bold;
+  letter-spacing: 0.01em;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 2.7rem;
+  transition: var(--transition-fast);
+}
+
+.hero-section__cta:hover {
+  background: #1e7c2b;
+}
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero-section__row {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin: 0;
+    margin-top: var(--spacing-sm);
+    min-height: 300px;
+    width: 100%;
+  }
+  .hero-title {
+    font-size: var(--font-size-display);
+    line-height: 1.18;
+    margin-bottom: 0.5rem;   /* antes: 0 */
+    margin-top: 1.2rem;      /* antes: 2.5rem */
+    text-align: center;
+  }
+  .hero-section__subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;   /* antes: 0 */
+    text-align: center;
+  }
+  .hero-section__row--cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-section__row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    min-height: 200px;
+  }
+  .hero-title {
+    font-size: var(--font-size-display);
+    line-height: 1.18;
+    margin-bottom: 0;
+    margin-top: 3.2rem;
+    text-align: center;
+  }
+  .hero-section__subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .hero-section__row--cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+  }
+  .hero-section__cta {
+    font-size: 1.1rem;
+    padding: 1.1rem 3.2rem;
+  }
+}

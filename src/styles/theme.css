@@ -1,0 +1,80 @@
+/* =====================
+   THEME TOKENS (ROOT)
+   ===================== */
+:root {
+  /* Colors */
+  --color-bg: #171D20;
+  --color-surface-dark: #38454C;
+  --color-border-subtle: #23272a;
+  --color-primary: #5DD62C;
+  --color-primary-dark: #337418;
+  --color-accent-pink: #AE43FF;
+  --color-accent-blue: #2CB1D6;
+  --color-text: #FFFFFF;
+  --color-text-muted: #D0D0D0;
+
+  /* Typography */
+  --font-heading: 'Lobster', cursive;
+  --font-subheading: 'Nubolts Rounded', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-size-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --font-size-base: clamp(1rem, 3vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 4vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 5vw, 2rem);
+  --font-size-2xl: clamp(2rem, 6vw, 3rem);
+  --font-size-3xl: clamp(2.5rem, 8vw, 4rem);
+  --font-size-display: clamp(3rem, 10vw, 5rem);
+
+  /* Spacing */
+  --spacing-0: 0rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+  --spacing-5xl: 6rem;
+  --spacing-fluid-xs: clamp(0.25rem, 1vw, 0.5rem);
+  --spacing-fluid-sm: clamp(0.5rem, 2vw, 1rem);
+  --spacing-fluid-md: clamp(0.75rem, 3vw, 1.5rem);
+  --spacing-fluid-lg: clamp(1rem, 4vw, 2.5rem);
+  --spacing-fluid-xl: clamp(1.5rem, 5vw, 4rem);
+  --container-padding-mobile: clamp(1rem, 4vw, 1.5rem);
+  --container-padding-tablet: clamp(1.5rem, 5vw, 2rem);
+  --container-padding-desktop: clamp(2rem, 6vw, 3rem);
+  --container-margin: clamp(1rem, 5vw, 2.5rem);
+
+  /* Shadows & Transitions */
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-slow: all 0.4s ease;
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-hard: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-glow-green: 0 0 12px rgba(93, 214, 44, 0.6);
+  --shadow-glow-blue: 0 8px 10px 0 #2CB1D6cc;
+  --shadow-glow-white: 0 8px 10px 0 #ffffff;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Breakpoints */
+  --breakpoint-xxs: 320px;
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+
+  /* Z-index */
+  --z-base: 0;
+  --z-above: 10;
+  --z-overlay: 100;
+  --z-modal: 1000;
+}
