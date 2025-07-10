@@ -7,10 +7,10 @@ const EmbeddedGame = ()=> {
 
 
     const { unityProvider } = useUnityContext({
-      loaderUrl: "src/assets/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.loader.js",
-      dataUrl: "src/assets/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.data",
-      frameworkUrl: "src/assets/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.framework.js",
-      codeUrl: "src/assets/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.wasm",
+      loaderUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.loader.js",
+      dataUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.data",
+      frameworkUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.framework.js",
+      codeUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.wasm",
     });
 
     return <Unity className={styles.container} unityProvider={unityProvider} />;
