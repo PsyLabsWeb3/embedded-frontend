@@ -7,12 +7,12 @@ const Snake2048Game = ()=> {
 
 
     const { unityProvider } = useUnityContext({
-      loaderUrl: "/Snake2048/Build/Snake2048webgl.loader.js",
-      dataUrl: "/Snake2048/Build/Snake2048webgl.data.unityweb",
-      frameworkUrl: "/Snake2048/Build/Snake2048webgl.framework.js.unityweb",
-      codeUrl: "/Snake2048/Build/Snake2048webgl.wasm.unityweb",
+      loaderUrl: "src/assets/Unity/Snake2048/Build/Snake2048webgl.loader.js",
+      dataUrl: "src/assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb",
+      frameworkUrl: "src/assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb",
+      codeUrl: "src/assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb",
     });
-  
+
     return <Unity className={styles.container} unityProvider={unityProvider} />;
 };
 

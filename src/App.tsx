@@ -1,4 +1,4 @@
-import Home from './pages/Home';
+
 import {
   ConnectionProvider,
   WalletProvider
@@ -13,6 +13,11 @@ import {
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home';
+import Snake2048Page from './pages/Snake2048Page';
+
 
 const wallets = [
   new PhantomWalletAdapter(),
@@ -30,27 +35,18 @@ function App() {
   <ConnectionProvider endpoint={clusterApiUrl('mainnet-beta')}>
   <WalletProvider wallets={wallets} autoConnect>
     <WalletModalProvider>
-      <Home />
-    </WalletModalProvider>
-  </WalletProvider>
-  </ConnectionProvider>
-  );
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
-import Home from './pages/Home'
-import Snake2048Page from './pages/Snake2048Page'
-
-function App() {
-  return (
     <Router>
-      <div className="App">
+      <div >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/snake2048" element={<Snake2048Page />} />
         </Routes>
       </div>
     </Router>
-  )
+    </WalletModalProvider>
+  </WalletProvider>
+  </ConnectionProvider>
+  );
 }
 
 export default App;

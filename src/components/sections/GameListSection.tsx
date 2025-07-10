@@ -17,6 +17,7 @@ const GameListSection = () => (
           title={game.title}
           image={game.image}
           className={game.glowClass}
+          slug={game.slug}
         />
       ))}
     </div>
