@@ -1,6 +1,4 @@
 import '../../styles/sections/ConnectWalletButton.css';
-
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../assets/walletIcon.svg';
