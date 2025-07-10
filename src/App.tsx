@@ -17,7 +17,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home';
 import Snake2048Page from './pages/Snake2048Page';
-
+import EmbeddedGamePage from './pages/EmbeddedGame';
 
 const wallets = [
   new PhantomWalletAdapter(),
@@ -40,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/snake2048" element={<Snake2048Page />} />
+          <Route path="/embedded" element={<EmbeddedGamePage />} />
         </Routes>
       </div>
     </Router>
