@@ -25,8 +25,6 @@ const EmbeddedGame = ()=> {
     //   codeUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.wasm",
     // });
 
-    const sendMessageToUnity = unityContext.sendMessage;
-
 
     if (connected && publicKey !== null) {
       unityContext.sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
