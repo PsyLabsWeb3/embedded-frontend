@@ -1,0 +1,11 @@
+.page-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .page-header {
+    text-align: left;
+    margin-bottom: 3rem;
+  }
+}

@@ -1,0 +1,41 @@
+/* Games Page Styles - Fit within container */
+.games-container {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.game-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.game-card {
+  border: 1px solid #5DD62C;
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.game-title {
+  margin: 0;
+  color: #5DD62C !important;
+  font-size: 0.8rem !important;
+  line-height: 1.2;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Force small font size for game titles */
+.game-card h3.game-title {
+  font-size: 0.8rem !important;
+}

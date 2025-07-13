@@ -11,14 +11,15 @@
   background-position: center;
   background-size: cover;
   border-radius: 1.3rem;
-  box-shadow: 0 0 0 0 transparent;
+  border: none;
+  box-shadow: none;
   display: flex;
   justify-content: center;
-  min-height: 180px;
+  min-height: 280px;
   overflow: hidden;
   padding: 0;
   position: relative;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: transform 0.2s;
   width: 100%;
 }
 
@@ -44,10 +45,38 @@
     0 0 2px #000;
 }
 
+/* Ensure no green border/outline on any game cards */
+.game-card,
+.game-card *,
+.game-card:hover,
+.game-card:focus,
+.game-card:active,
+.game-card-outer-wrapper,
+.game-card-outer-wrapper *,
+.game-card-outer-wrapper:hover,
+.game-card-outer-wrapper:focus,
+.game-card-outer-wrapper:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any potential glow effects from neon classes */
+.game-card.neon-green,
+.game-card.neon-blue,
+.game-card.neon-purple,
+.neon-green,
+.neon-blue,
+.neon-purple {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* Tablet styles */
 @media (min-width: 600px) {
   .game-card {
-    min-height: 220px;
+    min-height: 320px;
   }
   
   .game-card-title {
@@ -58,7 +87,7 @@
 /* Desktop styles */
 @media (min-width: 900px) {
   .game-card {
-    min-height: 270px;
+    min-height: 380px;
   }
   
   .game-card-title {

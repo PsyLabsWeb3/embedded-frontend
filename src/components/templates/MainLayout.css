@@ -1,0 +1,18 @@
+/* Main Layout Styles */
+.main-layout {
+  min-height: 100vh;
+  background: #1A1D1F;
+  color: #FFFFFF;
+}
+
+.main-content {
+  padding: var(--spacing-lg) var(--container-padding-mobile);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    padding: var(--spacing-xl) var(--container-padding-desktop);
+  }
+}

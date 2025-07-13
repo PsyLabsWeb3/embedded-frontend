@@ -1,0 +1,96 @@
+/* Game Page Template Styles */
+.game-page {
+  min-height: 100vh;
+  background: var(--color-background, #1A1D1F);
+  color: var(--color-text, #FFFFFF);
+}
+
+.game-page-content {
+  padding: 2rem 1rem;
+}
+
+.game-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary, #5DD62C);
+  text-align: center;
+}
+
+.game-container {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.game-info-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(93, 214, 44, 0.2);
+}
+
+.game-instructions h3 {
+  color: var(--color-primary, #5DD62C);
+  margin-bottom: 1rem;
+}
+
+.game-instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.game-instructions li::before {
+  content: "→";
+  color: var(--color-primary, #5DD62C);
+  position: absolute;
+  left: 0;
+}
+
+.game-additional-info {
+  margin-top: 2rem;
+}
+
+.custom-content-section {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(93, 214, 44, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-page-content {
+    padding: 1rem 0.5rem;
+  }
+  
+  .game-title {
+    font-size: 1.8rem;
+  }
+  
+  .game-info-section,
+  .custom-content-section {
+    padding: 1rem;
+  }
+}

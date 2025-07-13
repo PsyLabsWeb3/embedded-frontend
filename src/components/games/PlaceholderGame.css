@@ -1,0 +1,21 @@
+/* Placeholder Game Styles - Minimized for empty state */
+.placeholder-game {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Visual styles removed - will be re-added when content is restored */
+}
+
+.placeholder-content {
+  max-width: 300px;
+  /* Content styles minimized for empty state */
+}
+
+/* Mobile responsive - basic structure maintained */
+@media (max-width: 768px) {
+  .placeholder-game {
+    min-height: 150px;
+    padding: 1rem;
+  }
+}

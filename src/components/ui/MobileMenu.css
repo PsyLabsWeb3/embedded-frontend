@@ -1,0 +1,156 @@
+/* Mobile Menu Styles */
+.menu-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+  position: relative;
+  border-radius: var(--radius-full);
+  transition: var(--transition-fast);
+}
+
+.menu-toggle.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  height: 16px;
+  position: relative;
+}
+
+.hamburger span {
+  background: var(--color-primary);
+  height: 3px;
+  width: 100%;
+  margin: 1px 0;
+  transition: var(--transition-fast);
+  transform-origin: center;
+  border-radius: 2px;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #38454C 0%, #171D20 100%);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
+}
+
+.menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: transparent;
+  border: none;
+  color: #5DD62C;
+  font-size: 3rem;
+  font-weight: 300;
+  cursor: pointer;
+  z-index: 1001;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  line-height: 1;
+  box-shadow: none;
+  outline: none;
+}
+
+.menu-close:hover {
+  color: #4BC123;
+  transform: scale(1.1);
+}
+
+.mobile-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.menu-items {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.menu-items li {
+  margin: 0.3rem 0;
+  width: 100%;
+}
+
+.menu-items a {
+  color: var(--color-text);
+  font-family: 'Nubolts Rounded Free', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.menu-items a:hover {
+  color: var(--color-primary);
+}
+
+.menu-items a.active {
+  color: #5DD62C;
+  border-bottom: 2px solid #5DD62C;
+  padding-bottom: 0.2rem;
+  display: inline-block;
+  width: auto;
+}
+
+/* Coming Soon Styles */
+.coming-soon-item {
+  position: relative;
+  margin: 0.3rem 0;
+}
+
+.tournament-main {
+  color: #666;
+  font-family: 'Nubolts Rounded Free', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.coming-soon-text {
+  color: #5DD62C;
+  font-family: 'Nubolts Rounded Free', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 0.1rem;
+  line-height: 1;
+}

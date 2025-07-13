@@ -1,0 +1,13 @@
+.description-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #FFFFFF;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.9;
+}
+
+@media (min-width: 768px) {
+  .description-text {
+    font-size: 1.2rem;
+  }
+}

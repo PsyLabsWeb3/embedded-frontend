@@ -1,0 +1,122 @@
+/* History Page Styles */
+.history-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.history-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  background: #2A2D2F;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  border: 2px solid transparent;
+  transition: var(--transition-fast);
+}
+
+.stat-card:hover {
+  border-color: #5DD62C;
+}
+
+.stat-card h3 {
+  color: #FFFFFF;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.8;
+}
+
+.stat-number {
+  color: #5DD62C;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.section-title {
+  color: #5DD62C;
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.history-list {
+  margin-top: var(--spacing-xl);
+}
+
+.history-item {
+  background: #2A2D2F;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #5DD62C;
+  transition: var(--transition-fast);
+}
+
+.history-item:hover {
+  background: #343739;
+  transform: translateX(5px);
+}
+
+.history-item.win {
+  border-left-color: #5DD62C;
+}
+
+.history-item.loss {
+  border-left-color: #FF6B6B;
+}
+
+.history-item.completed {
+  border-left-color: #4ECDC4;
+}
+
+.game-info h3 {
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+.game-date {
+  color: #FFFFFF;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+.game-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.score, .duration {
+  color: #FFFFFF;
+  font-size: 0.9rem;
+}
+
+.result {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+  .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  
+  .game-stats {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .section-title {
+    text-align: left;
+  }
+}

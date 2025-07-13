@@ -1,0 +1,59 @@
+.leaderboard-table {
+  background: #2A2D2F;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 80px;
+  background: #5DD62C;
+  color: #1A1D1F;
+  font-weight: 600;
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.table-body {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 80px;
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+  border-bottom: 1px solid #3A3D3F;
+  transition: var(--transition-fast);
+}
+
+.table-row:hover {
+  background: #343739;
+}
+
+.table-row.top-three {
+  background: linear-gradient(90deg, rgba(93, 214, 44, 0.1) 0%, rgba(93, 214, 44, 0.05) 100%);
+}
+
+.rank-col, .score-col, .games-col {
+  text-align: center;
+  font-weight: 600;
+}
+
+.username-col {
+  font-weight: 500;
+}
+
+.medal {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .table-header, .table-row {
+    grid-template-columns: 60px 1fr 80px 60px;
+    font-size: 0.9rem;
+    padding: var(--spacing-sm);
+  }
+}

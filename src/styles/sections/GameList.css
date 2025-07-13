@@ -18,6 +18,16 @@
   gap: 2.2rem;
 }
 
+/* Specific styles for GameListSection cards - remove any border/glow */
+.game-list__grid .game-card-outer-wrapper,
+.game-list__grid .game-card-outer-wrapper *,
+.game-list__grid .game-card,
+.game-list__grid .game-card * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* Tablet styles */
 @media (min-width: 600px) {
   .game-list__title {

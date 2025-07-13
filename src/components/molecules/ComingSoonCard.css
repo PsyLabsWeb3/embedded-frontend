@@ -1,0 +1,37 @@
+.coming-soon-card {
+  background: linear-gradient(135deg, #2A2D2F 0%, #1A1D1F 100%);
+  border: 2px solid #5DD62C;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.coming-soon-badge {
+  background: #5DD62C;
+  color: #1A1D1F;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.coming-soon-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5DD62C;
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+}
+
+.coming-soon-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #FFFFFF;
+  opacity: 0.8;
+}

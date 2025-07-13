@@ -1,0 +1,30 @@
+.primary-button {
+  background: #5DD62C;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #1A1D1F;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: var(--spacing-md) var(--spacing-lg);
+  transition: var(--transition-fast);
+  min-width: 120px;
+}
+
+.primary-button:hover:not(.disabled) {
+  background: #4BC123;
+  transform: translateY(-2px);
+}
+
+.primary-button.disabled {
+  background: #666;
+  color: #999;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .primary-button {
+    font-size: 1.1rem;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+}

@@ -1,0 +1,170 @@
+/* Rewards Page Styles */
+.rewards-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.points-balance {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #5DD62C 0%, #4BC123 100%);
+  color: #1A1D1F;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  text-align: center;
+  min-width: 250px;
+  box-shadow: 0 8px 32px rgba(93, 214, 44, 0.3);
+}
+
+.balance-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.8;
+}
+
+.points-amount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.points-number {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.points-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.reward-card {
+  background: #2A2D2F;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  border: 2px solid transparent;
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.reward-card:hover:not(.unavailable) {
+  border-color: #5DD62C;
+  transform: translateY(-5px);
+}
+
+.reward-card.unavailable {
+  opacity: 0.6;
+  background: #1F2224;
+}
+
+.reward-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.reward-title {
+  color: #5DD62C;
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.reward-description {
+  color: #FFFFFF;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.reward-cost {
+  margin-bottom: var(--spacing-lg);
+}
+
+.cost-amount {
+  color: #5DD62C;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.cost-label {
+  color: #FFFFFF;
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-left: 0.5rem;
+}
+
+.reward-button {
+  width: 100%;
+}
+
+.how-to-earn {
+  margin-top: 3rem;
+}
+
+.section-title {
+  color: #5DD62C;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.earning-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.method-card {
+  background: #2A2D2F;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  border: 1px solid #3A3D3F;
+}
+
+.method-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
+.method-card h4 {
+  color: #5DD62C;
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.method-card p {
+  color: #FFFFFF;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .rewards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .earning-methods {
+    grid-template-columns: 1fr;
+  }
+  
+  .balance-card {
+    min-width: auto;
+    width: 100%;
+  }
+}
