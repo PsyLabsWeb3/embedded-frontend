@@ -10,7 +10,7 @@ const PlaceholderGame: React.FC<PlaceholderGameProps> = ({ gameName, className }
   return (
     <div className={`placeholder-game ${className || ''}`}>
       <div className="placeholder-content">
-        {/* Contenido temporalmente vacío */}
+        {gameName}
       </div>
     </div>
   );
