@@ -8,7 +8,7 @@ import frameworkUrl from '../../assets/Unity/EmbeddedTemplate/Build/EM-12-Backen
 import codeUrl from '../../assets/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.wasm?url';
 const EmbeddedGame = ()=> {
 
-  
+  //New wayof loading game
   const { unityProvider } = useUnityContext({
     loaderUrl,
     dataUrl,
