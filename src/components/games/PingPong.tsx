@@ -19,14 +19,6 @@ const PingPongGame = ()=> {
     codeUrl,
   });
 
-//Normalmente se usa el siguiente codigo para cargar el juego desde public
-    // const { unityProvider } = useUnityContext({
-    //   loaderUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.loader.js",
-    //   dataUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.data",
-    //   frameworkUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.framework.js",
-    //   codeUrl: "/Unity/EmbeddedTemplate/Build/EM-12-BackendDLL.wasm",
-    // });
-
 
     if (connected && publicKey !== null) {
       unityContext.sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
