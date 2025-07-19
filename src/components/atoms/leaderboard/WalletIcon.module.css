@@ -1,0 +1,30 @@
+.walletIcon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.walletIcon:hover {
+  transform: scale(1.1);
+}
+
+.iconSvg {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .walletIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .iconSvg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

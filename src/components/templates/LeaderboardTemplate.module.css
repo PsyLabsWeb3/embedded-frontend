@@ -1,0 +1,58 @@
+/* Leaderboard main container styles */
+.leaderboardContainer {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  padding: var(--spacing-lg);
+}
+
+.leaderboardContainer h1 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: #5DD62C;
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.leaderboardList {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Loading and error states */
+.loadingState, .errorState {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+}
+
+.loadingState {
+  color: var(--color-text-muted);
+}
+
+.errorState {
+  color: var(--color-accent-pink);
+  background: rgba(174, 67, 255, 0.1);
+  border: 1px solid var(--color-accent-pink);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-xl) auto;
+  max-width: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .leaderboardContainer {
+    padding: var(--spacing-md);
+  }
+  
+  .leaderboardContainer h1 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .leaderboardList {
+    padding: 0;
+  }
+}

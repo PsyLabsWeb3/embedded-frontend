@@ -1,0 +1,29 @@
+.text {
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.4;
+}
+
+.primary {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #5DD62C;
+}
+
+.secondary {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #FFFFFF;
+}
+
+.highlight {
+  font-family: 'Alumni Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #5DD62C;
+}
+
+@media (max-width: 768px) {
+  .primary {
+    font-size: 0.875rem;
+  }
+}

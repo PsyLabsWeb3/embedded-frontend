@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.icon {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  transition: var(--transition-fast);
+}
+
+.text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+@media (max-width: 767px) {
+  .icon {
+    font-size: 1rem;
+  }
+  
+  .text {
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+}

@@ -18,9 +18,9 @@
  */
 
 // Atomic Components
-export { default as Logo } from './atoms/Logo';
-export { default as SearchIcon } from './atoms/SearchIcon';
-export { default as ConnectWalletButton } from './atoms/ConnectWalletButton';
+export { default as Logo } from './atoms/common/Logo';
+export { default as SearchIcon } from './atoms/navigation/SearchIcon';
+export { default as ConnectWalletButton } from './atoms/navigation/ConnectWalletButton';
 export { default as RewardBullet } from './atoms/RewardBullet';
 export { default as RewardSeparator } from './atoms/RewardSeparator';
 export { default as RewardTitle } from './atoms/RewardTitle';
@@ -28,11 +28,26 @@ export { default as PageTitle } from './atoms/PageTitle';
 export { default as DescriptionText } from './atoms/DescriptionText';
 export { default as PrimaryButton } from './atoms/PrimaryButton';
 
+// Leaderboard Atomic Components
+export { Button } from './atoms/common/Button';
+export { PositionNumber } from './atoms/leaderboard/PositionNumber';
+export { WalletIcon } from './atoms/leaderboard/WalletIcon';
+export { WalletAddress } from './atoms/leaderboard/WalletAddress';
+export { RewardValue } from './atoms/leaderboard/RewardValue';
+export { IconText } from './atoms/leaderboard/IconText';
+export { BannerIcon } from './atoms/common/BannerIcon';
+export { BannerText } from './atoms/common/BannerText';
+
 // Molecular Components
 export { default as GameCard } from './molecules/GameCard';
 export { default as RewardListItem } from './molecules/RewardListItem';
 export { default as PageHeader } from './molecules/PageHeader';
 export { default as ComingSoonCard } from './molecules/ComingSoonCard';
+
+// Leaderboard Molecular Components
+export { EmbeddedRewards } from './molecules/EmbeddedRewards';
+export { CardActions } from './molecules/CardActions';
+export { RewardsBanner } from './molecules/RewardsBanner';
 
 // Section Components (Organisms)
 export { default as Navbar } from './sections/Navbar';
@@ -44,6 +59,10 @@ export { default as RewardsSection } from './sections/RewardsSection';
 export { default as RewardSystemSection } from './sections/RewardSystemSection';
 export { default as LeaderboardTable } from './organisms/LeaderboardTable';
 export { default as GameGrid } from './organisms/GameGrid';
+
+// Leaderboard Organisms
+export { LeaderboardCard } from './organisms/LeaderboardCard';
+export { LeaderboardList } from './organisms/LeaderboardList';
 
 // Game Components
 export { default as GamePage } from './games/GamePage';
@@ -70,3 +89,10 @@ export {
 // Template Components
 export { default as GamePageTemplate } from './templates/GamePageTemplate';
 export { default as MainLayout } from './templates/MainLayout';
+
+// Leaderboard Templates
+export { LeaderboardTemplate } from './templates/LeaderboardTemplate';
+
+// Leaderboard Hooks and Types
+export { useLeaderboard } from '../hooks/useLeaderboard';
+export type { LeaderboardItem, PaginationState } from '../types/leaderboard';

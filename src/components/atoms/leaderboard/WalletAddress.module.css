@@ -1,0 +1,28 @@
+.walletAddress {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  font-weight: 400;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* Mobile: Show full address */
+.mobileAddress {
+  display: block;
+}
+
+.desktopAddress {
+  display: none;
+}
+
+/* Desktop: Show truncated address */
+@media (min-width: 768px) {
+  .desktopAddress {
+    display: block;
+  }
+
+  .mobileAddress {
+    display: none;
+  }
+}

@@ -17,9 +17,9 @@
  */
 
 import React from 'react';
-import Logo from '../atoms/Logo';
-import SearchIcon from '../atoms/SearchIcon';
-import ConnectWalletButton from '../atoms/ConnectWalletButton';
+import Logo from '../atoms/common/Logo';
+import SearchIcon from '../atoms/navigation/SearchIcon';
+import ConnectWalletButton from '../atoms/navigation/ConnectWalletButton';
 import MobileMenu from '../ui/MobileMenu';
 import { A11Y_LABELS } from '../../constants';
 

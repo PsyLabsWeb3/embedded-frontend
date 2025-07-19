@@ -1,0 +1,12 @@
+.rewardValue {
+  font-family: 'Alumni Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2CB1D6;
+}
+
+@media (max-width: 767px) {
+  .rewardValue {
+    font-size: 2.5rem;
+  }
+}

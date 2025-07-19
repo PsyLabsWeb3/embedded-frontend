@@ -147,6 +147,53 @@ export namespace GameTypes {
 }
 
 /**
+ * Leaderboard-related type definitions
+ */
+export namespace LeaderboardTypes {
+  /**
+   * Leaderboard item representing a player's ranking data
+   */
+  export interface LeaderboardItem {
+    /** Player's position in the leaderboard (1-based) */
+    position: number;
+    /** Player's wallet address */
+    walletAddress: string;
+    /** Player's accumulated points/score */
+    points: number;
+    /** Optional player name or display name */
+    playerName?: string;
+    /** Optional additional metadata */
+    metadata?: Record<string, any>;
+  }
+
+  /**
+   * Pagination state for leaderboard data
+   */
+  export interface PaginationState {
+    /** Current page number (1-based) */
+    currentPage: number;
+    /** Total number of pages */
+    totalPages: number;
+    /** Number of items per page */
+    itemsPerPage: number;
+    /** Total number of items across all pages */
+    totalItems: number;
+  }
+
+  /**
+   * Leaderboard API response structure
+   */
+  export interface LeaderboardResponse {
+    /** Array of leaderboard items */
+    data: LeaderboardItem[];
+    /** Pagination information */
+    pagination?: PaginationState;
+    /** Timestamp of the data */
+    lastUpdated?: Date;
+  }
+}
+
+/**
  * User interface and component-related types
  */
 export namespace UITypes {
