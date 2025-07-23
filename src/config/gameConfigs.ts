@@ -22,17 +22,17 @@ export type GameConfig = GameTypes.GameConfig;
  * proper bundling and asset optimization. The ?url suffix tells Vite
  * to return the asset URL rather than importing the file content.
  */
-import snake2048LoaderUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url';
-import snake2048DataUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url';
-import snake2048FrameworkUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url';
-import snake2048CodeUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url';
+// import snake2048LoaderUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url';
+// import snake2048DataUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url';
+// import snake2048FrameworkUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url';
+// import snake2048CodeUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url';
 
-const snake2048Assets: GameAssets = {
-  loaderUrl: snake2048LoaderUrl,
-  dataUrl: snake2048DataUrl,
-  frameworkUrl: snake2048FrameworkUrl,
-  codeUrl: snake2048CodeUrl,
-};
+// const snake2048Assets: GameAssets = {
+//   loaderUrl: snake2048LoaderUrl,
+//   dataUrl: snake2048DataUrl,
+//   frameworkUrl: snake2048FrameworkUrl,
+//   codeUrl: snake2048CodeUrl,
+// };
 
 /**
  * Future Game Assets Template
@@ -72,7 +72,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '01-snake',
     title: 'Snake Game',
     description: 'Classic snake game with number merging mechanics',
-    assets: snake2048Assets,
+    // assets: snake2048Assets,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 15,

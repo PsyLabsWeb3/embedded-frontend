@@ -1,23 +1,15 @@
-
 import { Unity, useUnityContext } from "react-unity-webgl";
 import styles from './Snake2048.module.css';
-import loaderUrl from '../../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url';
-import dataUrl from '../../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url';
-import frameworkUrl from '../../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url';
-import codeUrl from '../../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url';
-const Snake2048Game = ()=> {
 
+const Snake2048Game = () => {
+  const { unityProvider } = useUnityContext({
+    loaderUrl: "/unity/Tanknarok/Tanknarok.loader.js",
+    dataUrl: "/unity/Tanknarok/Tanknarok.data.unityweb",
+    frameworkUrl: "/unity/Tanknarok/Tanknarok.framework.js.unityweb",
+    codeUrl: "/unity/Tanknarok/Tanknarok.wasm.unityweb",
+  });
 
-
-
-    const { unityProvider } = useUnityContext({
-      loaderUrl,
-      dataUrl,
-      frameworkUrl,
-      codeUrl,
-    });
-
-    return <Unity className={styles.container} unityProvider={unityProvider} />;
+  return <Unity className={styles.container} unityProvider={unityProvider} />;
 };
 
 export default Snake2048Game;
