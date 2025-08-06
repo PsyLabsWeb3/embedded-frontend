@@ -1,3 +1,9 @@
+/* Variables específicas para rewards */
+:root {
+  --reward-font-size-mobile: 1.2rem;
+  --reward-font-size-desktop: 1rem;
+}
+
 .card {
   background: #38454C;
   border: 1px solid var(--color-border-subtle);
@@ -29,15 +35,23 @@
 
 .walletSection {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
-  flex-wrap: wrap;
+  gap: var(--spacing-xs);
 }
 
 .rightSection {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: auto;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
 }
 
 /* Mobile-first: Card layout como la imagen */
@@ -45,34 +59,26 @@
   .card {
     background: #38454C;
     border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-md); /* Más compacto */
     margin-bottom: var(--spacing-md);
   }
   
   .cardContent {
+    gap: var(--spacing-xs); /* Muy poco espacio entre filas */
+    align-items: stretch;
+  }
+  
+  .topRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: var(--spacing-lg);
-    align-items: center;
-  }
-  
-  .leftSection {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: var(--spacing-md);
-  }
-  
-  .walletSection {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-md);
-    width: 100%;
   }
   
   .rightSection {
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: var(--reward-font-size-mobile);
   }
 }
 
@@ -85,22 +91,22 @@
   .cardContent {
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: var(--spacing-2xl);
   }
 
   .leftSection {
     flex-direction: row;
     align-items: center;
-    flex: 1;
   }
   
   .walletSection {
-    flex: 1;
     justify-content: flex-start;
   }
 
   .rightSection {
     justify-content: flex-end;
-    flex-shrink: 0;
+    margin-left: auto;
+    font-size: var(--reward-font-size-desktop);
   }
 }

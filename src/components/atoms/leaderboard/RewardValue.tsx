@@ -7,11 +7,11 @@ interface RewardValueProps {
 
 export const RewardValue: React.FC<RewardValueProps> = ({ 
   value, 
-  currency = "$SOL" 
+  currency = "points" 
 }) => {
   return (
     <div className={styles.rewardValue}>
-      {value.toFixed(2)} {currency}
+      {Math.floor(value)} {currency}
     </div>
   );
 };

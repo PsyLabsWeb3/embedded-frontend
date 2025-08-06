@@ -1,6 +1,6 @@
 .walletAddress {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
   font-weight: 400;
   word-break: break-all;

@@ -13,16 +13,16 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({ item }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
-        <div className={styles.leftSection}>
+        {/* Primera fila: Ranking + Avatar + Wallet + Puntos principales */}
+        <div className={styles.topRow}>
           <PositionNumber position={item.position} />
           <div className={styles.walletSection}>
             <WalletIcon />
             <WalletAddress address={item.walletAddress} />
           </div>
-        </div>
-        
-        <div className={styles.rightSection}>
-          <EmbeddedRewards points={item.points} />
+          <div className={styles.rightSection}>
+            <EmbeddedRewards points={item.points} />
+          </div>
         </div>
       </div>
     </div>
