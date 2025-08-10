@@ -27,7 +27,7 @@
 @media (max-width: 767px) {
   .container {
     width: 100%;
-    padding: var(--spacing-md);
+    padding: 0; /* remove inner padding to avoid double spacing inside card */
     align-items: flex-end;
     text-align: right;
   }
