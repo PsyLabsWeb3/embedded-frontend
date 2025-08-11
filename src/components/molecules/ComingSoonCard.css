@@ -1,5 +1,5 @@
 .coming-soon-card {
-  background: linear-gradient(135deg, #2A2D2F 0%, #1A1D1F 100%);
+  background: linear-gradient(135deg, #2A2D2F 0%, #171D20 100%);
   border: 2px solid #5DD62C;
   border-radius: var(--radius-md);
   padding: var(--spacing-xl);
@@ -11,7 +11,7 @@
 
 .coming-soon-badge {
   background: #5DD62C;
-  color: #1A1D1F;
+  color: #171D20;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.5rem 1rem;

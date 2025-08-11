@@ -1,0 +1,45 @@
+.walletIcon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.walletIcon:hover {
+  transform: scale(1.1);
+}
+
+.iconSvg {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  fill: #5DD62C;
+}
+
+@media (max-width: 767px) {
+  .walletIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .iconSvg {
+    width: 2.3rem;
+    height: 2.3rem;
+    fill: #5DD62C;
+  }
+}
+
+/* Desktop: Icono más pequeño */
+@media (min-width: 768px) {
+  .walletIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .iconSvg {
+    width: 2rem;
+    height: 2rem;
+  }
+}

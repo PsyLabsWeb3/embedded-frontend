@@ -1,7 +1,7 @@
 /* Game Page Template Styles */
 .game-page {
   min-height: 100vh;
-  background: var(--color-background, #1A1D1F);
+  background: var(--color-background, #171D20);
   color: var(--color-text, #FFFFFF);
 }
 

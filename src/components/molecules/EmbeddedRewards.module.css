@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  text-align: right;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.statsContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    padding: 0; /* remove inner padding to avoid double spacing inside card */
+    align-items: flex-end;
+    text-align: right;
+  }
+  
+  .label {
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--spacing-xs);
+    white-space: nowrap;
+  }
+  
+  .statsContainer {
+    gap: var(--spacing-sm);
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    align-items: flex-end;
+    text-align: right;
+    width: auto;
+    justify-content: flex-end;
+  }
+  
+  .label {
+    text-align: right;
+  }
+  
+  .statsContainer {
+    justify-content: flex-end;
+  }
+}
