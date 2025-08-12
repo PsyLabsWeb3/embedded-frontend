@@ -1,6 +1,6 @@
 import React from 'react';
 import GamePage from '../GamePage';
-import PingPongGame from '../PingPong';
+
 import './Games.module.css'
 
 const PingPong: React.FC = () => {
@@ -8,9 +8,6 @@ const PingPong: React.FC = () => {
     <GamePage 
       gameId="02-ping-pong"
       customContent={<div />}
-      // customContent={<div className='game-container ' >
-      //     <PingPongGame  />
-      // </div>}
     />
   );
 };

@@ -73,7 +73,6 @@ export { default as PlaceholderGame } from './games/PlaceholderGame';
 export {
   Snake,
   PingPong,
-  BubbleMerge,
   CandySweet,
   SortPuzzle,
   PipesFlood,
