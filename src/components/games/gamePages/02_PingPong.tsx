@@ -7,9 +7,10 @@ const PingPong: React.FC = () => {
   return (
     <GamePage 
       gameId="02-ping-pong"
-      customContent={<div className='game-container ' >
-          <PingPongGame  />
-      </div>}
+      customContent={<div />}
+      // customContent={<div className='game-container ' >
+      //     <PingPongGame  />
+      // </div>}
     />
   );
 };

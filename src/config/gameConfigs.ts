@@ -34,6 +34,31 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
+import pingPongLoaderUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.loader.js?url';
+import pingPongDataUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.data?url';
+import pingPongFrameworkUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.framework.js?url';
+import pingPongCodeUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.wasm?url';
+
+const pingPongAssets: GameAssets = {
+  loaderUrl: pingPongLoaderUrl,
+  dataUrl: pingPongDataUrl,
+  frameworkUrl: pingPongFrameworkUrl,
+  codeUrl: pingPongCodeUrl,
+};
+
+import embeddedWarsLoaderUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.loader.js?url';
+import embeddedWarsDataUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.data?url';
+import embeddedWarsFrameworkUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.framework.js?url';
+import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.wasm?url';
+
+const embeddedWarsAssets: GameAssets = {
+  loaderUrl: embeddedWarsLoaderUrl,
+  dataUrl: embeddedWarsDataUrl,
+  frameworkUrl: embeddedWarsFrameworkUrl,
+  codeUrl: embeddedWarsCodeUrl,
+};
+
+
 /**
  * Future Game Assets Template
  * 
@@ -91,23 +116,31 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '02-ping-pong',
     title: 'Ping Pong',
     description: 'Fast-paced table tennis game',
+    assets: pingPongAssets,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 10,
     isMultiplayer: true,
     minAge: 6,
-    placeholder: true
+    // placeholder: true,
+    instructions: [
+      'Use arrow keys to move the snake',
+      'Combine equal numbers to create larger numbers',
+      'Avoid hitting walls or yourself',
+      'Try to reach the number 2048!'
+    ]
   },
-  '03-bubble-merge': {
-    id: '03-bubble-merge',
-    title: 'Bubble Merge',
-    description: 'Merge colorful bubbles to score points',
+  '03-Embedded-Wars': {
+    id: '03-Embedded-Wars',
+    title: 'Embedded-Wars',
+    description: 'PvP Sci-Fi 3rd person droid battle',
+    assets: embeddedWarsAssets,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 12,
     isMultiplayer: false,
     minAge: 5,
-    placeholder: true
+  
   },
   '04-candy-sweet': {
     id: '04-candy-sweet',

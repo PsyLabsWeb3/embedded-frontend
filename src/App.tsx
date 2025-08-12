@@ -51,7 +51,7 @@ import Tournaments from './pages/Tournaments';
 import {
   Snake,
   PingPong,
-  BubbleMerge,
+  EmbeddedWars,
   CandySweet,
   SortPuzzle,
   PipesFlood,
@@ -120,7 +120,7 @@ const App: React.FC = () => {
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />
                 <Route path="/game/02-ping-pong" element={<PingPong />} />
-                <Route path="/game/03-bubble-merge" element={<BubbleMerge />} />
+                <Route path="/game/03-embedded-wars" element={<EmbeddedWars />} />
                 <Route path="/game/04-candy-sweet" element={<CandySweet />} />
                 <Route path="/game/05-sort-puzzle" element={<SortPuzzle />} />
                 <Route path="/game/06-pipes-flood" element={<PipesFlood />} />

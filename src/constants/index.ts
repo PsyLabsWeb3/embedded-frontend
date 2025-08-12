@@ -32,7 +32,7 @@ export const ROUTES = {
 export const GAME_ROUTES = {
   SNAKE: '/game/01-snake',
   PING_PONG: '/game/02-ping-pong',
-  BUBBLE_MERGE: '/game/03-bubble-merge',
+  EMBEDDED_WARS: '/game/03-embedded-wars',
   CANDY_SWEET: '/game/04-candy-sweet',
   SORT_PUZZLE: '/game/05-sort-puzzle',
   PIPES_FLOOD: '/game/06-pipes-flood',

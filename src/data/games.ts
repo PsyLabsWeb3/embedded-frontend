@@ -12,8 +12,9 @@
 
 import { GameTypes } from '../types';
 import snakeGameImage from '../assets/snake_game.jpg';
-import pingpongImage from '../assets/pingpong.jpg';
-import bubbleImage from '../assets/bubble.jpg';
+import pingpongImage from '../assets/pingpong.png';
+// import bubbleImage from '../assets/bubble.jpg';
+import embeddedwarsImage from '../assets/embedded_wars.jpg';
 
 /**
  * Game data interface for UI display
@@ -33,6 +34,18 @@ export type Game = GameTypes.GameData;
  */
 
 const games: Game[] = [
+  {
+    id: 'embedded-wars-game',
+    title: 'Embedded Wars',
+    slug: 'embeddedwars',
+    image: embeddedwarsImage,
+    glowClass: 'neon-green',
+    description: '1v1 realtime Sci-Fi battle ',
+    isFeatured: true,
+    isNew: false,
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-15'),
+  },
   {
     id: 'snake-game',
     title: 'Snake',
@@ -57,18 +70,18 @@ const games: Game[] = [
     createdAt: new Date('2024-01-02'),
     updatedAt: new Date('2024-01-16'),
   },
-  {
-    id: 'bubble-merge-game',
-    title: 'Bubble Merge',
-    slug: 'bubblemerge',
-    image: bubbleImage,
-    glowClass: 'neon-purple',
-    description: 'Merge colorful bubbles to score points',
-    isFeatured: true,
-    isNew: true,
-    createdAt: new Date('2024-01-03'),
-    updatedAt: new Date('2024-01-17'),
-  },
+  // {
+  //   id: 'bubble-merge-game',
+  //   title: 'Bubble Merge',
+  //   slug: 'bubblemerge',
+  //   image: bubbleImage,
+  //   glowClass: 'neon-purple',
+  //   description: 'Merge colorful bubbles to score points',
+  //   isFeatured: true,
+  //   isNew: true,
+  //   createdAt: new Date('2024-01-03'),
+  //   updatedAt: new Date('2024-01-17'),
+  // },
 ];
 
 export default games;

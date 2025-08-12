@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import './Games.css';
 
 const gamesList = [
+  { id: 3, title: 'Embedded Wars', path: '/game/03-embedded-wars' },
   { id: 1, title: 'Snake', path: '/game/01-snake' },
   { id: 2, title: 'Ping Pong', path: '/game/02-ping-pong' },
-  { id: 3, title: 'Bubble Merge', path: '/game/03-bubble-merge' },
   { id: 4, title: 'Candy Sweet', path: '/game/04-candy-sweet' },
   { id: 5, title: 'Sort Puzzle', path: '/game/05-sort-puzzle' },
   { id: 6, title: 'Pipes Flood', path: '/game/06-pipes-flood' },
