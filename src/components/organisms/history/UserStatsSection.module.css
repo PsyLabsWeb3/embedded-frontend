@@ -1,0 +1,27 @@
+.wrapper {
+  background: var(--color-surface-dark);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl) 0; /* vertical only */
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+  padding-inline: var(--spacing-lg);
+  grid-template-columns: repeat(3, 1fr); /* mockup: 3 metrics inline */
+}
+
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid { padding-inline: var(--spacing-xl); gap: var(--spacing-xl); }
+}
+
+.title {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}

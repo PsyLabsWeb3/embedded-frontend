@@ -1,7 +1,7 @@
 /* Main Layout Styles */
 .main-layout {
   min-height: 100vh;
-  background: #1A1D1F;
+  background: var(--color-bg);
   color: #FFFFFF;
 }
 

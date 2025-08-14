@@ -1,0 +1,92 @@
+.item {
+  background: var(--color-surface-dark);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  transition: var(--transition-fast);
+}
+
+.item:hover { box-shadow: var(--shadow-soft); }
+
+/* Two-column layout: left meta (pill + date + vs + game) | right (result + amount) */
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+/* Left meta: pill fixed on the left, rest stacked on the right of it */
+.leftMeta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: min-content;
+  column-gap: 10px;
+  row-gap: 6px;
+  align-items: center; /* vertically center pill relative to the stack */
+}
+
+.modePill {
+  grid-row: 1 / span 3; /* occupy the full height of meta stack */
+  grid-column: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--font-size-xs);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.modeCasual { background: #2CB1D6; border-color: #2CB1D6; color: #FFFFFF; }
+
+.date { grid-column: 2; font-family: var(--font-body); font-weight: 300; color: #757575; font-size: var(--font-size-sm); line-height: 1.2; }
+.vsRow { grid-column: 2; display: flex; align-items: baseline; gap: 8px; }
+.gameRow { grid-column: 2; display: flex; align-items: baseline; gap: 8px; }
+
+.metaLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  letter-spacing: 0.2px;
+  flex: 0 0 auto;
+}
+
+.metaValue {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  opacity: 0.95;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.rightCol { display: grid; grid-auto-rows: min-content; justify-items: end; align-content: center; row-gap: 6px; }
+.resultSlot { display: contents; }
+
+.amountRow { display: flex; align-items: baseline; gap: 6px; }
+.amountValue { font-family: var(--font-heading); font-weight: 400; font-size: 1.25rem; line-height: 1; color: var(--color-primary); }
+.amountLoss { color: #AE43FF; }
+.amountCurrency { font-family: var(--font-heading); font-weight: 400; font-size: 0.9rem; line-height: 1; color: #FFFFFF; margin-left: 6px; }
+
+@media (max-width: 767px) {
+  .modePill {
+    font-size: 10px;
+    height: 20px;
+    padding: 0 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .item { padding: var(--spacing-md) var(--spacing-xl); }
+  .row { gap: var(--spacing-xl); }
+  .amountValue { font-size: 1.35rem; }
+  .amountCurrency { font-size: 1rem; }
+}
