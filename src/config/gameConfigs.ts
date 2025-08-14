@@ -46,10 +46,10 @@ const pingPongAssets: GameAssets = {
   codeUrl: pingPongCodeUrl,
 };
 
-import embeddedWarsLoaderUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.loader.js?url';
-import embeddedWarsDataUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.data?url';
-import embeddedWarsFrameworkUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.framework.js?url';
-import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/Tanknarok.wasm?url';
+import embeddedWarsLoaderUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.loader.js?url';
+import embeddedWarsDataUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.data?url';
+import embeddedWarsFrameworkUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.framework.js?url';
+import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.wasm?url';
 
 const embeddedWarsAssets: GameAssets = {
   loaderUrl: embeddedWarsLoaderUrl,
