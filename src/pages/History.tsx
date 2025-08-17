@@ -3,20 +3,41 @@ import PageHeader from '../components/molecules/PageHeader';
 import UserStatsSection from '../components/organisms/history/UserStatsSection';
 import UserHistorySection from '../components/organisms/history/UserHistorySection';
 import { useMatchHistory } from '../hooks/useMatchHistory';
-
-const getWalletAddress = (): string | undefined => {
-  if (typeof window === 'undefined') return undefined;
-  const qs = new URLSearchParams(window.location.search);
-  const fromQS = qs.get('walletAddress') || qs.get('wallet') || undefined;
-  const fromLS = window.localStorage.getItem('walletAddress') || undefined;
-  return fromQS || fromLS;
-};
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const History = () => {
-  const walletAddress = getWalletAddress();
-  const isConnected = Boolean(walletAddress);
+  const { publicKey, connected } = useWallet();
+  const walletAddress = publicKey?.toString();
+  const isConnected = connected && Boolean(walletAddress);
 
   const { loading, error, stats, groups, hasMore, showMore } = useMatchHistory(walletAddress, { pageSize: 20 });
+
+  if (!connected) {
+    return (
+      <MainLayout>
+        <PageHeader 
+          title="Game History" 
+          description="Track your gaming sessions and progress over time"
+        />
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: 'var(--spacing-lg)',
+          padding: 'var(--spacing-xl)',
+          textAlign: 'center'
+        }}>
+          <h3 style={{ 
+            fontFamily: 'var(--font-body)', 
+            fontWeight: 300, 
+            color: '#AE43FF' 
+          }}>
+            Connect your wallet to view your match history
+          </h3>
+        </div>
+      </MainLayout>
+    );
+  }
 
   return (
     <MainLayout>

@@ -24,4 +24,5 @@
   font-family: var(--font-heading);
   color: var(--color-primary);
   margin-bottom: var(--spacing-sm);
+  text-align: center;
 }

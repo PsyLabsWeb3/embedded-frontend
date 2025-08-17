@@ -1,75 +1,57 @@
-/*
- * UserHistorySection Styles
- * ------------------------------------------------------------------
- * Design Intent:
- * - This organism intentionally renders a sequence of independent history cards
- *   with NO shared container surface. The list must visually float on the global
- *   app background so each item keeps its own elevation / shape.
- * - Typography aligns with brand: Lobster only for headings (handled in .title),
- *   Nunito (Light 300) for secondary / muted informational text (empty state).
- * - All spacing leverages design tokens (spacing-* variables) to preserve vertical rhythm.
- * - The wrapper does not constrain horizontal padding; card components manage
- *   their own internal gutters. This allows future responsive adjustments inside
- *   items without revisiting this layout layer.
- * - Buttons keep brand green with subtle hover shift (no box-shadow) to avoid
- *   competing with the elevated game history cards.
- */
-
 .wrapper {
-  /* Transparent on purpose: we do not want a unified plate behind the cards */
   background: transparent;
-  border: none;            /* No structural chrome */
-  border-radius: 0;        /* Avoid unintended clipping */
-  overflow: visible;       /* Allow internal focus rings / shadows to render */
-  padding: 0;              /* Outer spacing handled by parent layout */
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  padding: 0;
 }
 
 .title {
   font-family: var(--font-heading);
   color: var(--color-primary);
-  margin-bottom: var(--spacing-sm); /* Tight to visually bind with first row of cards */
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);          /* Vertical rhythm between day groups */
-  padding-inline: 0;               /* Edge alignment with surrounding layout */
+  gap: var(--spacing-md);
+  padding-inline: 0;
 }
 
 .groupItems {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);          /* Slightly tighter gap within a day cluster */
+  gap: var(--spacing-sm);
 }
 
-/* Empty state: brand accent blue, unobtrusive weight (Light) so it reads as informative, not alarming */
 .empty {
   font-family: var(--font-body);
-  font-weight: 300; /* Nunito Light */
-  color: var(--color-accent-blue); /* #2CB1D6 aligns with other informative UI text */
+  font-weight: 300;
+  color: var(--color-accent-blue);
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-lg); /* Generous block to balance sparse content */
+  padding: var(--spacing-xl) var(--spacing-lg);
 }
 
-.error { color: #ff6b6b; }          /* Direct red tone for immediate visibility */
-.loading { opacity: 0.8; }          /* Subtle deemphasis while reserving space */
+.error { color: #ff6b6b; text-align: center; }
+.loading { opacity: 0.8; }
 
 .moreWrapper { margin-top: var(--spacing-md); text-align: center; }
 .moreBtn {
-  background: #5DD62C;              /* Primary brand green */
+  background: #5DD62C;
   border: none;
   border-radius: var(--radius-sm);
-  color: #1A1D1F;                    /* High contrast text on green */
+  color: #1A1D1F;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 600;                  /* Medium emphasis without feeling heavy */
+  font-weight: 600;
   padding: var(--spacing-md) var(--spacing-lg);
   transition: var(--transition-fast);
-  min-width: 160px;                  /* Prevent overly narrow button on short locales */
+  min-width: 160px;
 }
-.moreBtn:hover { background: #4BC123; } /* Controlled tonal shift; no glow to avoid distraction */
+.moreBtn:hover { background: #4BC123; }
 
 @media (min-width: 1024px) {
-  .list { padding-inline: 0; }       /* Keep edge-lock at larger breakpoints */
+  .list { padding-inline: 0; }
 }

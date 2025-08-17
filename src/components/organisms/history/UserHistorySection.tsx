@@ -38,7 +38,7 @@ export const UserHistorySection: React.FC<UserHistorySectionProps> = ({
     <section aria-label="User match history">
       <h2 className={styles.title}>Match History</h2>
       <div className={styles.wrapper}>
-  {error && <div className={styles.error} role="alert">Error: {error}</div>}
+  {error && <div className={styles.error} role="alert">{error}</div>}
         {loading && <div className={styles.loading}>Loading…</div>}
 
         {!loading && !error && groups.length === 0 && (

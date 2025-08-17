@@ -58,6 +58,7 @@ export const useMatchHistory = (walletAddress?: string, options?: Options): UseM
       setLoading(false);
       return;
     }
+    
     abortRef.current?.abort();
     const ctrl = new AbortController();
     abortRef.current = ctrl;
@@ -68,7 +69,14 @@ export const useMatchHistory = (walletAddress?: string, options?: Options): UseM
     try {
       const url = `https://backend.embedded.games/api/matchHistory?walletAddress=${encodeURIComponent(walletAddress)}`;
       const res = await fetch(url, { signal: ctrl.signal });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error('No match history found for this wallet');
+        }
+        throw new Error(`HTTP ${res.status}`);
+      }
+      
       const json = (await res.json()) as ApiResponse;
 
       const history = Array.isArray(json?.history) ? json.history : [];
