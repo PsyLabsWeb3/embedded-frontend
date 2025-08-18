@@ -1,6 +1,7 @@
 .page-header {
   margin-bottom: var(--spacing-xl);
   text-align: center;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
