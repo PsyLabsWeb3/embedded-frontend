@@ -1,0 +1,30 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  min-height: 26px;
+  line-height: 1;
+  padding: 4px var(--spacing-md); /* ~12px inline */
+  border-radius: var(--radius-full);
+  font-family: var(--font-body); /* Nunito */
+  font-weight: 300; /* Nunito Light */
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.win {
+  color: var(--color-primary);
+  background: rgba(93, 214, 44, 0.12);
+}
+
+.loss {
+  color: #AE43FF;
+  background: rgba(174, 67, 255, 0.12);
+}
