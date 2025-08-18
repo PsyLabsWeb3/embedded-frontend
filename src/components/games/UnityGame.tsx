@@ -33,6 +33,8 @@ interface UnityGameProps {
   onLoaded?: () => void;
   /** Optional callback for Unity error events */
   onError?: (error: string) => void;
+  /** Optional publicKey to send to Unity */
+  publicKey?: string | null;
 }
 
 /**
@@ -52,7 +54,8 @@ const UnityGameComponent: React.FC<UnityGameProps> = ({
   gameAssets, 
   className,
   onLoaded,
-  onError: _onError // Renamed to indicate it's intentionally unused for now
+  onError: _onError, // Renamed to indicate it's intentionally unused for now
+  publicKey
 }) => {
   /**
    * Initialize Unity context with memoization for performance
@@ -65,7 +68,7 @@ const UnityGameComponent: React.FC<UnityGameProps> = ({
     codeUrl: gameAssets.codeUrl,
   }), [gameAssets]);
 
-  const { unityProvider, isLoaded, loadingProgression } = useUnityContext(unityContextConfig);
+  const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext(unityContextConfig);
 
   /**
    * Handle Unity loading completion
@@ -75,6 +78,17 @@ const UnityGameComponent: React.FC<UnityGameProps> = ({
       onLoaded();
     }
   }, [isLoaded, onLoaded]);
+
+  /**
+   * Send publicKey to Unity when available
+   */
+  React.useEffect(() => {
+    if (isLoaded && publicKey) {
+      sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
+      // Puedes agregar un log si lo deseas
+      // console.log("Enviado a Unity:", publicKey.toString());
+    }
+  }, [isLoaded, publicKey, sendMessage]);
 
   /**
    * Determine the appropriate CSS class for styling

@@ -24,6 +24,7 @@ import UnityGame from './UnityGame';
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES } from '../../constants';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 /**
  * Props interface for the GamePage component
@@ -56,6 +57,7 @@ const GamePage: React.FC<GamePageProps> = ({
   customContent
 }) => {
   const gameConfig = useGameConfig(gameId);
+  const { publicKey, connected } = useWallet();
 
   /**
    * Handle case where game configuration is not found
@@ -96,7 +98,24 @@ const GamePage: React.FC<GamePageProps> = ({
 
     // Handle Unity games with proper asset configuration
     if (gameConfig.assets) {
-      return <UnityGame gameAssets={gameConfig.assets} />;
+      if (!connected || !publicKey) {
+        return (
+          <div style={{ 
+            padding: '2rem', 
+            textAlign: 'center', 
+            color: 'var(--color-text-secondary)',
+            fontSize: '1.2rem',
+          }}>
+            Connect your wallet to play this game.
+          </div>
+        );
+      }
+      return (
+        <UnityGame 
+          gameAssets={gameConfig.assets} 
+          publicKey={publicKey.toString()}
+        />
+      );
     }
 
     // Handle incomplete game configurations
