@@ -101,7 +101,7 @@ const wallets = [
  */
 const App: React.FC = () => {
   return (
-    <ConnectionProvider endpoint={clusterApiUrl(WALLET_CONFIG.NETWORK)}>
+    <ConnectionProvider endpoint={clusterApiUrl('devnet')}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <Router>

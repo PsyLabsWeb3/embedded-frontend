@@ -20,11 +20,14 @@
 
 import React from 'react';
 import GamePageTemplate from '../templates/GamePageTemplate';
-import UnityGame from './UnityGame';
+// import UnityGame from './UnityGame';
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES } from '../../constants';
 import { useWallet } from '@solana/wallet-adapter-react';
+import PayEntryButton from './PayEntryButton';
+// import CheckSetup from './CheckSetup';
+
 
 /**
  * Props interface for the GamePage component
@@ -111,10 +114,15 @@ const GamePage: React.FC<GamePageProps> = ({
         );
       }
       return (
-        <UnityGame 
-          gameAssets={gameConfig.assets} 
-          publicKey={publicKey.toString()}
-        />
+        // <UnityGame 
+        //   gameAssets={gameConfig.assets} 
+        //   publicKey={publicKey.toString()}
+        // />
+        <>
+        <PayEntryButton  />
+        </>
+        
+
       );
     }
 
