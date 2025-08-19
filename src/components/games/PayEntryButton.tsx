@@ -59,9 +59,12 @@ const PayEntryButton: React.FC<Props> = ({ defaultAmountSol, onSent, treasuryOve
   useEffect(() => {
     const fetchSolPrice = async () => {
       try {
-        const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
+        const response = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
         const data = await response.json();
-        const solPrice = data?.solana?.usd;
+        const solPrice = data?.priceUsd;
+        if (!solPrice || isNaN(solPrice)|| solPrice <= 0) {
+          throw new Error("SOL price not found in response");
+        }
         console.log("SOL price:", solPrice);
 
         // Queremos calcular cuántos SOL equivalen a 0.5 USD
@@ -228,7 +231,9 @@ const treasuryPda = useMemo(() => {
         .rpc({ commitment: "confirmed" });
 
       onSent?.(sig);
+
       console.log("✅ Tx:", sig);
+      //TODO: Implement MODAL Await 5 seconds
       alert(`✅ Transaction Sent: ${sig}`);
     } catch (e: any) {
       console.error("❌ pay_entry error:", e);
