@@ -1,5 +1,5 @@
 // CheckSetup.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import  { useEffect, useMemo, useState } from "react";
 import { PublicKey, Connection } from "@solana/web3.js";
 import { AnchorProvider, Program, setProvider } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
