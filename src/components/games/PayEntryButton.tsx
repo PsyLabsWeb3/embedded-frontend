@@ -23,11 +23,11 @@ const DEFAULT_PROGRAM_ID = "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8";
 
 const TREASURY = "E2NJcSfbwwrH4f2j5mEYfAKbPYR3kera5mKT5JZQpVx5";
 
-const PayEntryButton: React.FC<Props> = ({ defaultAmountSol = 0.01, onSent, treasuryOverride }) => {
+const PayEntryButton: React.FC<Props> = ({ defaultAmountSol, onSent, treasuryOverride }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
-  const [amountSol, setAmountSol] = useState(defaultAmountSol);
+  const [amountSol, setAmountSol] = useState(0);
   const [sending, setSending] = useState(false);
   const [treasury, setTreasury] = useState<PublicKey | null>(null);
   const [resolving, setResolving] = useState(false);
@@ -53,7 +53,31 @@ const PayEntryButton: React.FC<Props> = ({ defaultAmountSol = 0.01, onSent, trea
     checkTreasury();
   }, [connection]);
 
-  
+  //TO-DO: Implement fetch SOL price and calculate setAmount
+// ...existing code...
+  //TO-DO: Implement fetch SOL price and calculate setAmount
+  useEffect(() => {
+    const fetchSolPrice = async () => {
+      try {
+        const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
+        const data = await response.json();
+        const solPrice = data?.solana?.usd;
+        console.log("SOL price:", solPrice);
+
+        // Queremos calcular cuántos SOL equivalen a 0.5 USD
+        const amountInUsd = 0.5;
+        const amountInSol = parseFloat((amountInUsd / solPrice).toFixed(8)); // precisión adecuada
+        setAmountSol(amountInSol);
+
+        // Loggear el valor calculado directamente (no dependa del state inmediatamente)
+        console.log("Amount in SOL (calculated):", amountInSol, "Default:", defaultAmountSol);
+      } catch (error) {
+        console.error("Error fetching SOL price:", error);
+      }
+    };
+    fetchSolPrice();
+  }, [defaultAmountSol, connection]);
+
 
   // Adapter -> AnchorWallet compatible
   const anchorWallet = useMemo<AnchorWallet | null>(() => {
@@ -158,7 +182,7 @@ const treasuryPda = useMemo(() => {
         // (pero te aviso que puede no pasar el constraint)
         setTreasury(candA);
         console.warn(
-          "[treasury] WARNING: no se encontró ninguna cuenta existente; usando derivación simple:",
+          "[treasury] WARNING: no existing account found; using simple derivation:",
           candA.toBase58()
         );
       } finally {
@@ -169,17 +193,17 @@ const treasuryPda = useMemo(() => {
 
   const handlePayEntry = async () => {
     if (!program || !anchorWallet?.publicKey) {
-      alert("Conecta una wallet compatible con firma para continuar.");
+      alert("Connect a compatible signing wallet to continue.");
       return;
     }
     if (!treasury) {
-      alert("Resolviendo treasury… intenta de nuevo en un momento.");
+      alert("Resolving treasury… please try again shortly.");
       return;
     }
 
     const amountLamports = new BN(Math.trunc(amountSol * LAMPORTS_PER_SOL));
     if (amountLamports.lte(new BN(0))) {
-      alert("Ingresa un monto mayor a 0.");
+      alert("Enter an amount greater than 0.");
       return;
     }
 
@@ -189,7 +213,7 @@ const treasuryPda = useMemo(() => {
       // (Opcional) balance check
       const bal = await connection.getBalance(anchorWallet.publicKey);
       if (bal < amountLamports.toNumber() + 200_000) {
-        alert("Saldo insuficiente para cubrir la entrada y las comisiones.");
+        alert("Insufficient balance to cover entry and fees.");
         setSending(false);
         return;
       }
@@ -205,7 +229,7 @@ const treasuryPda = useMemo(() => {
 
       onSent?.(sig);
       console.log("✅ Tx:", sig);
-      alert(`✅ Transacción enviada: ${sig}`);
+      alert(`✅ Transaction Sent: ${sig}`);
     } catch (e: any) {
       console.error("❌ pay_entry error:", e);
       const logs =
@@ -219,7 +243,7 @@ const treasuryPda = useMemo(() => {
         console.log(logs);
         console.groupEnd();
       }
-      alert(`❌ Error al enviar transacción. Revisa la consola para más detalles.`);
+      alert(`❌ Transaction Error.`);
     } finally {
       setSending(false);
     }

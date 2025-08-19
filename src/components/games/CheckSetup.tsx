@@ -43,6 +43,8 @@ export default function CheckSetup() {
       const prog = new Program(idl as Idl, provider);
       setProgram(prog);
 
+      console.log("[PROGRAM]:", program);
+
       const cfgPda = PublicKey.findProgramAddressSync([Buffer.from("config")], prog.programId)[0];
       setConfigPda(cfgPda);
 
