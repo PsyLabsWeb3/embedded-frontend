@@ -35,6 +35,8 @@ interface UnityGameProps {
   onError?: (error: string) => void;
   /** Optional publicKey to send to Unity */
   publicKey?: string | null;
+  /** Optional transaction id (signature) to send to Unity after successful payment */
+  transactionId?: string | null;
 }
 
 /**
@@ -55,7 +57,8 @@ const UnityGameComponent: React.FC<UnityGameProps> = ({
   className,
   onLoaded,
   onError: _onError, // Renamed to indicate it's intentionally unused for now
-  publicKey
+  publicKey,
+  transactionId
 }) => {
   /**
    * Initialize Unity context with memoization for performance
@@ -89,6 +92,16 @@ const UnityGameComponent: React.FC<UnityGameProps> = ({
       // console.log("Enviado a Unity:", publicKey.toString());
     }
   }, [isLoaded, publicKey, sendMessage]);
+
+  /**
+   * Send transactionId to Unity when available
+   */
+  React.useEffect(() => {
+    if (isLoaded && typeof transactionId === 'string' && transactionId.length > 0) {
+      sendMessage("WalletManager", "SetTransactionId", transactionId);
+      // console.log("Enviado tx a Unity:", transactionId);
+    }
+  }, [isLoaded, transactionId, sendMessage]);
 
   /**
    * Determine the appropriate CSS class for styling

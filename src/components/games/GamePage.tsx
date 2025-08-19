@@ -20,7 +20,7 @@
 
 import React from 'react';
 import GamePageTemplate from '../templates/GamePageTemplate';
-// import UnityGame from './UnityGame';
+import UnityGame from './UnityGame';
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES } from '../../constants';
@@ -61,6 +61,7 @@ const GamePage: React.FC<GamePageProps> = ({
 }) => {
   const gameConfig = useGameConfig(gameId);
   const { publicKey, connected } = useWallet();
+  const [transactionId, setTransactionId] = React.useState<string | null>(null);
 
   /**
    * Handle case where game configuration is not found
@@ -109,20 +110,30 @@ const GamePage: React.FC<GamePageProps> = ({
             color: 'var(--color-text-secondary)',
             fontSize: '1.2rem',
           }}>
-            Connect your wallet to play this game.
+            Conecta tu wallet para jugar.
           </div>
         );
       }
-      return (
-        // <UnityGame 
-        //   gameAssets={gameConfig.assets} 
-        //   publicKey={publicKey.toString()}
-        // />
-        <>
-        <PayEntryButton  />
-        </>
-        
 
+      // Si aún no hay transacción exitosa, muestra el botón de pago
+      if (!transactionId) {
+        return (
+          <div style={{ display: 'grid', gap: 12 }}>
+            <div style={{ color: 'var(--color-text-secondary)' }}>
+              Para jugar, realiza el pago de entrada.
+            </div>
+            <PayEntryButton onSent={(sig) => setTransactionId(sig)} />
+          </div>
+        );
+      }
+
+      // Si hay transactionId y wallet conectada, cargar UnityGame
+      return (
+        <UnityGame
+          gameAssets={gameConfig.assets}
+          publicKey={publicKey.toString()}
+          transactionId={transactionId}
+        />
       );
     }
 
