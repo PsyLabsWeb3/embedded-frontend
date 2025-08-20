@@ -13,7 +13,7 @@ const ConnectWalletButton = () => {
     <>
       {connected ? (
         <button onClick={disconnect} className="btn bg-red-500">
-          Desconectar ({publicKey ? publicKey.toString().slice(0, 4) : '----'}...)
+          Disconnect ({publicKey ? publicKey.toString().slice(0, 4) : '----'}...)
         </button>
       ) : (
         <button onClick={() => setVisible(true)} className="btn bg-blue-500">
