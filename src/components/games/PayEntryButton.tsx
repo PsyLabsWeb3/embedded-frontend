@@ -130,81 +130,81 @@ const PayEntryButton: React.FC<Props> = ({ defaultAmountSol, onSent, treasuryOve
   const treasuryPda = "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM";
 
   // === Resolución dinámica de TREASURY ===
-  useEffect(() => {
-    if (!program) return;
-    (async () => {
-      try {
-        setResolving(true);
+  // useEffect(() => {
+  //   if (!program) return;
+  //   (async () => {
+  //     try {
+  //       setResolving(true);
 
-        // 0) Si te pasaron un override, úsalo directo
-        if (treasuryOverride) {
-          const key = new PublicKey(treasuryOverride);
-          setTreasury(key);
-          console.log("[treasury] override =", key.toBase58());
-          return;
-        }
+  //       // 0) Si te pasaron un override, úsalo directo
+  //       if (treasuryOverride) {
+  //         const key = new PublicKey(treasuryOverride);
+  //         setTreasury(key);
+  //         console.log("[treasury] override =", key.toBase58());
+  //         return;
+  //       }
 
-        // 1) Candidato A: ["treasury"]
-        const candA = PublicKey.findProgramAddressSync([Buffer.from("treasury")], program.programId)[0];
+  //       // 1) Candidato A: ["treasury"]
+  //       const candA = PublicKey.findProgramAddressSync([Buffer.from("treasury")], program.programId)[0];
 
-        // 2) Intenta leer config para obtener authority (si existe)
-        let authorityFromConfig: PublicKey | null = null;
-        try {
-          // Si el IDL define la cuenta "config", Anchor puede decodificarla:
-          // @ts-ignore
-          const cfg = await (program.account as any).config.fetch(configPda);
-          if (cfg?.authority) {
-            authorityFromConfig = new PublicKey(cfg.authority);
-          }
-        } catch (_) {
-          // si falla, solo seguimos con candidates sin authority
-        }
+  //       // 2) Intenta leer config para obtener authority (si existe)
+  //       let authorityFromConfig: PublicKey | null = null;
+  //       try {
+  //         // Si el IDL define la cuenta "config", Anchor puede decodificarla:
+  //         // @ts-ignore
+  //         const cfg = await (program.account as any).config.fetch(configPda);
+  //         if (cfg?.authority) {
+  //           authorityFromConfig = new PublicKey(cfg.authority);
+  //         }
+  //       } catch (_) {
+  //         // si falla, solo seguimos con candidates sin authority
+  //       }
 
-        // 2) Candidato B: ["treasury", authority] (si logramos leer authority)
-        const candB =
-          authorityFromConfig &&
-          PublicKey.findProgramAddressSync([Buffer.from("treasury"), authorityFromConfig.toBuffer()], program.programId)[0];
+  //       // 2) Candidato B: ["treasury", authority] (si logramos leer authority)
+  //       const candB =
+  //         authorityFromConfig &&
+  //         PublicKey.findProgramAddressSync([Buffer.from("treasury"), authorityFromConfig.toBuffer()], program.programId)[0];
 
-        // 3) Candidato C: ["treasury", configPda]
-        const candC = PublicKey.findProgramAddressSync(
-          [Buffer.from("treasury"), configPda.toBuffer()],
-          program.programId
-        )[0];
+  //       // 3) Candidato C: ["treasury", configPda]
+  //       const candC = PublicKey.findProgramAddressSync(
+  //         [Buffer.from("treasury"), configPda.toBuffer()],
+  //         program.programId
+  //       )[0];
 
-        const candidates = [candA, candB, candC].filter(Boolean) as PublicKey[];
+  //       const candidates = [candA, candB, candC].filter(Boolean) as PublicKey[];
 
-        // Elige el que EXISTA on-chain
-        for (const c of candidates) {
-          const acc = await connection.getAccountInfo(c);
-          if (acc && acc.owner.equals(program.programId)) {
-            setTreasury(c);
-            console.log("[treasury] resolved =", c.toBase58(), "(owner ok)");
-            return;
-          }
-        }
+  //       // Elige el que EXISTA on-chain
+  //       for (const c of candidates) {
+  //         const acc = await connection.getAccountInfo(c);
+  //         if (acc && acc.owner.equals(program.programId)) {
+  //           setTreasury(c);
+  //           console.log("[treasury] resolved =", c.toBase58(), "(owner ok)");
+  //           return;
+  //         }
+  //       }
 
-        // Si ninguno existe con owner = program, como fallback toma candA
-        // (pero te aviso que puede no pasar el constraint)
-        setTreasury(candA);
-        console.warn(
-          "[treasury] WARNING: no existing account found; using simple derivation:",
-          candA.toBase58()
-        );
-      } finally {
-        setResolving(false);
-      }
-    })();
-  }, [program, connection, configPda, treasuryOverride]);
+  //       // Si ninguno existe con owner = program, como fallback toma candA
+  //       // (pero te aviso que puede no pasar el constraint)
+  //       setTreasury(candA);
+  //       console.warn(
+  //         "[treasury] WARNING: no existing account found; using simple derivation:",
+  //         candA.toBase58()
+  //       );
+  //     } finally {
+  //       setResolving(false);
+  //     }
+  //   })();
+  // }, [program, connection, configPda, treasuryOverride]);
 
   const handlePayEntry = async () => {
     if (!program || !anchorWallet?.publicKey) {
       alert("Connect a compatible signing wallet to continue.");
       return;
     }
-    if (!treasury) {
-      alert("Resolving treasury… please try again shortly.");
-      return;
-    }
+    // if (!treasury) {
+    //   alert("Resolving treasury… please try again shortly.");
+    //   return;
+    // }
 
     const amountLamports = new BN(Math.trunc(amountSol * LAMPORTS_PER_SOL));
     if (amountLamports.lte(new BN(0))) {
