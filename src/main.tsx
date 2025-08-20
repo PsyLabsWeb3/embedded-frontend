@@ -15,7 +15,7 @@
  * @author Embedded Frontend Team
  * @version 1.0.0
  */
-
+import "./polyfills";
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
