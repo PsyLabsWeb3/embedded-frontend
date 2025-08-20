@@ -117,15 +117,17 @@ const PayEntryButton: React.FC<Props> = ({ defaultAmountSol, onSent, treasuryOve
   );
 
   // Deriva la treasury con el mismo programId del cliente Anchor
-const treasuryPda = useMemo(() => {
-  if (!program) return null;
-  const [pda] = PublicKey.findProgramAddressSync(
-    [Buffer.from("treasury")],
-    program.programId
-  );
-  console.log("treasuryPda (correcta):", pda.toBase58()); // debería imprimir Eqder...
-  return pda;
-}, [program]);
+// const treasuryPda = useMemo(() => {
+//   if (!program) return null;
+//   const [pda] = PublicKey.findProgramAddressSync(
+//     [Buffer.from("treasury")],
+//     program.programId
+//   );
+//   console.log("treasuryPda (correcta):", pda.toBase58()); // debería imprimir Eqder...
+//   return pda;
+// }, [program]);
+
+  const treasuryPda = "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM";
 
   // === Resolución dinámica de TREASURY ===
   useEffect(() => {

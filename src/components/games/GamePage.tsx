@@ -110,7 +110,7 @@ const GamePage: React.FC<GamePageProps> = ({
             color: 'var(--color-text-secondary)',
             fontSize: '1.2rem',
           }}>
-            Conecta tu wallet para jugar.
+            Connect your wallet to play.
           </div>
         );
       }
@@ -120,7 +120,7 @@ const GamePage: React.FC<GamePageProps> = ({
         return (
           <div style={{ display: 'grid', gap: 12 }}>
             <div style={{ color: 'var(--color-text-secondary)' }}>
-              Para jugar, realiza el pago de entrada.
+              To play, please make the entry payment.
             </div>
             <PayEntryButton onSent={(sig) => setTransactionId(sig)} />
           </div>
