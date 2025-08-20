@@ -140,6 +140,12 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 12,
     isMultiplayer: false,
     minAge: 5,
+     instructions: [
+      'Use arrow keys to move your drone',
+      'Shoot projectiles with left click to eliminate enemies',
+      'Avoid hitting with the laser',
+      'Eliminate your opponent!'
+    ]
   
   },
   '04-candy-sweet': {

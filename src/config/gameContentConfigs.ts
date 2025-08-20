@@ -230,7 +230,7 @@ export const gameContentConfigs: Record<string, Omit<GameCustomContentProps, 'cl
     ]
   },
 
-  'game11': {
+  'EmbeddedWars': {
     title: "Ultimate Challenge",
     description: "El desafío definitivo que combina lo mejor de todos los géneros en una experiencia única.",
     leftIcon: "🏆",

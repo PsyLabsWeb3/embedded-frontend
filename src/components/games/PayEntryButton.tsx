@@ -49,6 +49,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         const data = await r.json();
         const price = Number(data?.priceUsd);
         if (!price || !isFinite(price) || price <= 0) return;
+        console.log("SOL price:", price);
         const usd = 0.5;
         setAmountSol(Number((usd / price).toFixed(8)));
       } catch {}
@@ -169,9 +170,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         >
           {sending ? "Sending..." : `Casual Mode (${amountSol || 0} SOL)`}
         </button>
-        <small style={{ opacity: 0.7 }}>
+        {/* <small style={{ opacity: 0.7 }}>
           Program: {PROGRAM_ID.toBase58()} • Treasury: {TREASURY_PDA.toBase58()}
-        </small>
+        </small> */}
       </div>
 
       {/* Modal de confirmación */}
