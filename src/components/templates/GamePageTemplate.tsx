@@ -40,7 +40,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           <div className="game-info-section">
             {instructions.length > 0 && (
               <div className="game-instructions">
-                <h3>Instrucciones:</h3>
+                <h3>Instructions:</h3>
                 <ul>
                   {instructions.map((instruction, index) => (
                     <li key={index}>{instruction}</li>
