@@ -4,7 +4,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../../assets/walletIcon.svg';
 import { useMemo } from 'react';
-import { usePhantomWC } from '../../../hooks/usePhantomWC'; 
+import { usePhantomWC } from '../../../hooks/usePhantomWC';
 import { WALLET_CONFIG } from '../../../constants';
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -16,7 +16,7 @@ const ConnectWalletButton = () => {
   const { publicKey, connected, disconnect, connecting } = useWallet();
   const { setVisible } = useWalletModal();
 
-  // Móvil: Phantom vía WalletConnect (sin redirects)
+  // Móvil: Phantom por WalletConnect (sin redirects, forzando Phantom)
   const {
     address: wcAddress,
     connected: wcConnected,
@@ -25,10 +25,11 @@ const ConnectWalletButton = () => {
     disconnect: wcDisconnect,
   } = usePhantomWC({
     projectId: WALLET_CONFIG.PROJECT_ID,
-    chainId: 'solana:devnet', // o 'solana:mainnet' si corresponde a tu RPC
+    chainId: 'solana:devnet',     // usa 'solana:mainnet' si tu RPC es mainnet
+    walletApp: 'phantom',         // fuerza abrir Phantom en lugar de MetaMask
   });
 
-  // Estado efectivo (unifica adapter y WC)
+  // Estado unificado
   const effectiveConnected = connected || wcConnected;
   const effectiveConnecting = connecting || wcConnecting;
   const effectiveAddress = useMemo(() => {
@@ -46,24 +47,19 @@ const ConnectWalletButton = () => {
     const mobile = isMobile();
     const injected = hasInjectedPhantom();
 
-    // En móvil sin inyección → usar Phantom WC hook
+    // Móvil sin inyección → usa Phantom WC hook (abre Phantom y vuelve manual)
     if (mobile && !injected) {
       await wcConnect();
       return;
     }
 
-    // Desktop o móvil con inyección → abrir modal (adapter)
+    // Desktop o móvil con inyección → modal del adapter
     setVisible(true);
   };
 
   const handleDisconnect = async () => {
-    // Intenta desconectar ambos mundos por si acaso
-    if (connected) {
-      try { await disconnect(); } catch {}
-    }
-    if (wcConnected) {
-      try { await wcDisconnect(); } catch {}
-    }
+    if (connected) { try { await disconnect(); } catch {} }
+    if (wcConnected) { try { await wcDisconnect(); } catch {} }
   };
 
   return effectiveConnected ? (
@@ -79,4 +75,3 @@ const ConnectWalletButton = () => {
 };
 
 export default ConnectWalletButton;
-
