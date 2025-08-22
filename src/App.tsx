@@ -18,8 +18,6 @@
  * @version 1.0.0
  */
 import './appkit'; // ← registra AppKit y sus web components
-import "@reown/appkit-wallet-button/react";
-
 import React from 'react';
 import {
   ConnectionProvider,
