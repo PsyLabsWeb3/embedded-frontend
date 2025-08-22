@@ -3,7 +3,8 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../../assets/walletIcon.svg';
 import { useMemo } from 'react';
-import { AppKitButton } from '../AppKitButton';
+// import { AppKitButton } from '../AppKitButton';
+import { useAppKit, useAppKitAccount, useDisconnect } from '@reown/appkit/react';
 
 // --- helpers de plataforma ---
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -31,12 +32,29 @@ const ConnectWalletButton = () => {
   const { publicKey, connected, disconnect, connecting } = useWallet();
   const { setVisible } = useWalletModal();
 
-  // Si es MÓVIL y NO hay inyección -> usar AppKit Button (WalletConnect + deep links)
+    // ---- rama móvil AppKit (custom look) ----
   if (isMobile() && !hasInjectedPhantom()) {
-    // El propio <appkit-button> maneja connect / account / disconnect.
-    // La red (devnet/mainnet) y projectId se toman de tu createAppKit(...)
-    return (
-    <AppKitButton namespace="solana" size="md" balance="hide" className="btn-appkit" />
+    const { open } = useAppKit();
+    const { isConnected, address, status } = useAppKitAccount({ namespace: 'solana' });
+    const { disconnect: akDisconnect } = useDisconnect();
+    const short = address ? `${address.slice(0,4)}...${address.slice(-4)}` : '----';
+
+    return isConnected ? (
+      <button
+        onClick={() => akDisconnect()}
+        className="btn bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2"
+      >
+        <img src={walletIcon} alt="wallet" className="w-5 h-5" />
+        <span>Disconnect ({short})</span>
+      </button>
+    ) : (
+      <button
+        onClick={() => open({ view: 'Connect', namespace: 'solana' })}
+        className="btn bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2"
+      >
+        <img src={walletIcon} alt="wallet" className="w-5 h-5" />
+        <span>{status === 'connecting' ? 'Connecting…' : 'Connect'}</span>
+      </button>
     );
   }
 
