@@ -1,18 +1,18 @@
-// pages/PhantomCallback.tsx
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   parseQuery,
   deriveSharedKey,
   decryptPayload,
-  getDappSecretKeyFromSession,
-  clearDappSecretKeyFromSession,
-  type PhantomConnectPayload,
 } from '../utils/phantomDeepLink';
+import type { PhantomConnectPayload } from '../utils/phantomDeepLink';
 
-const PHANTOM_STATE_KEY = 'phantom_session_state'; // puedes cambiar el nombre
+const PHANTOM_STATE_KEY        = 'phantom_session_state';
+const PHANTOM_DAPP_SECRET_KEY  = 'phantom_dapp_secret_key';
+const PHANTOM_DAPP_STATE_KEY   = 'phantom_dapp_state';
+
 type PhantomState = {
-  publicKey: string; // base58
+  publicKey: string;
   session: string;
   ts: number;
 };
@@ -26,46 +26,52 @@ const PhantomCallback: React.FC = () => {
       try {
         const q = parseQuery(search);
 
-        // 1) parametros requeridos
         const phantomEncPubKey = q['phantom_encryption_public_key'];
-        const data = q['data'];
-        const nonce = q['nonce'];
+        const data   = q['data'];
+        const nonce  = q['nonce'];
+        const state  = q['state']; // 👈 validamos que sea el mismo
 
-        if (!phantomEncPubKey || !data || !nonce) {
-          throw new Error('Missing query params from Phantom (encryption key / data / nonce).');
+        if (!phantomEncPubKey || !data || !nonce || !state) {
+          throw new Error('Missing query params from Phantom (enc key / data / nonce / state).');
         }
 
-        // 2) recuperar secret key efímera
-        const dappSecretKeyBase58 = getDappSecretKeyFromSession();
+        const expectedState = localStorage.getItem(PHANTOM_DAPP_STATE_KEY);
+        if (!expectedState || expectedState !== state) {
+          throw new Error('Phantom state mismatch or missing.');
+        }
+
+        const dappSecretKeyBase58 = localStorage.getItem(PHANTOM_DAPP_SECRET_KEY);
         if (!dappSecretKeyBase58) {
-          throw new Error('Missing dapp secret key in sessionStorage.');
+          throw new Error('Missing dapp secret key in localStorage.');
         }
 
-        // 3) derive shared key y desencripta payload
         const sharedKey = deriveSharedKey(phantomEncPubKey, dappSecretKeyBase58);
-        const payload = decryptPayload<PhantomConnectPayload>(data, nonce, sharedKey);
+        const payload   = decryptPayload<PhantomConnectPayload>(data, nonce, sharedKey);
 
-        // payload esperado: { public_key, session, scope? }
         if (!payload?.public_key || !payload?.session) {
           throw new Error('Invalid Phantom payload (public_key/session missing).');
         }
 
-        // 4) guarda estado (puedes cambiar a tu store global/context)
-        const state: PhantomState = {
+        const stateObj: PhantomState = {
           publicKey: payload.public_key,
           session: payload.session,
           ts: Date.now(),
         };
-        localStorage.setItem(PHANTOM_STATE_KEY, JSON.stringify(state));
+        localStorage.setItem(PHANTOM_STATE_KEY, JSON.stringify(stateObj));
 
-        // 5) limpia secret key efímera (seguridad)
-        clearDappSecretKeyFromSession();
+        // Limpia efímeros
+        localStorage.removeItem(PHANTOM_DAPP_SECRET_KEY);
+        localStorage.removeItem(PHANTOM_DAPP_STATE_KEY);
 
-        // 6) redirige (ajusta el destino a tu UX; ej. home o página del juego)
+        // Redirige a donde quieras (home, juego, etc.)
         navigate('/', { replace: true });
       } catch (err) {
         console.error('[PhantomCallback] Error:', err);
-        // fallback UX: manda a home con un flag de error si quieres
+
+        // Limpia efímeros para permitir reintentar
+        localStorage.removeItem(PHANTOM_DAPP_SECRET_KEY);
+        localStorage.removeItem(PHANTOM_DAPP_STATE_KEY);
+
         navigate('/?phantom_error=1', { replace: true });
       }
     })();
