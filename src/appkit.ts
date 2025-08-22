@@ -16,7 +16,7 @@ export const appkit = createAppKit({
   metadata: {
     name: 'Embedded Games',
     description: 'Mini juegos on-chain',
-    url: typeof window !== 'undefined' ? window.location.origin : 'https://tu-dominio.com',
+    url: typeof window !== 'undefined' ? window.location.origin : 'https://embedded-frontend-git-em-62-appkit-v-street.vercel.app',
     icons: ['https://tu-dominio.com/icon.png'],
   },
 });
