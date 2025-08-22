@@ -65,6 +65,15 @@ import {
 // Import constants for configuration
 import { WALLET_CONFIG } from './constants';
 
+// ...
+import PhantomCallback from './pages/PhantomCallback';
+// ...
+
+
+
+
+
+
 /**
  * Wallet adapter configuration
  * 
@@ -129,6 +138,7 @@ const App: React.FC = () => {
                 <Route path="/game/09-cake-mania" element={<CakeMania />} />
                 <Route path="/game/10-game-10" element={<Game10 />} />
                 <Route path="/game/11-game-11" element={<Game11 />} />
+                <Route path="/phantom/callback" element={<PhantomCallback />} />
               </Routes>
             </div>
           </Router>
