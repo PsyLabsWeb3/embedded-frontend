@@ -3,38 +3,27 @@ import '../../../styles/sections/ConnectWalletButton.css';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../../assets/walletIcon.svg';
-import { useMemo } from 'react';
-
-// 👇 Añade estas deps a tu proyecto:
-// npm i tweetnacl bs58
+import { useEffect, useMemo, useState } from 'react';
 import nacl from 'tweetnacl';
 import bs58 from 'bs58';
+
+const PHANTOM_STATE_KEY = 'phantom_session_state';
+const PHANTOM_DAPP_SECRET_KEY = 'phantom_dapp_secret_key';
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const hasInjectedPhantom = () =>
   typeof window !== 'undefined' && (window as any).solana?.isPhantom;
 
-/**
- * Inicia el flujo de conexión con Phantom usando deep link.
- * - Genera una clave efímera (dapp_encryption_public_key)
- * - Guarda la secret key en sessionStorage para leerla en /phantom/callback
- * - Redirige a la app de Phantom con redirect_link de vuelta a tu dominio
- */
+// ——— flujo deep link (ya lo usabas) ———
 function startPhantomDeepLinkConnect() {
-  // 1) Keypair efímero para el handshake cifrado
   const kp = nacl.box.keyPair();
+  sessionStorage.setItem(PHANTOM_DAPP_SECRET_KEY, bs58.encode(kp.secretKey));
+
+  const appUrl = encodeURIComponent(window.location.origin);
+  const redirect = encodeURIComponent(`${window.location.origin}/phantom/callback`);
+  const cluster = 'mainnet-beta'; // o 'devnet'
   const dappPubKeyBase58 = bs58.encode(kp.publicKey);
-  const dappSecretKeyBase58 = bs58.encode(kp.secretKey);
 
-  // 2) Persistimos la secret key para usarla en el callback
-  sessionStorage.setItem('phantom_dapp_secret_key', dappSecretKeyBase58);
-
-  // 3) Configura tus URLs
-  const appUrl = encodeURIComponent(window.location.origin); // o tu dominio público
-  const redirect = encodeURIComponent(`${window.location.origin}/phantom/callback`); // Implementa esta ruta
-  const cluster = 'devnet'; // o 'devnet' si estás probando mainnet-beta
-
-  // 4) Construye el deep link oficial de Phantom
   const url =
     `https://phantom.app/ul/v1/connect` +
     `?app_url=${appUrl}` +
@@ -42,38 +31,88 @@ function startPhantomDeepLinkConnect() {
     `&redirect_link=${redirect}` +
     `&cluster=${cluster}`;
 
-  // 5) Lanza la app de Phantom
   window.location.href = url;
 }
 
-// Componente responsivo para conectar la wallet
+// Lee el estado Phantom guardado por /phantom/callback
+function getPhantomState(): { publicKey: string; session: string } | null {
+  const raw = localStorage.getItem(PHANTOM_STATE_KEY);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as { publicKey: string; session: string };
+    if (parsed?.publicKey && parsed?.session) return parsed;
+  } catch {}
+  return null;
+}
+
+function clearPhantomState() {
+  localStorage.removeItem(PHANTOM_STATE_KEY);
+}
+
 const ConnectWalletButton = () => {
   const { publicKey, connected, disconnect, connecting } = useWallet();
   const { setVisible } = useWalletModal();
 
-  const short = useMemo(
-    () => (publicKey ? `${publicKey.toBase58().slice(0, 4)}...` : '----'),
-    [publicKey]
-  );
+  // estado para reflejar conexión por deep link
+  const [phantomDL, setPhantomDL] = useState<{ publicKey: string; session: string } | null>(() => getPhantomState());
+
+  // sincroniza si otro tab/página modifica el storage (p.ej. al volver del callback)
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === PHANTOM_STATE_KEY) {
+        setPhantomDL(getPhantomState());
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  // fuente de verdad del pubkey a mostrar:
+  const effectivePubKey = useMemo(() => {
+    if (publicKey) return publicKey.toBase58();
+    if (phantomDL?.publicKey) return phantomDL.publicKey;
+    return null;
+  }, [publicKey, phantomDL]);
+
+  const isEffectivelyConnected = Boolean(connected || phantomDL);
+
+  const short = useMemo(() => {
+    if (!effectivePubKey) return '----';
+    return `${effectivePubKey.slice(0, 4)}...${effectivePubKey.slice(-4)}`;
+  }, [effectivePubKey]);
 
   const handleClickConnect = () => {
     const mobile = isMobile();
     const injected = hasInjectedPhantom();
 
-    // En móvil SIN inyección → usar deep link nativo (mantiene la dApp en el navegador original).
+    // Móvil sin inyección → deep link nativo (mantiene Chrome/Safari y landscape)
     if (mobile && !injected) {
       startPhantomDeepLinkConnect();
       return;
     }
 
-    // En desktop o móvil con inyección → usar el modal (Phantom/WalletConnect/etc.)
+    // Desktop o móvil con inyección → modal (Phantom/WalletConnect/etc.)
     setVisible(true);
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      if (connected) {
+        await disconnect();
+      }
+    } finally {
+      // limpiar deep link state si existía
+      if (phantomDL) {
+        clearPhantomState();
+        setPhantomDL(null);
+      }
+    }
   };
 
   return (
     <>
-      {connected ? (
-        <button onClick={disconnect} className="btn bg-red-500" disabled={connecting}>
+      {isEffectivelyConnected ? (
+        <button onClick={handleDisconnect} className="btn bg-red-500" disabled={connecting}>
           Disconnect ({short})
         </button>
       ) : (
