@@ -3,6 +3,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../../assets/walletIcon.svg';
 import { useMemo } from 'react';
+import { AppKitButton } from '../AppKitButton';
 
 // --- helpers de plataforma ---
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -35,12 +36,7 @@ const ConnectWalletButton = () => {
     // El propio <appkit-button> maneja connect / account / disconnect.
     // La red (devnet/mainnet) y projectId se toman de tu createAppKit(...)
     return (
-      <appkit-button
-        namespace="solana"
-        size="md"
-        balance="hide"
-        class="btn-appkit"
-      />
+    <AppKitButton namespace="solana" size="md" balance="hide" className="btn-appkit" />
     );
   }
 
