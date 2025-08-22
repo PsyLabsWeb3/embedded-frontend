@@ -37,7 +37,7 @@ const ConnectWalletButton = () => {
     return (
       <div className="inline-flex">
         <appkit-wallet-button
-          wallet="phantom"
+          wallet="walletConnect"
           namespace="solana"
         />
       </div>
