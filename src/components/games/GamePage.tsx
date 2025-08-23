@@ -60,6 +60,25 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         </div>
       );
     }
+    //  // Placeholders temporales para simular la tx y el entryConfirmed
+    // if (!entryConfirmed) {
+    //   return (
+    //     <div style={{ display: 'grid', gap: 12 }}>
+    //       <div style={{ color: 'var(--color-text-secondary)' }}>
+    //         Simulación: Haz clic para confirmar entrada y generar tx.
+    //       </div>
+    //       <button
+    //         style={{ padding: '0.5rem 1rem', fontSize: '1rem' }}
+    //         onClick={() => {
+    //           setTxSig('FAKE_TX_SIGNATURE_' + Math.floor(Math.random() * 100000));
+    //           setEntryConfirmed(true);
+    //         }}
+    //       >
+    //         Simular pago y continuar
+    //       </button>
+    //     </div>
+    //   );
+    // }
 
     // ⬇️ Aquí activas/desactivas por juego:
     const rotateOnMobile = gameConfig.rotateOnMobile ?? true;
