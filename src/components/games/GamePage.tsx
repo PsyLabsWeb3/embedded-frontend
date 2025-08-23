@@ -36,56 +36,52 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   }
 
   const renderGameComponent = (): React.ReactNode => {
-    if (gameConfig.placeholder) {
-      return <PlaceholderGame gameName={gameConfig.title} />;
-    }
+  if (gameConfig.placeholder) return <PlaceholderGame gameName={gameConfig.title} />;
 
-    if (gameConfig.assets) {
-      if (!connected || !publicKey) {
-        return (
-          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '1.2rem' }}>
-            Connect your wallet to play.
-          </div>
-        );
-      }
-
-      // Hasta no confirmar (o vencer el timeout interno del botón), mostramos el botón
-      if (!entryConfirmed) {
-        return (
-          <div style={{ display: 'grid', gap: 12 }}>
-            <div style={{ color: 'var(--color-text-secondary)' }}>
-              To play, please make the entry payment.
-            </div>
-            <PayEntryButton
-              // opcional: si quieres guardar el sig apenas se envía
-              onSent={(sig) => setTxSig(sig)}
-              // clave: este onContinue se llama después de confirmación moderna o timeout de 10s
-              onContinue={(sig) => {
-                setTxSig(sig);
-                setEntryConfirmed(true);
-              }}
-            />
-          </div>
-        );
-      }
-
-      // Confirmado: ya puedes cargar Unity
+  if (gameConfig.assets) {
+    if (!connected || !publicKey) {
       return (
-        <UnityGame
-          gameAssets={gameConfig.assets}
-          publicKey={publicKey.toString()}
-          // Si tu Unity aún requiere el id, se lo pasamos (ya confirmado/timeout).
-          transactionId={txSig ?? ''}
-        />
+        <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '1.2rem' }}>
+          Connect your wallet to play.
+        </div>
       );
     }
 
+    if (!entryConfirmed) {
+      return (
+        <div style={{ display: 'grid', gap: 12 }}>
+          <div style={{ color: 'var(--color-text-secondary)' }}>
+            To play, please make the entry payment.
+          </div>
+          <PayEntryButton
+            onSent={(sig) => setTxSig(sig)}
+            onContinue={(sig) => { setTxSig(sig); setEntryConfirmed(true); }}
+          />
+        </div>
+      );
+    }
+
+    // ⬇️ Aquí activas/desactivas por juego:
+    const rotateOnMobile = gameConfig.rotateOnMobile ?? true;
+
     return (
-      <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
-        {ERROR_MESSAGES.GAME_LOAD_FAILED}
-      </div>
+      <UnityGame
+        gameAssets={gameConfig.assets}
+        publicKey={publicKey.toString()}
+        transactionId={txSig ?? ''}
+        rotateOnMobile={rotateOnMobile}
+        // Si algún juego usa otra resolución base:
+        // baseResolution={{ width: 1920, height: 1080 }}
+      />
     );
-  };
+  }
+
+  return (
+    <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+      {ERROR_MESSAGES.GAME_LOAD_FAILED}
+    </div>
+  );
+};
 
   return (
     <GamePageTemplate
