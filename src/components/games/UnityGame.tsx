@@ -1,5 +1,5 @@
 /**
- * @fileoverview UnityGame Component (Fullscreen-only, no forced rotation)
+ * @fileoverview UnityGame Component (mobile: contained + rotate estable; desktop: fullscreen opcional)
  */
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
@@ -13,67 +13,74 @@ interface UnityGameProps {
   onError?: (error: string) => void;
   publicKey?: string | null;
   transactionId?: string | null;
-
-  /** Mostrar botón Fullscreen (default: true) */
-  enableFullscreen?: boolean;
-
-  /** (Ignorado ahora) antes se usaba para forzar landscape en mobile */
-  rotateOnMobile?: boolean;
-
-  /** Resolución base (solo para estilos en embebido). Default 1280x720 */
-  baseResolution?: { width: number; height: number };
+  enableFullscreen?: boolean;                 // solo desktop
+  rotateOnMobile?: boolean;                   // rota en mobile (Android por defecto)
+  baseResolution?: { width: number; height: number }; // p.ej. 1280x720
+  forceIOSRotate?: boolean;                   // si quieres forzar iOS (riesgo de black screen)
 }
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const isPortraitNow = () =>
-  !!(window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
+const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-/* ---------- Fullscreen con fallback (overlay fijo) ---------- */
-function useFullscreenWithFallback<T extends HTMLElement>(targetRef: React.RefObject<T>) {
-  const [isNativeFs, setIsNativeFs] = useState(false);
-  const [isPseudoFs, setIsPseudoFs] = useState(false);
+/* -------- mide el contenedor sin desmontar -------- */
+function useContainerBox<T extends HTMLElement>(ref: React.RefObject<T>) {
+  const [box, setBox] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
-    const onChange = () => {
-      const active = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
-      setIsNativeFs(active);
-      if (!active) setIsPseudoFs(false);
-    };
-    document.addEventListener('fullscreenchange', onChange);
-    document.addEventListener('webkitfullscreenchange', onChange as any);
-    return () => {
-      document.removeEventListener('fullscreenchange', onChange);
-      document.removeEventListener('webkitfullscreenchange', onChange as any);
-    };
-  }, []);
-
-  const enter = async () => {
-    const el = targetRef.current as (T & HTMLElement) | null;
+    if (typeof window === 'undefined') return;
+    const el = ref.current;
     if (!el) return;
-    try {
-      const req: any = (el as any).requestFullscreen || (el as any).webkitRequestFullscreen;
-      if (req) {
-        await req.call(el);
-        setIsNativeFs(true);
-        return;
-      }
-    } catch {}
-    // Fallback para navegadores sin Fullscreen API (iOS Safari)
-    setIsPseudoFs(true);
-  };
 
-  const exit = async () => {
-    try {
-      const exitFn: any = document.exitFullscreen || (document as any).webkitExitFullscreen;
-      if (document.fullscreenElement || (document as any).webkitFullscreenElement) {
-        await exitFn.call(document);
-      }
-    } catch {}
-    setIsNativeFs(false);
-    setIsPseudoFs(false);
-  };
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      setBox({ w: Math.max(0, Math.floor(r.width)), h: Math.max(0, Math.floor(r.height)) });
+    };
+    update();
 
-  return { isActive: isNativeFs || isPseudoFs, isNativeFs, isPseudoFs, enter, exit };
+    let cleanup = () => {};
+
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(update);
+      ro.observe(el);
+      cleanup = () => ro.disconnect();
+    } else {
+      (window as Window).addEventListener('resize', update);
+      cleanup = () => (window as Window).removeEventListener('resize', update);
+    }
+    return cleanup;
+  }, [ref]);
+
+  return box;
+}
+
+/* -------- calcula estilo del stage (centrado + scale + rotación opcional) -------- */
+function buildStageStyle(
+  boxW: number, boxH: number,
+  baseW: number, baseH: number,
+  rotated: boolean
+): React.CSSProperties {
+  if (!boxW || !boxH) return { position: 'absolute', inset: 0 };
+
+  // Si rotamos 90°, el bounding box efectivo es baseH x baseW
+  const scale = rotated
+    ? Math.min(boxW / baseH, boxH / baseW)
+    : Math.min(boxW / baseW, boxH / baseH);
+
+  const rotateStr = rotated ? ' rotate(90deg)' : '';
+
+  return {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    // OJO: el wrapper conserva SIEMPRE el tamaño del build 1280x720
+    width: `${baseW}px`,
+    height: `${baseH}px`,
+    transformOrigin: 'center center',
+    transform: `translate(-50%, -50%)${rotateStr} scale(${scale})`,
+    willChange: 'transform',
+    backfaceVisibility: 'hidden',
+    pointerEvents: 'auto',
+  };
 }
 
 const UnityGame: React.FC<UnityGameProps> = ({
@@ -83,9 +90,10 @@ const UnityGame: React.FC<UnityGameProps> = ({
   onError: _onError,
   publicKey,
   transactionId,
-  enableFullscreen = true,
-  // rotateOnMobile ignorado a propósito
+  // enableFullscreen = true,                 // sólo desktop
+  rotateOnMobile = true,
   baseResolution = { width: 1280, height: 720 },
+  forceIOSRotate = false,
 }) => {
   const unityConfig = useMemo(
     () => ({
@@ -99,93 +107,35 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext(unityConfig);
 
-  useEffect(() => {
-    if (isLoaded && onLoaded) onLoaded();
-  }, [isLoaded, onLoaded]);
+  useEffect(() => { if (isLoaded && onLoaded) onLoaded(); }, [isLoaded, onLoaded]);
+  useEffect(() => { if (isLoaded && publicKey) sendMessage('WalletManager', 'SetWalletAddress', publicKey.toString()); }, [isLoaded, publicKey, sendMessage]);
+  useEffect(() => { if (isLoaded && transactionId && transactionId.length > 0) sendMessage('WalletManager', 'SetTransactionId', transactionId); }, [isLoaded, transactionId, sendMessage]);
 
-  useEffect(() => {
-    if (isLoaded && publicKey) {
-      sendMessage('WalletManager', 'SetWalletAddress', publicKey.toString());
-    }
-  }, [isLoaded, publicKey, sendMessage]);
+  const outerRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const { w: boxW, h: boxH } = useContainerBox(frameRef as React.RefObject<HTMLElement>);
 
-  useEffect(() => {
-    if (isLoaded && transactionId && transactionId.length > 0) {
-      sendMessage('WalletManager', 'SetTransactionId', transactionId);
-    }
-  }, [isLoaded, transactionId, sendMessage]);
+  const mobile = isMobile();
+  const ios = isIOS();
 
-  const outerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
-  const { isActive, isPseudoFs, enter, exit } = useFullscreenWithFallback<HTMLDivElement>(outerRef);
+  // Para evitar pantalla negra en iOS, por defecto NO rotamos ahí
+  const shouldRotate = mobile && rotateOnMobile && (forceIOSRotate || !ios);
 
-  // Bloquear scroll del documento durante pseudo-fullscreen
-  useEffect(() => {
-    if (!isPseudoFs) return;
-    const html = document.documentElement;
-    const body = document.body;
-    const prevH = html.style.overflow,
-      prevB = body.style.overflow;
-    const prevTOH = (html.style as any).touchAction,
-      prevTOB = (body.style as any).touchAction;
-    const prevOSBH = (html.style as any).overscrollBehavior,
-      prevOSBB = (body.style as any).overscrollBehavior;
-    html.style.overflow = 'hidden';
-    body.style.overflow = 'hidden';
-    (html.style as any).touchAction = 'none';
-    (body.style as any).touchAction = 'none';
-    (html.style as any).overscrollBehavior = 'none';
-    (body.style as any).overscrollBehavior = 'none';
-    return () => {
-      html.style.overflow = prevH;
-      body.style.overflow = prevB;
-      (html.style as any).touchAction = prevTOH;
-      (body.style as any).touchAction = prevTOB;
-      (html.style as any).overscrollBehavior = prevOSBH;
-      (body.style as any).overscrollBehavior = prevOSBB;
-    };
-  }, [isPseudoFs]);
+  const outerStyle: React.CSSProperties = { position: 'relative', width: '100%', height: '100%' };
 
-  /* -------- estilos (SIEMPRE una sola instancia de <Unity />) -------- */
-  const outerStyle: React.CSSProperties =
-    isActive && isPseudoFs
-      ? {
-          position: 'fixed',
-          inset: 0,
-          background: '#000',
-          display: 'grid',
-          placeItems: 'center',
-          overflow: 'hidden',
-          zIndex: 2147483647,
-          touchAction: 'none',
-          overscrollBehavior: 'none',
-        }
-      : { position: 'relative', width: '100%' };
+  const frameStyle: React.CSSProperties = mobile
+    ? { position: 'relative', width: '100%', height: '100%', background: '#000', overflow: 'hidden', borderRadius: 8 }
+    : { position: 'relative', width: '100%', aspectRatio: `${baseResolution.width} / ${baseResolution.height}`,
+        maxHeight: '80vh', background: '#000', display: 'grid', placeItems: 'center',
+        overflow: 'hidden', borderRadius: 8, margin: '0 auto' };
 
-  // Marco embebido: usa aspect-ratio del build; Fullscreen: viewport completo
-  const frameStyle: React.CSSProperties = isActive
-    ? {
-        width: '100vw',
-        height: '100vh',
-        background: '#000',
-        display: 'grid',
-        placeItems: 'center',
-        overflow: 'hidden',
-        position: 'relative',
-      }
-    : {
-        width: '100%',
-        aspectRatio: `${baseResolution.width} / ${baseResolution.height}`, // p.ej. 16/9
-        maxHeight: '80vh',
-        background: '#000',
-        display: 'grid',
-        placeItems: 'center',
-        overflow: 'hidden',
-        borderRadius: 8,
-        margin: '0 auto',
-        position: 'relative',
-      };
+  const stageStyle = buildStageStyle(
+    boxW, boxH,
+    baseResolution.width, baseResolution.height,
+    shouldRotate
+  );
 
-  const unityStyle: React.CSSProperties = {
+  const unityCanvasStyle: React.CSSProperties = {
     width: '100%',
     height: '100%',
     display: 'block',
@@ -195,70 +145,24 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const containerClass = className || styles.container;
 
-  const showRotateHint = isActive && isMobile() && isPortraitNow();
-
   return (
     <div ref={outerRef} style={outerStyle}>
       {!isLoaded && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            color: 'var(--color-text-secondary)',
-            zIndex: 5,
-          }}
-        >
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: 'var(--color-text-secondary)', zIndex: 5
+        }}>
           <div>Loading Game…</div>
           <div style={{ textAlign: 'center', fontSize: 12 }}>{Math.round(loadingProgression * 100)}%</div>
         </div>
       )}
 
-      <div style={frameStyle} id="unity-frame">
-        {enableFullscreen && (
-          <button
-            onClick={isActive ? exit : enter}
-            style={{
-              position: 'absolute',
-              top: 8,
-              left: 8,
-              zIndex: 10,
-              background: 'rgba(0,0,0,.6)',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,.25)',
-              borderRadius: 8,
-              padding: '6px 10px',
-              fontSize: 12,
-            }}
-          >
-            {isActive ? 'Exit' : 'Fullscreen'}
-          </button>
-        )}
-
-        {/* ÚNICA instancia de Unity */}
-        <Unity className={containerClass} unityProvider={unityProvider} style={unityStyle} />
-
-        {/* Hint opcional en móvil si está en portrait durante fullscreen */}
-        {showRotateHint && (
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 12,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              color: '#cbd5e1',
-              fontSize: 12,
-              textAlign: 'center',
-              padding: '6px 10px',
-              background: 'rgba(0,0,0,.45)',
-              borderRadius: 8,
-              zIndex: 11,
-            }}
-          >
-            Rotate your device for a better experience
-          </div>
-        )}
+      <div ref={frameRef} style={frameStyle} id="unity-frame">
+        {/* wrapper único (no desmonta) */}
+        <div style={stageStyle}>
+          <Unity className={containerClass} unityProvider={unityProvider} style={unityCanvasStyle} />
+        </div>
       </div>
     </div>
   );
