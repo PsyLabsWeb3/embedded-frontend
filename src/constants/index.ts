@@ -117,6 +117,20 @@ export const DEV_CONFIG = {
 } as const;
 
 /**
+ * Mobile Phantom wallet integration constants
+ */
+export const LOCAL_STORAGE_CONF = {
+  LOCAL_KEYS: "phantom_dapp_keypair",
+  LOCAL_SESSION: "phantom_session",
+  LOCAL_WALLET_PUBKEY : "phantom_wallet_pubkey",
+  LOCAL_PHANTOM_ENC: "phantom_encryption_public_key",
+  LOCAL_REDIRECT: "phantom_post_connect_redirect",
+  HANDLED_KEY: "phantom_callback_handled",
+  HANDLED_TTL_MS: 5_000,
+  PHANTOM_LAST_TRANSACTION: "phantom_last_tx",
+}
+
+/**
  * Type definitions for constant objects
  * These ensure type safety when using constants throughout the application
  */

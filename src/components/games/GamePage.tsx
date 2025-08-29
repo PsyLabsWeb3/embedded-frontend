@@ -5,6 +5,7 @@ import UnityGame from './UnityGame';
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES } from '../../constants';
+import { LOCAL_STORAGE_CONF } from '../../constants';
 import { useWallet } from '@solana/wallet-adapter-react';
 import PayEntryButton from './PayEntryButton';
 
@@ -16,6 +17,10 @@ interface GamePageProps {
 const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const gameConfig = useGameConfig(gameId);
   const { publicKey, connected } = useWallet();
+
+  const mobileSession = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
+  const mobileWalletAddress = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) || undefined;
+  const isConnectedMobile = mobileSession && mobileWalletAddress;
 
   // Antes: solo transactionId
   // Ahora: confirmation-first
@@ -41,7 +46,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     }
 
     if (gameConfig.assets) {
-      if (!connected || !publicKey) {
+      if ((!connected || !publicKey) && !isConnectedMobile) {
         return (
           <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '1.2rem' }}>
             Connect your wallet to play.
@@ -73,7 +78,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       return (
         <UnityGame
           gameAssets={gameConfig.assets}
-          publicKey={publicKey.toString()}
+          publicKey={publicKey?.toString() || mobileWalletAddress}
           // Si tu Unity aún requiere el id, se lo pasamos (ya confirmado/timeout).
           transactionId={txSig ?? ''}
         />

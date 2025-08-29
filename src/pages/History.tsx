@@ -2,6 +2,7 @@ import MainLayout from '../components/templates/MainLayout';
 import PageHeader from '../components/molecules/PageHeader';
 import UserStatsSection from '../components/organisms/history/UserStatsSection';
 import UserHistorySection from '../components/organisms/history/UserHistorySection';
+import { LOCAL_STORAGE_CONF } from '../constants';
 import { useMatchHistory } from '../hooks/useMatchHistory';
 import { useWallet } from '@solana/wallet-adapter-react';
 
@@ -10,9 +11,13 @@ const History = () => {
   const walletAddress = publicKey?.toString();
   const isConnected = connected && Boolean(walletAddress);
 
-  const { loading, error, stats, groups, hasMore, showMore } = useMatchHistory(walletAddress, { pageSize: 20 });
+  const mobileSession = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
+  const mobileWalletAddress = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) || undefined;
+  const isConnectedMobile = mobileSession && mobileWalletAddress;
 
-  if (!connected) {
+  const { loading, error, stats, groups, hasMore, showMore } = useMatchHistory(walletAddress || mobileWalletAddress, { pageSize: 20 });
+
+  if (!connected && !isConnectedMobile) {
     return (
       <MainLayout>
         <PageHeader 
