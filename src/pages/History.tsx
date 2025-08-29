@@ -53,9 +53,9 @@ const History = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-xl)' }}>
         <UserStatsSection 
-          points={isConnected ? stats.points : 0}
-          wins={isConnected ? stats.wins : 0}
-          losses={isConnected ? stats.losses : 0}
+          points={(isConnected || isConnectedMobile) ? stats.points : 0}
+          wins={(isConnected || isConnectedMobile) ? stats.wins : 0}
+          losses={(isConnected || isConnectedMobile) ? stats.losses : 0}
         />
 
         <UserHistorySection 
