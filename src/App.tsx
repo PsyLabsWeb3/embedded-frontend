@@ -48,6 +48,8 @@ import Games from './pages/Games';
 import Leaderboard from './pages/Leaderboard';
 import Rewards from './pages/Rewards';
 import Tournaments from './pages/Tournaments';
+import PhantomCallback from './pages/PhantomCallback';
+import PhantomSignCallback from './pages/PhantomSignCallback';
 
 // Import game page components
 import {
@@ -118,6 +120,8 @@ const App: React.FC = () => {
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/rewards" element={<Rewards />} />
                 <Route path="/tournaments" element={<Tournaments />} />
+                <Route path="/phantom-callback" element={<PhantomCallback />} />
+                <Route path="/phantom-sign-callback" element={<PhantomSignCallback />} />
                 
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />

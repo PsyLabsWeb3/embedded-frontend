@@ -2,13 +2,12 @@ import '../../../styles/sections/ConnectWalletButton.css';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import walletIcon from '../../../assets/walletIcon.svg';
+import { generateDappKeypair } from '../../../utils/phantomCrypto';
+import { LOCAL_STORAGE_CONF } from '../../../constants';
 import { useMemo } from 'react';
-// import { AppKitButton } from '../AppKitButton';
 
 // --- helpers de plataforma ---
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const hasInjectedPhantom = () =>
-  typeof window !== 'undefined' && (window as any).solana?.isPhantom;
 
 // --- TIPADO del web component para TypeScript ---
 declare global {
@@ -31,16 +30,55 @@ const ConnectWalletButton = () => {
   const { publicKey, connected, disconnect, connecting } = useWallet();
   const { setVisible } = useWalletModal();
 
- 
-  // --- MÓVIL sin inyección => botón de PHANTOM de AppKit ---
-  if (isMobile() && !hasInjectedPhantom()) {
+  // --- MÓVIL => Phantom Deep Link
+  if (isMobile()) {
+    // Read stored session + pubkey
+    const session = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
+    const walletPubKey = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY);
+
+    const handlePhantomConnect = () => {
+      const kp = generateDappKeypair();
+      localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_KEYS, JSON.stringify(kp));
+
+      const appUrl = encodeURIComponent(window.location.origin);
+      const currentPath = window.location.pathname + window.location.search;
+      localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
+      const redirectLink = encodeURIComponent(
+        `${window.location.origin}/phantom-callback?state=${encodeURIComponent(currentPath)}`
+      );
+
+      window.location.href =
+        `https://phantom.app/ul/v1/connect?` +
+        `app_url=${appUrl}` +
+        `&redirect_link=${redirectLink}` +
+        `&dapp_encryption_public_key=${encodeURIComponent(kp.publicKeyBase58)}` +
+        `&cluster=devnet`;   // <-- remove this on production :D
+    };
+
+    const handlePhantomDisconnect = () => {
+      localStorage.removeItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
+      localStorage.removeItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY);
+      localStorage.removeItem(LOCAL_STORAGE_CONF.LOCAL_KEYS);
+      window.location.reload();
+    };
+
+    if (session && walletPubKey) {
+      const short =
+        walletPubKey.slice(0, 4) + "..." + walletPubKey.slice(-4);
+      return (
+        <button
+          onClick={handlePhantomDisconnect}
+          className="btn bg-red-500"
+        >
+          Disconnect ({short})
+        </button>
+      );
+    }
+
     return (
-      <div className="inline-flex">
-        <appkit-wallet-button
-          wallet="walletConnect"
-          namespace="solana"
-        />
-      </div>
+      <button onClick={handlePhantomConnect} className="btn bg-purple-500">
+        Connect Phantom
+      </button>
     );
   }
 
