@@ -41,9 +41,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   }
 
   const renderGameComponent = (): React.ReactNode => {
-    if (gameConfig.placeholder) {
-      return <PlaceholderGame gameName={gameConfig.title} />;
-    }
+  if (gameConfig.placeholder) return <PlaceholderGame gameName={gameConfig.title} />;
 
     if (gameConfig.assets) {
       if ((!connected || !publicKey) && !isConnectedMobile) {
@@ -85,12 +83,60 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       );
     }
 
+    if (!entryConfirmed) {
+      return (
+        <div style={{ display: 'grid', gap: 12 }}>
+          <div style={{ color: 'var(--color-text-secondary)' }}>
+            To play, please make the entry payment.
+          </div>
+          <PayEntryButton
+            onSent={(sig) => setTxSig(sig)}
+            onContinue={(sig) => { setTxSig(sig); setEntryConfirmed(true); }}
+          />
+        </div>
+      );
+    }
+    //  // Placeholders temporales para simular la tx y el entryConfirmed
+    // if (!entryConfirmed) {
+    //   return (
+    //     <div style={{ display: 'grid', gap: 12 }}>
+    //       <div style={{ color: 'var(--color-text-secondary)' }}>
+    //         Simulación: Haz clic para confirmar entrada y generar tx.
+    //       </div>
+    //       <button
+    //         style={{ padding: '0.5rem 1rem', fontSize: '1rem' }}
+    //         onClick={() => {
+    //           setTxSig('FAKE_TX_SIGNATURE_' + Math.floor(Math.random() * 100000));
+    //           setEntryConfirmed(true);
+    //         }}
+    //       >
+    //         Simular pago y continuar
+    //       </button>
+    //     </div>
+    //   );
+    // }
+
+    // ⬇️ Aquí activas/desactivas por juego:
+    const rotateOnMobile = gameConfig.rotateOnMobile ?? true;
+
     return (
-      <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
-        {ERROR_MESSAGES.GAME_LOAD_FAILED}
-      </div>
+      <UnityGame
+        gameAssets={gameConfig.assets}
+        publicKey={publicKey.toString()}
+        transactionId={txSig ?? ''}
+        rotateOnMobile={rotateOnMobile}
+        // Si algún juego usa otra resolución base:
+        // baseResolution={{ width: 1920, height: 1080 }}
+      />
     );
-  };
+  }
+
+  return (
+    <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+      {ERROR_MESSAGES.GAME_LOAD_FAILED}
+    </div>
+  );
+};
 
   return (
     <GamePageTemplate

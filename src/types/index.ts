@@ -68,6 +68,8 @@ export namespace GameTypes {
     isMultiplayer?: boolean;
     /** Minimum age recommendation */
     minAge?: number;
+    /** Whether the game should rotate on mobile devices */
+    rotateOnMobile?: boolean;
   }
 
   /**
