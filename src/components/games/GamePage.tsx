@@ -32,6 +32,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
 
+  const [showMobileFull, setShowMobileFull] = React.useState(false);
+
   if (!gameConfig) {
     return (
       <GamePageTemplate
@@ -47,12 +49,13 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   
 
   // --- RUTA HIJA MÓVIL: si ya confirmó, mostramos fullscreen directo ---
-  if (isMobile() && gameConfig.assets && entryConfirmed) {
+ if (isMobile() && gameConfig.assets && entryConfirmed && showMobileFull) {
     return (
       <UnityGameMobile
         gameAssets={gameConfig.assets}
         publicKey={publicKey?.toString() || mobileWalletAddress || null}
         transactionId={txSig ?? null}
+        onExit={() => setShowMobileFull(false)} // <- regresar al GamePage
       />
     );
   }
@@ -87,6 +90,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       }
 
       // Desktop / no móvil: render embebido normal
+       // Si no es móvil o si ya saliste del fullscreen: render embebido normal
       return (
         <UnityGame
           gameAssets={gameConfig.assets}
