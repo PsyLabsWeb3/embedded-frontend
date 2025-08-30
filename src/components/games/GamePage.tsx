@@ -44,6 +44,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       />
     );
   }
+  
 
   // --- RUTA HIJA MÓVIL: si ya confirmó, mostramos fullscreen directo ---
   if (isMobile() && gameConfig.assets && entryConfirmed) {

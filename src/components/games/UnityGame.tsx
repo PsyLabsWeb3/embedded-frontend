@@ -241,7 +241,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
           style={{
             position: 'absolute',
             top: 8,
-            left: 8,                 // <-- pegado arriba a la derecha
+            left: 8,                 // <-- pegado arriba a la izquierda
             zIndex: 10,
             background: 'rgba(0,0,0,.6)',
             color: '#fff',
