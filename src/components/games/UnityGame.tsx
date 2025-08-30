@@ -1,5 +1,5 @@
 /**
- * @fileoverview UnityGame Component (Fullscreen-only, no forced rotation)
+ * @fileoverview UnityGame Component (Fullscreen auto in Mobile not adjusted for horizontal)
  */
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
