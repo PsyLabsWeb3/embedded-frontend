@@ -1,5 +1,7 @@
 /**
- * @fileoverview UnityGame Component (Fullscreen auto in Mobile not adjusted for horizontal)
+ * @fileoverview UnityGame Component
+ * - Desktop: embebido 16:9 con botón Fullscreen (nativo).
+ * - Mobile (cuando se usa desde UnityGameMobile): full-window por layout, contain 16:9.
  */
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
@@ -14,22 +16,30 @@ interface UnityGameProps {
   publicKey?: string | null;
   transactionId?: string | null;
 
-  /** Mostrar botón Fullscreen (default: true) */
+  /** Mostrar botón Fullscreen (desktop). Default: true */
   enableFullscreen?: boolean;
 
-  /** (Ignorado ahora) antes se usaba para forzar landscape en mobile */
-  rotateOnMobile?: boolean;
-
-  /** Resolución base (solo para estilos en embebido). Default 1280x720 */
+  /** Resolución base para embed (default 1280x720) */
   baseResolution?: { width: number; height: number };
-  forceFullscreenLayout?: boolean; // <-- NUEVO PARA MOBILE
+
+  /** Fuerza layout full-window (mobile shell) */
+  forceFullscreenLayout?: boolean;
+
+  /** Si true, no aplica padding de safe-area dentro del frame */
+  disableSafeAreaPadding?: boolean;
+
+  /** Ajuste por CSS "contain" al aspect objetivo (p.ej. 1280x720) cuando está en layout fullscreen */
+  fitAspect?: { width: number; height: number };
 }
 
-const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const isMobile = () =>
+  typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const isPortraitNow = () =>
+  typeof window !== 'undefined' &&
   !!(window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
 
-/* ---------- Fullscreen con fallback (overlay fijo) ---------- */
+/* ---------- Fullscreen API con fallback a pseudo (overlay fijo) ---------- */
 function useFullscreenWithFallback<T extends HTMLElement>(targetRef: React.RefObject<T>) {
   const [isNativeFs, setIsNativeFs] = useState(false);
   const [isPseudoFs, setIsPseudoFs] = useState(false);
@@ -59,7 +69,7 @@ function useFullscreenWithFallback<T extends HTMLElement>(targetRef: React.RefOb
         return;
       }
     } catch {}
-    // Fallback para navegadores sin Fullscreen API (iOS Safari)
+    // Fallback (Safari iOS)
     setIsPseudoFs(true);
   };
 
@@ -76,7 +86,7 @@ function useFullscreenWithFallback<T extends HTMLElement>(targetRef: React.RefOb
 
   return { isActive: isNativeFs || isPseudoFs, isNativeFs, isPseudoFs, enter, exit };
 }
-//test
+
 const UnityGame: React.FC<UnityGameProps> = ({
   gameAssets,
   className,
@@ -85,9 +95,10 @@ const UnityGame: React.FC<UnityGameProps> = ({
   publicKey,
   transactionId,
   enableFullscreen = true,
-  // rotateOnMobile ignorado a propósito
   baseResolution = { width: 1280, height: 720 },
   forceFullscreenLayout = false,
+  disableSafeAreaPadding = false,
+  fitAspect,
 }) => {
   const unityConfig = useMemo(
     () => ({
@@ -100,7 +111,6 @@ const UnityGame: React.FC<UnityGameProps> = ({
   );
 
   const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext(unityConfig);
-  
 
   useEffect(() => {
     if (isLoaded && onLoaded) onLoaded();
@@ -120,26 +130,18 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const outerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const { isActive, isPseudoFs, enter, exit } = useFullscreenWithFallback<HTMLDivElement>(outerRef);
-  
-  // Usa el layout fullscreen si está activo o si lo forzamos desde fuera
+
+  // Full-window de layout si está activo o forzado desde fuera (mobile shell)
   const useFsLayout = isActive || forceFullscreenLayout;
 
-  const heightUnit =
-    typeof CSS !== 'undefined' && (CSS as any).supports?.('height: 100dvh')
-      ? '100dvh'
-      : '100vh';
-
-  // Bloquear scroll del documento durante pseudo-fullscreen
+  // Bloquea scroll del documento durante pseudo-fullscreen (fallback)
   useEffect(() => {
     if (!isPseudoFs) return;
     const html = document.documentElement;
     const body = document.body;
-    const prevH = html.style.overflow,
-      prevB = body.style.overflow;
-    const prevTOH = (html.style as any).touchAction,
-      prevTOB = (body.style as any).touchAction;
-    const prevOSBH = (html.style as any).overscrollBehavior,
-      prevOSBB = (body.style as any).overscrollBehavior;
+    const prevH = html.style.overflow, prevB = body.style.overflow;
+    const prevTAh = (html.style as any).touchAction, prevTAb = (body.style as any).touchAction;
+    const prevOBH = (html.style as any).overscrollBehavior, prevOBB = (body.style as any).overscrollBehavior;
     html.style.overflow = 'hidden';
     body.style.overflow = 'hidden';
     (html.style as any).touchAction = 'none';
@@ -149,14 +151,17 @@ const UnityGame: React.FC<UnityGameProps> = ({
     return () => {
       html.style.overflow = prevH;
       body.style.overflow = prevB;
-      (html.style as any).touchAction = prevTOH;
-      (body.style as any).touchAction = prevTOB;
-      (html.style as any).overscrollBehavior = prevOSBH;
-      (body.style as any).overscrollBehavior = prevOSBB;
+      (html.style as any).touchAction = prevTAh;
+      (body.style as any).touchAction = prevTAb;
+      (html.style as any).overscrollBehavior = prevOBH;
+      (body.style as any).overscrollBehavior = prevOBB;
     };
   }, [isPseudoFs]);
 
-  /* -------- estilos (SIEMPRE una sola instancia de <Unity />) -------- */
+  // -------- estilos --------
+  const supportsDvh = typeof CSS !== 'undefined' && (CSS as any).supports?.('height: 100dvh');
+  const vhUnit = supportsDvh ? 'dvh' : 'vh';
+
   const outerStyle: React.CSSProperties =
     isActive && isPseudoFs
       ? {
@@ -172,24 +177,30 @@ const UnityGame: React.FC<UnityGameProps> = ({
         }
       : { position: 'relative', width: '100%' };
 
+  const safeArea = disableSafeAreaPadding
+    ? {}
+    : {
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'env(safe-area-inset-left)',
+        paddingRight: 'env(safe-area-inset-right)',
+      };
+
   const frameStyle: React.CSSProperties = useFsLayout
     ? {
         width: '100vw',
-        height: heightUnit,
+        height: `100${vhUnit}`,
         background: '#000',
         display: 'grid',
         placeItems: 'center',
         overflow: 'hidden',
         position: 'relative',
-        // Safe areas iOS
-        paddingTop: 'env(safe-area-inset-top)',
-        paddingBottom: 'env(safe-area-inset-bottom)',
-        paddingLeft: 'env(safe-area-inset-left)',
-        paddingRight: 'env(safe-area-inset-right)',
+        ...safeArea,
       }
     : {
         width: '100%',
         aspectRatio: `${baseResolution.width} / ${baseResolution.height}`,
+        maxWidth: 'min(100vw, 1280px)',
         maxHeight: '80vh',
         background: '#000',
         display: 'grid',
@@ -200,9 +211,18 @@ const UnityGame: React.FC<UnityGameProps> = ({
         position: 'relative',
       };
 
-  // Si forzamos layout, ocultar el botón FS para evitar confusiones
-  const showFsButton = enableFullscreen && !forceFullscreenLayout; // <-- NUEVO
+  // Caja 16:9 (contain) solo en full-window layout
+  const fitBoxStyle: React.CSSProperties =
+    useFsLayout && (fitAspect || baseResolution)
+      ? {
+          width: `min(100vw, calc(100${vhUnit} * ${(fitAspect?.width ?? baseResolution.width)} / ${(fitAspect?.height ?? baseResolution.height)}))`,
+          height: `min(100${vhUnit}, calc(100vw * ${(fitAspect?.height ?? baseResolution.height)} / ${(fitAspect?.width ?? baseResolution.width)}))`,
+          position: 'relative',
+        }
+      : { width: '100%', height: '100%', position: 'relative' };
 
+  // Mostrar botón FS en desktop (no en layout forzado)
+  const showFsButton = enableFullscreen && !forceFullscreenLayout;
 
   const unityStyle: React.CSSProperties = {
     width: '100%',
@@ -214,7 +234,8 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const containerClass = className || styles.container;
 
-  const showRotateHint = isActive && isMobile() && isPortraitNow();
+  // Hint solo en layout fullscreen (mobile shell o FS nativo) y portrait
+  const showRotateHint = useFsLayout && isMobile() && isPortraitNow();
 
   return (
     <div ref={outerRef} style={outerStyle}>
@@ -230,58 +251,85 @@ const UnityGame: React.FC<UnityGameProps> = ({
           }}
         >
           <div>Loading Game…</div>
-          <div style={{ textAlign: 'center', fontSize: 12 }}>{Math.round(loadingProgression * 100)}%</div>
+          <div style={{ textAlign: 'center', fontSize: 12 }}>
+            {Math.round(loadingProgression * 100)}%
+          </div>
         </div>
       )}
 
       <div style={frameStyle} id="unity-frame">
-     {showFsButton && (
-        <button
-          onClick={isActive ? exit : enter}
-          style={{
-            position: 'absolute',
-            top: 8,
-            left: 8,                 // <-- pegado arriba a la izquierda
-            zIndex: 10,
-            background: 'rgba(0,0,0,.6)',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,.25)',
-            borderRadius: 8,
-            padding: '6px 10px',
-            fontSize: 12,
-            lineHeight: 1,
-            cursor: 'pointer',
-            userSelect: 'none',
-            backdropFilter: 'blur(2px)',
-          }}
-          title={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
-          aria-label={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
-        >
-          {isActive ? 'Exit' : 'Fullscreen'}
-        </button>
-      )}
+        {showFsButton && (
+          <button
+            onClick={isActive ? exit : enter}
+            style={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              zIndex: 1000,
+              background: 'rgba(0,0,0,.6)',
+              color: '#fff',
+              border: '1px solid rgba(255,255,255,.25)',
+              borderRadius: 8,
+              padding: '6px 10px',
+              fontSize: 12,
+              lineHeight: 1,
+              cursor: 'pointer',
+              userSelect: 'none',
+              backdropFilter: 'blur(2px)',
+            }}
+            title={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
+            aria-label={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
+          >
+            {isActive ? 'Exit' : 'Fullscreen'}
+          </button>
+        )}
 
-        {/* ÚNICA instancia de Unity */}
-        <Unity className={containerClass} unityProvider={unityProvider} style={unityStyle} />
+        {/* Contenedor centrado + caja 16:9 (contain) */}
+        <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center' }}>
+          <div style={fitBoxStyle}>
+            <Unity className={containerClass} unityProvider={unityProvider} style={unityStyle} />
+          </div>
+        </div>
 
-        {/* Hint opcional en móvil si está en portrait durante fullscreen */}
+        {/* Chip de rotación (no bloquea) */}
         {showRotateHint && (
           <div
             style={{
               position: 'absolute',
-              bottom: 12,
+              top: 'calc(env(safe-area-inset-top) + 8px)',
               left: '50%',
               transform: 'translateX(-50%)',
-              color: '#cbd5e1',
-              fontSize: 12,
-              textAlign: 'center',
-              padding: '6px 10px',
-              background: 'rgba(0,0,0,.45)',
-              borderRadius: 8,
               zIndex: 11,
+              pointerEvents: 'none',
             }}
           >
-            Rotate your device for a better experience
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(0,0,0,.6)',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,.2)',
+                borderRadius: 999,
+                padding: '6px 10px',
+                fontSize: 12,
+                lineHeight: 1,
+                backdropFilter: 'blur(2px)',
+                maxWidth: '90vw',
+              }}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                <rect x="7" y="3" width="10" height="18" rx="2" ry="2"
+                      fill="none" stroke="currentColor" strokeWidth="2" />
+                <path d="M3 10a9 9 0 0 1 9-7"
+                      fill="none" stroke="currentColor" strokeWidth="2" />
+                <polyline points="10 1 12 3 10 5"
+                          fill="none" stroke="currentColor" strokeWidth="2"
+                          strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>Gira tu dispositivo para jugar en horizontal</span>
+            </div>
           </div>
         )}
       </div>

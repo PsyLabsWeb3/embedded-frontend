@@ -2,7 +2,7 @@
 import React from 'react';
 import GamePageTemplate from '../templates/GamePageTemplate';
 import UnityGame from './UnityGame';
-import UnityGameMobile from './UnityGameMobile'; // <-- NUEVO
+import UnityGameMobile from './UnityGameMobile';
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES, LOCAL_STORAGE_CONF } from '../../constants';
@@ -32,6 +32,9 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
 
+  // controla si mostramos la vista fullscreen móvil (para poder "volver")
+  const [showMobileFull, setShowMobileFull] = React.useState(false);
+
   if (!gameConfig) {
     return (
       <GamePageTemplate
@@ -44,15 +47,15 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       />
     );
   }
-  
 
-  // --- RUTA HIJA MÓVIL: si ya confirmó, mostramos fullscreen directo ---
-  if (isMobile() && gameConfig.assets && entryConfirmed) {
+  // Vista hija de mobile: full-window por layout (tipo crazygames)
+  if (isMobile() && gameConfig.assets && entryConfirmed && showMobileFull) {
     return (
       <UnityGameMobile
         gameAssets={gameConfig.assets}
         publicKey={publicKey?.toString() || mobileWalletAddress || null}
         transactionId={txSig ?? null}
+        onExit={() => setShowMobileFull(false)}
       />
     );
   }
@@ -79,19 +82,21 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               onSent={(sig) => setTxSig(sig)}
               onContinue={(sig) => {
                 setTxSig(sig);
-                setEntryConfirmed(true); // ← al confirmar, si es móvil salta a UnityGameMobile
+                setEntryConfirmed(true);
+                if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
               }}
             />
           </div>
         );
       }
 
-      // Desktop / no móvil: render embebido normal
+      // Desktop (o mobile después de salir del fullscreen): embed 16:9 con botón FS
       return (
         <UnityGame
           gameAssets={gameConfig.assets}
           publicKey={publicKey?.toString() || mobileWalletAddress}
           transactionId={txSig ?? ''}
+          enableFullscreen={true}
         />
       );
     }
