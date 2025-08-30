@@ -22,6 +22,7 @@ interface UnityGameProps {
 
   /** Resolución base (solo para estilos en embebido). Default 1280x720 */
   baseResolution?: { width: number; height: number };
+  forceFullscreenLayout?: boolean; // <-- NUEVO PARA MOBILE
 }
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -86,6 +87,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
   enableFullscreen = true,
   // rotateOnMobile ignorado a propósito
   baseResolution = { width: 1280, height: 720 },
+  forceFullscreenLayout = false,
 }) => {
   const unityConfig = useMemo(
     () => ({
@@ -98,6 +100,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
   );
 
   const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext(unityConfig);
+  
 
   useEffect(() => {
     if (isLoaded && onLoaded) onLoaded();
@@ -117,6 +120,14 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const outerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const { isActive, isPseudoFs, enter, exit } = useFullscreenWithFallback<HTMLDivElement>(outerRef);
+  
+  // Usa el layout fullscreen si está activo o si lo forzamos desde fuera
+  const useFsLayout = isActive || forceFullscreenLayout;
+
+  const heightUnit =
+    typeof CSS !== 'undefined' && (CSS as any).supports?.('height: 100dvh')
+      ? '100dvh'
+      : '100vh';
 
   // Bloquear scroll del documento durante pseudo-fullscreen
   useEffect(() => {
@@ -161,20 +172,24 @@ const UnityGame: React.FC<UnityGameProps> = ({
         }
       : { position: 'relative', width: '100%' };
 
-  // Marco embebido: usa aspect-ratio del build; Fullscreen: viewport completo
-  const frameStyle: React.CSSProperties = isActive
+  const frameStyle: React.CSSProperties = useFsLayout
     ? {
         width: '100vw',
-        height: '100vh',
+        height: heightUnit,
         background: '#000',
         display: 'grid',
         placeItems: 'center',
         overflow: 'hidden',
         position: 'relative',
+        // Safe areas iOS
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'env(safe-area-inset-left)',
+        paddingRight: 'env(safe-area-inset-right)',
       }
     : {
         width: '100%',
-        aspectRatio: `${baseResolution.width} / ${baseResolution.height}`, // p.ej. 16/9
+        aspectRatio: `${baseResolution.width} / ${baseResolution.height}`,
         maxHeight: '80vh',
         background: '#000',
         display: 'grid',
@@ -184,6 +199,10 @@ const UnityGame: React.FC<UnityGameProps> = ({
         margin: '0 auto',
         position: 'relative',
       };
+
+  // Si forzamos layout, ocultar el botón FS para evitar confusiones
+  const showFsButton = enableFullscreen && !forceFullscreenLayout; // <-- NUEVO
+
 
   const unityStyle: React.CSSProperties = {
     width: '100%',
@@ -216,25 +235,31 @@ const UnityGame: React.FC<UnityGameProps> = ({
       )}
 
       <div style={frameStyle} id="unity-frame">
-        {enableFullscreen && (
-          <button
-            onClick={isActive ? exit : enter}
-            style={{
-              position: 'absolute',
-              top: 8,
-              left: 8,
-              zIndex: 10,
-              background: 'rgba(0,0,0,.6)',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,.25)',
-              borderRadius: 8,
-              padding: '6px 10px',
-              fontSize: 12,
-            }}
-          >
-            {isActive ? 'Exit' : 'Fullscreen'}
-          </button>
-        )}
+     {showFsButton && (
+        <button
+          onClick={isActive ? exit : enter}
+          style={{
+            position: 'absolute',
+            top: 8,
+            left: 8,                 // <-- pegado arriba a la derecha
+            zIndex: 10,
+            background: 'rgba(0,0,0,.6)',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,.25)',
+            borderRadius: 8,
+            padding: '6px 10px',
+            fontSize: 12,
+            lineHeight: 1,
+            cursor: 'pointer',
+            userSelect: 'none',
+            backdropFilter: 'blur(2px)',
+          }}
+          title={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
+          aria-label={isActive ? 'Exit fullscreen' : 'Enter fullscreen'}
+        >
+          {isActive ? 'Exit' : 'Fullscreen'}
+        </button>
+      )}
 
         {/* ÚNICA instancia de Unity */}
         <Unity className={containerClass} unityProvider={unityProvider} style={unityStyle} />

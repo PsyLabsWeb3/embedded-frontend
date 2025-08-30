@@ -2,10 +2,10 @@
 import React from 'react';
 import GamePageTemplate from '../templates/GamePageTemplate';
 import UnityGame from './UnityGame';
+import UnityGameMobile from './UnityGameMobile'; // <-- NUEVO
 import PlaceholderGame from './PlaceholderGame';
 import { useGameConfig } from '../../hooks/useGameConfig';
-import { ERROR_MESSAGES } from '../../constants';
-import { LOCAL_STORAGE_CONF } from '../../constants';
+import { ERROR_MESSAGES, LOCAL_STORAGE_CONF } from '../../constants';
 import { useWallet } from '@solana/wallet-adapter-react';
 import PayEntryButton from './PayEntryButton';
 
@@ -14,16 +14,21 @@ interface GamePageProps {
   customContent?: React.ReactNode;
 }
 
+const isMobile = () =>
+  typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const gameConfig = useGameConfig(gameId);
   const { publicKey, connected } = useWallet();
 
-  const mobileSession = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
-  const mobileWalletAddress = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) || undefined;
-  const isConnectedMobile = mobileSession && mobileWalletAddress;
+  const mobileSession = (typeof localStorage !== 'undefined')
+    ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION)
+    : null;
+  const mobileWalletAddress = (typeof localStorage !== 'undefined')
+    ? (localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) || undefined)
+    : undefined;
+  const isConnectedMobile = !!(mobileSession && mobileWalletAddress);
 
-  // Antes: solo transactionId
-  // Ahora: confirmation-first
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
 
@@ -40,10 +45,19 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     );
   }
 
+  // --- RUTA HIJA MÓVIL: si ya confirmó, mostramos fullscreen directo ---
+  if (isMobile() && gameConfig.assets && entryConfirmed) {
+    return (
+      <UnityGameMobile
+        gameAssets={gameConfig.assets}
+        publicKey={publicKey?.toString() || mobileWalletAddress || null}
+        transactionId={txSig ?? null}
+      />
+    );
+  }
+
   const renderGameComponent = (): React.ReactNode => {
-    if (gameConfig.placeholder) {
-      return <PlaceholderGame gameName={gameConfig.title} />;
-    }
+    if (gameConfig.placeholder) return <PlaceholderGame gameName={gameConfig.title} />;
 
     if (gameConfig.assets) {
       if ((!connected || !publicKey) && !isConnectedMobile) {
@@ -54,7 +68,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         );
       }
 
-      // Hasta no confirmar (o vencer el timeout interno del botón), mostramos el botón
       if (!entryConfirmed) {
         return (
           <div style={{ display: 'grid', gap: 12 }}>
@@ -62,24 +75,21 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               To play, please make the entry payment.
             </div>
             <PayEntryButton
-              // opcional: si quieres guardar el sig apenas se envía
               onSent={(sig) => setTxSig(sig)}
-              // clave: este onContinue se llama después de confirmación moderna o timeout de 10s
               onContinue={(sig) => {
                 setTxSig(sig);
-                setEntryConfirmed(true);
+                setEntryConfirmed(true); // ← al confirmar, si es móvil salta a UnityGameMobile
               }}
             />
           </div>
         );
       }
 
-      // Confirmado: ya puedes cargar Unity
+      // Desktop / no móvil: render embebido normal
       return (
         <UnityGame
           gameAssets={gameConfig.assets}
           publicKey={publicKey?.toString() || mobileWalletAddress}
-          // Si tu Unity aún requiere el id, se lo pasamos (ya confirmado/timeout).
           transactionId={txSig ?? ''}
         />
       );
