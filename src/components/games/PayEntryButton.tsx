@@ -54,10 +54,16 @@ async function waitForFinalized(
   try {
     subId = await connection.onSignature(
       signature,
-      (res) => { cleanup(); },
+      (res /* SignatureResult */) => {
+        // Marcar como "leído" para evitar TS6133 y mantener compatibilidad:
+        void res;
+        cleanup();
+      },
       "finalized"
     );
-  } catch { /* fallback a polling */ }
+  } catch {
+    // fallback a polling
+  }
 
   interval = setInterval(async () => {
     try {
@@ -186,7 +192,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
   const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
   const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem("phantom_wallet_pubkey") : null;
-  const mobileCanSign = isMobile() && !!phantomSession;
 
   // Ruta que usaremos (desktop adapter vs mobile Phantom)
   const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
@@ -343,12 +348,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
           {(sending || !prereqsReady) && <span style={styles.spinnerInline} aria-hidden />}
           <span>{buttonLabel}</span>
         </button>
-
-        {/* (Opcional) mensajes de estado de prereqs para debug rápido */}
-        {/* <div style={{fontSize:12,opacity:.7}}>
-          amountReady:{String(amountReady)} • treasuryOk:{String(treasuryOk)} •
-          {usingDesktop ? ` anchorReady:${String(anchorReady)}` : ` phantomReady:${String(phantomReady)}`}
-        </div> */}
       </div>
 
       {/* Modal de confirmación */}
