@@ -7,7 +7,7 @@ interface Props {
   gameAssets: GameTypes.UnityAssets;
   publicKey?: string | null;
   transactionId?: string | null;
-  onExit?: () => void;
+  onExit?: () => void; // callback al GamePage
 }
 
 const isPortrait = () =>
@@ -62,6 +62,9 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
     };
   }, []);
 
+  // Control local para desmontar Unity antes de volver al GamePage
+  const [visible, setVisible] = React.useState(true);
+
   // Modal confirm
   const [confirmOpen, setConfirmOpen] = React.useState(false);
   useEffect(() => {
@@ -74,15 +77,17 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
   return (
     <div style={containerStyle}>
       {/* UnityGame: full-window por layout, 16:9 contain, sin botón FS */}
-      <UnityGame
-        gameAssets={gameAssets}
-        publicKey={publicKey || undefined}
-        transactionId={transactionId || undefined}
-        enableFullscreen={false}
-        forceFullscreenLayout
-        disableSafeAreaPadding
-        fitAspect={{ width: 1280, height: 720 }}
-      />
+      {visible && (
+        <UnityGame
+          gameAssets={gameAssets}
+          publicKey={publicKey || undefined}
+          transactionId={transactionId || undefined}
+          enableFullscreen={false}
+          forceFullscreenLayout
+          disableSafeAreaPadding
+          fitAspect={{ width: 1280, height: 720 }}
+        />
+      )}
 
       {/* Chip de rotación (no bloquea) */}
       {portrait && (
@@ -162,7 +167,7 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
         </span>
       </button>
 
-      {/* Modal confirmación Exit */}
+      {/* Modal confirmación Exit (mensaje en inglés y aviso de pérdida de partida) */}
       {confirmOpen && (
         <div
           id="exit-confirm-modal"
@@ -192,10 +197,11 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
             }}
           >
             <div id="exit-title" style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-              ¿Salir del juego?
+              Exit game?
             </div>
-            <div style={{ fontSize: 13, opacity: .85 }}>
-              Puedes volver desde la página del juego.
+            <div style={{ fontSize: 13, opacity: .9 }}>
+              If you exit now, the game will close and your current run will be lost.
+              You'll be returned to the game page and will need to pay again to play.
             </div>
             <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 14 }}>
               <button
@@ -210,10 +216,19 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
                   cursor: 'pointer',
                 }}
               >
-                Cancelar
+                Cancel
               </button>
               <button
-                onClick={() => { setConfirmOpen(false); onExit && onExit(); }}
+                onClick={() => {
+                  // 1) desmonta Unity para disparar unload() (ver UnityGame cleanup)
+                  setConfirmOpen(false);
+                  // desmonta el Unity "child" antes de notificar al padre
+                  // (no necesitamos esperar mucho, 30ms basta para que React procese el unmount)
+                  // si tuvieras una bandera visible: setVisible(false);
+                  // en este caso desmontamos al volver al padre igualmente
+                  setVisible(false);
+                  setTimeout(() => onExit && onExit(), 30);
+                }}
                 style={{
                   background: '#e11d48',
                   color: '#fff',
@@ -224,7 +239,7 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
                   cursor: 'pointer',
                 }}
               >
-                Salir
+                Exit
               </button>
             </div>
           </div>
