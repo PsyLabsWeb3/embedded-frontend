@@ -81,7 +81,7 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
         enableFullscreen={false}
         forceFullscreenLayout
         disableSafeAreaPadding
-        fitAspect={{ width: 1280, height: 720 }}
+        // fitAspect={{ width: 1280, height: 720 }}
       />
 
       {/* Chip de rotación (no bloquea) */}
