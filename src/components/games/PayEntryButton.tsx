@@ -1,4 +1,3 @@
-// PayEntryButton.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import { AnchorProvider, Program, setProvider, BN } from "@coral-xyz/anchor";
 import type { Idl } from "@coral-xyz/anchor";
@@ -28,7 +27,91 @@ type Props = {
   fixedAmountSol?: number;
 };
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+// Espera a que una firma llegue a "finalized".
+// Usa WebSocket (onSignature) y hace polling como respaldo.
+async function waitForFinalized(
+  connection: ReturnType<typeof useConnection>["connection"],
+  signature: string,
+  opts: { timeoutMs?: number; pollMs?: number } = {}
+): Promise<boolean> {
+  const timeoutMs = opts.timeoutMs ?? 120_000; // 2 min
+  const pollMs = opts.pollMs ?? 1500;
+
+  let resolved = false;
+  let subId: number | null = null;
+  let interval: any = null;
+  let tmo: any = null;
+
+  const cleanup = () => {
+    if (resolved) return;
+    resolved = true;
+    if (subId !== null) {
+      try { connection.removeSignatureListener(subId); } catch {}
+    }
+    if (interval) clearInterval(interval);
+    if (tmo) clearTimeout(tmo);
+  };
+
+  try {
+    // 1) WebSocket: notifica cuando FINALIZED
+    subId = await connection.onSignature(
+      signature,
+      (res /* SignatureResult */) => {
+        if (!res || res.err) {
+          cleanup();
+          // si hubo error, considera que no finalizó correctamente
+          // (podrías devolver false; aquí devolvemos false)
+          // pero igual resolvemos la promesa abajo
+        } else {
+          cleanup();
+        }
+      },
+      "finalized"
+    );
+  } catch {
+    // si falla el WS, seguimos con polling
+  }
+
+  // 2) Polling como respaldo (y también para robustez)
+  interval = setInterval(async () => {
+    try {
+      const st = await connection.getSignatureStatuses([signature], { searchTransactionHistory: true });
+      const s = st.value[0];
+      if (!s) return;
+      // confirmationStatus puede ser 'processed' | 'confirmed' | 'finalized'
+      if (s.confirmationStatus === "finalized") {
+        cleanup();
+      }
+    } catch {
+      // ignore y reintenta
+    }
+  }, pollMs);
+
+  // 3) Timeout de seguridad
+  const result = await new Promise<boolean>((resolve) => {
+    tmo = setTimeout(() => {
+      // no finalizó en tiempo; resolvemos false
+      if (!resolved) {
+        resolved = true;
+        if (subId !== null) {
+          try { connection.removeSignatureListener(subId); } catch {}
+        }
+        if (interval) clearInterval(interval);
+        resolve(false);
+      }
+    }, timeoutMs);
+
+    // puente para resolver en cleanup por éxito
+    const check = setInterval(async () => {
+      if (resolved) {
+        clearInterval(check);
+        resolve(true);
+      }
+    }, 100);
+  });
+
+  return result;
+}
 
 const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol }) => {
   const { connection } = useConnection();
@@ -42,32 +125,42 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
 
-  // Carga precio y calcula 0.5 USD en SOL, a menos que fijes el monto
+  // Carga precio y maneja retorno de Phantom (si guardó la tx en LS)
   useEffect(() => {
     const last = localStorage.getItem("phantom_last_tx");
     if (last) {
       setTxSig(last);
       setModalOpen(true);
-      setModalPhase("ready");
+      setModalPhase("waiting");
       localStorage.removeItem("phantom_last_tx");
-    } else {
-      if (typeof fixedAmountSol === "number") {
-        setAmountSol(fixedAmountSol);
-        return;
-      }
+
+      let cancelled = false;
       (async () => {
-        try {
-          const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
-          const data = await r.json();
-          const price = Number(data?.priceUsd);
-          if (!price || !isFinite(price) || price <= 0) return;
-          console.log("SOL price:", price);
-          const usd = 0.5;
-          setAmountSol(Number((usd / price).toFixed(8)));
-        } catch { }
+        const ok = await waitForFinalized(connection, last);
+        if (!cancelled && ok) {
+          setModalPhase("ready");
+        }
       })();
+
+      return () => { cancelled = true; };
     }
-  }, [fixedAmountSol]);
+
+    if (typeof fixedAmountSol === "number") {
+      setAmountSol(fixedAmountSol);
+      return;
+    }
+
+    (async () => {
+      try {
+        const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+        const data = await r.json();
+        const price = Number(data?.priceUsd);
+        if (!price || !isFinite(price) || price <= 0) return;
+        const usd = 0.5;
+        setAmountSol(Number((usd / price).toFixed(8)));
+      } catch { }
+    })();
+  }, [fixedAmountSol, connection]);
 
   // Adapter -> AnchorWallet
   const anchorWallet = useMemo<AnchorWallet | null>(() => {
@@ -160,16 +253,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         setModalOpen(true);
         setModalPhase("waiting");
 
-        const CONFIRM_TIMEOUT_MS = 10_000;
-        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash("confirmed");
-        const confirmPromise = connection.confirmTransaction(
-          { signature: sig, blockhash, lastValidBlockHeight },
-          "confirmed"
-        );
-
-        await Promise.race([confirmPromise, sleep(CONFIRM_TIMEOUT_MS)]);
-        await sleep(10_000);
-        setModalPhase("ready");
+        // Espera a FINALIZED
+        const ok = await waitForFinalized(connection, sig);
+        if (ok) setModalPhase("ready");
         setSending(false);
         return;
       }
@@ -209,12 +295,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
       // Serialize message (what wallet signs)
       let unsignedBytes: Uint8Array;
       try {
-        // VersionedTransaction (newer) has .version; use its serialize()
         if ((tx as any).version !== undefined && typeof (tx as any).serialize === "function") {
-          // VersionedTransaction: serialize() returns wire-format bytes
           unsignedBytes = (tx as any).serialize();
         } else {
-          // Legacy Transaction: serialize without requiring signatures or verifying them
           unsignedBytes = (tx as any).serialize({ requireAllSignatures: false, verifySignatures: false });
         }
       } catch (err) {
@@ -223,18 +306,14 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
       }
       const unsignedBase58 = bs58.encode(Buffer.from(unsignedBytes));
 
-      // Build the payload JSON as the Phantom expects:
       const payloadObj = {
         transaction: unsignedBase58,
         session: phantomSession,
       };
 
       const dappKp = JSON.parse(dappKpRaw);
-
-      // Encrypt the JSON payload
       const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(payloadObj, phantomEncPub, dappKp.secretKeyBase58);
 
-      // Save redirect and build deeplink
       const currentPath = window.location.pathname + window.location.search;
       localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
 
@@ -252,7 +331,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         `&payload=${encodeURIComponent(payloadBase58)}` +
         `&nonce=${encodeURIComponent(nonceBase58)}`;
 
-      // Redirect to Phantom
       window.location.href = deeplink;
     } catch (e) {
       console.error("pay_entry error:", e);
@@ -280,9 +358,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         >
           {sending ? "Sending..." : `Casual Mode (${amountSol || 0} SOL)`}
         </button>
-        {/* <small style={{ opacity: 0.7 }}>
-          Program: {PROGRAM_ID.toBase58()} • Treasury: {TREASURY_PDA.toBase58()}
-        </small> */}
       </div>
 
       {/* Modal de confirmación */}
@@ -301,8 +376,10 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
             {modalPhase === "waiting" ? (
               <div style={{ display: "grid", gap: 10, placeItems: "center" }}>
                 <div style={styles.spinner} />
-                <div style={{ fontSize: 12, opacity: 0.8 }}>
-                  Waiting for confirmation (~10s)…
+                <div style={{ fontSize: 12, opacity: 0.85, textAlign: "center" }}>
+                  Waiting for <b>finalization</b> on Solana…
+                  <br />
+                  You can watch the status in the Explorer link above.
                 </div>
               </div>
             ) : (
@@ -348,6 +425,7 @@ const styles: Record<string, React.CSSProperties> = {
 
 // inyecta @keyframes para el spinner
 const ensureSpinnerKeyframes = () => {
+  if (typeof document === "undefined") return;
   const id = "payentry-spinner";
   if (document.getElementById(id)) return;
   const style = document.createElement("style");
