@@ -1,5 +1,5 @@
 import MainLayout from '../components/templates/MainLayout';
-import PageHeader from '../components/molecules/PageHeader';
+// import PageHeader from '../components/molecules/PageHeader';
 import UserStatsSection from '../components/organisms/history/UserStatsSection';
 import UserHistorySection from '../components/organisms/history/UserHistorySection';
 import { LOCAL_STORAGE_CONF } from '../constants';
