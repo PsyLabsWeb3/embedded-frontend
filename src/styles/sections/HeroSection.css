@@ -1,10 +1,11 @@
 /* Base styles - Mobile first */
 .hero-title {
   font-family: var(--font-heading);
-  font-size: var(--font-size-2xl);
+  font-size: 2.5rem;
   line-height: 1.2;
-  margin-bottom: var(--spacing-sm);
-  text-align: left;
+  margin-bottom: 0.1rem;
+  text-align: center;
+  color: #FFFFFF;
 }
 
 .hero-section__row {
@@ -73,7 +74,6 @@
     line-height: 1.18;
     margin-bottom: 0.5rem;   /* antes: 0 */
     margin-top: 1.2rem;      /* antes: 2.5rem */
-    text-align: center;
   }
   .hero-section__subtitle {
     font-size: 1.8rem;
@@ -101,7 +101,6 @@
     line-height: 1.18;
     margin-bottom: 0;
     margin-top: 3.2rem;
-    text-align: center;
   }
   .hero-section__subtitle {
     font-size: 1.5rem;

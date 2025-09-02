@@ -20,10 +20,6 @@ const History = () => {
   if (!connected && !isConnectedMobile) {
     return (
       <MainLayout>
-        <PageHeader 
-          title="Game History" 
-          description="Track your gaming sessions and progress over time"
-        />
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
@@ -46,11 +42,6 @@ const History = () => {
 
   return (
     <MainLayout>
-      <PageHeader 
-        title="Game History" 
-        description="Track your gaming sessions and progress over time"
-      />
-
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-xl)' }}>
         <UserStatsSection 
           points={isConnected ? stats.points : 0}

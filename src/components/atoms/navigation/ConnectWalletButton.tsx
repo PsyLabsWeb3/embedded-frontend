@@ -48,11 +48,11 @@ const ConnectWalletButton = () => {
       );
 
       window.location.href =
-        `https://phantom.app/ul/v1/connect?` +
-        `app_url=${appUrl}` +
-        `&redirect_link=${redirectLink}` +
-        `&dapp_encryption_public_key=${encodeURIComponent(kp.publicKeyBase58)}` +
-        `&cluster=devnet`;   // <-- remove this on production :D
+  `https://phantom.app/ul/v1/connect?` +
+  `app_url=${appUrl}` +
+  `&redirect_link=${redirectLink}` +
+  `&dapp_encryption_public_key=${encodeURIComponent(kp.publicKeyBase58)}` +
+  `&cluster=devnet`; // Usar el cluster correspondiente en producción
     };
 
     const handlePhantomDisconnect = () => {

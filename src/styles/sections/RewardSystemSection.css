@@ -5,11 +5,7 @@
 }
 
 .reward-title {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background: linear-gradient(90deg, #D9D9D9 0%, #757575 100%);
-  background-clip: text;
-  color: transparent;
+  color: #FFFFFF;
   font-family: var(--font-subheading);
   font-size: var(--font-size-xl);
   font-weight: 700;
@@ -63,7 +59,7 @@
 }
 
 .reward-bullet {
-  background: var(--color-text);
+  background: #5DD62C;
   border-radius: 50%;
   display: inline-block;
   flex-shrink: 0;
