@@ -110,7 +110,8 @@ const UnityGame: React.FC<UnityGameProps> = ({
     [gameAssets]
   );
 
-  const { unityProvider, isLoaded, loadingProgression, sendMessage } = useUnityContext(unityConfig);
+  // Nota: 'unload' existe en react-unity-webgl >= 9
+  const { unityProvider, isLoaded, loadingProgression, sendMessage, unload } = useUnityContext(unityConfig);
 
   useEffect(() => {
     if (isLoaded && onLoaded) onLoaded();
@@ -127,6 +128,19 @@ const UnityGame: React.FC<UnityGameProps> = ({
       sendMessage('WalletManager', 'SetTransactionId', transactionId);
     }
   }, [isLoaded, transactionId, sendMessage]);
+
+  // --- descarga Unity solo cuando el componente se desmonta (cambio de ruta) ---
+  useEffect(() => {
+    return () => {
+      try {
+        if (typeof unload === 'function') {
+          unload(); // react-unity-webgl >= v9
+        } else {
+          (unityProvider as any)?.quitUnityInstance?.(); // fallback
+        }
+      } catch {}
+    };
+  }, [unload, unityProvider]);
 
   const outerRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const { isActive, isPseudoFs, enter, exit } = useFullscreenWithFallback<HTMLDivElement>(outerRef);
