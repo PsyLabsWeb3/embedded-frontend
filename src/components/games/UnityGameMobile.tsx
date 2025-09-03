@@ -126,7 +126,7 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
                         fill="none" stroke="currentColor" strokeWidth="2"
                         strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>Gira tu dispositivo para jugar en horizontal</span>
+            <span>Turn your device for landscape mode</span>
           </div>
         </div>
       )}

@@ -1,4 +1,3 @@
-// PayEntryButton.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import { AnchorProvider, Program, setProvider, BN } from "@coral-xyz/anchor";
 import type { Idl } from "@coral-xyz/anchor";
@@ -28,46 +27,137 @@ type Props = {
   fixedAmountSol?: number;
 };
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+// Espera a que una firma llegue a "finalized" (WS + polling backup)
+async function waitForFinalized(
+  connection: ReturnType<typeof useConnection>["connection"],
+  signature: string,
+  opts: { timeoutMs?: number; pollMs?: number } = {}
+): Promise<boolean> {
+  const timeoutMs = opts.timeoutMs ?? 120_000;
+  const pollMs = opts.pollMs ?? 1500;
+
+  let resolved = false;
+  let subId: number | null = null;
+  let interval: any = null;
+  let tmo: any = null;
+
+  const cleanup = () => {
+    if (resolved) return;
+    resolved = true;
+    if (subId !== null) {
+      try { connection.removeSignatureListener(subId); } catch {}
+    }
+    if (interval) clearInterval(interval);
+    if (tmo) clearTimeout(tmo);
+  };
+
+  try {
+    subId = await connection.onSignature(
+      signature,
+      (res /* SignatureResult */) => {
+        // Marcar como "leído" para evitar TS6133 y mantener compatibilidad:
+        void res;
+        cleanup();
+      },
+      "finalized"
+    );
+  } catch {
+    // fallback a polling
+  }
+
+  interval = setInterval(async () => {
+    try {
+      const st = await connection.getSignatureStatuses([signature], { searchTransactionHistory: true });
+      const s = st.value[0];
+      if (s?.confirmationStatus === "finalized") cleanup();
+    } catch {}
+  }, pollMs);
+
+  const result = await new Promise<boolean>((resolve) => {
+    tmo = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        if (subId !== null) {
+          try { connection.removeSignatureListener(subId); } catch {}
+        }
+        if (interval) clearInterval(interval);
+        resolve(false);
+      }
+    }, timeoutMs);
+
+    const check = setInterval(() => {
+      if (resolved) { clearInterval(check); resolve(true); }
+    }, 100);
+  });
+
+  return result;
+}
 
 const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
+  // ===== Estados =====
   const [amountSol, setAmountSol] = useState<number>(fixedAmountSol ?? 0);
   const [sending, setSending] = useState(false);
 
-  // Modal de confirmación
+  // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
 
-  // Carga precio y calcula 0.5 USD en SOL, a menos que fijes el monto
+  // Prerequisitos
+  const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
+
+  // ===== Carga de precio o retorno de Phantom =====
   useEffect(() => {
     const last = localStorage.getItem("phantom_last_tx");
     if (last) {
       setTxSig(last);
       setModalOpen(true);
-      setModalPhase("ready");
+      setModalPhase("waiting");
       localStorage.removeItem("phantom_last_tx");
-    } else {
-      if (typeof fixedAmountSol === "number") {
-        setAmountSol(fixedAmountSol);
-        return;
-      }
+
+      let cancelled = false;
       (async () => {
-        try {
-          const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
-          const data = await r.json();
-          const price = Number(data?.priceUsd);
-          if (!price || !isFinite(price) || price <= 0) return;
-          console.log("SOL price:", price);
-          const usd = 0.5;
-          setAmountSol(Number((usd / price).toFixed(8)));
-        } catch { }
+        const ok = await waitForFinalized(connection, last);
+        if (!cancelled && ok) setModalPhase("ready");
       })();
+
+      return () => { /* cleanup phantom flow */ };
     }
-  }, [fixedAmountSol]);
+
+    if (typeof fixedAmountSol === "number") {
+      setAmountSol(fixedAmountSol);
+      return;
+    }
+
+    (async () => {
+      try {
+        const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+        const data = await r.json();
+        const price = Number(data?.priceUsd);
+        if (!price || !isFinite(price) || price <= 0) return;
+        const usd = 0.5;
+        setAmountSol(Number((usd / price).toFixed(8)));
+      } catch { /* ignore */ }
+    })();
+  }, [fixedAmountSol, connection]);
+
+  // Verificación de treasury una vez
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const info = await connection.getAccountInfo(TREASURY_PDA);
+        const ok = !!info && info.owner.equals(PROGRAM_ID) && info.data.length > 0;
+        if (alive) setTreasuryOk(ok);
+      } catch {
+        if (alive) setTreasuryOk(false);
+      }
+    })();
+    return () => { alive = false; };
+  }, [connection]);
 
   // Adapter -> AnchorWallet
   const anchorWallet = useMemo<AnchorWallet | null>(() => {
@@ -97,55 +187,45 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
     return new Program(idl as Idl, provider);
   }, [provider]);
 
+  // Mobile Phantom session / claves
   const phantomSession = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION) : null;
-  const mobileCanSign = isMobile() && !!phantomSession;
+  const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
+  const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
+  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem("phantom_wallet_pubkey") : null;
 
-  const disabled = sending || (!wallet.publicKey && !mobileCanSign);
+  // Ruta que usaremos (desktop adapter vs mobile Phantom)
+  const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
 
+  // Prerequisitos listos?
+  const anchorReady = !!anchorWallet && !!program;
+  const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
+  const amountReady = amountSol > 0;
+  const networkReady = treasuryOk === true;
+
+  const prereqsReady = usingDesktop
+    ? (anchorReady && amountReady && networkReady)
+    : (phantomReady && amountReady && networkReady);
+
+  // Botón deshabilitado mientras enviamos o no hay prereqs
+  const disabled = sending || !prereqsReady;
+
+  // ====== Pagar entrada ======
   const handlePayEntry = async () => {
-    console.log("PayEntryButton: pay entry", { amountSol });
-
-    if (!program && !isMobile()) {
-      console.warn("Program not ready for desktop flow");
-      return;
-    }
+    if (!prereqsReady) return;
 
     try {
       setSending(true);
 
       const lamports = new BN(Math.trunc((amountSol || 0) * LAMPORTS_PER_SOL));
       if (lamports.lte(new BN(0))) {
-        console.warn("Zero lamports, abort");
-        setSending(false);
-        return;
-      }
-
-      // Verify treasury
-      const info = await connection.getAccountInfo(TREASURY_PDA);
-      if (!info || !info.owner.equals(PROGRAM_ID) || info.data.length === 0) {
-        console.warn("Treasury not initialized in this cluster.");
-        setSending(false);
-        return;
-      }
-
-      // Determine payer pubkey: adapter wallet or Phantom mobile saved pubkey
-      const adapterPub = wallet.publicKey ?? null;
-      const phantomWalletPubStr = typeof window !== "undefined" ? localStorage.getItem("phantom_wallet_pubkey") : null;
-      const payerPubkey = adapterPub ?? (phantomWalletPubStr ? new PublicKey(phantomWalletPubStr) : null);
-
-      if (!payerPubkey) {
-        console.warn("No payer public key available (adapter or phantom mobile).");
         setSending(false);
         return;
       }
 
       // Desktop / adapter flow
-      if (!isMobile() || (isMobile() && !localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION))) {
-        if (!program || !anchorWallet) {
-          throw new Error("Program or anchorWallet not ready for desktop flow");
-        }
+      if (usingDesktop) {
+        if (!program || !anchorWallet) throw new Error("Program or anchorWallet not ready");
 
-        // Desktop anchor rpc
         const sig = await program.methods
           .payEntry(lamports)
           .accounts({
@@ -160,34 +240,21 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         setModalOpen(true);
         setModalPhase("waiting");
 
-        const CONFIRM_TIMEOUT_MS = 10_000;
-        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash("confirmed");
-        const confirmPromise = connection.confirmTransaction(
-          { signature: sig, blockhash, lastValidBlockHeight },
-          "confirmed"
-        );
-
-        await Promise.race([confirmPromise, sleep(CONFIRM_TIMEOUT_MS)]);
-        await sleep(10_000);
-        setModalPhase("ready");
+        const ok = await waitForFinalized(connection, sig);
+        if (ok) setModalPhase("ready");
         setSending(false);
         return;
       }
 
-      // Mobile flow with Phantom deep-link
-      // Ensure we have required values saved at connect time
-      const phantomSession = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
-      const phantomEncPub = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC);
-      const dappKpRaw = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS);
-
-      if (!phantomSession || !phantomEncPub || !dappKpRaw) {
-        console.warn("Missing phantom session/encryption key/dapp keypair for mobile signing");
+      // ===== Mobile Phantom deep-link flow =====
+      if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
+        console.warn("Missing Phantom mobile prerequisites");
         setSending(false);
         return;
       }
 
-      // Create a temporary Anchor Program that uses the Phantom wallet publicKey (no signer)
-      const tempWallet: any = { publicKey: new PublicKey(phantomWalletPubStr!) };
+      // Program temporal sin signer (solo pubkey)
+      const tempWallet: any = { publicKey: new PublicKey(phantomWalletPubStr) };
       const tempProvider = new AnchorProvider(connection, tempWallet, { commitment: "confirmed" });
       const tempProgram = new Program(idl as Idl, tempProvider);
 
@@ -201,40 +268,27 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         })
         .transaction();
 
-      // Set fee payer and recent blockhash (wallet will expect these)
       const { blockhash } = await connection.getLatestBlockhash("confirmed");
       tx.feePayer = tempWallet.publicKey;
       tx.recentBlockhash = blockhash;
 
-      // Serialize message (what wallet signs)
+      // Serialize
       let unsignedBytes: Uint8Array;
       try {
-        // VersionedTransaction (newer) has .version; use its serialize()
         if ((tx as any).version !== undefined && typeof (tx as any).serialize === "function") {
-          // VersionedTransaction: serialize() returns wire-format bytes
           unsignedBytes = (tx as any).serialize();
         } else {
-          // Legacy Transaction: serialize without requiring signatures or verifying them
           unsignedBytes = (tx as any).serialize({ requireAllSignatures: false, verifySignatures: false });
         }
-      } catch (err) {
-        console.warn("Falling back to serializeMessage() due to serialize() error:", err);
+      } catch {
         unsignedBytes = tx.serializeMessage();
       }
       const unsignedBase58 = bs58.encode(Buffer.from(unsignedBytes));
 
-      // Build the payload JSON as the Phantom expects:
-      const payloadObj = {
-        transaction: unsignedBase58,
-        session: phantomSession,
-      };
-
+      const payloadObj = { transaction: unsignedBase58, session: phantomSession };
       const dappKp = JSON.parse(dappKpRaw);
-
-      // Encrypt the JSON payload
       const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(payloadObj, phantomEncPub, dappKp.secretKeyBase58);
 
-      // Save redirect and build deeplink
       const currentPath = window.location.pathname + window.location.search;
       localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
 
@@ -252,7 +306,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         `&payload=${encodeURIComponent(payloadBase58)}` +
         `&nonce=${encodeURIComponent(nonceBase58)}`;
 
-      // Redirect to Phantom
       window.location.href = deeplink;
     } catch (e) {
       console.error("pay_entry error:", e);
@@ -270,19 +323,31 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
     ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
     : "#";
 
+  const buttonLabel = sending
+    ? "Sending..."
+    : (!prereqsReady ? "Preparing…" : `Casual Mode (${amountSol || 0} SOL)`);
+
   return (
     <>
       <div style={{ display: "grid", gap: 8, maxWidth: 380 }}>
         <button
           onClick={handlePayEntry}
           disabled={disabled}
-          style={{ padding: 10, cursor: disabled ? "not-allowed" : "pointer", borderRadius: 8 }}
+          style={{
+            padding: 10,
+            cursor: disabled ? "not-allowed" : "pointer",
+            borderRadius: 8,
+            opacity: disabled ? 0.8 : 1,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            justifyContent: "center",
+            minHeight: 40,
+          }}
         >
-          {sending ? "Sending..." : `Casual Mode (${amountSol || 0} SOL)`}
+          {(sending || !prereqsReady) && <span style={styles.spinnerInline} aria-hidden />}
+          <span>{buttonLabel}</span>
         </button>
-        {/* <small style={{ opacity: 0.7 }}>
-          Program: {PROGRAM_ID.toBase58()} • Treasury: {TREASURY_PDA.toBase58()}
-        </small> */}
       </div>
 
       {/* Modal de confirmación */}
@@ -301,8 +366,10 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
             {modalPhase === "waiting" ? (
               <div style={{ display: "grid", gap: 10, placeItems: "center" }}>
                 <div style={styles.spinner} />
-                <div style={{ fontSize: 12, opacity: 0.8 }}>
-                  Waiting for confirmation (~10s)…
+                <div style={{ fontSize: 12, opacity: 0.85, textAlign: "center" }}>
+                  Waiting for <b>finalization</b> on Solana…
+                  <br />
+                  You can watch the status in the Explorer link above.
                 </div>
               </div>
             ) : (
@@ -344,10 +411,19 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
   },
+  spinnerInline: {
+    width: 16,
+    height: 16,
+    border: "2px solid rgba(255,255,255,.35)",
+    borderTop: "2px solid #fff",
+    borderRadius: "50%",
+    animation: "spin 0.9s linear infinite",
+  },
 };
 
 // inyecta @keyframes para el spinner
 const ensureSpinnerKeyframes = () => {
+  if (typeof document === "undefined") return;
   const id = "payentry-spinner";
   if (document.getElementById(id)) return;
   const style = document.createElement("style");
