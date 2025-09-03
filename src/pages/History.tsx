@@ -1,5 +1,5 @@
 import MainLayout from '../components/templates/MainLayout';
-import PageHeader from '../components/molecules/PageHeader';
+// import PageHeader from '../components/molecules/PageHeader';
 import UserStatsSection from '../components/organisms/history/UserStatsSection';
 import UserHistorySection from '../components/organisms/history/UserHistorySection';
 import { LOCAL_STORAGE_CONF } from '../constants';
@@ -20,10 +20,6 @@ const History = () => {
   if (!connected && !isConnectedMobile) {
     return (
       <MainLayout>
-        <PageHeader 
-          title="Game History" 
-          description="Track your gaming sessions and progress over time"
-        />
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
@@ -46,11 +42,6 @@ const History = () => {
 
   return (
     <MainLayout>
-      <PageHeader 
-        title="Game History" 
-        description="Track your gaming sessions and progress over time"
-      />
-
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-xl)' }}>
         <UserStatsSection 
           points={(isConnected || isConnectedMobile) ? stats.points : 0}

@@ -63,6 +63,12 @@
   white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+  .btn {
+    color: #FFFFFF !important;
+  }
+}
+
 .btn--outline {
   background: transparent;
   border: 2px solid var(--color-primary);

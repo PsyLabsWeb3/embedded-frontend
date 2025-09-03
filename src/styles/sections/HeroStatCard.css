@@ -70,16 +70,13 @@
 }
 
 #hero-stat-gradient {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  align-items: flex-end;
-  background: linear-gradient(90deg, var(--color-text) 0%, var(--color-primary) 100%);
-  background-clip: text;
-  color: transparent;
+  color: #FFFFFF;
+  background: none;
+  -webkit-text-fill-color: #FFFFFF;
   display: flex;
   font-family: var(--font-subheading);
+  font-weight: 30;
   font-size: var(--font-size-display);
-  font-weight: 1000;
   letter-spacing: 0.01em;
 }
 

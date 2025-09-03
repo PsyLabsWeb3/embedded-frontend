@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section section container mx-container">
-      <h1 className="hero-title gradient-title">Where Gaming Meets Crypto</h1>
+      <h1 className="hero-title gradient-title">Play. Compete.Earn.</h1>
       {/* Desktop/Tablet Layout */}
       <div className="hero-section__row">
         <p className="hero-section__subtitle"> A decentralized gaming platform rewarding players with real crypto—no accounts,

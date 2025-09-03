@@ -22,7 +22,8 @@
 
 .title {
   font-family: var(--font-heading);
-  color: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 2rem;
   margin-bottom: var(--spacing-sm);
-  text-align: center;
+  text-align: left;
 }

@@ -36,11 +36,7 @@ import '../../styles/sections/HeroStatCard.css';
  */
 const HeroStatCard: React.FC = () => (
   <article className="hero-stat-card">
-    {/* Primary Heading */}
-    <h2 className="hero-stat-card__title">
-      Play. Compete. Earn.
-    </h2>
-    
+
     {/* Value Proposition */}
     <p className="hero-stat-card__desc">
       A decentralized gaming platform rewarding players with real crypto—no 
