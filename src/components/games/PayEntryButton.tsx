@@ -7,6 +7,7 @@ import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from '../../constants';
+import './PayEntryModal.css';
 
 // ==== CONSTANTES (devnet) ====
 const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
@@ -323,116 +324,52 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
     ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
     : "#";
 
-  const buttonLabel = sending
-    ? "Sending..."
-    : (!prereqsReady ? "Preparing…" : `Casual Mode (${amountSol || 0} SOL)`);
+  // Removed unused buttonLabel variable
 
   return (
     <>
-      <div style={{ display: "grid", gap: 8, maxWidth: 380 }}>
+      <div className="pay-entry-section">
         <button
           onClick={handlePayEntry}
           disabled={disabled}
-          style={{
-            padding: 10,
-            cursor: disabled ? "not-allowed" : "pointer",
-            borderRadius: 8,
-            opacity: disabled ? 0.8 : 1,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            justifyContent: "center",
-            minHeight: 40,
-          }}
+          className="pay-entry-button"
         >
-          {(sending || !prereqsReady) && <span style={styles.spinnerInline} aria-hidden />}
-          <span>{buttonLabel}</span>
+          {sending ? "PROCESSING" : "START PLAYING"}
         </button>
       </div>
 
       {/* Modal de confirmación */}
       {modalOpen && (
-        <div style={styles.backdrop}>
-          <div style={styles.modal}>
-            <h3 style={{ margin: 0 }}>Transaction Sent</h3>
-            <p style={{ marginTop: 6, marginBottom: 10, wordBreak: "break-all" }}>
-              Tx: {txSig ? (
-                <a href={explorerUrl} target="_blank" rel="noreferrer">
-                  {txSig}
-                </a>
-              ) : "—"}
-            </p>
+        <div className="pay-entry-modal-backdrop">
+          <div className="pay-entry-modal">
+            <h3>Transaction Sent</h3>
+            <div className="pay-entry-modal-content">
+              <p className="pay-entry-transaction-info">
+                Tx: {txSig ? (
+                  <a href={explorerUrl} target="_blank" rel="noreferrer">
+                    {txSig}
+                  </a>
+                ) : "—"}
+              </p>
 
-            {modalPhase === "waiting" ? (
-              <div style={{ display: "grid", gap: 10, placeItems: "center" }}>
-                <div style={styles.spinner} />
-                <div style={{ fontSize: 12, opacity: 0.85, textAlign: "center" }}>
-                  Waiting for <b>finalization</b> on Solana…
-                  <br />
-                  You can watch the status in the Explorer link above.
+              {modalPhase === "waiting" ? (
+                <div className="pay-entry-waiting">
+                  <div className="pay-entry-spinner" />
+                  <div className="pay-entry-waiting-text">
+                    Waiting for confirmation (~10s)…
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <button onClick={handleContinue} style={{ padding: 10, borderRadius: 8 }}>
-                Continue
-              </button>
-            )}
+              ) : (
+                <button onClick={handleContinue} className="pay-entry-continue-button">
+                  Continue
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
     </>
   );
 };
-
-// estilos inline simples
-const styles: Record<string, React.CSSProperties> = {
-  backdrop: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(0,0,0,0.45)",
-    display: "grid",
-    placeItems: "center",
-    zIndex: 9999,
-  },
-  modal: {
-    width: "min(92vw, 520px)",
-    background: "#111",
-    color: "#fff",
-    borderRadius: 12,
-    padding: 16,
-    boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-    border: "1px solid #333",
-  },
-  spinner: {
-    width: 28,
-    height: 28,
-    border: "3px solid #444",
-    borderTop: "3px solid #fff",
-    borderRadius: "50%",
-    animation: "spin 1s linear infinite",
-  },
-  spinnerInline: {
-    width: 16,
-    height: 16,
-    border: "2px solid rgba(255,255,255,.35)",
-    borderTop: "2px solid #fff",
-    borderRadius: "50%",
-    animation: "spin 0.9s linear infinite",
-  },
-};
-
-// inyecta @keyframes para el spinner
-const ensureSpinnerKeyframes = () => {
-  if (typeof document === "undefined") return;
-  const id = "payentry-spinner";
-  if (document.getElementById(id)) return;
-  const style = document.createElement("style");
-  style.id = id;
-  style.innerHTML = `
-    @keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
-  `;
-  document.head.appendChild(style);
-};
-ensureSpinnerKeyframes();
 
 export default PayEntryButton;

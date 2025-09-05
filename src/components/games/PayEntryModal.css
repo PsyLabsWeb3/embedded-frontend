@@ -1,0 +1,179 @@
+/* Pay Entry Modal Styles */
+.pay-entry-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.pay-entry-modal {
+  width: min(92vw, 520px);
+  background: var(--color-bg, #171D20);
+  color: var(--color-text, #FFFFFF);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(93, 214, 44, 0.3);
+}
+
+.pay-entry-modal h3 {
+  margin: 0 0 1rem 0;
+  color: var(--color-primary, #5DD62C);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.pay-entry-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.pay-entry-transaction-info {
+  margin: 0.5rem 0 1rem 0;
+  word-break: break-all;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.pay-entry-transaction-info a {
+  color: var(--color-primary, #5DD62C);
+  text-decoration: none;
+}
+
+.pay-entry-transaction-info a:hover {
+  text-decoration: underline;
+}
+
+.pay-entry-waiting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pay-entry-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(93, 214, 44, 0.3);
+  border-top: 3px solid var(--color-primary, #5DD62C);
+  border-radius: 50%;
+  animation: pay-entry-spin 1s linear infinite;
+}
+
+.pay-entry-waiting-text {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.pay-entry-continue-button {
+  background: var(--color-primary, #5DD62C);
+  color: var(--color-bg, #171D20);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.pay-entry-continue-button:hover {
+  background: var(--color-primary-dark, #4BC123);
+  transform: translateY(-2px);
+}
+
+/* Pay Entry Button - Outside Modal */
+.pay-entry-section {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.pay-entry-message {
+  color: var(--color-text, #FFFFFF);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.pay-entry-button {
+  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2.5rem;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pay-entry-button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #1e4a0f 0%, #4BC123 100%) !important;
+  transform: translateY(-3px);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pay-entry-button:focus {
+  outline: none !important;
+  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
+  box-shadow: none !important;
+}
+
+.pay-entry-button:active {
+  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
+  transform: translateY(0);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pay-entry-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.pay-entry-button:disabled {
+  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
+  color: #FFFFFF;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+@keyframes pay-entry-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .pay-entry-modal {
+    padding: 1.5rem;
+  }
+  
+  .pay-entry-section {
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+  
+  .pay-entry-button {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+    min-width: 180px;
+  }
+}

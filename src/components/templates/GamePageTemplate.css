@@ -34,6 +34,16 @@
   min-height: 400px;
 }
 
+.payment-section {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
+.custom-content-section {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
 .game-info-section {
   max-width: 1200px;
   margin: 0 auto;

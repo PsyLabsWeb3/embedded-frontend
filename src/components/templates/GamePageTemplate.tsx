@@ -5,6 +5,7 @@ import './GamePageTemplate.css';
 interface GamePageTemplateProps {
   gameTitle: string;
   gameComponent: React.ReactNode;
+  paymentComponent?: React.ReactNode;
   instructions?: string[];
   gameInfo?: React.ReactNode;
   customContent?: React.ReactNode;
@@ -13,6 +14,7 @@ interface GamePageTemplateProps {
 const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
   gameTitle,
   gameComponent,
+  paymentComponent,
   instructions = [],
   gameInfo,
   customContent
@@ -30,13 +32,19 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           {gameComponent}
         </div>
         
+        {paymentComponent && (
+          <div className="payment-section">
+            {paymentComponent}
+          </div>
+        )}
+        
         {customContent && (
           <div className="custom-content-section">
             {customContent}
           </div>
         )}
         
-        {(instructions.length > 0 || gameInfo) && (
+        {false && (instructions.length > 0 || gameInfo) && (
           <div className="game-info-section">
             {instructions.length > 0 && (
               <div className="game-instructions">
