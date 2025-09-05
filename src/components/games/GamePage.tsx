@@ -72,32 +72,25 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         );
       }
 
-      if (!entryConfirmed) {
+      // Desktop (o mobile después de salir del fullscreen): embed 16:9 con botón FS
+      if (entryConfirmed) {
         return (
-          <div style={{ display: 'grid', gap: 12 }}>
-            <div style={{ color: 'var(--color-text-secondary)' }}>
-              To play, please make the entry payment.
-            </div>
-            <PayEntryButton
-              onSent={(sig) => setTxSig(sig)}
-              onContinue={(sig) => {
-                setTxSig(sig);
-                setEntryConfirmed(true);
-                if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
-              }}
-            />
-          </div>
+          <UnityGame
+            gameAssets={gameConfig.assets}
+            publicKey={publicKey?.toString() || mobileWalletAddress}
+            transactionId={txSig ?? ''}
+            enableFullscreen={true}
+          />
         );
       }
 
-      // Desktop (o mobile después de salir del fullscreen): embed 16:9 con botón FS
+      // Show empty game container when not confirmed - NO CONTENT
       return (
-        <UnityGame
-          gameAssets={gameConfig.assets}
-          publicKey={publicKey?.toString() || mobileWalletAddress}
-          transactionId={txSig ?? ''}
-          enableFullscreen={true}
-        />
+        <div style={{ 
+          minHeight: '400px',
+          background: 'transparent'
+        }}>
+        </div>
       );
     }
 
@@ -108,10 +101,30 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     );
   };
 
+  const renderPaymentSection = (): React.ReactNode => {
+    if (gameConfig.placeholder) return null;
+    
+    if (gameConfig.assets && (connected || isConnectedMobile) && !entryConfirmed) {
+      return (
+        <PayEntryButton
+          onSent={(sig) => setTxSig(sig)}
+          onContinue={(sig) => {
+            setTxSig(sig);
+            setEntryConfirmed(true);
+            if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
+          }}
+        />
+      );
+    }
+    
+    return null;
+  };
+
   return (
     <GamePageTemplate
       gameTitle={gameConfig.title}
       gameComponent={renderGameComponent()}
+      paymentComponent={renderPaymentSection()}
       instructions={gameConfig.instructions}
       customContent={customContent}
     />
