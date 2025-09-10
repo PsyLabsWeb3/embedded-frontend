@@ -22,10 +22,11 @@ export type GameConfig = GameTypes.GameConfig;
  * proper bundling and asset optimization. The ?url suffix tells Vite
  * to return the asset URL rather than importing the file content.
  */
-import snake2048LoaderUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url';
-import snake2048DataUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url';
-import snake2048FrameworkUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url';
-import snake2048CodeUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url';
+import snake2048LoaderUrl from "../assets/Unity/Snake2048/Build/PlatformerShooter.loader.js?url";
+import snake2048DataUrl from "../assets/Unity/Snake2048/Build/PlatformerShooter.data?url";
+import snake2048FrameworkUrl from "../assets/Unity/Snake2048/Build/PlatformerShooter.framework.js?url";
+import snake2048CodeUrl from "../assets/Unity/Snake2048/Build/PlatformerShooter.wasm?url";
+
 
 const snake2048Assets: GameAssets = {
   loaderUrl: snake2048LoaderUrl,
