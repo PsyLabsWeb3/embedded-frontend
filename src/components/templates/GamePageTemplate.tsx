@@ -12,6 +12,7 @@ interface GamePageTemplateProps {
   instructions?: string[];
   gameInfo?: React.ReactNode;
   backgroundImage?: string;
+  customContent?: React.ReactNode;
 }
 
 const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
