@@ -80,7 +80,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       return <div style={{ height: '50vh' }} />;
     }
 
-    if (gameConfig.placeholder) return <PlaceholderGame gameName={gameConfig.title} />;
+    if (gameConfig.placeholder) return <PlaceholderGame />;
 
     if (gameConfig.assets) {
       if ((!connected || !publicKey) && !isConnectedMobile) {
@@ -146,6 +146,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       paymentComponent={renderPaymentSection()}
       instructions={gameConfig.instructions}
       customContent={customContent}
+      backgroundImage={gameConfig.backgroundImage}
     />
   );
 };
