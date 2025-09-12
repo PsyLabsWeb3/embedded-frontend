@@ -61,15 +61,15 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
         {/* Game Features Row */}
         <div className="game-features-row">
           <div className="feature-item">
-            <img src="/src/assets/multiplayer_icon.svg" alt="Multiplayer" className="feature-icon" />
+            <img src="/multiplayer_icon.svg" alt="Multiplayer" className="feature-icon" />
             <span className="feature-label">Multiplayer</span>
           </div>
           <div className="feature-item">
-            <img src="/src/assets/realtime_icon.png" alt="Realtime" className="feature-icon" />
+            <img src="/realtime_icon.png" alt="Realtime" className="feature-icon" />
             <span className="feature-label">Realtime</span>
           </div>
           <div className="feature-item">
-            <img src="/src/assets/pvp_icon.png" alt="PvP" className="feature-icon" />
+            <img src="/pvp_icon.png" alt="PvP" className="feature-icon" />
             <span className="feature-label">PvP</span>
           </div>
         </div>
