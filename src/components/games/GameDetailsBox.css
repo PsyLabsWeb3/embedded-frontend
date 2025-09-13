@@ -1,0 +1,64 @@
+.game-details-box {
+  background: #38454C;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.game-details-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  color: #5DD62C;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.game-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.game-details-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.game-details-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  font-size: 1rem;
+  min-width: 150px;
+  opacity: 0.8;
+}
+
+.game-details-value {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  font-size: 1rem;
+  text-align: right;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .game-details-box {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .game-details-title {
+    font-size: 1.5rem;
+  }
+  .game-details-label,
+  .game-details-value {
+    font-size: 0.95rem;
+    min-width: 110px;
+  }
+}

@@ -329,13 +329,21 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   return (
     <>
       <div className="pay-entry-section">
-        <button
-          onClick={handlePayEntry}
-          disabled={disabled}
-          className="pay-entry-button"
-        >
-          {sending ? "PROCESSING" : "START PLAYING"}
-        </button>
+        <div className="button-group">
+          <button
+            className="pay-entry-button degen-mode-button"
+            disabled
+          >
+            DEGEN MODE
+          </button>
+          <button
+            onClick={handlePayEntry}
+            disabled={disabled}
+            className="pay-entry-button casual-play-button"
+          >
+            {sending ? "PROCESSING" : "CASUAL PLAY"}
+          </button>
+        </div>
       </div>
 
       {/* Modal de confirmación */}

@@ -33,6 +33,7 @@
   line-height: 1.2;
   word-wrap: break-word;
   hyphens: auto;
+  text-shadow: none !important;
 }
 
 /* Force small font size for game titles */

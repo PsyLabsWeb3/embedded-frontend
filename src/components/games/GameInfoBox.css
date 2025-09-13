@@ -1,0 +1,37 @@
+.game-info-box {
+  background: #38454C;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.game-info-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  color: #5DD62C;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.game-info-text {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .game-info-box {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .game-info-title {
+    font-size: 1.5rem;
+  }
+  .game-info-text {
+    font-size: 0.95rem;
+  }
+}

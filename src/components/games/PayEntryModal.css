@@ -95,6 +95,14 @@
   text-align: center;
 }
 
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
 .pay-entry-message {
   color: var(--color-text, #FFFFFF);
   font-size: 1.1rem;
@@ -103,38 +111,53 @@
 }
 
 .pay-entry-button {
-  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%);
-  color: #FFFFFF;
   border: none;
   border-radius: 12px;
-  padding: 1rem 2.5rem;
+  padding: 1.2rem 3rem;
   font-family: 'Alumni Sans', sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 1.4rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 200px;
+  min-width: 220px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: none !important;
   outline: none !important;
+  color: #FFFFFF;
+  white-space: nowrap;
 }
 
-.pay-entry-button:hover:not(:disabled) {
+.degen-mode-button {
+  background: linear-gradient(90deg, #AE43FF 0%, #9000FF 100%);
+}
+
+.degen-mode-button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #9A35E6 0%, #7A00E6 100%) !important;
+  transform: translateY(-3px);
+}
+
+.degen-mode-button:disabled {
+  background: linear-gradient(90deg, #AE43FF 0%, #9000FF 100%) !important;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.casual-play-button {
+  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%);
+}
+
+.casual-play-button:hover:not(:disabled) {
   background: linear-gradient(90deg, #1e4a0f 0%, #4BC123 100%) !important;
   transform: translateY(-3px);
-  box-shadow: none !important;
-  outline: none !important;
 }
 
 .pay-entry-button:focus {
   outline: none !important;
-  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
   box-shadow: none !important;
 }
 
 .pay-entry-button:active {
-  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
   transform: translateY(0);
   box-shadow: none !important;
   outline: none !important;
@@ -146,8 +169,6 @@
 }
 
 .pay-entry-button:disabled {
-  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%) !important;
-  color: #FFFFFF;
   cursor: not-allowed;
   transform: none;
   opacity: 0.7;
@@ -167,13 +188,35 @@
   }
   
   .pay-entry-section {
-    margin: 1rem 0;
-    padding: 1.5rem;
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+  
+  .button-group {
+    gap: 0.5rem;
   }
   
   .pay-entry-button {
-    padding: 0.875rem 2rem;
-    font-size: 1.1rem;
-    min-width: 180px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pay-entry-section {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+  }
+  
+  .button-group {
+    gap: 0.4rem;
+  }
+  
+  .pay-entry-button {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+    min-width: 130px;
+    letter-spacing: 0.3px;
   }
 }

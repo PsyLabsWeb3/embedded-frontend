@@ -70,6 +70,8 @@ export namespace GameTypes {
     minAge?: number;
     /** Whether the game should rotate on mobile devices */
     rotateOnMobile?: boolean;
+    /** Background image URL for the game page */
+    backgroundImage?: string;
   }
 
   /**

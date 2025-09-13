@@ -6,15 +6,7 @@ import './Games.css';
 const gamesList = [
   { id: 3, title: 'Embedded Wars', path: '/game/03-embedded-wars' },
   { id: 1, title: 'Snake', path: '/game/01-snake' },
-  { id: 2, title: 'Ping Pong', path: '/game/02-ping-pong' },
-  { id: 4, title: 'Candy Sweet', path: '/game/04-candy-sweet' },
-  { id: 5, title: 'Sort Puzzle', path: '/game/05-sort-puzzle' },
-  { id: 6, title: 'Pipes Flood', path: '/game/06-pipes-flood' },
-  { id: 7, title: 'Hover Racer', path: '/game/07-hover-racer' },
-  { id: 8, title: 'Infinite Runner', path: '/game/08-infinite-runner' },
-  { id: 9, title: 'Cake Mania', path: '/game/09-cake-mania' },
-  { id: 10, title: 'Game 10', path: '/game/10-game-10' },
-  { id: 11, title: 'Game 11', path: '/game/11-game-11' }
+  { id: 2, title: 'Ping Pong', path: '/game/02-ping-pong' }
 ];
 
 const Games = () => (

@@ -51,6 +51,24 @@ import embeddedWarsDataUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-Embedd
 import embeddedWarsFrameworkUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.framework.js?url';
 import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.wasm?url';
 
+// Background images imports
+import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
+
+// Existing background images
+import snakeBackground from '../assets/snake_game.jpg?url';
+import pingPongBackground from '../assets/pingpong.jpg?url';
+import bubbleBackground from '../assets/bubble.jpg?url';
+
+// Placeholder backgrounds (use existing images temporarily - you can replace these paths later)
+const candySweetBackground = bubbleBackground; // Replace with actual candy_sweet.jpg when ready
+const sortPuzzleBackground = snakeBackground; // Replace with actual sort_puzzle.jpg when ready
+const pipesFloodBackground = bubbleBackground; // Replace with actual pipes_flood.jpg when ready
+const hoverRacerBackground = embeddedWarsBackground; // Replace with actual hover_racer.jpg when ready
+const infiniteRunnerBackground = snakeBackground; // Replace with actual infinite_runner.jpg when ready
+const cakeManiaBackground = bubbleBackground; // Replace with actual cake_mania.jpg when ready
+const game10Background = pingPongBackground; // Replace with actual game_10.jpg when ready
+const game11Background = embeddedWarsBackground; // Replace with actual game_11.jpg when ready
+
 const embeddedWarsAssets: GameAssets = {
   loaderUrl: embeddedWarsLoaderUrl,
   dataUrl: embeddedWarsDataUrl,
@@ -98,6 +116,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     title: 'Snake Game',
     description: 'Classic snake game with number merging mechanics',
     assets: snake2048Assets,
+    backgroundImage: snakeBackground,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 15,
@@ -117,6 +136,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     title: 'Ping Pong',
     description: 'Fast-paced table tennis game',
     assets: pingPongAssets,
+    backgroundImage: pingPongBackground,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 10,
@@ -135,6 +155,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     title: 'Embedded-Wars',
     description: 'PvP Sci-Fi 3rd person droid battle',
     assets: embeddedWarsAssets,
+    backgroundImage: embeddedWarsBackground,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 12,
@@ -152,6 +173,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '04-candy-sweet',
     title: 'Candy Sweet',
     description: 'Match sweet candies in this delightful puzzle game',
+    backgroundImage: candySweetBackground,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 20,
@@ -163,6 +185,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '05-sort-puzzle',
     title: 'Sort Puzzle',
     description: 'Organize and sort elements to solve challenging puzzles',
+    backgroundImage: sortPuzzleBackground,
     category: GameTypes.GameCategory.PUZZLE,
     difficulty: GameTypes.GameDifficulty.HARD,
     estimatedPlayTime: 25,
@@ -174,6 +197,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '06-pipes-flood',
     title: 'Pipes Flood',
     description: 'Connect pipes to prevent flooding in this strategy game',
+    backgroundImage: pipesFloodBackground,
     category: GameTypes.GameCategory.STRATEGY,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 18,
@@ -185,6 +209,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '07-hover-racer',
     title: 'Hover Racer',
     description: 'High-speed racing with futuristic hover vehicles',
+    backgroundImage: hoverRacerBackground,
     category: GameTypes.GameCategory.ACTION,
     difficulty: GameTypes.GameDifficulty.HARD,
     estimatedPlayTime: 30,
@@ -196,6 +221,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '08-infinite-runner',
     title: 'Infinite Runner',
     description: 'Endless running adventure with obstacles and power-ups',
+    backgroundImage: infiniteRunnerBackground,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 15,
@@ -207,6 +233,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '09-cake-mania',
     title: 'Cake Mania',
     description: 'Manage a busy bakery in this time management game',
+    backgroundImage: cakeManiaBackground,
     category: GameTypes.GameCategory.STRATEGY,
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 35,
@@ -218,6 +245,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '10-game-10',
     title: 'Game 10',
     description: 'Exciting new game coming soon',
+    backgroundImage: game10Background,
     category: GameTypes.GameCategory.CASUAL,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 10,
@@ -229,6 +257,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '11-game-11',
     title: 'Game 11',
     description: 'Another exciting game in development',
+    backgroundImage: game11Background,
     category: GameTypes.GameCategory.CASUAL,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 10,
