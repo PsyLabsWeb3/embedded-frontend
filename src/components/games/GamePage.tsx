@@ -141,11 +141,12 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           }}
             onDegenPlay={(betSol, _betUsd) => {
               setDegenMode('Betting');
-              if (typeof _betUsd === 'number') {
-                setDegenBetAmount(_betUsd);
-              } else {
+         
+                //log amount and type
+                console.log(`Degen mode: Betting $${_betUsd} (~${betSol} SOL)`);
+           
                 setDegenBetAmount(betSol);
-              }
+              
             }}
         />
       );
