@@ -26,6 +26,7 @@ type AnchorWallet = {
 type Props = {
   onSent?: (sig: string) => void;
   onContinue?: (sig: string) => void; // abre Unity / siguiente paso
+  onDegenPlay?: (betAmountSol: number, betAmountUsd?: number) => void;
   fixedAmountSol?: number;
 };
 
@@ -95,7 +96,7 @@ async function waitForFinalized(
   return result;
 }
 
-const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol }) => {
+const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixedAmountSol }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
@@ -140,10 +141,12 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
           setSolPriceUsd(price);
         }
 
-        const solAmount = Number((degenSelected / (price as number)).toFixed(8));
-        setDegenModalOpen(false);
-        // reuse existing payment flow and logic
-        await handlePayEntry(solAmount);
+  const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+  setDegenModalOpen(false);
+  // notify parent that a degen play is about to happen (USD and SOL)
+  onDegenPlay?.(solAmount, degenSelected);
+  // reuse existing payment flow and logic
+  await handlePayEntry(solAmount);
       } catch (e) {
         console.error("Failed to get SOL price for degen flow", e);
         setDegenModalOpen(false);

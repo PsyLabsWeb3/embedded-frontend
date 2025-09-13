@@ -30,6 +30,9 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
+  // Degen mode state to forward to Unity
+  const [degenMode, setDegenMode] = React.useState<string | null>(null);
+  const [degenBetAmount, setDegenBetAmount] = React.useState<number | null>(null);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -69,6 +72,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         gameAssets={gameConfig.assets}
         publicKey={publicKey?.toString() || mobileWalletAddress || null}
         transactionId={txSig ?? null}
+        degenMode={degenMode}
+        degenBetAmount={degenBetAmount}
         onExit={handleExitFromMobile}
       />
     );
@@ -98,6 +103,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             gameAssets={gameConfig.assets}
             publicKey={publicKey?.toString() || mobileWalletAddress}
             transactionId={txSig ?? ''}
+            degenMode={degenMode}
+            degenBetAmount={degenBetAmount}
             enableFullscreen={true}
           />
         );
@@ -132,6 +139,14 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             setEntryConfirmed(true);
             if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
           }}
+            onDegenPlay={(betSol, _betUsd) => {
+              setDegenMode('Betting');
+              if (typeof _betUsd === 'number') {
+                setDegenBetAmount(_betUsd);
+              } else {
+                setDegenBetAmount(betSol);
+              }
+            }}
         />
       );
     }

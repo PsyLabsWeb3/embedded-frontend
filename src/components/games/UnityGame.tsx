@@ -15,6 +15,10 @@ interface UnityGameProps {
   onError?: (error: string) => void;
   publicKey?: string | null;
   transactionId?: string | null;
+  /** Optional mode (e.g. 'Betting') coming from payment flow */
+  degenMode?: string | null;
+  /** Optional bet amount in SOL coming from payment flow */
+  degenBetAmount?: number | null;
 
   /** Mostrar botón Fullscreen (desktop). Default: true */
   enableFullscreen?: boolean;
@@ -94,6 +98,8 @@ const UnityGame: React.FC<UnityGameProps> = ({
   onError: _onError,
   publicKey,
   transactionId,
+  degenMode,
+  degenBetAmount,
   enableFullscreen = true,
   baseResolution = { width: 1280, height: 720 },
   forceFullscreenLayout = false,
@@ -122,6 +128,31 @@ const UnityGame: React.FC<UnityGameProps> = ({
       sendMessage('WalletManager', 'SetWalletAddress', publicKey.toString());
     }
   }, [isLoaded, publicKey, sendMessage]);
+
+  // Inform Unity about degen mode and bet amount when they change
+  useEffect(() => {
+    if (!isLoaded) return;
+    try {
+      if ((degenMode as any) && typeof degenMode === 'string') {
+        const payloadMode = degenMode;
+        console.log('[Unity] sendMessage -> target=BetSettings method=SetMode payload=', payloadMode);
+        sendMessage('BetSettings', 'SetMode', payloadMode);
+      }
+      if (degenBetAmount && typeof degenBetAmount === 'number') {
+        // Unity expects a float string or number depending on implementation
+        const payloadBet = String(degenBetAmount);
+        console.log('[Unity] sendMessage -> target=BetSettings method=SetBetAmount payload=', payloadBet);
+        sendMessage('BetSettings', 'SetBetAmount', payloadBet);
+      }
+    } catch {}
+  }, [isLoaded, degenMode, degenBetAmount, sendMessage]);
+
+  // Log incoming degen props immediately when they change (even before Unity loads)
+  useEffect(() => {
+    if (degenMode || typeof degenBetAmount === 'number') {
+      console.log('[UnityGame] incoming props changed:', { degenMode, degenBetAmount });
+    }
+  }, [degenMode, degenBetAmount]);
 
   useEffect(() => {
     if (isLoaded && transactionId && transactionId.length > 0) {
