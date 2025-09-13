@@ -103,7 +103,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         );
       }
 
-      // Show empty game container when not confirmed - NO CONTENT
+      // Show empty game container when not confirmed - NO CONTENT.
       return (
         <div style={{ 
           minHeight: '400px',
