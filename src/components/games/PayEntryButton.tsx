@@ -102,6 +102,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   // ===== Estados =====
   const [amountSol, setAmountSol] = useState<number>(fixedAmountSol ?? 0);
   const [sending, setSending] = useState(false);
+  const [solPriceUsd, setSolPriceUsd] = useState<number | null>(null);
 
   // Modal
   const [modalOpen, setModalOpen] = useState(false);
@@ -111,6 +112,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   // Degen mode modal
   const [degenModalOpen, setDegenModalOpen] = useState(false);
   const [degenSelected, setDegenSelected] = useState<number | null>(null);
+
 
   const degenOptions = [1, 2, 5, 10];
 
@@ -125,8 +127,28 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   };
 
   const handleDegenContinue = () => {
-    // Example: setAmountSol(degenSelected || 0);
-    setDegenModalOpen(false);
+    if (!degenSelected) return;
+    // Convert selected USD -> SOL using cached price (with fallback)
+    (async () => {
+      try {
+        let price = solPriceUsd;
+        if (!price || !(price > 0)) {
+          const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+          const data = await r.json();
+          price = Number(data?.priceUsd);
+          if (!price || !isFinite(price) || price <= 0) throw new Error("invalid price");
+          setSolPriceUsd(price);
+        }
+
+        const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+        setDegenModalOpen(false);
+        // reuse existing payment flow and logic
+        await handlePayEntry(solAmount);
+      } catch (e) {
+        console.error("Failed to get SOL price for degen flow", e);
+        setDegenModalOpen(false);
+      }
+    })();
   };
 
   const handleDegenSelect = (val: number) => {
@@ -159,14 +181,16 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
       return;
     }
 
+    // Pre-fetch SOL price once and compute default casual amount (0.5 USD) so both flows reuse it
     (async () => {
       try {
         const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
         const data = await r.json();
         const price = Number(data?.priceUsd);
         if (!price || !isFinite(price) || price <= 0) return;
-        const usd = 0.5;
-        setAmountSol(Number((usd / price).toFixed(8)));
+        setSolPriceUsd(price);
+        const usdDefault = 0.5;
+        setAmountSol(Number((usdDefault / price).toFixed(8)));
       } catch { /* ignore */ }
     })();
   }, [fixedAmountSol, connection]);
@@ -236,14 +260,22 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   // Botón deshabilitado mientras enviamos o no hay prereqs
   const disabled = sending || !prereqsReady;
 
-  // ====== Pagar entrada ======
-  const handlePayEntry = async () => {
-    if (!prereqsReady) return;
+  // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
+  const handlePayEntry = async (overrideSol?: number) => {
+    // check wallet/provider readiness depending on desktop/mobile flow
+    const anchorReady = !!anchorWallet && !!program;
+    const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
+    const networkReady = treasuryOk === true;
+
+    if (usingDesktop && !anchorReady) return;
+    if (!usingDesktop && !phantomReady) return;
+    if (!networkReady) return;
 
     try {
       setSending(true);
 
-      const lamports = new BN(Math.trunc((amountSol || 0) * LAMPORTS_PER_SOL));
+      const solToUse = typeof overrideSol === "number" ? overrideSol : amountSol;
+      const lamports = new BN(Math.trunc((solToUse || 0) * LAMPORTS_PER_SOL));
       if (lamports.lte(new BN(0))) {
         setSending(false);
         return;
@@ -364,7 +396,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
           DEGEN MODE
         </button>
         <button
-          onClick={handlePayEntry}
+          onClick={() => void handlePayEntry()}
           disabled={disabled}
           className="pay-entry-button casual-play-button"
         >
