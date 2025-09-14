@@ -142,6 +142,11 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             onDegenPlay={(betSol: number, _betUsd?: number) => {
               setDegenMode('Betting');
 
+              //add 0.09 usd to the bet to cover tx fees
+              if (_betUsd) {
+                _betUsd += 0.02;
+              }
+
               // Log amount and data type (safely handle optional USD param)
               console.log('Degen mode: Betting', {
                 betUsd_type: typeof _betUsd,
@@ -149,6 +154,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 betSol_type: typeof betSol,
                 betSol_value: betSol,
               });
+
+
 
               setDegenBetAmount(_betUsd ? _betUsd : betSol);
             }}
