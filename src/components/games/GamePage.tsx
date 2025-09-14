@@ -32,7 +32,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
   // Degen mode state to forward to Unity
   const [degenMode, setDegenMode] = React.useState<string | null>(null);
-  const [degenBetAmount, setDegenBetAmount] = React.useState<number | null>(null);
+  const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(null);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -143,21 +143,22 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               setDegenMode('Betting');
 
               //add 0.09 usd to the bet to cover tx fees
+              let betUsd;
               if (_betUsd) {
-                _betUsd += 0.02;
+                betUsd = _betUsd.toString();
               }
 
               // Log amount and data type (safely handle optional USD param)
               console.log('Degen mode: Betting', {
-                betUsd_type: typeof _betUsd,
-                betUsd_value: _betUsd ?? null,
+                betUsd_type: typeof betUsd,
+                betUsd_value: betUsd ?? null,
                 betSol_type: typeof betSol,
                 betSol_value: betSol,
               });
 
 
 
-              setDegenBetAmount(_betUsd ? _betUsd : betSol);
+              setDegenBetAmount(betUsd ?? null);
             }}
         />
       );

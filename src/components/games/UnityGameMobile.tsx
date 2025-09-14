@@ -9,7 +9,7 @@ interface Props {
   transactionId?: string | null;
   onExit?: () => void; // callback al GamePage
   degenMode?: string | null;
-  degenBetAmount?: number | null;
+  degenBetAmount?: string | null;
 }
 
 const isPortrait = () =>

@@ -18,7 +18,7 @@ interface UnityGameProps {
   /** Optional mode (e.g. 'Betting') coming from payment flow */
   degenMode?: string | null;
   /** Optional bet amount in SOL coming from payment flow */
-  degenBetAmount?: number | null;
+  degenBetAmount?: string| null;
 
   /** Mostrar botón Fullscreen (desktop). Default: true */
   enableFullscreen?: boolean;
@@ -135,14 +135,14 @@ const UnityGame: React.FC<UnityGameProps> = ({
     try {
       if ((degenMode as any) && typeof degenMode === 'string') {
         const payloadMode = degenMode;
-        console.log('[Unity] sendMessage -> target=BetSettings method=SetMode payload=', payloadMode);
-        sendMessage('BetSettings', 'SetMode', payloadMode);
+        console.log('[Unity] sendMessage -> target=WalletManager method=SetMode payload=', payloadMode);
+        sendMessage('WalletManager', 'SetGameMode', payloadMode);
       }
-      if (degenBetAmount && typeof degenBetAmount === 'number') {
+      if (degenBetAmount && typeof degenBetAmount === 'string') {
         // Unity expects a float string or number depending on implementation
-        const payloadBet = String(degenBetAmount);
-        console.log('[Unity] sendMessage -> target=BetSettings method=SetBetAmount payload=', payloadBet);
-        sendMessage('BetSettings', 'SetBetAmount', payloadBet);
+        const payloadBet = degenBetAmount;
+        console.log('[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=', payloadBet);
+        sendMessage('WalletManager', 'SetBetAmount', payloadBet);
       }
     } catch {}
   }, [isLoaded, degenMode, degenBetAmount, sendMessage]);
