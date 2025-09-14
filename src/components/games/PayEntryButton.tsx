@@ -7,6 +7,7 @@ import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from '../../constants';
+import MatchConfirmationModal from '../modals/MatchConfirmationModal';
 import './PayEntryModal.css';
 
 // ==== CONSTANTES (devnet) ====
@@ -102,7 +103,10 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   const [amountSol, setAmountSol] = useState<number>(fixedAmountSol ?? 0);
   const [sending, setSending] = useState(false);
 
-  // Modal
+  // Modal de confirmación de match
+  const [showMatchConfirmation, setShowMatchConfirmation] = useState(false);
+
+  // Modal de transacción
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
@@ -315,6 +319,22 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
     }
   };
 
+  // ====== Manejador para mostrar modal de confirmación ======
+  const handleCasualClick = () => {
+    if (!prereqsReady) return;
+    setShowMatchConfirmation(true);
+  };
+
+  // ====== Manejadores del modal de confirmación ======
+  const handleMatchReturn = () => {
+    setShowMatchConfirmation(false);
+  };
+
+  const handleMatchConfirm = () => {
+    setShowMatchConfirmation(false);
+    handlePayEntry();
+  };
+
   const handleContinue = () => {
     if (txSig) onContinue?.(txSig);
     setModalOpen(false);
@@ -337,7 +357,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
             DEGEN MODE
           </button>
           <button
-            onClick={handlePayEntry}
+            onClick={handleCasualClick}
             disabled={disabled}
             className="pay-entry-button casual-play-button"
           >
@@ -346,7 +366,16 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         </div>
       </div>
 
-      {/* Modal de confirmación */}
+      {/* Modal de confirmación de match */}
+      <MatchConfirmationModal
+        isOpen={showMatchConfirmation}
+        amountSol={amountSol}
+        onReturn={handleMatchReturn}
+        onConfirm={handleMatchConfirm}
+        isProcessing={sending}
+      />
+
+      {/* Modal de confirmación de transacción */}
       {modalOpen && (
         <div className="pay-entry-modal-backdrop">
           <div className="pay-entry-modal">
