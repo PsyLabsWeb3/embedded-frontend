@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { decryptPhantomData } from "../utils/phantomCrypto";
 import { LOCAL_STORAGE_CONF } from "../constants";
 import bs58 from "bs58";
+import './PhantomSignCallback.css';
 
 const PhantomSignCallback: React.FC = () => {
   const { connection } = useConnection();
@@ -87,9 +88,21 @@ const PhantomSignCallback: React.FC = () => {
   }, [connection, navigate]);
 
   return (
-    <div style={{ padding: 16 }}>
-      <div className="spinner"></div>
+    <div style={{
+        padding: 16,
+        textAlign: "center",
+        background: "linear-gradient(135deg, #5DD62C 0%, #317017 100%)",
+        minHeight: "100vh",
+        color: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}>
+    
       <p>Processing Phantom signed transaction…</p>
+      <div className="pay-entry-spinner" />
+
       {debug && (
         <>
           <h4>Decrypted payload (debug)</h4>

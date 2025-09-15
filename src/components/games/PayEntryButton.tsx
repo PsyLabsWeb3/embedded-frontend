@@ -115,7 +115,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const [degenSelected, setDegenSelected] = useState<number | null>(null);
 
 
-  const degenOptions = [1, 2.5, 5.0, 10.0];
+  const degenOptions = [1, 2, 5, 10];
 
   const handleDegenOpen = () => {
     setDegenModalOpen(true);
@@ -410,9 +410,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           <button
             className="pay-entry-button degen-mode-button"
             onClick={handleDegenOpen}
-            disabled={sending}
+            disabled={disabled}
           >
-            DEGEN MODE
+          {sending ? "PROCESSING" : "DEGEN MODE"}
           </button>
           <button
             onClick={() => {
