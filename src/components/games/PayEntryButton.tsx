@@ -26,7 +26,7 @@ type AnchorWallet = {
 type Props = {
   onSent?: (sig: string) => void;
   onContinue?: (sig: string) => void; // abre Unity / siguiente paso
-  onDegenPlay?: (betAmountSol: number, betAmountUsd?: number) => void;
+  onDegenPlay?: (betAmountSol: number, betAmountUsd: number) => void;
   fixedAmountSol?: number;
 };
 
@@ -141,34 +141,35 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           setSolPriceUsd(price);
         }
 
-  const solAmount = Number((degenSelected / (price as number)).toFixed(8));
-  setDegenModalOpen(false);
-  // notify parent that a degen play is about to happen (USD and SOL)
-  onDegenPlay?.(solAmount, degenSelected);
-  // reuse existing payment flow and logic
-  await handlePayEntry(solAmount);
-      } catch (e) {
-        console.error("Failed to get SOL price for degen flow", e);
-        setDegenModalOpen(false);
-      }
-    })();
-  };
+      const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+      setDegenModalOpen(false);
+      // notify parent that a degen play is about to happen (USD and SOL)
+      onDegenPlay?.(solAmount, degenSelected);
+      // reuse existing payment flow and logic
+      await handlePayEntry(solAmount, degenSelected);
+          } catch (e) {
+            console.error("Failed to get SOL price for degen flow", e);
+            setDegenModalOpen(false);
+          }
+        })();
+      };
 
-  const handleDegenSelect = (val: number) => {
-    setDegenSelected(val);
-  };
+      const handleDegenSelect = (val: number) => {
+        setDegenSelected(val);
+      };
 
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
   // ===== Carga de precio o retorno de Phantom =====
   useEffect(() => {
-    const last = localStorage.getItem("phantom_last_tx");
+    const last = localStorage.getItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
     if (last) {
+      
       setTxSig(last);
       setModalOpen(true);
       setModalPhase("waiting");
-      localStorage.removeItem("phantom_last_tx");
+      localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
 
       let cancelled = false;
       (async () => {
@@ -245,7 +246,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const phantomSession = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION) : null;
   const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
   const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
-  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem("phantom_wallet_pubkey") : null;
+  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) : null;
 
   // Ruta que usaremos (desktop adapter vs mobile Phantom)
   const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
@@ -264,7 +265,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const disabled = sending || !prereqsReady;
 
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
-  const handlePayEntry = async (overrideSol?: number) => {
+  const handlePayEntry = async (overrideSol?: number, usdBetAmount?: number) => {
     // check wallet/provider readiness depending on desktop/mobile flow
     const anchorReady = !!anchorWallet && !!program;
     const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
@@ -360,6 +361,15 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       const appUrl = encodeURIComponent(window.location.origin);
       const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
 
+      // Guardar Campos de Game Mode y Degen Bet Amount
+      if (onDegenPlay) {
+        localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+        if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+          localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
+        }
+      }
+
+      // Construir deeplink
       const deeplink =
         `https://phantom.app/ul/v1/signTransaction?` +
         `app_url=${appUrl}` +
