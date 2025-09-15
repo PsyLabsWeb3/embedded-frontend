@@ -48,7 +48,6 @@ import Games from './pages/Games';
 import Leaderboard from './pages/Leaderboard';
 import Rewards from './pages/Rewards';
 import Tournaments from './pages/Tournaments';
-import TestModal from './pages/TestModal';
 import PhantomCallback from './pages/PhantomCallback';
 import PhantomSignCallback from './pages/PhantomSignCallback';
 
@@ -121,7 +120,6 @@ const App: React.FC = () => {
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/rewards" element={<Rewards />} />
                 <Route path="/tournaments" element={<Tournaments />} />
-                <Route path="/test-modal" element={<TestModal />} />
                 <Route path="/phantom-callback" element={<PhantomCallback />} />
                 <Route path="/phantom-sign-callback" element={<PhantomSignCallback />} />
                 

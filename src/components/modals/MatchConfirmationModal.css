@@ -5,50 +5,70 @@
   left: 0;
   right: 0;
   bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
   backdrop-filter: blur(4px);
 }
 
 .match-confirmation-modal {
-  background: linear-gradient(135deg, #1a2332 0%, #2a3441 100%);
-  border: 2px solid #3a4654;
+  background: linear-gradient(135deg, #38454C 0%, #171D20 100%);
+  border: none;
   border-radius: 16px;
-  padding: 2rem;
-  max-width: 400px;
-  width: 90%;
+  padding: 3rem;
+  max-width: 500px;
+  width: 95%;
+  min-height: 600px;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: none;
   text-align: center;
 }
 
-/* Icono del gameboy */
-.modal-icon {
+/* Header row: Title and Icon layout */
+.modal-header-row {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  gap: 2rem;
+}
+
+.modal-title-section {
+  flex: 0 0 auto;
+  text-align: left;
+}
+
+.modal-icon-section {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
 }
 
-.gameboy-icon {
-  width: 64px;
-  height: 64px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-/* Título - Lobster Regular, color #5DD62C */
+/* Title styling - Lobster Regular, color #5DD62C */
 .modal-title {
   font-family: 'Lobster', cursive;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #5DD62C;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
+  line-height: 1.2;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Texto principal - Nunito Extra Bold, color #FFFFFF */
+/* Gameboy icon styling */
+.gameboy-icon {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Main text styling - Nunito Extra Bold, color #FFFFFF */
 .modal-main-text {
   font-family: 'Nunito', sans-serif;
   font-weight: 800; /* Extra Bold */
@@ -63,7 +83,7 @@
   font-weight: 800;
 }
 
-/* Texto secundario - Nunito Regular, color #FFFFFF */
+/* Secondary text styling - Nunito Regular, color #FFFFFF */
 .modal-secondary-text {
   font-family: 'Nunito', sans-serif;
   font-weight: 400; /* Regular */
@@ -73,7 +93,7 @@
   line-height: 1.4;
 }
 
-/* Texto adicional - Nunito Regular, color #FFFFFF */
+/* Additional text styling - Nunito Regular, color #FFFFFF */
 .modal-additional-text {
   font-family: 'Nunito', sans-serif;
   font-weight: 400; /* Regular */
@@ -84,31 +104,34 @@
   opacity: 0.9;
 }
 
-/* Contenedor de botones */
+/* Button container layout */
 .modal-buttons {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
-/* Estilos base de botones - Alumni Sans Regular, mayúsculas */
+/* Base button styling - Alumni Sans Regular, uppercase */
 .modal-button {
   font-family: 'Alumni Sans', sans-serif;
   font-weight: 400; /* Regular */
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 120px;
+  flex: 1;
+  max-width: 45%;
   font-weight: 600;
 }
 
-/* Botón RETURN - color #38454C */
+/* RETURN button styling - color #38454C */
 .return-button {
   background-color: #38454C;
   color: #FFFFFF;
@@ -124,7 +147,7 @@
   transform: translateY(0);
 }
 
-/* Botón CONFIRM MATCH - color #AE43FF */
+/* CONFIRM MATCH button styling - color #AE43FF */
 .confirm-button {
   background-color: #AE43FF;
   color: #FFFFFF;
@@ -140,14 +163,91 @@
   transform: translateY(0);
 }
 
-/* Estados deshabilitados */
+/* Disabled button states */
 .modal-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-/* Badge de precio en la esquina */
+/* Loading Section - State 2 */
+.loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1.5rem;
+}
+
+.embedded-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.embedded-logo {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.transaction-section {
+  margin: 0.5rem 0;
+  text-align: left;
+  width: 100%;
+}
+
+.transaction-label {
+  color: #FFFFFF;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem 0;
+  text-align: left;
+}
+
+.transaction-id {
+  color: #5DD62C;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-align: left;
+  margin: 0;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.loading-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #5DD62C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #FFFFFF;
+  margin: 0;
+  opacity: 0.9;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Price badge in corner */
 .price-badge {
   position: absolute;
   top: -10px;
@@ -163,39 +263,98 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive para móviles */
+/* Mobile responsive styles */
 @media (max-width: 768px) {
   .match-confirmation-modal {
-    max-width: 350px;
-    padding: 1.5rem;
+    max-width: 420px;
+    min-height: 550px;
+    padding: 2.5rem;
     margin: 1rem;
+    width: 92%;
   }
 
+  .modal-secondary-text {
+    font-size: 1.1rem;
+    text-align: left;
+    margin-bottom: 3rem;
+    }
+
+.modal-additional-text {
+    font-size: 1rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+ 
+
+
   .modal-title {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
+    padding-bottom: 1.8rem;
   }
 
   .modal-main-text {
-    font-size: 1rem;
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  .modal-header-row {
+    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .modal-icon-section {
+    margin-right: 0;
   }
 
   .modal-buttons {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.8rem;
+    justify-content: space-between;
   }
 
   .modal-button {
-    width: 100%;
+    flex: 1;
+    max-width: none;
     min-width: auto;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
 
   .gameboy-icon {
-    width: 56px;
-    height: 56px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .loading-section {
+    margin-top: 1.5rem;
+    gap: 1rem;
+  }
+
+  .embedded-logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .transaction-label {
+    font-size: 0.8rem;
+  }
+
+  .transaction-id {
+    font-size: 0.8rem;
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+  }
+
+  .loading-label {
+    font-size: 0.9rem;
   }
 }
 
-/* Animaciones de entrada */
+/* Entry animations */
 .match-confirmation-backdrop {
   animation: fadeIn 0.3s ease-out;
 }

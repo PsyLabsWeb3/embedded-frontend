@@ -1,78 +1,154 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MatchConfirmationModal.css';
 import gameboyIcon from '../../assets/gameboy.svg';
 
 interface MatchConfirmationModalProps {
   isOpen: boolean;
   amountSol: number;
-  amountUsd?: number;
   onReturn: () => void;
   onConfirm: () => void;
   isProcessing?: boolean;
+  isLoadingTransaction?: boolean;
+  transactionId?: string;
 }
 
 const MatchConfirmationModal: React.FC<MatchConfirmationModalProps> = ({
   isOpen,
   amountSol,
-  amountUsd,
   onReturn,
   onConfirm,
-  isProcessing = false
+  isProcessing = false,
+  isLoadingTransaction = false,
+  transactionId
 }) => {
   if (!isOpen) return null;
 
-  // Calcular precio en USD si no se proporciona (usando un precio base de ~$154.79/SOL)
-  const usdPrice = amountUsd || (amountSol * 154.79);
+  // Disable body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  // Prevent modal close when clicking on backdrop
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
   return (
-    <div className="match-confirmation-backdrop">
-      <div className="match-confirmation-modal">
-        {/* Icono del gameboy */}
-        <div className="modal-icon">
-          <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
-        </div>
+    <div className="match-confirmation-backdrop" onClick={handleBackdropClick}>
+      <div className="match-confirmation-modal" onClick={handleModalClick}>
+        
+        {isLoadingTransaction ? (
+          // State 2: Match Confirmed - Processing transaction
+          <>
+            {/* Header row: Title + Icon */}
+            <div className="modal-header-row">
+              <div className="modal-title-section">
+                <h1 className="modal-title">Match<br />Confirmed</h1>
+              </div>
+              <div className="modal-icon-section">
+                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+              </div>
+            </div>
 
-        {/* Título */}
-        <h1 className="modal-title">Match Confirmation</h1>
+            {/* Main waiting text */}
+            <p className="modal-main-text">
+              Please wait while we search a match for your game.
+            </p>
 
-        {/* Texto principal */}
-        <p className="modal-main-text">
-          You are about to confirm a match, you will be charged with{' '}
-          <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
-        </p>
+            {/* Secondary text */}
+            <p className="modal-secondary-text">
+              Please confirm your wallet transaction if you haven't
+            </p>
 
-        {/* Texto secundario */}
-        <p className="modal-secondary-text">
-          This will push you up in the 500x Leaderboard.
-        </p>
+            {/* Transaction ID */}
+            {transactionId && (
+              <div className="transaction-section">
+                <p className="transaction-label">Tx ID:</p>
+                <p className="transaction-id">
+                  {transactionId}
+                </p>
+              </div>
+            )}
 
-        {/* Texto adicional */}
-        <p className="modal-additional-text">
-          Please confirm your wallet transaction after.
-        </p>
+            {/* Logo and Loading */}
+            <div className="loading-section">
+              <div className="embedded-logo-container">
+                <img src="/logo.svg" alt="Embedded Logo" className="embedded-logo" />
+              </div>
+              <div className="loading-text">
+                <span className="loading-spinner"></span>
+                <p className="loading-label">Loading</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          // State 1: Initial confirmation
+          <>
+            {/* Header row: Title + Icon */}
+            <div className="modal-header-row">
+              <div className="modal-title-section">
+                <h1 className="modal-title">Match<br />Confirmation</h1>
+              </div>
+              <div className="modal-icon-section">
+                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+              </div>
+            </div>
 
-        {/* Botones */}
-        <div className="modal-buttons">
-          <button
-            className="modal-button return-button"
-            onClick={onReturn}
-            disabled={isProcessing}
-          >
-            RETURN
-          </button>
-          <button
-            className="modal-button confirm-button"
-            onClick={onConfirm}
-            disabled={isProcessing}
-          >
-            {isProcessing ? 'PROCESSING...' : 'CONFIRM MATCH'}
-          </button>
-        </div>
+            {/* Main text */}
+            <p className="modal-main-text">
+              You are about to confirm a match, you will be charged with{' '}
+              <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
+            </p>
 
-        {/* Badge de precio en la esquina */}
+            {/* Secondary text */}
+            <p className="modal-secondary-text">
+              This will push you up in the 500x Leaderboard.
+            </p>
+
+            {/* Additional text */}
+            <p className="modal-additional-text">
+              Please confirm your wallet transaction after.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="modal-buttons">
+              <button
+                className="modal-button return-button"
+                onClick={onReturn}
+                disabled={isProcessing}
+              >
+                RETURN
+              </button>
+              <button
+                className="modal-button confirm-button"
+                onClick={onConfirm}
+                disabled={isProcessing}
+              >
+                {isProcessing ? 'PROCESSING...' : 'CONFIRM MATCH'}
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* Price badge in corner - TEMPORARILY COMMENTED OUT */}
+        {/* 
         <div className="price-badge">
           ${usdPrice.toFixed(2)}
         </div>
+        */}
       </div>
     </div>
   );
