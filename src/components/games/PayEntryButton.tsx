@@ -362,12 +362,18 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
 
       // Guardar Campos de Game Mode y Degen Bet Amount
-      if (onDegenPlay) {
-        localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
-        if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
-          localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
+    // Persistir modo para el flujo móvil (pestaña nueva)
+        if (!usingDesktop) {
+          if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+            // DEGEN (Betting)
+            localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+            localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
+          } else {
+            // CASUAL
+            localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+            localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+          }
         }
-      }
 
       // Construir deeplink
       const deeplink =
@@ -412,7 +418,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
             onClick={() => {
               // Solo por claridad extra; no es estrictamente necesario si ya cambiaste handlePayEntry
               if (isMobile()) {
-                localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Casual");
+                localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
                 localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
               }
               void handlePayEntry();
