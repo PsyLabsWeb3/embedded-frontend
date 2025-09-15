@@ -263,6 +263,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
   // Botón deshabilitado mientras enviamos o no hay prereqs
   const disabled = sending || !prereqsReady;
+  const preparing = !sending && !prereqsReady; 
 
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (overrideSol?: number, usdBetAmount?: number) => {
@@ -411,8 +412,13 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
             className="pay-entry-button degen-mode-button"
             onClick={handleDegenOpen}
             disabled={disabled}
+            aria-busy={preparing || sending}
           >
-          {sending ? "PROCESSING" : "DEGEN MODE"}
+          {sending
+              ? "PROCESSING"
+              : preparing
+                ? <div className="pay-entry-spinner small" />
+                : "DEGEN MODE"}
           </button>
           <button
             onClick={() => {
@@ -425,8 +431,13 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
             }}
             disabled={disabled}
             className="pay-entry-button casual-play-button"
+            aria-busy={preparing || sending}
           >
-            {sending ? "PROCESSING" : "CASUAL PLAY"}
+            {sending
+              ? "PROCESSING"
+              : preparing
+                ? <div className="pay-entry-spinner small" />
+                : "CASUAL PLAY"}
           </button>
         </div>
       </div>
