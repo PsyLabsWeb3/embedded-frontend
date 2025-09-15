@@ -65,6 +65,15 @@
   animation: pay-entry-spin 1s linear infinite;
 }
 
+.pay-entry-button .pay-entry-spinner.small {
+  width: 18px;
+  height: 18px;
+  border-width: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
 .pay-entry-waiting-text {
   font-size: 0.9rem;
   opacity: 0.8;

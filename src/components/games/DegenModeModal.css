@@ -1,0 +1,113 @@
+.degen-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.degen-modal {
+  background: linear-gradient(135deg, #38454C, #171D20);
+  border-radius: 14px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  padding: 32px 28px 24px 28px;
+  min-width: 340px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.degen-modal-title {
+  font-size: 2.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+  color: #5DD62C;
+  font-family: Lobster, cursive;
+    width: 100%;
+}
+
+.degen-modal-subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 12px;
+  text-align: left;
+  font-family: Nunito, sans-serif;
+    font-weight: 900;
+    align-self: left;
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+.degen-modal-description {
+  font-size: 1rem;
+  color: #AE43FF;
+  margin-bottom: 18px;
+  text-align: center;
+  margin-top: 2rem;
+  font-family: Nunito, sans-serif;
+}
+
+.degen-options-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 28px;
+  justify-content: center;
+}
+
+.degen-option-button {
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  border: 0px solid #ccc;
+  background: #38454C;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 0.2s, background 0.2s;
+}
+
+.degen-option-button.selected {
+  border: 2px solid #5DD62C;
+  background: #5DD62C;
+}
+
+.degen-modal-actions {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  width: 100%;
+  color: #FFF;
+}
+
+.degen-cancel-button,
+.degen-continue-button {
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.degen-cancel-button {
+  background: #eee;
+  color: #333;
+}
+
+.degen-continue-button {
+  background: #AE43FF;
+  color: #fff;
+}
+
+.degen-continue-button:disabled {
+  background: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}

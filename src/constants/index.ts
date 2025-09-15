@@ -128,6 +128,8 @@ export const LOCAL_STORAGE_CONF = {
   HANDLED_KEY: "phantom_callback_handled",
   HANDLED_TTL_MS: 5_000,
   PHANTOM_LAST_TRANSACTION: "phantom_last_tx",
+  GAME_MODE: "game_mode",
+  DEGEN_BET_AMOUNT: "degen_bet_amount",
 }
 
 /**

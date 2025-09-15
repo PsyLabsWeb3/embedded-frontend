@@ -8,6 +8,8 @@ interface Props {
   publicKey?: string | null;
   transactionId?: string | null;
   onExit?: () => void; // callback al GamePage
+  degenMode?: string | null;
+  degenBetAmount?: string | null;
 }
 
 const isPortrait = () =>
@@ -15,7 +17,7 @@ const isPortrait = () =>
     && window.matchMedia
     && window.matchMedia('(orientation: portrait)').matches);
 
-const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId, onExit }) => {
+const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId, onExit, degenMode, degenBetAmount }) => {
   // Bloquea scroll del documento mientras esta vista esté montada
   useEffect(() => {
     const html = document.documentElement;
@@ -62,6 +64,12 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
     };
   }, []);
 
+  useEffect(() => {
+    if (degenMode === 'Betting') {
+      console.log('[UnityGameMobile] incoming degen props:', { degenMode, degenBetAmount });
+    }
+  }, [degenMode, degenBetAmount]);
+
   // Control local para desmontar Unity antes de volver al GamePage
   const [visible, setVisible] = React.useState(true);
 
@@ -82,6 +90,8 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
           gameAssets={gameAssets}
           publicKey={publicKey || undefined}
           transactionId={transactionId || undefined}
+          degenMode={degenMode}
+          degenBetAmount={degenBetAmount}
           enableFullscreen={false}
           forceFullscreenLayout
           disableSafeAreaPadding

@@ -8,6 +8,7 @@ import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from '../../constants';
 import './PayEntryModal.css';
+import './DegenModeModal.css';
 
 // ==== CONSTANTES (devnet) ====
 const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
@@ -25,6 +26,7 @@ type AnchorWallet = {
 type Props = {
   onSent?: (sig: string) => void;
   onContinue?: (sig: string) => void; // abre Unity / siguiente paso
+  onDegenPlay?: (betAmountSol: number, betAmountUsd: number) => void;
   fixedAmountSol?: number;
 };
 
@@ -46,7 +48,7 @@ async function waitForFinalized(
     if (resolved) return;
     resolved = true;
     if (subId !== null) {
-      try { connection.removeSignatureListener(subId); } catch {}
+      try { connection.removeSignatureListener(subId); } catch { }
     }
     if (interval) clearInterval(interval);
     if (tmo) clearTimeout(tmo);
@@ -71,7 +73,7 @@ async function waitForFinalized(
       const st = await connection.getSignatureStatuses([signature], { searchTransactionHistory: true });
       const s = st.value[0];
       if (s?.confirmationStatus === "finalized") cleanup();
-    } catch {}
+    } catch { }
   }, pollMs);
 
   const result = await new Promise<boolean>((resolve) => {
@@ -79,7 +81,7 @@ async function waitForFinalized(
       if (!resolved) {
         resolved = true;
         if (subId !== null) {
-          try { connection.removeSignatureListener(subId); } catch {}
+          try { connection.removeSignatureListener(subId); } catch { }
         }
         if (interval) clearInterval(interval);
         resolve(false);
@@ -94,30 +96,80 @@ async function waitForFinalized(
   return result;
 }
 
-const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol }) => {
+const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixedAmountSol }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
   // ===== Estados =====
   const [amountSol, setAmountSol] = useState<number>(fixedAmountSol ?? 0);
   const [sending, setSending] = useState(false);
+  const [solPriceUsd, setSolPriceUsd] = useState<number | null>(null);
 
   // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
 
+  // Degen mode modal
+  const [degenModalOpen, setDegenModalOpen] = useState(false);
+  const [degenSelected, setDegenSelected] = useState<number | null>(null);
+
+
+  const degenOptions = [1, 2, 5, 10];
+
+  const handleDegenOpen = () => {
+    setDegenModalOpen(true);
+    setDegenSelected(null);
+  };
+
+  const handleDegenCancel = () => {
+    setDegenModalOpen(false);
+    setDegenSelected(null);
+  };
+
+  const handleDegenContinue = () => {
+    if (!degenSelected) return;
+    // Convert selected USD -> SOL using cached price (with fallback)
+    (async () => {
+      try {
+        let price = solPriceUsd;
+        if (!price || !(price > 0)) {
+          const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+          const data = await r.json();
+          price = Number(data?.priceUsd);
+          if (!price || !isFinite(price) || price <= 0) throw new Error("invalid price");
+          setSolPriceUsd(price);
+        }
+
+        const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+        setDegenModalOpen(false);
+        // notify parent that a degen play is about to happen (USD and SOL)
+        onDegenPlay?.(solAmount, degenSelected);
+        // reuse existing payment flow and logic
+        await handlePayEntry(solAmount, degenSelected);
+      } catch (e) {
+        console.error("Failed to get SOL price for degen flow", e);
+        setDegenModalOpen(false);
+      }
+    })();
+  };
+
+  const handleDegenSelect = (val: number) => {
+    setDegenSelected(val);
+  };
+
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
   // ===== Carga de precio o retorno de Phantom =====
   useEffect(() => {
-    const last = localStorage.getItem("phantom_last_tx");
+    const last = localStorage.getItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
     if (last) {
+
       setTxSig(last);
       setModalOpen(true);
       setModalPhase("waiting");
-      localStorage.removeItem("phantom_last_tx");
+      localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
 
       let cancelled = false;
       (async () => {
@@ -133,14 +185,16 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
       return;
     }
 
+    // Pre-fetch SOL price once and compute default casual amount (0.5 USD) so both flows reuse it
     (async () => {
       try {
         const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
         const data = await r.json();
         const price = Number(data?.priceUsd);
         if (!price || !isFinite(price) || price <= 0) return;
-        const usd = 0.5;
-        setAmountSol(Number((usd / price).toFixed(8)));
+        setSolPriceUsd(price);
+        const usdDefault = 0.5;
+        setAmountSol(Number((usdDefault / price).toFixed(8)));
       } catch { /* ignore */ }
     })();
   }, [fixedAmountSol, connection]);
@@ -192,7 +246,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
   const phantomSession = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION) : null;
   const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
   const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
-  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem("phantom_wallet_pubkey") : null;
+  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) : null;
 
   // Ruta que usaremos (desktop adapter vs mobile Phantom)
   const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
@@ -209,15 +263,24 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
 
   // Botón deshabilitado mientras enviamos o no hay prereqs
   const disabled = sending || !prereqsReady;
+  const preparing = !sending && !prereqsReady; 
 
-  // ====== Pagar entrada ======
-  const handlePayEntry = async () => {
-    if (!prereqsReady) return;
+  // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
+  const handlePayEntry = async (overrideSol?: number, usdBetAmount?: number) => {
+    // check wallet/provider readiness depending on desktop/mobile flow
+    const anchorReady = !!anchorWallet && !!program;
+    const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
+    const networkReady = treasuryOk === true;
+
+    if (usingDesktop && !anchorReady) return;
+    if (!usingDesktop && !phantomReady) return;
+    if (!networkReady) return;
 
     try {
       setSending(true);
 
-      const lamports = new BN(Math.trunc((amountSol || 0) * LAMPORTS_PER_SOL));
+      const solToUse = typeof overrideSol === "number" ? overrideSol : amountSol;
+      const lamports = new BN(Math.trunc((solToUse || 0) * LAMPORTS_PER_SOL));
       if (lamports.lte(new BN(0))) {
         setSending(false);
         return;
@@ -299,6 +362,21 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
       const appUrl = encodeURIComponent(window.location.origin);
       const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
 
+      // Guardar Campos de Game Mode y Degen Bet Amount
+    // Persistir modo para el flujo móvil (pestaña nueva)
+        if (!usingDesktop) {
+          if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+            // DEGEN (Betting)
+            localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+            localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
+          } else {
+            // CASUAL
+            localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+            localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+          }
+        }
+
+      // Construir deeplink
       const deeplink =
         `https://phantom.app/ul/v1/signTransaction?` +
         `app_url=${appUrl}` +
@@ -332,19 +410,78 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, fixedAmountSol })
         <div className="button-group">
           <button
             className="pay-entry-button degen-mode-button"
-            disabled
+            onClick={handleDegenOpen}
+            disabled={disabled}
+            aria-busy={preparing || sending}
           >
-            DEGEN MODE
+          {sending
+              ? "PROCESSING"
+              : preparing
+                ? <div className="pay-entry-spinner small" />
+                : "DEGEN MODE"}
           </button>
           <button
-            onClick={handlePayEntry}
+            onClick={() => {
+              // Solo por claridad extra; no es estrictamente necesario si ya cambiaste handlePayEntry
+              if (isMobile()) {
+                localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+                localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+              }
+              void handlePayEntry();
+            }}
             disabled={disabled}
             className="pay-entry-button casual-play-button"
+            aria-busy={preparing || sending}
           >
-            {sending ? "PROCESSING" : "CASUAL PLAY"}
+            {sending
+              ? "PROCESSING"
+              : preparing
+                ? <div className="pay-entry-spinner small" />
+                : "CASUAL PLAY"}
           </button>
         </div>
       </div>
+
+      {/* Degen Mode Modal */}
+      {degenModalOpen && (
+        <div className="degen-modal-backdrop">
+          <div className="degen-modal">
+            <h3 className="degen-modal-title">Degen Mode Entry</h3>
+            <div className="degen-modal-subtitle">
+              Degen Mode selected! If the match goes through, your selected USD amount will be converted to SOL at the current rate and deducted from your wallet.
+            </div>
+            <div className="degen-modal-description">
+              Select your entry amount for Degen Mode:
+            </div>
+            <div className="degen-options-row">
+              {degenOptions.map(opt => (
+                <button
+                  key={opt}
+                  className={`degen-option-button${degenSelected === opt ? " selected" : ""}`}
+                  onClick={() => handleDegenSelect(opt)}
+                >
+                  ${opt}
+                </button>
+              ))}
+            </div>
+            <div className="degen-modal-actions">
+              <button
+                onClick={handleDegenCancel}
+                className="degen-cancel-button"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDegenContinue}
+                className="degen-continue-button"
+                disabled={degenSelected === null}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de confirmación */}
       {modalOpen && (

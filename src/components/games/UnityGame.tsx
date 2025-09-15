@@ -15,6 +15,10 @@ interface UnityGameProps {
   onError?: (error: string) => void;
   publicKey?: string | null;
   transactionId?: string | null;
+  /** Optional mode (e.g. 'Betting') coming from payment flow */
+  degenMode?: string | null;
+  /** Optional bet amount in SOL coming from payment flow */
+  degenBetAmount?: string| null;
 
   /** Mostrar botón Fullscreen (desktop). Default: true */
   enableFullscreen?: boolean;
@@ -94,6 +98,8 @@ const UnityGame: React.FC<UnityGameProps> = ({
   onError: _onError,
   publicKey,
   transactionId,
+  degenMode,
+  degenBetAmount,
   enableFullscreen = true,
   baseResolution = { width: 1280, height: 720 },
   forceFullscreenLayout = false,
@@ -120,8 +126,23 @@ const UnityGame: React.FC<UnityGameProps> = ({
   useEffect(() => {
     if (isLoaded && publicKey) {
       sendMessage('WalletManager', 'SetWalletAddress', publicKey.toString());
+      if (degenMode === 'Betting' && typeof degenMode === 'string') {
+        sendMessage('WalletManager', 'SetGameMode', degenMode);
+        const payloadBet = degenBetAmount;
+        if (typeof payloadBet === 'string') {
+          console.log('[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=', payloadBet);
+          sendMessage('WalletManager', 'SetBetAmount', payloadBet);
+        }
+      }
     }
-  }, [isLoaded, publicKey, sendMessage]);
+  }, [isLoaded, publicKey, sendMessage, degenMode, degenBetAmount]);
+
+ 
+  useEffect(() => {
+    if (degenMode || typeof degenBetAmount === 'string') {
+      console.log('[UnityGame] incoming props changed:', { degenMode, degenBetAmount });
+    }
+  }, [degenMode, degenBetAmount]);
 
   useEffect(() => {
     if (isLoaded && transactionId && transactionId.length > 0) {

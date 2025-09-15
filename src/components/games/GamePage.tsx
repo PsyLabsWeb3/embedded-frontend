@@ -30,6 +30,9 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
+  // Degen mode state to forward to Unity
+  const [degenMode, setDegenMode] = React.useState<string | null>(null);
+  const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(null);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -64,11 +67,23 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
   // Vista hija de mobile: full-window por layout
   if (isMobile() && gameConfig.assets && entryConfirmed && showMobileFull && !isExiting) {
+    //Si existe local storage GAME_MODE y DEGEN_BET_AMOUNT, los pasa a UnityGameMobile
+    const localDegenMode = (typeof localStorage !== 'undefined')
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
+      : null;
+    localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+    const localDegenBetAmount = (typeof localStorage !== 'undefined')
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
+      : null;
+    localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+
     return (
       <UnityGameMobile
         gameAssets={gameConfig.assets}
         publicKey={publicKey?.toString() || mobileWalletAddress || null}
         transactionId={txSig ?? null}
+        degenMode={localDegenMode}
+        degenBetAmount={localDegenBetAmount}
         onExit={handleExitFromMobile}
       />
     );
@@ -98,6 +113,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             gameAssets={gameConfig.assets}
             publicKey={publicKey?.toString() || mobileWalletAddress}
             transactionId={txSig ?? ''}
+            degenMode={degenMode}
+            degenBetAmount={degenBetAmount}
             enableFullscreen={true}
           />
         );
@@ -105,7 +122,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
       // Show empty game container when not confirmed - NO CONTENT.
       return (
-        <div style={{ 
+        <div style={{
           minHeight: '400px',
           background: 'transparent'
         }}>
@@ -122,7 +139,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
   const renderPaymentSection = (): React.ReactNode => {
     if (gameConfig.placeholder) return null;
-    
+
     if (gameConfig.assets && (connected || isConnectedMobile) && !entryConfirmed) {
       return (
         <PayEntryButton
@@ -132,10 +149,28 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             setEntryConfirmed(true);
             if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
           }}
+          onDegenPlay={(betSol: number, _betUsd: number) => {
+            setDegenMode('Betting');
+
+            let betUsd;
+            if (_betUsd) {
+              betUsd = _betUsd.toString();
+            }
+
+            // Log amount and data type (safely handle optional USD param)
+            console.log('Degen mode: Betting', {
+              betUsd_type: typeof betUsd,
+              betUsd_value: betUsd ?? null,
+              betSol_type: typeof betSol,
+              betSol_value: betSol,
+            });
+
+            setDegenBetAmount(betUsd ?? null);
+          }}
         />
       );
     }
-    
+
     return null;
   };
 
