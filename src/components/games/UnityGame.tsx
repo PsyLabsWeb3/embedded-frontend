@@ -135,27 +135,9 @@ const UnityGame: React.FC<UnityGameProps> = ({
         }
       }
     }
-  }, [isLoaded, publicKey, sendMessage]);
+  }, [isLoaded, publicKey, sendMessage, degenMode, degenBetAmount]);
 
-  // Inform Unity about degen mode and bet amount when they change
-  // useEffect(() => {
-  //   if (!isLoaded) return;
-  //   try {
-  //     if ((degenMode as any) && typeof degenMode === 'string') {
-  //       const payloadMode = degenMode;
-  //       console.log('[Unity] sendMessage -> target=WalletManager method=SetMode payload=', payloadMode);
-  //       sendMessage('WalletManager', 'SetGameMode', payloadMode);
-  //     }
-  //     if (degenBetAmount && typeof degenBetAmount === 'string') {
-  //       // Unity expects a float string or number depending on implementation
-  //       const payloadBet = degenBetAmount;
-  //       console.log('[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=', payloadBet);
-  //       sendMessage('WalletManager', 'SetBetAmount', payloadBet);
-  //     }
-  //   } catch {}
-  // }, [isLoaded, degenMode, degenBetAmount, sendMessage]);
-
-  // Log incoming degen props immediately when they change (even before Unity loads)
+ 
   useEffect(() => {
     if (degenMode || typeof degenBetAmount === 'string') {
       console.log('[UnityGame] incoming props changed:', { degenMode, degenBetAmount });

@@ -8,7 +8,7 @@ import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from '../../constants';
 import './PayEntryModal.css';
-import './DegenModeModal.css'; 
+import './DegenModeModal.css';
 
 // ==== CONSTANTES (devnet) ====
 const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
@@ -48,7 +48,7 @@ async function waitForFinalized(
     if (resolved) return;
     resolved = true;
     if (subId !== null) {
-      try { connection.removeSignatureListener(subId); } catch {}
+      try { connection.removeSignatureListener(subId); } catch { }
     }
     if (interval) clearInterval(interval);
     if (tmo) clearTimeout(tmo);
@@ -73,7 +73,7 @@ async function waitForFinalized(
       const st = await connection.getSignatureStatuses([signature], { searchTransactionHistory: true });
       const s = st.value[0];
       if (s?.confirmationStatus === "finalized") cleanup();
-    } catch {}
+    } catch { }
   }, pollMs);
 
   const result = await new Promise<boolean>((resolve) => {
@@ -81,7 +81,7 @@ async function waitForFinalized(
       if (!resolved) {
         resolved = true;
         if (subId !== null) {
-          try { connection.removeSignatureListener(subId); } catch {}
+          try { connection.removeSignatureListener(subId); } catch { }
         }
         if (interval) clearInterval(interval);
         resolve(false);
@@ -141,22 +141,22 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           setSolPriceUsd(price);
         }
 
-      const solAmount = Number((degenSelected / (price as number)).toFixed(8));
-      setDegenModalOpen(false);
-      // notify parent that a degen play is about to happen (USD and SOL)
-      onDegenPlay?.(solAmount, degenSelected);
-      // reuse existing payment flow and logic
-      await handlePayEntry(solAmount, degenSelected);
-          } catch (e) {
-            console.error("Failed to get SOL price for degen flow", e);
-            setDegenModalOpen(false);
-          }
-        })();
-      };
+        const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+        setDegenModalOpen(false);
+        // notify parent that a degen play is about to happen (USD and SOL)
+        onDegenPlay?.(solAmount, degenSelected);
+        // reuse existing payment flow and logic
+        await handlePayEntry(solAmount, degenSelected);
+      } catch (e) {
+        console.error("Failed to get SOL price for degen flow", e);
+        setDegenModalOpen(false);
+      }
+    })();
+  };
 
-      const handleDegenSelect = (val: number) => {
-        setDegenSelected(val);
-      };
+  const handleDegenSelect = (val: number) => {
+    setDegenSelected(val);
+  };
 
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
@@ -165,7 +165,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   useEffect(() => {
     const last = localStorage.getItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
     if (last) {
-      
+
       setTxSig(last);
       setModalOpen(true);
       setModalPhase("waiting");
@@ -397,100 +397,107 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
   // Removed unused buttonLabel variable
 
- return (
-  <>
-    <div className="pay-entry-section">
-      <div className="button-group">
-        <button
-          className="pay-entry-button degen-mode-button"
-          onClick={handleDegenOpen}
-          disabled={sending}
-        >
-          DEGEN MODE
-        </button>
-        <button
-          onClick={() => void handlePayEntry()}
-          disabled={disabled}
-          className="pay-entry-button casual-play-button"
-        >
-          {sending ? "PROCESSING" : "CASUAL PLAY"}
-        </button>
-      </div>
-    </div>
-
-    {/* Degen Mode Modal */}
-    {degenModalOpen && (
-      <div className="degen-modal-backdrop">
-        <div className="degen-modal">
-          <h3 className="degen-modal-title">Degen Mode Entry</h3>
-          <div className="degen-modal-subtitle">
-            Degen Mode selected! If the match goes through, your selected USD amount will be converted to SOL at the current rate and deducted from your wallet.
-          </div>
-          <div className="degen-modal-description">
-            Select your entry amount for Degen Mode:
-          </div>
-          <div className="degen-options-row">
-            {degenOptions.map(opt => (
-              <button
-                key={opt}
-                className={`degen-option-button${degenSelected === opt ? " selected" : ""}`}
-                onClick={() => handleDegenSelect(opt)}
-              >
-                ${opt} 
-              </button>
-            ))}
-          </div>
-          <div className="degen-modal-actions">
-            <button
-              onClick={handleDegenCancel}
-              className="degen-cancel-button"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleDegenContinue}
-              className="degen-continue-button"
-              disabled={degenSelected === null}
-            >
-              Continue
-            </button>
-          </div>
+  return (
+    <>
+      <div className="pay-entry-section">
+        <div className="button-group">
+          <button
+            className="pay-entry-button degen-mode-button"
+            onClick={handleDegenOpen}
+            disabled={sending}
+          >
+            DEGEN MODE
+          </button>
+          <button
+            onClick={() => {
+              // Solo por claridad extra; no es estrictamente necesario si ya cambiaste handlePayEntry
+              if (isMobile()) {
+                localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Casual");
+                localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+              }
+              void handlePayEntry();
+            }}
+            disabled={disabled}
+            className="pay-entry-button casual-play-button"
+          >
+            {sending ? "PROCESSING" : "CASUAL PLAY"}
+          </button>
         </div>
       </div>
-    )}
 
-    {/* Modal de confirmación */}
-    {modalOpen && (
-      <div className="pay-entry-modal-backdrop">
-        <div className="pay-entry-modal">
-          <h3>Transaction Sent</h3>
-          <div className="pay-entry-modal-content">
-            <p className="pay-entry-transaction-info">
-              Tx: {txSig ? (
-                <a href={explorerUrl} target="_blank" rel="noreferrer">
-                  {txSig}
-                </a>
-              ) : "—"}
-            </p>
-
-            {modalPhase === "waiting" ? (
-              <div className="pay-entry-waiting">
-                <div className="pay-entry-spinner" />
-                <div className="pay-entry-waiting-text">
-                  Waiting for confirmation (~10s)…
-                </div>
-              </div>
-            ) : (
-              <button onClick={handleContinue} className="pay-entry-continue-button">
+      {/* Degen Mode Modal */}
+      {degenModalOpen && (
+        <div className="degen-modal-backdrop">
+          <div className="degen-modal">
+            <h3 className="degen-modal-title">Degen Mode Entry</h3>
+            <div className="degen-modal-subtitle">
+              Degen Mode selected! If the match goes through, your selected USD amount will be converted to SOL at the current rate and deducted from your wallet.
+            </div>
+            <div className="degen-modal-description">
+              Select your entry amount for Degen Mode:
+            </div>
+            <div className="degen-options-row">
+              {degenOptions.map(opt => (
+                <button
+                  key={opt}
+                  className={`degen-option-button${degenSelected === opt ? " selected" : ""}`}
+                  onClick={() => handleDegenSelect(opt)}
+                >
+                  ${opt}
+                </button>
+              ))}
+            </div>
+            <div className="degen-modal-actions">
+              <button
+                onClick={handleDegenCancel}
+                className="degen-cancel-button"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDegenContinue}
+                className="degen-continue-button"
+                disabled={degenSelected === null}
+              >
                 Continue
               </button>
-            )}
+            </div>
           </div>
         </div>
-      </div>
-    )}
-  </>
-);
+      )}
+
+      {/* Modal de confirmación */}
+      {modalOpen && (
+        <div className="pay-entry-modal-backdrop">
+          <div className="pay-entry-modal">
+            <h3>Transaction Sent</h3>
+            <div className="pay-entry-modal-content">
+              <p className="pay-entry-transaction-info">
+                Tx: {txSig ? (
+                  <a href={explorerUrl} target="_blank" rel="noreferrer">
+                    {txSig}
+                  </a>
+                ) : "—"}
+              </p>
+
+              {modalPhase === "waiting" ? (
+                <div className="pay-entry-waiting">
+                  <div className="pay-entry-spinner" />
+                  <div className="pay-entry-waiting-text">
+                    Waiting for confirmation (~10s)…
+                  </div>
+                </div>
+              ) : (
+                <button onClick={handleContinue} className="pay-entry-continue-button">
+                  Continue
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default PayEntryButton;

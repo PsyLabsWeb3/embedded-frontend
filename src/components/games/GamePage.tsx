@@ -76,6 +76,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
       : null;
     localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+
     return (
       <UnityGameMobile
         gameAssets={gameConfig.assets}

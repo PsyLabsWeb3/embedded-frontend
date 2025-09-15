@@ -88,11 +88,13 @@ const PhantomSignCallback: React.FC = () => {
 
   return (
     <div style={{ padding: 16 }}>
+      <div className="spinner"></div>
       <p>Processing Phantom signed transaction…</p>
       {debug && (
         <>
           <h4>Decrypted payload (debug)</h4>
           <pre style={{ whiteSpace: "pre-wrap", fontSize: 12 }}>{JSON.stringify(debug, null, 2)}</pre>
+
         </>
       )}
     </div>
