@@ -7,13 +7,13 @@ import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from '../../constants';
+import MatchConfirmationModal from '../modals/MatchConfirmationModal';
 import './PayEntryModal.css';
 import './DegenModeModal.css';
 
-// ==== CONSTANTES (devnet) ====
+// Program constants for devnet
 const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
 const TREASURY_PDA = new PublicKey("EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM");
-// =================================
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -30,7 +30,10 @@ type Props = {
   fixedAmountSol?: number;
 };
 
-// Espera a que una firma llegue a "finalized" (WS + polling backup)
+/**
+ * Waits for a transaction signature to reach "finalized" confirmation status.
+ * Uses WebSocket subscription with polling fallback for reliability.
+ */
 async function waitForFinalized(
   connection: ReturnType<typeof useConnection>["connection"],
   signature: string,
@@ -57,15 +60,15 @@ async function waitForFinalized(
   try {
     subId = await connection.onSignature(
       signature,
-      (res /* SignatureResult */) => {
-        // Marcar como "leído" para evitar TS6133 y mantener compatibilidad:
+      (res) => {
+        // Transaction confirmed
         void res;
         cleanup();
       },
       "finalized"
     );
   } catch {
-    // fallback a polling
+    // Fallback to polling if WebSocket subscription fails
   }
 
   interval = setInterval(async () => {
@@ -100,12 +103,17 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const { connection } = useConnection();
   const wallet = useWallet();
 
-  // ===== Estados =====
+  // Component state
   const [amountSol, setAmountSol] = useState<number>(fixedAmountSol ?? 0);
   const [sending, setSending] = useState(false);
   const [solPriceUsd, setSolPriceUsd] = useState<number | null>(null);
 
-  // Modal
+  // Match confirmation modal state
+  const [showMatchConfirmation, setShowMatchConfirmation] = useState(false);
+  const [isLoadingTransaction, setIsLoadingTransaction] = useState(false);
+  const [currentTransactionId, setCurrentTransactionId] = useState<string | null>(null);
+
+    // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
@@ -161,7 +169,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
-  // ===== Carga de precio o retorno de Phantom =====
+  // Handle price loading and Phantom wallet return flow
   useEffect(() => {
     const last = localStorage.getItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
     if (last) {
@@ -171,13 +179,13 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       setModalPhase("waiting");
       localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
 
-      let cancelled = false;
+      // Verify transaction and continue to game
       (async () => {
         const ok = await waitForFinalized(connection, last);
-        if (!cancelled && ok) setModalPhase("ready");
+        if (ok) {
+          onContinue?.(last);
+        }
       })();
-
-      return () => { /* cleanup phantom flow */ };
     }
 
     if (typeof fixedAmountSol === "number") {
@@ -199,7 +207,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     })();
   }, [fixedAmountSol, connection]);
 
-  // Verificación de treasury una vez
+  // Verify treasury account once on component mount
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -214,7 +222,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     return () => { alive = false; };
   }, [connection]);
 
-  // Adapter -> AnchorWallet
+  // Convert wallet adapter to Anchor wallet interface
   const anchorWallet = useMemo<AnchorWallet | null>(() => {
     if (wallet.publicKey && wallet.signTransaction) {
       return {
@@ -228,7 +236,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     return null;
   }, [wallet]);
 
-  // Provider
+  // Create Anchor provider instance
   const provider = useMemo(() => {
     if (!anchorWallet) return null;
     const p = new AnchorProvider(connection, anchorWallet, { commitment: "confirmed" });
@@ -236,22 +244,22 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     return p;
   }, [connection, anchorWallet]);
 
-  // Program
+  // Create Anchor program instance
   const program = useMemo(() => {
     if (!provider) return null;
     return new Program(idl as Idl, provider);
   }, [provider]);
 
-  // Mobile Phantom session / claves
+  // Mobile Phantom wallet session data
   const phantomSession = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION) : null;
   const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
   const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
   const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) : null;
 
-  // Ruta que usaremos (desktop adapter vs mobile Phantom)
+  // Determine whether to use desktop adapter or mobile Phantom flow
   const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
 
-  // Prerequisitos listos?
+  // Check if all prerequisites are ready
   const anchorReady = !!anchorWallet && !!program;
   const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
   const amountReady = amountSol > 0;
@@ -261,7 +269,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     ? (anchorReady && amountReady && networkReady)
     : (phantomReady && amountReady && networkReady);
 
-  // Botón deshabilitado mientras enviamos o no hay prereqs
+  // Disable button while processing or prerequisites not met
   const disabled = sending || !prereqsReady;
   const preparing = !sending && !prereqsReady; 
 
@@ -286,7 +294,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
         return;
       }
 
-      // Desktop / adapter flow
+      // Desktop adapter flow
       if (usingDesktop) {
         if (!program || !anchorWallet) throw new Error("Program or anchorWallet not ready");
 
@@ -300,24 +308,28 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           .rpc({ commitment: "confirmed" });
 
         onSent?.(sig);
-        setTxSig(sig);
-        setModalOpen(true);
-        setModalPhase("waiting");
+        setCurrentTransactionId(sig);
 
         const ok = await waitForFinalized(connection, sig);
-        if (ok) setModalPhase("ready");
+        if (ok) {
+          // Transaction confirmed - close modal and continue
+          setShowMatchConfirmation(false);
+          setIsLoadingTransaction(false);
+          setCurrentTransactionId(null);
+          onContinue?.(sig);
+        }
         setSending(false);
         return;
       }
 
-      // ===== Mobile Phantom deep-link flow =====
+      // Mobile Phantom deep-link flow
       if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
         console.warn("Missing Phantom mobile prerequisites");
         setSending(false);
         return;
       }
 
-      // Program temporal sin signer (solo pubkey)
+      // Create temporary program instance without signer (pubkey only)
       const tempWallet: any = { publicKey: new PublicKey(phantomWalletPubStr) };
       const tempProvider = new AnchorProvider(connection, tempWallet, { commitment: "confirmed" });
       const tempProgram = new Program(idl as Idl, tempProvider);
@@ -336,7 +348,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       tx.feePayer = tempWallet.publicKey;
       tx.recentBlockhash = blockhash;
 
-      // Serialize
+      // Serialize transaction
       let unsignedBytes: Uint8Array;
       try {
         if ((tx as any).version !== undefined && typeof (tx as any).serialize === "function") {
@@ -388,12 +400,16 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       window.location.href = deeplink;
     } catch (e) {
       console.error("pay_entry error:", e);
+      // Reset modal state on error
+      setIsLoadingTransaction(false);
+      setShowMatchConfirmation(false);
+      setCurrentTransactionId(null);
     } finally {
       setSending(false);
     }
   };
 
-  const handleContinue = () => {
+    const handleContinue = () => {
     if (txSig) onContinue?.(txSig);
     setModalOpen(false);
   };
@@ -401,8 +417,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const explorerUrl = txSig
     ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
     : "#";
-
-  // Removed unused buttonLabel variable
 
   return (
     <>
