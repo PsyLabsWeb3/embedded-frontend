@@ -166,6 +166,21 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     setDegenSelected(val);
   };
 
+    // Handle modal return button click
+  const handleMatchReturn = () => {
+    setShowMatchConfirmation(false);
+    setIsLoadingTransaction(false);
+    setCurrentTransactionId(null);
+  };
+
+    // Handle modal confirm button click
+  const handleMatchConfirm = () => {
+    // Switch to loading state but keep modal open
+    setIsLoadingTransaction(true);
+    // Execute payment logic
+    handlePayEntry();
+  };
+
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
@@ -531,6 +546,17 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           </div>
         </div>
       )}
+
+      {/* Match confirmation modal */}
+      <MatchConfirmationModal
+        isOpen={showMatchConfirmation}
+        amountSol={amountSol}
+        onReturn={handleMatchReturn}
+        onConfirm={handleMatchConfirm}
+        isProcessing={sending}
+        isLoadingTransaction={isLoadingTransaction}
+        transactionId={currentTransactionId || undefined}
+      />
     </>
   );
 };
