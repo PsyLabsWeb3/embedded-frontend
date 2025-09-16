@@ -178,7 +178,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       setModalOpen(true);
       setModalPhase("waiting");
       localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
-
+       
       // Verify transaction and continue to game
       (async () => {
         const ok = await waitForFinalized(connection, last);
@@ -309,6 +309,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
         onSent?.(sig);
         setCurrentTransactionId(sig);
+        setTxSig(sig);
+        setModalOpen(true);
+        setModalPhase("waiting");
 
         const ok = await waitForFinalized(connection, sig);
         if (ok) {
@@ -316,6 +319,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           setShowMatchConfirmation(false);
           setIsLoadingTransaction(false);
           setCurrentTransactionId(null);
+          setModalPhase("ready");
           onContinue?.(sig);
         }
         setSending(false);
