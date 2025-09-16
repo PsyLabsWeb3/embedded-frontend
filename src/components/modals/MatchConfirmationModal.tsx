@@ -64,10 +64,10 @@ const MatchConfirmationModal: React.FC<MatchConfirmationModalProps> = ({
             </div>
 
             {/* Main waiting text */}
-            <p className="modal-main-text">
+           <p className="modal-main-text">
               Please wait while we search a match for your game.
             </p>
-
+ 
             {/* Secondary text */}
             <p className="modal-secondary-text">
               Please confirm your wallet transaction if you haven't

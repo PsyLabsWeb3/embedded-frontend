@@ -10,6 +10,7 @@ import { LOCAL_STORAGE_CONF } from '../../constants';
 import MatchConfirmationModal from '../modals/MatchConfirmationModal';
 import './PayEntryModal.css';
 import './DegenModeModal.css';
+import gameboyIcon from '../../assets/gameboy.svg';
 
 // Program constants for devnet
 const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
@@ -115,8 +116,11 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
     // Modal
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
+  // const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
+
+  // Casual mode modal
+  const [casualModalOpen, setCasualModalOpen] = useState(false);
 
   // Degen mode modal
   const [degenModalOpen, setDegenModalOpen] = useState(false);
@@ -166,6 +170,8 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     setDegenSelected(val);
   };
 
+
+
     // Handle modal return button click
   const handleMatchReturn = () => {
     setShowMatchConfirmation(false);
@@ -181,6 +187,26 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     handlePayEntry();
   };
 
+  // Handle Open Casual Modal
+  const handleOpenCasualModal = () => {
+    setCasualModalOpen(true);
+  };
+
+  // Handle Cancel Casual Modal
+  const handleCasualCancel = () => {
+    localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+    localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+    setCasualModalOpen(false);
+  };
+
+  // Handle Confirm Casual Modal
+  const handleCasualConfirm = () => {
+    // Switch to loading state but keep modal open
+    setIsLoadingTransaction(true);
+    // Execute payment logic
+    handlePayEntry();
+  }
+
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
@@ -191,7 +217,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
       setTxSig(last);
       setModalOpen(true);
-      setModalPhase("waiting");
+      // setModalPhase("waiting");
       localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
        
       // Verify transaction and continue to game
@@ -326,7 +352,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
         setCurrentTransactionId(sig);
         setTxSig(sig);
         setModalOpen(true);
-        setModalPhase("waiting");
+        // setModalPhase("waiting");
 
         const ok = await waitForFinalized(connection, sig);
         if (ok) {
@@ -334,7 +360,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
           setShowMatchConfirmation(false);
           setIsLoadingTransaction(false);
           setCurrentTransactionId(null);
-          setModalPhase("ready");
+          // setModalPhase("ready");
           onContinue?.(sig);
         }
         setSending(false);
@@ -428,10 +454,10 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     }
   };
 
-    const handleContinue = () => {
-    if (txSig) onContinue?.(txSig);
-    setModalOpen(false);
-  };
+  //   const handleContinue = () => {
+  //   if (txSig) onContinue?.(txSig);
+  //   setModalOpen(false);
+  // };
 
   const explorerUrl = txSig
     ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
@@ -460,7 +486,8 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
                 localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
                 localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
               }
-              void handlePayEntry();
+              // void handlePayEntry();
+              handleOpenCasualModal();
             }}
             disabled={disabled}
             className="pay-entry-button casual-play-button"
@@ -475,11 +502,73 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
         </div>
       </div>
 
+       
+        {casualModalOpen && (
+          <div className="match-confirmation-backdrop">
+          <div className="match-confirmation-modal">
+            {/* Header row: Title + Icon */}
+            <div className="modal-header-row">
+              <div className="modal-title-section">
+                <h1 className="modal-title">Match<br />Confirmation</h1>
+              </div>
+              <div className="modal-icon-section">
+                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+              </div>
+            </div>
+
+            {/* Main text */}
+            <p className="modal-main-text">
+              You are about to confirm a match, you will be charged with{' '}
+              <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
+            </p>
+
+            {/* Secondary text */}
+            <p className="modal-secondary-text">
+              This will push you up in the 500x Leaderboard.
+            </p>
+
+            {/* Additional text */}
+            <p className="modal-additional-text">
+              Please confirm your wallet transaction after.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="modal-buttons">
+              <button
+                className="modal-button return-button"
+                onClick={handleCasualCancel}
+                disabled={isLoadingTransaction}
+              >
+                RETURN
+              </button>
+              <button
+                className="modal-button confirm-button"
+                onClick={handleCasualConfirm}
+                disabled={isLoadingTransaction}
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                {isLoadingTransaction? <div className="loading-spinner-button" /> : 'CONFIRM MATCH'}
+              </button>
+            </div>
+          </div>
+        </div>
+        )}
+
       {/* Degen Mode Modal */}
       {degenModalOpen && (
-        <div className="degen-modal-backdrop">
-          <div className="degen-modal">
-            <h3 className="degen-modal-title">Degen Mode Entry</h3>
+        <div className="match-confirmation-backdrop">
+          <div className="match-confirmation-modal">
+          
+              {/* Header row: Title + Icon */}
+            <div className="modal-header-row">
+              <div className="modal-title-section">
+                <h1 className="modal-title">Degen Mode<br />Confirmation</h1>
+              </div>
+              <div className="modal-icon-section">
+                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+              </div>
+            </div>
+
             <div className="degen-modal-subtitle">
               Degen Mode selected! If the match goes through, your selected USD amount will be converted to SOL at the current rate and deducted from your wallet.
             </div>
@@ -497,17 +586,17 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
                 </button>
               ))}
             </div>
-            <div className="degen-modal-actions">
+            <div style={{ marginTop: '4rem' }} className="modal-buttons">
               <button
                 onClick={handleDegenCancel}
-                className="degen-cancel-button"
+                className="modal-button return-button"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDegenContinue}
-                className="degen-continue-button"
-                disabled={degenSelected === null}
+                className="modal-button confirm-button"
+                disabled={degenSelected === null || isLoadingTransaction}
               >
                 Continue
               </button>
@@ -518,9 +607,29 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
 
       {/* Modal de confirmación */}
       {modalOpen && (
-        <div className="pay-entry-modal-backdrop">
-          <div className="pay-entry-modal">
-            <h3>Transaction Sent</h3>
+        <div className="match-confirmation-backdrop">
+          <div className="match-confirmation-modal">
+
+              {/* Header row: Title + Icon */}
+            <div className="modal-header-row">
+              <div className="modal-title-section">
+                <h1 className="modal-title">Match<br />Confirmation</h1>
+              </div>
+              <div className="modal-icon-section">
+                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+              </div>
+            </div>
+
+             {/* Main waiting text */}
+           <p className="modal-main-text">
+              Please wait while transaction is processing for your game.
+            </p>
+ 
+            {/* Secondary text */}
+            <p className="modal-secondary-text">
+              You can check the status in the link below
+            </p>
+
             <div className="pay-entry-modal-content">
               <p className="pay-entry-transaction-info">
                 Tx: {txSig ? (
@@ -529,8 +638,19 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
                   </a>
                 ) : "—"}
               </p>
+               {/* Logo and Loading */}
+            <div className="loading-section">
+              <div className="embedded-logo-container">
+                <img src="/logo.svg" alt="Embedded Logo" className="embedded-logo" />
+              </div>
+              <div className="loading-text">
+                <span className="loading-spinner"></span>
+                <p className="loading-label">Loading</p>
+              </div>
+            </div>
+          
 
-              {modalPhase === "waiting" ? (
+              {/* {modalPhase === "waiting" ? (
                 <div className="pay-entry-waiting">
                   <div className="pay-entry-spinner" />
                   <div className="pay-entry-waiting-text">
@@ -541,7 +661,7 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
                 <button onClick={handleContinue} className="pay-entry-continue-button">
                   Continue
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>
