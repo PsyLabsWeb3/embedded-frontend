@@ -10,6 +10,7 @@ export const BannerIcon: React.FC<BannerIconProps> = ({ className = "" }) => {
   return (
     <div className={`${styles.iconContainer} ${className}`}>
       <img 
+      style={{ width: '80px', height: '80px' }}
         src={bannerIconSvg} 
         alt="Rewards banner icon" 
         className={styles.icon}
