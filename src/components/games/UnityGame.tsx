@@ -547,7 +547,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>Gira tu dispositivo para jugar en horizontal</span>
+              <span>Turn your device for landscape mode</span>
             </div>
           </div>
         )}
