@@ -11,3 +11,4 @@ const Game10: React.FC = () => {
 };
 
 export default Game10;
+//push test
