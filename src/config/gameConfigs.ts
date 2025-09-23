@@ -34,10 +34,10 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
-import pingPongLoaderUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.loader.js?url';
-import pingPongDataUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.data?url';
-import pingPongFrameworkUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.framework.js?url';
-import pingPongCodeUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.wasm?url';
+import pingPongLoaderUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.loader.js?url';
+import pingPongDataUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.data?url';
+import pingPongFrameworkUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.framework.js?url';
+import pingPongCodeUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.wasm?url';
 
 const pingPongAssets: GameAssets = {
   loaderUrl: pingPongLoaderUrl,
