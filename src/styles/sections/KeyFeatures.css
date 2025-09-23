@@ -17,7 +17,7 @@
   background: var(--color-accent-blue);
   border-radius: var(--radius-sm);
   height: 12px;
-  margin-right: var(--spacing-lg);
+  
   margin-left: var(--spacing-md);
   width: 48px;
 }
@@ -25,13 +25,13 @@
 .key-features-label {
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 1.2rem;
+  
   letter-spacing: 0.01em;
 }
 
 .key-features-title {
   color: var(--color-text);
-  font-family: var(--font-subheading);
+  font-family: 'Alumni Sans', sans-serif;
   font-size: 2.7rem;
   font-weight: 400;
   line-height: 1.18;
@@ -62,5 +62,83 @@
   
   .key-features-header {
     margin-bottom: 1.2rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .key-features-section {
+    max-width: 1400px;
+  }
+  
+  .key-features-header {
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    gap: 1.2rem;
+  }
+  
+  .key-features-description
+  {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .key-features-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+  }
+  
+  .feature-card {
+    background: linear-gradient(135deg, #38454C 0%, #171D20 100%);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-width: 350px;
+  }
+  
+  .feature-icon {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-bottom: 0.5rem;
+    display: block;
+    object-fit: contain;
+  }
+  
+  .feature-card-title {
+    color: #5DD62C;
+    font-family: 'Alumni Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .feature-card-description {
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+/* Hide cards on mobile */
+@media (max-width: 767px) {
+  .key-features-cards {
+    display: none;
   }
 }

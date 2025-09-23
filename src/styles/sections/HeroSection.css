@@ -89,31 +89,78 @@
 }
 
 @media (min-width: 1200px) {
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    gap: clamp(2rem, 5vh, 6rem);
+  }
+  
   .hero-section__row {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-lg);
-    min-height: 200px;
+    gap: clamp(1.5rem, 4vh, 4rem);
+    min-height: auto;
   }
+  
   .hero-title {
-    font-size: var(--font-size-display);
+    font-family: 'Lobster', cursive;
+    font-size: clamp(4rem, 8vw, 10rem);
     line-height: 1.18;
     margin-bottom: 0;
-    margin-top: 3.2rem;
+    margin-top: clamp(4rem, 8vh, 10rem);
+    color: #FFFFFF;
   }
+  
   .hero-section__subtitle {
-    font-size: 1.5rem;
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(1.5rem, 2.5vw, 3rem);
     margin-bottom: 0;
     text-align: center;
+    color: #FFFFFF;
+    max-width: clamp(600px, 70vw, 900px);
+    line-height: 1.4;
   }
-  .hero-section__row--cta {
+  
+  .hero-section__buttons {
     display: flex;
+    gap: clamp(1.5rem, 3vw, 4rem);
     justify-content: center;
     margin-top: 0;
+    margin-bottom: clamp(4rem, 8vh, 10rem);
   }
+  
   .hero-section__cta {
-    font-size: 1.1rem;
-    padding: 1.1rem 3.2rem;
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+    padding: clamp(1rem, 2vw, 2rem) clamp(2rem, 4vw, 5rem);
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 0.01em;
+    transition: var(--transition-fast);
+  }
+  
+  .hero-section__cta--primary {
+    background: #5DD62C;
+    color: #FFFFFF;
+  }
+  
+  .hero-section__cta--primary:hover {
+    background: #4BC621;
+  }
+  
+  .hero-section__cta--secondary {
+    background: linear-gradient(135deg, #38454C 0%, #171D20 100%);
+    border: 1px solid #38454C;
+    color: #FFFFFF;
+  }
+  
+  .hero-section__cta--secondary:hover {
+    background: linear-gradient(135deg, #4A585F 0%, #252C30 100%);
   }
 }

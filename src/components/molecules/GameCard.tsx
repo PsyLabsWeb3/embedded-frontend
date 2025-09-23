@@ -119,7 +119,6 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     <div className="game-card-outer-wrapper">
       <div
         className={cardClasses}
-        style={{ backgroundImage: `url(${image})` }}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         role="button"
@@ -127,7 +126,30 @@ const GameCardComponent: React.FC<GameCardProps> = ({
         aria-label={accessibleLabel}
         data-testid={testId}
       >
-        <span className="game-card-title">{title}</span>
+        {/* Game Image */}
+        <div 
+          className="game-card-image"
+          style={{ backgroundImage: `url(${image})` }}
+        ></div>
+        
+        {/* Game Content */}
+        <div className="game-card-content">
+          {/* Game Title */}
+          <h3 className="game-card-title">{title}</h3>
+          
+          {/* Play Button - Only visible on desktop */}
+          <button
+            className="game-card-play-button"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent double click
+              handleClick();
+            }}
+            onKeyDown={handleKeyDown}
+            aria-label={accessibleLabel}
+          >
+            PLAY NOW
+          </button>
+        </div>
       </div>
     </div>
   );

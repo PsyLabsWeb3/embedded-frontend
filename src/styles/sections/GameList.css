@@ -14,14 +14,28 @@
   gap: 2.2rem;
 }
 
-/* Specific styles for GameListSection cards - remove any border/glow */
+/* Description text - hidden by default, shown only on desktop */
+.game-list__description {
+  display: none;
+}
+
+/* Divider - hidden by default, shown only on desktop */
+.game-list__divider {
+  display: none;
+}
+
+/* View All Games Button - hidden by default, shown only on desktop */
+.game-list__button-container {
+  display: none;
+}
+
+/* Specific styles for GameListSection cards - remove any border/outline */
 .game-list__grid .game-card-outer-wrapper,
 .game-list__grid .game-card-outer-wrapper *,
 .game-list__grid .game-card,
 .game-list__grid .game-card * {
   border: none !important;
   outline: none !important;
-  box-shadow: none !important;
 }
 
 /* Tablet styles */
@@ -39,10 +53,65 @@
 /* Desktop styles */
 @media (min-width: 900px) {
   .game-list__title {
-    font-size: 3.2rem;
+    font-size: 4rem;
+    text-align: center !important;
+    margin-top: 5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .game-list__description {
+    display: block;
+    font-family: 'Alumni Sans', sans-serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .game-list__divider {
+    display: block;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, #317017, #5DD62C);
+    margin: 0 auto 2rem auto;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
   }
   
   .game-list__grid {
-    gap: var(--spacing-2xl);
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: center;
+    align-items: stretch;
+  }
+  
+  .game-list__button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .game-list__view-all-button {
+    background: linear-gradient(to right, #38454C, #171D20);
+    border: 1px solid #38454C;
+    border-radius: 8px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    margin-top: 1.7rem;
+    margin-bottom: 1.7rem;
+  }
+  
+  .game-list__view-all-button:hover {
+    background: linear-gradient(to right, #4A585F, #252C30);
+    transform: translateY(-1px);
   }
 }

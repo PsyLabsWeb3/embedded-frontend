@@ -1,20 +1,26 @@
 /**
  * @fileoverview HeroStatCard Component
  * 
- * A prominent call-to-action card component displayed in the hero section.
- * Features player statistics, platform description, and a primary action
- * button for user engagement. Designed to drive conversions and showcase
- * platform credibility.
+ * A comprehensive gaming platform showcase component that combines a section title,
+ * value proposition card, and call-to-action elements. This component serves as the
+ * primary engagement driver in the hero section, featuring platform description,
+ * user statistics, and conversion-focused elements.
+ * 
+ * The component adapts responsively across devices:
+ * - Mobile: Shows only the green card with statistics
+ * - Desktop: Displays section title "Where Gaming Meets Crypto" above the card
  * 
  * Features:
- * - Eye-catching gradient design
- * - Responsive layout optimization
- * - Professional call-to-action
+ * - Responsive section title (desktop-only)
+ * - Eye-catching gradient card design
+ * - Social proof through player statistics
+ * - Professional call-to-action button
  * - Accessibility compliance
  * - Navigation integration
+ * - Semantic HTML structure
  * 
  * @author Embedded Frontend Team
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 import React from 'react';
@@ -25,25 +31,35 @@ import '../../styles/sections/HeroStatCard.css';
 /**
  * HeroStatCard Component
  * 
- * Renders a visually striking card that serves as the primary call-to-action
- * in the hero section. The component combines compelling copy, social proof
- * through player statistics, and a clear action button to drive engagement.
+ * Renders a comprehensive gaming platform showcase section that includes both
+ * a contextual title and a visually striking call-to-action card. The component
+ * combines compelling copy, social proof through player statistics, and a clear
+ * action button to drive user engagement and conversions.
  * 
- * The card uses a gradient background and professional typography to create
- * visual hierarchy and guide user attention to the primary action.
+ * The section uses responsive design principles:
+ * - Mobile: Card-only layout for optimal touch interaction
+ * - Desktop: Title + card layout for enhanced visual hierarchy
  * 
- * @returns JSX element representing the hero statistics and CTA card
+ * The card features a gradient background and professional typography to create
+ * visual hierarchy and guide user attention to the primary conversion action.
+ * 
+ * @returns JSX element representing the complete gaming platform showcase section
  */
 const HeroStatCard: React.FC = () => (
-  <article className="hero-stat-card">
+  <section className="hero-stat-section">
+    {/* Section Title - Visible only on desktop for enhanced hierarchy */}
+    <h2 className="hero-stat-section__title">Where Gaming Meets Crypto</h2>
+    
+    {/* Primary Content Card - Platform value proposition and CTA */}
+    <article className="hero-stat-card">
 
-    {/* Value Proposition */}
-    <p className="hero-stat-card__desc">
+      {/* Value Proposition - Core platform benefits */}
+      <p className="hero-stat-card__desc">
       A decentralized gaming platform rewarding players with real crypto—no 
       accounts, no tokens, just your wallet.
     </p>
     
-    {/* Primary Call-to-Action */}
+    {/* Primary Call-to-Action - Conversion driver */}
     <Link 
       to={ROUTES.GAMES} 
       className="hero-stat-card__button"
@@ -52,7 +68,7 @@ const HeroStatCard: React.FC = () => (
       START PLAYING!
     </Link>
     
-    {/* Social Proof - Player Statistics */}
+    {/* Social Proof - Player Statistics for credibility */}
     <div className="hero-stat-card__stat">
       <div 
         className="hero-stat-card__stat-main" 
@@ -66,6 +82,7 @@ const HeroStatCard: React.FC = () => (
       </span>
     </div>
   </article>
+  </section>
 );
 
 export default HeroStatCard;

@@ -51,6 +51,14 @@ const GameListSection: React.FC = () => (
       Hot Games
     </h2>
     
+    {/* Section Description - Desktop only */}
+    <p className="game-list__description">
+      Jump into the action with our most played games
+    </p>
+    
+    {/* Divider - Desktop only */}
+    <div className="game-list__divider"></div>
+    
     {/* Games Grid */}
     <div 
       className="game-list__grid"
@@ -68,6 +76,13 @@ const GameListSection: React.FC = () => (
           />
         </div>
       ))}
+    </div>
+    
+    {/* View All Games Button - Desktop only */}
+    <div className="game-list__button-container">
+      <button className="game-list__view-all-button">
+        VIEW ALL GAMES
+      </button>
     </div>
   </section>
 );

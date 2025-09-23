@@ -1,3 +1,102 @@
+@media (min-width: 768px) {
+  /* Hide bullets in reward cards (desktop only) */
+  .reward-card-desktop .reward-bullet {
+    display: none;
+  }
+}
+/* Card shadows only for desktop */
+@media (min-width: 768px) {
+  .reward-list-item-wrapper:nth-child(1) .reward-card-desktop,
+  .reward-list-item-wrapper:nth-child(3) .reward-card-desktop {
+    box-shadow: -4px 4px 4px 0 #5DD62C;
+  }
+  .reward-list-item-wrapper:nth-child(2) .reward-card-desktop {
+    box-shadow: 4px 4px 4px 0 #5DD62C;
+  }
+}
+@media (max-width: 767px) {
+  .reward-system-desc-custom {
+    display: none !important;
+  }
+}
+/* Custom section title and description styles */
+.reward-title-custom {
+  font-family: 'Alumni Sans', Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.reward-system-desc-custom {
+  color: #5DD62C;
+  font-family: 'Nunito', 'Nunito Sans', Arial, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Eliminar el divider blanco (RewardSeparator) */
+.reward-separator {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .reward-system-card {
+    display: contents;
+  }
+}
+/* Desktop-only styles for reward cards */
+@media (min-width: 768px) {
+  .reward-system-card {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 700px;
+    padding: 0;
+  }
+
+  .reward-list-item-wrapper {
+    list-style: none;
+    margin: 0 auto 2rem auto;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reward-card-desktop {
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18), 0 8px 0 0 #5DD62C;
+    padding: 1.2rem 2.2rem;
+    display: flex;
+    align-items: center;
+    min-height: 72px;
+    position: relative;
+    background: transparent;
+  }
+
+  .reward-card--gradient-a {
+    background: linear-gradient(90deg, #38454C 0%, #171D20 100%);
+  }
+  .reward-card--gradient-b {
+    background: linear-gradient(90deg, #171D20 0%, #38454C 100%);
+  }
+
+  .reward-system-desc {
+    color: #5DD62C;
+    font-family: 'Nunito', 'Nunito Sans', Arial, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.18rem;
+    margin-bottom: 1.2rem;
+  }
+}
 /* Reward system section styles */
 .reward-system-section {
   margin-bottom: 2.5rem;

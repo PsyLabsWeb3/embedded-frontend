@@ -1,4 +1,10 @@
 /* Hero stat card component styles */
+
+/* H2 title - oculto en mobile por defecto */
+.hero-stat-section__title {
+  display: none;
+}
+
 .hero-stat-card {
   align-items: center;
   background: linear-gradient(45deg, var(--color-primary) 0%, #317017 100%);
@@ -99,10 +105,29 @@
 
 /* Desktop styles */
 @media (min-width: 1200px) {
+  /* Container section para desktop */
+  .hero-stat-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* H2 visible solo en desktop */
+  .hero-stat-section__title {
+    display: block;
+    font-family: 'Lobster', cursive;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: clamp(2.5rem, 4vw, 5rem);
+    margin: 0 0 1rem 0;
+  }
+  
   .hero-stat-card {
-    max-width: 540px;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    max-width: 80vw;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 

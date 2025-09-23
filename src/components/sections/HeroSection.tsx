@@ -18,8 +18,9 @@ const HeroSection = () => {
       <div className="hero-section__row">
         <p className="hero-section__subtitle"> A decentralized gaming platform rewarding players with real crypto—no accounts,
 no tokens, just your wallet. </p>
-        <div className="hero-section__row--cta">
-          <button className="hero-section__cta" onClick={handleStartPlaying}>START PLAYING!</button>
+        <div className="hero-section__buttons">
+          <button className="hero-section__cta hero-section__cta--primary" onClick={handleStartPlaying}>PLAY NOW</button>
+          <button className="hero-section__cta hero-section__cta--secondary">WHITEPAPER</button>
         </div>
       </div>
       {/* Mobile Layout */}
