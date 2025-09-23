@@ -6,7 +6,7 @@ import './Games.css';
 const gamesList = [
   { id: 3, title: 'Embedded Wars', path: '/game/03-embedded-wars' },
   { id: 1, title: 'Snake', path: '/game/01-snake' },
-  { id: 2, title: 'Ping Pong', path: '/game/02-ping-pong' }
+  { id: 2, title: 'Asteroids', path: '/game/02-ping-pong' }
 ];
 
 const Games = () => (

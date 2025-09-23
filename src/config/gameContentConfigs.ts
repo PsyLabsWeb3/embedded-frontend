@@ -6,7 +6,7 @@ type GameCustomContentProps = ComponentProps<typeof GameCustomContent>;
 
 export const gameContentConfigs: Record<string, Omit<GameCustomContentProps, 'className'>> = {
   'ping-pong': {
-    title: "Ping Pong",
+    title: "Asteroids",
     description: "Experimenta la emoción del ping pong clásico con mecánicas modernas y recompensas blockchain.",
     leftIcon: "🏓",
     rightIcon: "⚡",

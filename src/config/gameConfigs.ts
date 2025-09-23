@@ -34,10 +34,10 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
-import pingPongLoaderUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.loader.js?url';
-import pingPongDataUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.data?url';
-import pingPongFrameworkUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.framework.js?url';
-import pingPongCodeUrl from '../assets/Unity/PingPong/Build/EM-44-AsteroidsShared.wasm?url';
+import pingPongLoaderUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.loader.js?url';
+import pingPongDataUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.data?url';
+import pingPongFrameworkUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.framework.js?url';
+import pingPongCodeUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.wasm?url';
 
 const pingPongAssets: GameAssets = {
   loaderUrl: pingPongLoaderUrl,
@@ -56,7 +56,7 @@ import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
 
 // Existing background images
 import snakeBackground from '../assets/snake_game.jpg?url';
-import pingPongBackground from '../assets/pingpong.jpg?url';
+import pingPongBackground from '../assets/AsteroidsCover.png?url';
 import bubbleBackground from '../assets/bubble.jpg?url';
 
 // Placeholder backgrounds (use existing images temporarily - you can replace these paths later)
@@ -133,7 +133,7 @@ export const gameConfigs: Record<string, GameConfig> = {
   // Placeholder Games - These will be implemented in future releases
   '02-ping-pong': {
     id: '02-ping-pong',
-    title: 'Ping Pong',
+    title: 'Asteroids',
     description: 'Fast-paced table tennis game',
     assets: pingPongAssets,
     backgroundImage: pingPongBackground,
