@@ -34,7 +34,7 @@ const PoolRewardsBanner = () => {
     <section className="pool-rewards-section section container mx-container">
       <div className="pool-rewards-banner">
         <div className="pool-rewards-content">
-          <span className="pool-rewards-amount">${poolAmount}</span>
+          <span className="pool-rewards-amount">{poolAmount} $SOL</span>
           <span className="pool-rewards-label">Available Pool Rewards in Current Season</span>
         </div>
       </div>
