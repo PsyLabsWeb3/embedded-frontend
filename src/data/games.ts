@@ -11,7 +11,7 @@
  */
 
 import { GameTypes } from '../types';
-import snakeGameImage from '../assets/snake_game.jpg';
+// import snakeGameImage from '../assets/snake_game.jpg';
 import pingpongImage from '../assets/AsteroidsCover.png';
 // import bubbleImage from '../assets/bubble.jpg';
 import embeddedwarsImage from '../assets/embedded_wars.jpg';
