@@ -2,8 +2,7 @@
 
 // Reward System Section displays the reward model for the platform.
 // Desktop and mobile layouts differ: desktop uses individual cards with gradients and green shadow, mobile uses a single card.
-import RewardTitle from '../atoms/RewardTitle';
-import RewardSeparator from '../atoms/RewardSeparator';
+
 import RewardListItem from '../molecules/RewardListItem';
 import '../../styles/sections/RewardSystemSection.css';
 
