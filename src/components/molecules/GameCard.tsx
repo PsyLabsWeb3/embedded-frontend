@@ -64,7 +64,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
    */
   const gameRoutes: Record<string, string> = {
     'snake': GAME_ROUTES.SNAKE,
-    'pingpong': GAME_ROUTES.PING_PONG,
+    'asteroids': GAME_ROUTES.ASTEROIDS,
     'embeddedwars': GAME_ROUTES.EMBEDDED_WARS,
     'candysweet': GAME_ROUTES.CANDY_SWEET,
     'sortpuzzle': GAME_ROUTES.SORT_PUZZLE,

@@ -12,7 +12,7 @@
 
 import { GameTypes } from '../types';
 // import snakeGameImage from '../assets/snake_game.jpg';
-import pingpongImage from '../assets/AsteroidsCover.png';
+import asteroidsImage from '../assets/AsteroidsCover.png';
 // import bubbleImage from '../assets/bubble.jpg';
 import embeddedwarsImage from '../assets/embedded_wars.jpg';
 
@@ -59,12 +59,12 @@ const games: Game[] = [
   //   updatedAt: new Date('2024-01-15'),
   // },
   {
-    id: 'ping-pong-game',
+    id: 'asteroids-game',
     title: 'Asteroids',
-    slug: 'Asteroids',
-    image: pingpongImage,
+    slug: 'asteroids',
+    image: asteroidsImage,
     glowClass: 'neon-white',
-    description: 'Fast-paced table tennis action',
+    description: 'Fast-paced asteroid action',
     isFeatured: true,
     isNew: false,
     createdAt: new Date('2024-01-02'),

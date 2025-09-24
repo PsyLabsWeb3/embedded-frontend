@@ -72,7 +72,7 @@ export { default as PlaceholderGame } from './games/PlaceholderGame';
 // Game Page Components
 export {
   Snake,
-  PingPong,
+  Asteroids,
   CandySweet,
   SortPuzzle,
   PipesFlood,

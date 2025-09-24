@@ -3,13 +3,13 @@ import GamePage from '../GamePage';
 
 import './Games.module.css'
 
-const PingPong: React.FC = () => {
+const Asteroids: React.FC = () => {
   return (
     <GamePage 
-      gameId="02-ping-pong"
+      gameId="02-asteroids"
       customContent={<div />}
     />
   );
 };
 
-export default PingPong;
+export default Asteroids;

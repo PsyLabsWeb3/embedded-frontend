@@ -54,7 +54,7 @@ import PhantomSignCallback from './pages/PhantomSignCallback';
 // Import game page components
 import {
   Snake,
-  PingPong,
+  Asteroids,
   EmbeddedWars,
   CandySweet,
   SortPuzzle,
@@ -125,7 +125,7 @@ const App: React.FC = () => {
                 
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />
-                <Route path="/game/02-ping-pong" element={<PingPong />} />
+                <Route path="/game/02-asteroids" element={<Asteroids />} />
                 <Route path="/game/03-embedded-wars" element={<EmbeddedWars />} />
                 <Route path="/game/04-candy-sweet" element={<CandySweet />} />
                 <Route path="/game/05-sort-puzzle" element={<SortPuzzle />} />

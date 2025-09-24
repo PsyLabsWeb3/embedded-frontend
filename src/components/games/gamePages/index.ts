@@ -15,7 +15,7 @@
 // Individual Game Page Exports
 // These exports allow for direct imports of specific game components
 export { default as Snake } from './01_Snake';
-export { default as PingPong } from './02_PingPong';
+export { default as Asteroids } from './02_Asteroids';
 export { default as EmbeddedWars } from './03_EmbeddedWars';
 export { default as CandySweet } from './04_CandySweet';
 export { default as SortPuzzle } from './05_SortPuzzle';
@@ -28,7 +28,7 @@ export { default as Game11 } from './11_Game11';
 
 // Import components for internal mapping
 import Snake from './01_Snake';
-import PingPong from './02_PingPong';
+import Asteroids from './02_Asteroids';
 import EmbeddedWars from './03_EmbeddedWars';
 import CandySweet from './04_CandySweet';
 import SortPuzzle from './05_SortPuzzle';
@@ -54,7 +54,7 @@ import Game11 from './11_Game11';
  */
 export const gamePageComponents = {
   '01-snake': Snake,
-  '02-ping-pong': PingPong,
+  '02-asteroids': Asteroids,
   '03-embedded-wars': EmbeddedWars,
   '04-candy-sweet': CandySweet,
   '05-sort-puzzle': SortPuzzle,

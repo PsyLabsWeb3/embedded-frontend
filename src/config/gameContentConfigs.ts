@@ -5,10 +5,10 @@ import GameCustomContent from '../components/games/GameCustomContent';
 type GameCustomContentProps = ComponentProps<typeof GameCustomContent>;
 
 export const gameContentConfigs: Record<string, Omit<GameCustomContentProps, 'className'>> = {
-  'ping-pong': {
+  'asteroids': {
     title: "Asteroids",
-    description: "Experimenta la emoción del ping pong clásico con mecánicas modernas y recompensas blockchain.",
-    leftIcon: "🏓",
+    description: "Experimenta la emoción de los asteroides con mecánicas modernas y recompensas blockchain.",
+    leftIcon: "🪐",
     rightIcon: "⚡",
     infoCards: [
       {

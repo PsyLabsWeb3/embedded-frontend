@@ -31,7 +31,7 @@ export const ROUTES = {
  */
 export const GAME_ROUTES = {
   SNAKE: '/game/01-snake',
-  PING_PONG: '/game/02-ping-pong',
+  ASTEROIDS: '/game/02-asteroids',
   EMBEDDED_WARS: '/game/03-embedded-wars',
   CANDY_SWEET: '/game/04-candy-sweet',
   SORT_PUZZLE: '/game/05-sort-puzzle',
