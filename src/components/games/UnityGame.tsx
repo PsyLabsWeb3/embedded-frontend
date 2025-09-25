@@ -427,7 +427,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
           >
             <div
               style={{
-                background: "#5cd62c72",
+                background: "transparent",
                 color: "#ffffffff",
                 padding: "16px 18px",
                 borderRadius: 12,

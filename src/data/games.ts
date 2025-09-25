@@ -11,8 +11,8 @@
  */
 
 import { GameTypes } from '../types';
-import snakeGameImage from '../assets/snake_game.jpg';
-import pingpongImage from '../assets/pingpong.png';
+// import snakeGameImage from '../assets/snake_game.jpg';
+import asteroidsImage from '../assets/AsteroidsCover.png';
 // import bubbleImage from '../assets/bubble.jpg';
 import embeddedwarsImage from '../assets/embedded_wars.jpg';
 
@@ -46,25 +46,25 @@ const games: Game[] = [
     createdAt: new Date('2024-01-01'),
     updatedAt: new Date('2024-01-15'),
   },
+  // {
+  //   id: 'snake-game',
+  //   title: 'Snake',
+  //   slug: 'snake',
+  //   image: snakeGameImage,
+  //   glowClass: 'neon-blue',
+  //   description: 'Classic snake game with number merging mechanics',
+  //   isFeatured: true,
+  //   isNew: false,
+  //   createdAt: new Date('2024-01-01'),
+  //   updatedAt: new Date('2024-01-15'),
+  // },
   {
-    id: 'snake-game',
-    title: 'Snake',
-    slug: 'snake',
-    image: snakeGameImage,
-    glowClass: 'neon-blue',
-    description: 'Classic snake game with number merging mechanics',
-    isFeatured: true,
-    isNew: false,
-    createdAt: new Date('2024-01-01'),
-    updatedAt: new Date('2024-01-15'),
-  },
-  {
-    id: 'ping-pong-game',
-    title: 'Ping Pong',
-    slug: 'pingpong',
-    image: pingpongImage,
+    id: 'asteroids-game',
+    title: 'Asteroids',
+    slug: 'asteroids',
+    image: asteroidsImage,
     glowClass: 'neon-white',
-    description: 'Fast-paced table tennis action',
+    description: 'Fast-paced asteroid action',
     isFeatured: true,
     isNew: false,
     createdAt: new Date('2024-01-02'),

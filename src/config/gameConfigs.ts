@@ -34,16 +34,16 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
-import pingPongLoaderUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.loader.js?url';
-import pingPongDataUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.data?url';
-import pingPongFrameworkUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.framework.js?url';
-import pingPongCodeUrl from '../assets/Unity/PingPong/Build/EM-17-PingPong.wasm?url';
+import asteroidsLoaderUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.loader.js?url';
+import asteroidsDataUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.data?url';
+import asteroidsFrameworkUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.framework.js?url';
+import asteroidsCodeUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.wasm?url';
 
-const pingPongAssets: GameAssets = {
-  loaderUrl: pingPongLoaderUrl,
-  dataUrl: pingPongDataUrl,
-  frameworkUrl: pingPongFrameworkUrl,
-  codeUrl: pingPongCodeUrl,
+const asteroidsAssets: GameAssets = {
+  loaderUrl: asteroidsLoaderUrl,
+  dataUrl: asteroidsDataUrl,
+  frameworkUrl: asteroidsFrameworkUrl,
+  codeUrl: asteroidsCodeUrl,
 };
 
 import embeddedWarsLoaderUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.loader.js?url';
@@ -56,7 +56,7 @@ import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
 
 // Existing background images
 import snakeBackground from '../assets/snake_game.jpg?url';
-import pingPongBackground from '../assets/pingpong.jpg?url';
+import asteroidsBackground from '../assets/AsteroidsCover.png?url';
 import bubbleBackground from '../assets/bubble.jpg?url';
 
 // Placeholder backgrounds (use existing images temporarily - you can replace these paths later)
@@ -66,7 +66,7 @@ const pipesFloodBackground = bubbleBackground; // Replace with actual pipes_floo
 const hoverRacerBackground = embeddedWarsBackground; // Replace with actual hover_racer.jpg when ready
 const infiniteRunnerBackground = snakeBackground; // Replace with actual infinite_runner.jpg when ready
 const cakeManiaBackground = bubbleBackground; // Replace with actual cake_mania.jpg when ready
-const game10Background = pingPongBackground; // Replace with actual game_10.jpg when ready
+const game10Background = asteroidsBackground; // Replace with actual game_10.jpg when ready
 const game11Background = embeddedWarsBackground; // Replace with actual game_11.jpg when ready
 
 const embeddedWarsAssets: GameAssets = {
@@ -131,12 +131,12 @@ export const gameConfigs: Record<string, GameConfig> = {
   },
 
   // Placeholder Games - These will be implemented in future releases
-  '02-ping-pong': {
-    id: '02-ping-pong',
-    title: 'Ping Pong',
-    description: 'Fast-paced table tennis game',
-    assets: pingPongAssets,
-    backgroundImage: pingPongBackground,
+  '02-asteroids': {
+    id: '02-asteroids',
+    title: 'Asteroids',
+    description: 'Fast-paced asteroid action',
+    assets: asteroidsAssets,
+    backgroundImage: asteroidsBackground,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 10,

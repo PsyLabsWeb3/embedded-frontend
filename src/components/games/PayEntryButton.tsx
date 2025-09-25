@@ -314,6 +314,35 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   const disabled = sending || !prereqsReady;
   const preparing = !sending && !prereqsReady; 
 
+  // Helper: log tx details without secrets
+const logTx = (tx: any) => {
+  try {
+    console.groupCollapsed("payEntry: tx");
+    console.debug("feePayer:", tx.feePayer?.toBase58?.() ?? tx.feePayer);
+    console.debug("recentBlockhash:", tx.recentBlockhash);
+    const ixs = tx.instructions ?? [];
+    console.debug("#instructions:", ixs.length);
+    ixs.forEach((ix: any, i: number) => {
+      console.groupCollapsed(`ix[${i}] programId=${ix.programId?.toBase58?.() ?? ix.programId}`);
+      const keys = (ix.keys || []).map((k: any) => ({
+        pubkey: k.pubkey?.toBase58?.() ?? String(k.pubkey),
+        isSigner: !!k.isSigner,
+        isWritable: !!k.isWritable,
+      }));
+      console.table(keys);
+      try {
+        if (ix.data) console.debug("data(b58):", bs58.encode(ix.data));
+      } catch {
+        console.debug("data(len):", ix.data?.length ?? 0);
+      }
+      console.groupEnd();
+    });
+    console.groupEnd();
+  } catch (e) {
+    console.warn("payEntry: logTx failed", e);
+  }
+};
+
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (overrideSol?: number, usdBetAmount?: number) => {
     // check wallet/provider readiness depending on desktop/mobile flow
@@ -353,6 +382,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
         setTxSig(sig);
         setModalOpen(true);
         // setModalPhase("waiting");
+
+        // Log before sending
+        logTx(sig);
 
         const ok = await waitForFinalized(connection, sig);
         if (ok) {
