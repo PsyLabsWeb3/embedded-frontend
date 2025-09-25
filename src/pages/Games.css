@@ -16,7 +16,7 @@
 
 .game-card {
   border: 1px solid #5DD62C;
-  background: #5DD62C !important;
+  background: #5DD62C;
   padding: 0.75rem;
   text-align: center;
   cursor: pointer;
