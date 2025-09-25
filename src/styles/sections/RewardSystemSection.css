@@ -4,7 +4,6 @@
     display: none;
   }
 }
-/* Card shadows only for desktop */
 @media (min-width: 768px) {
   .reward-list-item-wrapper:nth-child(1) .reward-card-desktop,
   .reward-list-item-wrapper:nth-child(3) .reward-card-desktop {
@@ -21,14 +20,14 @@
 }
 /* Custom section title and description styles */
 .reward-title-custom {
-  font-family: 'Alumni Sans', Arial, sans-serif;
-  font-size: 3rem;
+  font-family: 'Alumni Sans', sans-serif;
+  font-size: 2.7rem;
   font-weight: 400;
   color: #fff;
   text-align: center;
   letter-spacing: 0.04em;
   margin-bottom: 2rem;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .reward-system-desc-custom {
@@ -104,14 +103,15 @@
 }
 
 .reward-title {
-  color: #FFFFFF;
-  font-family: var(--font-subheading);
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-bottom: 1.2rem;
+  color: var(--color-text);
+  font-family: 'Alumni Sans', sans-serif;
+  font-size: 2.7rem;
+  font-weight: 400;
+  line-height: 1.18;
+  margin: 0 2rem 2.2rem 2rem;
   text-align: center;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .reward-system-card {
@@ -169,6 +169,9 @@
 
 /* Mobile styles */
 @media (max-width: 480px) {
+  .reward-title {
+    font-size: 2.3rem;
+  }
   .reward-system-card {
     max-width: 100vw;
     padding: 1.2rem var(--spacing-sm);
@@ -176,5 +179,10 @@
   
   .reward-title {
     font-size: var(--font-size-2xl);
+  }
+
+  .reward-title-custom {
+    font-size: 2.3rem;
+    font-family: 'Alumni Sans', sans-serif;
   }
 }

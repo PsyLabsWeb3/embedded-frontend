@@ -46,7 +46,7 @@ const GameListSection: React.FC = () => (
     {/* Section Heading */}
     <h2 
       id="hot-games-heading"
-      className="game-list__title gradient-title text-left"
+  className="game-list__title gradient-title"
     >
       Hot Games
     </h2>

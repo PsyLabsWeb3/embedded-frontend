@@ -35,7 +35,7 @@ const PoolRewardsBanner = () => {
       <div className="pool-rewards-banner">
         <div className="pool-rewards-content">
           <span className="pool-rewards-amount">{poolAmount} $SOL</span>
-          <span className="pool-rewards-label">Available Pool Rewards in Current Season</span>
+          <span className="pool-rewards-label">AVAILABLE POOL REWARDS</span>
         </div>
       </div>
     </section>

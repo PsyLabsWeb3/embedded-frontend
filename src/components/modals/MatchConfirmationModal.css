@@ -68,6 +68,20 @@
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
+@media (max-width: 400px) {
+  .gameboy-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .gameboy-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+}
+
 /* Main text styling - Nunito Extra Bold, color #FFFFFF */
 .modal-main-text {
   font-family: 'Nunito', sans-serif;

@@ -24,7 +24,7 @@ const rewardItems: string[] = [
 const RewardSystemSection = () => (
   <section className="reward-system-section section container mx-container">
     {/* Section title styled with Alumni Sans Regular */}
-    <h2 className="reward-title-custom">REWARD SYSTEM</h2>
+  <h2 className="reward-title-custom">Reward System</h2>
     <div className="reward-system-card">
       {/* Description is centered, styled with Nunito Medium, and only visible on desktop */}
       <p className="reward-system-desc-custom">Embedded operates on a simple, transparent model.</p>
