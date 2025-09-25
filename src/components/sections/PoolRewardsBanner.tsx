@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../styles/sections/PoolRewardsBanner.css";
+import solanaIcon from "../../assets/solanaicon.png";
 
 // Solana web3.js imports
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
@@ -32,10 +33,17 @@ const PoolRewardsBanner = () => {
 
   return (
     <section className="pool-rewards-section section container mx-container">
-      <div className="pool-rewards-banner">
-        <div className="pool-rewards-content">
-          <span className="pool-rewards-amount">{poolAmount} $SOL</span>
-          <span className="pool-rewards-label">AVAILABLE POOL REWARDS</span>
+      <div className="rewards-section">
+          <div className="rewards-section__icon-wrapper">
+        <img
+          src={solanaIcon}
+          alt="Solana Logo"
+          className="rewards-section__icon"
+        />
+      </div>
+        <div className="rewards-section__content">
+          <span className="rewards-section__amount">{poolAmount} $SOL</span>
+          <span className="rewards-section__label">REWARDS TO DISTRIBUTE</span>
         </div>
       </div>
     </section>

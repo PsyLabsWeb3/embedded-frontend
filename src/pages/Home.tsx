@@ -10,8 +10,8 @@ const Home = () => (
   <>
     <Navbar />
     <HeroSection />
-  <RewardsSection />
-  <PoolRewardsBanner />
+    <PoolRewardsBanner />
+    <RewardsSection />
     <GameListSection />
     <KeyFeatures />
     <RewardSystemSection />
