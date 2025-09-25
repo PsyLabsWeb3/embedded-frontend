@@ -10,8 +10,8 @@
   font-family: var(--font-heading);
   color: #FFFFFF;
   font-size: 2rem;
-  margin-bottom: var(--spacing-sm);
-  text-align: left;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .list {

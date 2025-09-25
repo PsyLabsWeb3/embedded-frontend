@@ -51,7 +51,10 @@ const MobileMenu = () => {
             <li><Link to="/history" onClick={closeMenu} className={location.pathname === '/history' ? 'active' : ''}>History</Link></li>
             <li><Link to="/games" onClick={closeMenu} className={location.pathname === '/games' ? 'active' : ''}>Games</Link></li>
             <li><Link to="/leaderboard" onClick={closeMenu} className={location.pathname === '/leaderboard' ? 'active' : ''}>Leaderboard</Link></li>
-            <li><Link to="/rewards" onClick={closeMenu} className={location.pathname === '/rewards' ? 'active' : ''}>Rewards</Link></li>
+            <li className="coming-soon-item">
+              <div className="tournament-main">Rewards</div>
+              <div className="coming-soon-text">Coming soon</div>
+            </li>
             <li className="coming-soon-item">
               <div className="tournament-main">Tournaments</div>
               <div className="coming-soon-text">Coming soon</div>

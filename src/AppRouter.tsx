@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import History from './pages/History';
 import Games from './pages/Games';
 import Leaderboard from './pages/Leaderboard';
-import Rewards from './pages/Rewards';
 import Tournaments from './pages/Tournaments';
 import EmbeddedGame from './pages/EmbeddedGame';
 
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
   {
     path: '/leaderboard',
     element: <Leaderboard />,
-  },
-  {
-    path: '/rewards',
-    element: <Rewards />,
   },
   {
     path: '/tournaments',
