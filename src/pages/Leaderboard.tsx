@@ -13,7 +13,7 @@ const LeaderboardPage: React.FC = () => {
         </h1>
         
         <RewardsBanner
-          mainMessage="Earn rewards by playing, does not matter if you win or lose."
+          mainMessage="Climb up our leaderboard whether you win or lose."
           subMessage="Time left for reward distribution"
           daysLeft="10 days"
         />

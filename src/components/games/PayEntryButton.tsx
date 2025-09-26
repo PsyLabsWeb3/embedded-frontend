@@ -549,9 +549,8 @@ const logTx = (tx: any) => {
             </div>
 
             {/* Main text */}
-            <p className="modal-main-text">
-              You are about to confirm a match, you will be charged with{' '}
-              <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
+            <p className="modal-main-text">You’re about to confirm a match. A charge of {' '}
+              <span className="sol-amount">{amountSol.toFixed(8)} $SOL will apply.</span> 
             </p>
 
             {/* Secondary text */}
@@ -654,7 +653,11 @@ const logTx = (tx: any) => {
 
              {/* Main waiting text */}
            <p className="modal-main-text">
-              Please wait while transaction is processing for your game.
+              Please wait while your game transaction is processing.
+            </p>
+            {/* Disclaimer text */}
+             <p className="modal-secondary-text">
+              Do not refresh or disconnect as once the transaction has been processed, there's no way to get it back.
             </p>
  
             {/* Secondary text */}
