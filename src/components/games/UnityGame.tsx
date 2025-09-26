@@ -413,15 +413,17 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
         {gameOver && (
           <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(0,0,0,.6)",
-              display: "grid",
-              placeItems: "center",
-              zIndex: 2147483647, // por encima de todo
-             
-            }}
+         style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,.6)",
+      display: "grid",
+      // placeItems: "center",
+      alignItems: "end",
+      justifyItems: "center",
+      padding: "0 16px calc(env(safe-area-inset-bottom) + 16px)",
+      zIndex: 2147483647, // por encima de todo
+    }}
             role="dialog"
             aria-modal="true"
           >
