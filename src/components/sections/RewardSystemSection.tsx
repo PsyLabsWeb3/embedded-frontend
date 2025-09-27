@@ -9,7 +9,7 @@ import '../../styles/sections/RewardSystemSection.css';
 
 // List of reward system points to display as cards
 const rewardItems: string[] = [
-  'Transaction fees and entry fees go to the platform (if gas fee is $X, then the transaction fee is $X + $0.20)',
+  'We reward players who compete in skill-based PvE and PvP games and tournaments by airdropping 20% of total platform revenue in SOL each month to the top 500 players.',
   'No hidden fees, no subscriptions',
   'Revenue is used for platform development, audits, and a rewards system for participants who actively and frequently engage with the platform.'
 ];

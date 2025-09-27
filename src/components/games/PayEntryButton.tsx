@@ -2,19 +2,30 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AnchorProvider, Program, setProvider, BN } from "@coral-xyz/anchor";
 import type { Idl } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL, PublicKey, SystemProgram } from "@solana/web3.js";
+import {
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  SystemProgram,
+  ComputeBudgetProgram,
+  TransactionMessage,
+  VersionedTransaction,
+} from "@solana/web3.js";
 import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
-import { LOCAL_STORAGE_CONF } from '../../constants';
-import MatchConfirmationModal from '../modals/MatchConfirmationModal';
-import './PayEntryModal.css';
-import './DegenModeModal.css';
-import gameboyIcon from '../../assets/gameboy.svg';
+import { LOCAL_STORAGE_CONF } from "../../constants";
+import MatchConfirmationModal from "../modals/MatchConfirmationModal";
+import "./PayEntryModal.css";
+import "./DegenModeModal.css";
+import gameboyIcon from "../../assets/gameboy.svg";
 
 // Program constants for devnet
-const PROGRAM_ID = new PublicKey("BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8");
-const TREASURY_PDA = new PublicKey("EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM");
+const PROGRAM_ID = new PublicKey(
+  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8"
+);
+const TREASURY_PDA = new PublicKey(
+  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM"
+);
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -52,7 +63,9 @@ async function waitForFinalized(
     if (resolved) return;
     resolved = true;
     if (subId !== null) {
-      try { connection.removeSignatureListener(subId); } catch { }
+      try {
+        connection.removeSignatureListener(subId);
+      } catch {}
     }
     if (interval) clearInterval(interval);
     if (tmo) clearTimeout(tmo);
@@ -74,10 +87,12 @@ async function waitForFinalized(
 
   interval = setInterval(async () => {
     try {
-      const st = await connection.getSignatureStatuses([signature], { searchTransactionHistory: true });
+      const st = await connection.getSignatureStatuses([signature], {
+        searchTransactionHistory: true,
+      });
       const s = st.value[0];
       if (s?.confirmationStatus === "finalized") cleanup();
-    } catch { }
+    } catch {}
   }, pollMs);
 
   const result = await new Promise<boolean>((resolve) => {
@@ -85,7 +100,9 @@ async function waitForFinalized(
       if (!resolved) {
         resolved = true;
         if (subId !== null) {
-          try { connection.removeSignatureListener(subId); } catch { }
+          try {
+            connection.removeSignatureListener(subId);
+          } catch {}
         }
         if (interval) clearInterval(interval);
         resolve(false);
@@ -93,14 +110,57 @@ async function waitForFinalized(
     }, timeoutMs);
 
     const check = setInterval(() => {
-      if (resolved) { clearInterval(check); resolve(true); }
+      if (resolved) {
+        clearInterval(check);
+        resolve(true);
+      }
     }, 100);
   });
 
   return result;
 }
 
-const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixedAmountSol }) => {
+// Helper: build a v0 tx with compute budget and your program ix
+// Helper: build a v0 tx with compute budget and your program ix
+async function buildPayEntryV0Tx(
+  connection: ReturnType<typeof useConnection>["connection"],
+  payer: PublicKey,
+  lamports: BN,
+  program: Program
+): Promise<VersionedTransaction> {
+  const computeIxs = [
+    ComputeBudgetProgram.setComputeUnitLimit({ units: 350_000 }),
+    ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 1_000 }),
+  ];
+
+  const ix = await program.methods
+    .payEntry(lamports)
+    .accounts({
+      treasury: TREASURY_PDA,
+      payer,
+      systemProgram: SystemProgram.programId,
+    })
+    .instruction();
+
+  // Mejor usar "finalized" para mayor estabilidad del blockhash
+  const { blockhash } = await connection.getLatestBlockhash("finalized");
+
+  const msgV0 = new TransactionMessage({
+    payerKey: payer,
+    recentBlockhash: blockhash,
+    instructions: [...computeIxs, ix],
+  }).compileToV0Message();
+
+  return new VersionedTransaction(msgV0);
+}
+
+
+const PayEntryButton: React.FC<Props> = ({
+  onSent,
+  onContinue,
+  onDegenPlay,
+  fixedAmountSol,
+}) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
@@ -112,9 +172,11 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   // Match confirmation modal state
   const [showMatchConfirmation, setShowMatchConfirmation] = useState(false);
   const [isLoadingTransaction, setIsLoadingTransaction] = useState(false);
-  const [currentTransactionId, setCurrentTransactionId] = useState<string | null>(null);
+  const [currentTransactionId, setCurrentTransactionId] = useState<
+    string | null
+  >(null);
 
-    // Modal
+  // Modal
   const [modalOpen, setModalOpen] = useState(false);
   // const [modalPhase, setModalPhase] = useState<"waiting" | "ready">("waiting");
   const [txSig, setTxSig] = useState<string | null>(null);
@@ -125,7 +187,6 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   // Degen mode modal
   const [degenModalOpen, setDegenModalOpen] = useState(false);
   const [degenSelected, setDegenSelected] = useState<number | null>(null);
-
 
   const degenOptions = [1, 2, 5, 10];
 
@@ -146,14 +207,19 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
       try {
         let price = solPriceUsd;
         if (!price || !(price > 0)) {
-          const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+          const r = await fetch(
+            "https://backend.embedded.games/api/solanaPriceUSD"
+          );
           const data = await r.json();
           price = Number(data?.priceUsd);
-          if (!price || !isFinite(price) || price <= 0) throw new Error("invalid price");
+          if (!price || !isFinite(price) || price <= 0)
+            throw new Error("invalid price");
           setSolPriceUsd(price);
         }
 
-        const solAmount = Number((degenSelected / (price as number)).toFixed(8));
+        const solAmount = Number(
+          (degenSelected / (price as number)).toFixed(8)
+        );
         setDegenModalOpen(false);
         // notify parent that a degen play is about to happen (USD and SOL)
         onDegenPlay?.(solAmount, degenSelected);
@@ -170,16 +236,14 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     setDegenSelected(val);
   };
 
-
-
-    // Handle modal return button click
+  // Handle modal return button click
   const handleMatchReturn = () => {
     setShowMatchConfirmation(false);
     setIsLoadingTransaction(false);
     setCurrentTransactionId(null);
   };
 
-    // Handle modal confirm button click
+  // Handle modal confirm button click
   const handleMatchConfirm = () => {
     // Switch to loading state but keep modal open
     setIsLoadingTransaction(true);
@@ -205,21 +269,22 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     setIsLoadingTransaction(true);
     // Execute payment logic
     handlePayEntry();
-  }
+  };
 
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
 
   // Handle price loading and Phantom wallet return flow
   useEffect(() => {
-    const last = localStorage.getItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
+    const last = localStorage.getItem(
+      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION
+    );
     if (last) {
-
       setTxSig(last);
       setModalOpen(true);
       // setModalPhase("waiting");
       localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
-       
+
       // Verify transaction and continue to game
       (async () => {
         const ok = await waitForFinalized(connection, last);
@@ -237,14 +302,18 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     // Pre-fetch SOL price once and compute default casual amount (0.5 USD) so both flows reuse it
     (async () => {
       try {
-        const r = await fetch("https://backend.embedded.games/api/solanaPriceUSD");
+        const r = await fetch(
+          "https://backend.embedded.games/api/solanaPriceUSD"
+        );
         const data = await r.json();
         const price = Number(data?.priceUsd);
         if (!price || !isFinite(price) || price <= 0) return;
         setSolPriceUsd(price);
         const usdDefault = 0.5;
         setAmountSol(Number((usdDefault / price).toFixed(8)));
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
     })();
   }, [fixedAmountSol, connection]);
 
@@ -254,13 +323,16 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
     (async () => {
       try {
         const info = await connection.getAccountInfo(TREASURY_PDA);
-        const ok = !!info && info.owner.equals(PROGRAM_ID) && info.data.length > 0;
+        const ok =
+          !!info && info.owner.equals(PROGRAM_ID) && info.data.length > 0;
         if (alive) setTreasuryOk(ok);
       } catch {
         if (alive) setTreasuryOk(false);
       }
     })();
-    return () => { alive = false; };
+    return () => {
+      alive = false;
+    };
   }, [connection]);
 
   // Convert wallet adapter to Anchor wallet interface
@@ -280,7 +352,9 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   // Create Anchor provider instance
   const provider = useMemo(() => {
     if (!anchorWallet) return null;
-    const p = new AnchorProvider(connection, anchorWallet, { commitment: "confirmed" });
+    const p = new AnchorProvider(connection, anchorWallet, {
+      commitment: "confirmed",
+    });
     setProvider(p);
     return p;
   }, [connection, anchorWallet]);
@@ -292,62 +366,55 @@ const PayEntryButton: React.FC<Props> = ({ onSent, onContinue, onDegenPlay, fixe
   }, [provider]);
 
   // Mobile Phantom wallet session data
-  const phantomSession = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION) : null;
-  const phantomEncPub = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC) : null;
-  const dappKpRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS) : null;
-  const phantomWalletPubStr = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY) : null;
+  const phantomSession =
+    typeof window !== "undefined"
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION)
+      : null;
+  const phantomEncPub =
+    typeof window !== "undefined"
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_PHANTOM_ENC)
+      : null;
+  const dappKpRaw =
+    typeof window !== "undefined"
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_KEYS)
+      : null;
+  const phantomWalletPubStr =
+    typeof window !== "undefined"
+      ? localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_WALLET_PUBKEY)
+      : null;
 
   // Determine whether to use desktop adapter or mobile Phantom flow
   const usingDesktop = !isMobile() || (isMobile() && !phantomSession);
 
   // Check if all prerequisites are ready
   const anchorReady = !!anchorWallet && !!program;
-  const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
+  const phantomReady =
+    !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
   const amountReady = amountSol > 0;
   const networkReady = treasuryOk === true;
 
   const prereqsReady = usingDesktop
-    ? (anchorReady && amountReady && networkReady)
-    : (phantomReady && amountReady && networkReady);
+    ? anchorReady && amountReady && networkReady
+    : phantomReady && amountReady && networkReady;
 
   // Disable button while processing or prerequisites not met
   const disabled = sending || !prereqsReady;
-  const preparing = !sending && !prereqsReady; 
+  const preparing = !sending && !prereqsReady;
 
-  // Helper: log tx details without secrets
-const logTx = (tx: any) => {
-  try {
-    console.groupCollapsed("payEntry: tx");
-    console.debug("feePayer:", tx.feePayer?.toBase58?.() ?? tx.feePayer);
-    console.debug("recentBlockhash:", tx.recentBlockhash);
-    const ixs = tx.instructions ?? [];
-    console.debug("#instructions:", ixs.length);
-    ixs.forEach((ix: any, i: number) => {
-      console.groupCollapsed(`ix[${i}] programId=${ix.programId?.toBase58?.() ?? ix.programId}`);
-      const keys = (ix.keys || []).map((k: any) => ({
-        pubkey: k.pubkey?.toBase58?.() ?? String(k.pubkey),
-        isSigner: !!k.isSigner,
-        isWritable: !!k.isWritable,
-      }));
-      console.table(keys);
-      try {
-        if (ix.data) console.debug("data(b58):", bs58.encode(ix.data));
-      } catch {
-        console.debug("data(len):", ix.data?.length ?? 0);
-      }
-      console.groupEnd();
-    });
-    console.groupEnd();
-  } catch (e) {
-    console.warn("payEntry: logTx failed", e);
-  }
-};
+
 
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
-  const handlePayEntry = async (overrideSol?: number, usdBetAmount?: number) => {
+  const handlePayEntry = async (
+    overrideSol?: number,
+    usdBetAmount?: number
+  ) => {
     // check wallet/provider readiness depending on desktop/mobile flow
     const anchorReady = !!anchorWallet && !!program;
-    const phantomReady = !!phantomSession && !!phantomEncPub && !!dappKpRaw && !!phantomWalletPubStr;
+    const phantomReady =
+      !!phantomSession &&
+      !!phantomEncPub &&
+      !!dappKpRaw &&
+      !!phantomWalletPubStr;
     const networkReady = treasuryOk === true;
 
     if (usingDesktop && !anchorReady) return;
@@ -357,127 +424,157 @@ const logTx = (tx: any) => {
     try {
       setSending(true);
 
-      const solToUse = typeof overrideSol === "number" ? overrideSol : amountSol;
+      const solToUse =
+        typeof overrideSol === "number" ? overrideSol : amountSol;
       const lamports = new BN(Math.trunc((solToUse || 0) * LAMPORTS_PER_SOL));
       if (lamports.lte(new BN(0))) {
         setSending(false);
         return;
       }
+     // Desktop adapter flow
+if (usingDesktop) {
+  if (!program || !anchorWallet)
+    throw new Error("Program or anchorWallet not ready");
 
-      // Desktop adapter flow
-      if (usingDesktop) {
-        if (!program || !anchorWallet) throw new Error("Program or anchorWallet not ready");
+  // Construye VT v0
+  const vtx = await buildPayEntryV0Tx(
+    connection,
+    anchorWallet.publicKey,
+    lamports,
+    program
+  );
 
-        const sig = await program.methods
-          .payEntry(lamports)
-          .accounts({
-            treasury: TREASURY_PDA,
-            payer: anchorWallet.publicKey,
-            systemProgram: SystemProgram.programId,
-          })
-          .rpc({ commitment: "confirmed" });
+  // Pre-simulación (sin verificación de firma y pudiendo reemplazar blockhash)
+  const sim = await connection.simulateTransaction(vtx, {
+    sigVerify: false,
+    replaceRecentBlockhash: true,
+  });
 
-        onSent?.(sig);
-        setCurrentTransactionId(sig);
-        setTxSig(sig);
-        setModalOpen(true);
-        // setModalPhase("waiting");
+  if (sim.value.err) {
+    console.error("Pre-sim failed (desktop):", sim.value.err, sim.value.logs);
+    setIsLoadingTransaction(false);
+    setShowMatchConfirmation(false);
+    setCurrentTransactionId(null);
+    setSending(false);
+    return;
+  }
 
-        // Log before sending
-        logTx(sig);
+  // Firmar y enviar
+  const signed = await wallet.signTransaction!(vtx as any);
+  const sig = await connection.sendRawTransaction(signed.serialize(), {
+    skipPreflight: false,
+  });
 
-        const ok = await waitForFinalized(connection, sig);
-        if (ok) {
-          // Transaction confirmed - close modal and continue
-          setShowMatchConfirmation(false);
-          setIsLoadingTransaction(false);
-          setCurrentTransactionId(null);
-          // setModalPhase("ready");
-          onContinue?.(sig);
-        }
-        setSending(false);
-        return;
-      }
+  onSent?.(sig);
+  setCurrentTransactionId(sig);
+  setTxSig(sig);
+  setModalOpen(true);
+
+  console.log("payEntry desktop sig:", sig);
+
+  const ok = await waitForFinalized(connection, sig);
+  if (ok) {
+    setShowMatchConfirmation(false);
+    setIsLoadingTransaction(false);
+    setCurrentTransactionId(null);
+    onContinue?.(sig);
+  }
+  setSending(false);
+  return;
+}
 
       // Mobile Phantom deep-link flow
-      if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
-        console.warn("Missing Phantom mobile prerequisites");
-        setSending(false);
-        return;
-      }
+// Mobile Phantom deep-link flow
+if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
+  console.warn("Missing Phantom mobile prerequisites");
+  setSending(false);
+  return;
+}
 
-      // Create temporary program instance without signer (pubkey only)
-      const tempWallet: any = { publicKey: new PublicKey(phantomWalletPubStr) };
-      const tempProvider = new AnchorProvider(connection, tempWallet, { commitment: "confirmed" });
-      const tempProgram = new Program(idl as Idl, tempProvider);
+// Program temporal sin signer (solo pubkey)
+const tempWalletPub = new PublicKey(phantomWalletPubStr);
+const tempProvider = new AnchorProvider(
+  connection,
+  { publicKey: tempWalletPub } as any,
+  { commitment: "confirmed" }
+);
+const tempProgram = new Program(idl as Idl, tempProvider);
 
-      // Build unsigned transaction
-      const tx = await tempProgram.methods
-        .payEntry(lamports)
-        .accounts({
-          treasury: TREASURY_PDA,
-          payer: tempWallet.publicKey,
-          systemProgram: SystemProgram.programId,
-        })
-        .transaction();
+// Construye VT v0
+const vtx = await buildPayEntryV0Tx(
+  connection,
+  tempWalletPub,
+  lamports,
+  tempProgram
+);
 
-      const { blockhash } = await connection.getLatestBlockhash("confirmed");
-      tx.feePayer = tempWallet.publicKey;
-      tx.recentBlockhash = blockhash;
+// Pre-simulación
+const sim = await connection.simulateTransaction(vtx, {
+  sigVerify: false,
+  replaceRecentBlockhash: true,
+});
 
-      // Serialize transaction
-      let unsignedBytes: Uint8Array;
-      try {
-        if ((tx as any).version !== undefined && typeof (tx as any).serialize === "function") {
-          unsignedBytes = (tx as any).serialize();
-        } else {
-          unsignedBytes = (tx as any).serialize({ requireAllSignatures: false, verifySignatures: false });
-        }
-      } catch {
-        unsignedBytes = tx.serializeMessage();
-      }
-      const unsignedBase58 = bs58.encode(Buffer.from(unsignedBytes));
+if (sim.value.err) {
+  console.error("Pre-sim failed (mobile):", sim.value.err, sim.value.logs);
+  setIsLoadingTransaction(false);
+  setShowMatchConfirmation(false);
+  setCurrentTransactionId(null);
+  setSending(false);
+  return;
+}
 
-      const payloadObj = { transaction: unsignedBase58, session: phantomSession };
-      const dappKp = JSON.parse(dappKpRaw);
-      const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(payloadObj, phantomEncPub, dappKp.secretKeyBase58);
+// Persistir modo (nueva pestaña)
+if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+  localStorage.setItem(
+    LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
+    usdBetAmount.toString()
+  );
+} else {
+  localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+  localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+}
 
-      const currentPath = window.location.pathname + window.location.search;
-      localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
+// 🚫 No reasignes recentBlockhash. Si necesitas refrescar, recompila el mensaje.
+// const { blockhash } = await connection.getLatestBlockhash("finalized");
+// vtx.message.recentBlockhash = blockhash; // <- no
 
-      const redirectLink = encodeURIComponent(
-        `${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(currentPath)}`
-      );
-      const appUrl = encodeURIComponent(window.location.origin);
-      const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
+// Serializar VT para Phantom
+const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
 
-      // Guardar Campos de Game Mode y Degen Bet Amount
-    // Persistir modo para el flujo móvil (pestaña nueva)
-        if (!usingDesktop) {
-          if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
-            // DEGEN (Betting)
-            localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
-            localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
-          } else {
-            // CASUAL
-            localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
-            localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
-          }
-        }
+const payloadObj = {
+  transaction: unsignedBase58,
+  session: phantomSession,
+};
+const dappKp = JSON.parse(dappKpRaw);
+const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
+  payloadObj,
+  phantomEncPub,
+  dappKp.secretKeyBase58
+);
 
-      // Construir deeplink
-      const deeplink =
-        `https://phantom.app/ul/v1/signTransaction?` +
-        `app_url=${appUrl}` +
-        `&redirect_link=${redirectLink}` +
-        `&dapp_encryption_public_key=${dappPubEnc}` +
-        `&payload=${encodeURIComponent(payloadBase58)}` +
-        `&nonce=${encodeURIComponent(nonceBase58)}`;
+const currentPath = window.location.pathname + window.location.search;
+localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
 
-      window.location.href = deeplink;
+const redirectLink = encodeURIComponent(
+  `${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(
+    currentPath
+  )}`
+);
+const appUrl = encodeURIComponent(window.location.origin);
+const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
+
+const deeplink =
+  `https://phantom.app/ul/v1/signTransaction?` +
+  `app_url=${appUrl}` +
+  `&redirect_link=${redirectLink}` +
+  `&dapp_encryption_public_key=${dappPubEnc}` +
+  `&payload=${encodeURIComponent(payloadBase58)}` +
+  `&nonce=${encodeURIComponent(nonceBase58)}`;
+
+window.location.href = deeplink;
     } catch (e) {
       console.error("pay_entry error:", e);
-      // Reset modal state on error
       setIsLoadingTransaction(false);
       setShowMatchConfirmation(false);
       setCurrentTransactionId(null);
@@ -505,11 +602,13 @@ const logTx = (tx: any) => {
             disabled={disabled}
             aria-busy={preparing || sending}
           >
-          {sending
-              ? "PROCESSING"
-              : preparing
-                ? <div className="pay-entry-spinner small" />
-                : "DEGEN MODE"}
+            {sending ? (
+              "PROCESSING"
+            ) : preparing ? (
+              <div className="pay-entry-spinner small" />
+            ) : (
+              "DEGEN MODE"
+            )}
           </button>
           <button
             onClick={() => {
@@ -525,33 +624,41 @@ const logTx = (tx: any) => {
             className="pay-entry-button casual-play-button"
             aria-busy={preparing || sending}
           >
-            {sending
-              ? "PROCESSING"
-              : preparing
-                ? <div className="pay-entry-spinner small" />
-                : "CASUAL PLAY"}
+            {sending ? (
+              "PROCESSING"
+            ) : preparing ? (
+              <div className="pay-entry-spinner small" />
+            ) : (
+              "CASUAL PLAY"
+            )}
           </button>
         </div>
       </div>
 
-       
-        {casualModalOpen && (
-          <div className="match-confirmation-backdrop">
+      {casualModalOpen && (
+        <div className="match-confirmation-backdrop">
           <div className="match-confirmation-modal">
             {/* Header row: Title + Icon */}
             <div className="modal-header-row">
               <div className="modal-title-section">
-                <h1 className="modal-title">Match<br />Confirmation</h1>
+                <h1 className="modal-title">
+                  Match
+                  <br />
+                  Confirmation
+                </h1>
               </div>
               <div className="modal-icon-section">
-                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+                <img
+                  src={gameboyIcon}
+                  alt="Game Console"
+                  className="gameboy-icon"
+                />
               </div>
             </div>
 
             {/* Main text */}
-            <p className="modal-main-text">
-              You are about to confirm a match, you will be charged with{' '}
-              <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
+            <p className="modal-main-text">You’re about to confirm a match. A charge of {' '}
+              <span className="sol-amount">{amountSol.toFixed(8)} $SOL will apply.</span> 
             </p>
 
             {/* Secondary text */}
@@ -577,48 +684,63 @@ const logTx = (tx: any) => {
                 className="modal-button confirm-button"
                 onClick={handleCasualConfirm}
                 disabled={isLoadingTransaction}
-                style={{ display: 'flex', justifyContent: 'center' }}
+                style={{ display: "flex", justifyContent: "center" }}
               >
-                {isLoadingTransaction? <div className="loading-spinner-button" /> : 'CONFIRM MATCH'}
+                {isLoadingTransaction ? (
+                  <div className="loading-spinner-button" />
+                ) : (
+                  "CONFIRM MATCH"
+                )}
               </button>
             </div>
           </div>
         </div>
-        )}
+      )}
 
       {/* Degen Mode Modal */}
       {degenModalOpen && (
         <div className="match-confirmation-backdrop">
           <div className="match-confirmation-modal">
-          
-              {/* Header row: Title + Icon */}
+            {/* Header row: Title + Icon */}
             <div className="modal-header-row">
               <div className="modal-title-section">
-                <h1 className="modal-title">Degen Mode<br />Confirmation</h1>
+                <h1 className="modal-title">
+                  Degen Mode
+                  <br />
+                  Confirmation
+                </h1>
               </div>
               <div className="modal-icon-section">
-                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+                <img
+                  src={gameboyIcon}
+                  alt="Game Console"
+                  className="gameboy-icon"
+                />
               </div>
             </div>
 
             <div className="degen-modal-subtitle">
-              Degen Mode selected! If the match goes through, your selected USD amount will be converted to SOL at the current rate and deducted from your wallet.
+              Degen Mode selected! If the match goes through, your selected USD
+              amount will be converted to SOL at the current rate and deducted
+              from your wallet.
             </div>
             <div className="degen-modal-description">
               Select your entry amount for Degen Mode:
             </div>
             <div className="degen-options-row">
-              {degenOptions.map(opt => (
+              {degenOptions.map((opt) => (
                 <button
                   key={opt}
-                  className={`degen-option-button${degenSelected === opt ? " selected" : ""}`}
+                  className={`degen-option-button${
+                    degenSelected === opt ? " selected" : ""
+                  }`}
                   onClick={() => handleDegenSelect(opt)}
                 >
                   ${opt}
                 </button>
               ))}
             </div>
-            <div style={{ marginTop: '4rem' }} className="modal-buttons">
+            <div style={{ marginTop: "4rem" }} className="modal-buttons">
               <button
                 onClick={handleDegenCancel}
                 className="modal-button return-button"
@@ -641,22 +763,33 @@ const logTx = (tx: any) => {
       {modalOpen && (
         <div className="match-confirmation-backdrop">
           <div className="match-confirmation-modal">
-
-              {/* Header row: Title + Icon */}
+            {/* Header row: Title + Icon */}
             <div className="modal-header-row">
               <div className="modal-title-section">
-                <h1 className="modal-title">Match<br />Confirmation</h1>
+                <h1 className="modal-title">
+                  Match
+                  <br />
+                  Confirmation
+                </h1>
               </div>
               <div className="modal-icon-section">
-                <img src={gameboyIcon} alt="Game Console" className="gameboy-icon" />
+                <img
+                  src={gameboyIcon}
+                  alt="Game Console"
+                  className="gameboy-icon"
+                />
               </div>
             </div>
 
              {/* Main waiting text */}
            <p className="modal-main-text">
-              Please wait while transaction is processing for your game.
+              Please wait while your game transaction is processing.
             </p>
- 
+            {/* Disclaimer text */}
+             <p className="modal-secondary-text">
+              Do not refresh or disconnect as once the transaction has been processed, there's no way to get it back.
+            </p>
+
             {/* Secondary text */}
             <p className="modal-secondary-text">
               You can check the status in the link below
@@ -664,23 +797,29 @@ const logTx = (tx: any) => {
 
             <div className="pay-entry-modal-content">
               <p className="pay-entry-transaction-info">
-                Tx: {txSig ? (
+                Tx:{" "}
+                {txSig ? (
                   <a href={explorerUrl} target="_blank" rel="noreferrer">
                     {txSig}
                   </a>
-                ) : "—"}
+                ) : (
+                  "—"
+                )}
               </p>
-               {/* Logo and Loading */}
-            <div className="loading-section">
-              <div className="embedded-logo-container">
-                <img src="/logo.svg" alt="Embedded Logo" className="embedded-logo" />
+              {/* Logo and Loading */}
+              <div className="loading-section">
+                <div className="embedded-logo-container">
+                  <img
+                    src="/logo.svg"
+                    alt="Embedded Logo"
+                    className="embedded-logo"
+                  />
+                </div>
+                <div className="loading-text">
+                  <span className="loading-spinner"></span>
+                  <p className="loading-label">Loading</p>
+                </div>
               </div>
-              <div className="loading-text">
-                <span className="loading-spinner"></span>
-                <p className="loading-label">Loading</p>
-              </div>
-            </div>
-          
 
               {/* {modalPhase === "waiting" ? (
                 <div className="pay-entry-waiting">
