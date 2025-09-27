@@ -121,12 +121,13 @@ async function waitForFinalized(
 }
 
 // Helper: build a v0 tx with compute budget and your program ix
+// Helper: build a v0 tx with compute budget and your program ix
 async function buildPayEntryV0Tx(
   connection: ReturnType<typeof useConnection>["connection"],
   payer: PublicKey,
   lamports: BN,
   program: Program
-) {
+): Promise<VersionedTransaction> {
   const computeIxs = [
     ComputeBudgetProgram.setComputeUnitLimit({ units: 350_000 }),
     ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 1_000 }),
@@ -141,7 +142,8 @@ async function buildPayEntryV0Tx(
     })
     .instruction();
 
-  const { blockhash } = await connection.getLatestBlockhash("processed");
+  // Mejor usar "finalized" para mayor estabilidad del blockhash
+  const { blockhash } = await connection.getLatestBlockhash("finalized");
 
   const msgV0 = new TransactionMessage({
     payerKey: payer,
@@ -151,7 +153,7 @@ async function buildPayEntryV0Tx(
 
   return new VersionedTransaction(msgV0);
 }
-// ..
+
 
 const PayEntryButton: React.FC<Props> = ({
   onSent,
@@ -399,36 +401,7 @@ const PayEntryButton: React.FC<Props> = ({
   const disabled = sending || !prereqsReady;
   const preparing = !sending && !prereqsReady;
 
-  // Helper: log tx details without secrets
-  const logTx = (tx: any) => {
-    try {
-      console.groupCollapsed("payEntry: tx");
-      console.debug("feePayer:", tx.feePayer?.toBase58?.() ?? tx.feePayer);
-      console.debug("recentBlockhash:", tx.recentBlockhash);
-      const ixs = tx.instructions ?? [];
-      console.debug("#instructions:", ixs.length);
-      ixs.forEach((ix: any, i: number) => {
-        console.groupCollapsed(
-          `ix[${i}] programId=${ix.programId?.toBase58?.() ?? ix.programId}`
-        );
-        const keys = (ix.keys || []).map((k: any) => ({
-          pubkey: k.pubkey?.toBase58?.() ?? String(k.pubkey),
-          isSigner: !!k.isSigner,
-          isWritable: !!k.isWritable,
-        }));
-        console.table(keys);
-        try {
-          if (ix.data) console.debug("data(b58):", bs58.encode(ix.data));
-        } catch {
-          console.debug("data(len):", ix.data?.length ?? 0);
-        }
-        console.groupEnd();
-      });
-      console.groupEnd();
-    } catch (e) {
-      console.warn("payEntry: logTx failed", e);
-    }
-  };
+
 
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (
@@ -458,138 +431,148 @@ const PayEntryButton: React.FC<Props> = ({
         setSending(false);
         return;
       }
-      // Desktop adapter flow
-      if (usingDesktop) {
-        if (!program || !anchorWallet)
-          throw new Error("Program or anchorWallet not ready");
+     // Desktop adapter flow
+if (usingDesktop) {
+  if (!program || !anchorWallet)
+    throw new Error("Program or anchorWallet not ready");
 
-        // Build v0 tx and pre-simulate unsigned
-        const vtx = await buildPayEntryV0Tx(
-          connection,
-          anchorWallet.publicKey,
-          lamports,
-          program
-        );
+  // Construye VT v0
+  const vtx = await buildPayEntryV0Tx(
+    connection,
+    anchorWallet.publicKey,
+    lamports,
+    program
+  );
 
-        const sim = await connection.simulateTransaction(vtx, {
-          sigVerify: false,
-          replaceRecentBlockhash: true,
-          // commitment: "processed",
-        });
+  // Pre-simulación (sin verificación de firma y pudiendo reemplazar blockhash)
+  const sim = await connection.simulateTransaction(vtx, {
+    sigVerify: false,
+    replaceRecentBlockhash: true,
+  });
 
-        if (sim.value.err) {
-          console.error(
-            "Pre-sim failed (desktop):",
-            sim.value.err,
-            sim.value.logs
-          );
-          setIsLoadingTransaction(false);
-          setShowMatchConfirmation(false);
-          setCurrentTransactionId(null);
-          setSending(false);
-          return;
-        }
+  if (sim.value.err) {
+    console.error("Pre-sim failed (desktop):", sim.value.err, sim.value.logs);
+    setIsLoadingTransaction(false);
+    setShowMatchConfirmation(false);
+    setCurrentTransactionId(null);
+    setSending(false);
+    return;
+  }
 
-        // Sign and send
-        const signed = await wallet.signTransaction!(vtx as any);
-        const sig = await connection.sendRawTransaction(signed.serialize(), {
-          skipPreflight: false,
-        });
+  // Firmar y enviar
+  const signed = await wallet.signTransaction!(vtx as any);
+  const sig = await connection.sendRawTransaction(signed.serialize(), {
+    skipPreflight: false,
+  });
 
-        onSent?.(sig);
-        setCurrentTransactionId(sig);
-        setTxSig(sig);
-        setModalOpen(true);
-        // setModalPhase("waiting");
+  onSent?.(sig);
+  setCurrentTransactionId(sig);
+  setTxSig(sig);
+  setModalOpen(true);
 
-        // Log before sending
-        logTx(sig);
+  console.log("payEntry desktop sig:", sig);
 
-        const ok = await waitForFinalized(connection, sig);
-        if (ok) {
-          // Transaction confirmed - close modal and continue
-          setShowMatchConfirmation(false);
-          setIsLoadingTransaction(false);
-          setCurrentTransactionId(null);
-          // setModalPhase("ready");
-          onContinue?.(sig);
-        }
-        setSending(false);
-        return;
-      }
+  const ok = await waitForFinalized(connection, sig);
+  if (ok) {
+    setShowMatchConfirmation(false);
+    setIsLoadingTransaction(false);
+    setCurrentTransactionId(null);
+    onContinue?.(sig);
+  }
+  setSending(false);
+  return;
+}
 
       // Mobile Phantom deep-link flow
-      if (
-        !phantomSession ||
-        !phantomEncPub ||
-        !dappKpRaw ||
-        !phantomWalletPubStr
-      ) {
-        console.warn("Missing Phantom mobile prerequisites");
-        setSending(false);
-        return;
-      }
+// Mobile Phantom deep-link flow
+if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
+  console.warn("Missing Phantom mobile prerequisites");
+  setSending(false);
+  return;
+}
 
-      // Create temporary program instance without signer (pubkey only)
-    
-      const tempWalletPub = new PublicKey(phantomWalletPubStr);
-      const tempProvider = new AnchorProvider(connection, { publicKey: tempWalletPub } as any, { commitment: "confirmed" });
-      const tempProgram = new Program(idl as Idl, tempProvider);
+// Program temporal sin signer (solo pubkey)
+const tempWalletPub = new PublicKey(phantomWalletPubStr);
+const tempProvider = new AnchorProvider(
+  connection,
+  { publicKey: tempWalletPub } as any,
+  { commitment: "confirmed" }
+);
+const tempProgram = new Program(idl as Idl, tempProvider);
 
+// Construye VT v0
+const vtx = await buildPayEntryV0Tx(
+  connection,
+  tempWalletPub,
+  lamports,
+  tempProgram
+);
 
-      // Build v0 tx and pre-simulate unsigned
-      const vtx = await buildPayEntryV0Tx(connection, tempWalletPub, lamports, tempProgram);
+// Pre-simulación
+const sim = await connection.simulateTransaction(vtx, {
+  sigVerify: false,
+  replaceRecentBlockhash: true,
+});
 
-     const sim = await connection.simulateTransaction(vtx, {
-        sigVerify: false,
-        replaceRecentBlockhash: true,
-      });
+if (sim.value.err) {
+  console.error("Pre-sim failed (mobile):", sim.value.err, sim.value.logs);
+  setIsLoadingTransaction(false);
+  setShowMatchConfirmation(false);
+  setCurrentTransactionId(null);
+  setSending(false);
+  return;
+}
 
-      if (sim.value.err) {
-        console.error("Pre-sim failed (mobile):", sim.value.err, sim.value.logs);
-        setIsLoadingTransaction(false);
-        setShowMatchConfirmation(false);
-        setCurrentTransactionId(null);
-        setSending(false);
-        return;
-      }
-         // Persist mode fields (new tab)
-      if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
-        localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
-        localStorage.setItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT, usdBetAmount.toString());
-      } else {
-        localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
-        localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
-      }
-        // Fresh blockhash for the deeplink (optional, Phantom can replace if stale)
-      const { blockhash } = await connection.getLatestBlockhash("finalized");
-      vtx.message.recentBlockhash = blockhash;
+// Persistir modo (nueva pestaña)
+if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+  localStorage.setItem(
+    LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
+    usdBetAmount.toString()
+  );
+} else {
+  localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+  localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+}
 
+// 🚫 No reasignes recentBlockhash. Si necesitas refrescar, recompila el mensaje.
+// const { blockhash } = await connection.getLatestBlockhash("finalized");
+// vtx.message.recentBlockhash = blockhash; // <- no
 
+// Serializar VT para Phantom
+const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
 
- // Serialize v0 for Phantom
-      const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
+const payloadObj = {
+  transaction: unsignedBase58,
+  session: phantomSession,
+};
+const dappKp = JSON.parse(dappKpRaw);
+const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
+  payloadObj,
+  phantomEncPub,
+  dappKp.secretKeyBase58
+);
 
-      const payloadObj = { transaction: unsignedBase58, session: phantomSession };
-      const dappKp = JSON.parse(dappKpRaw);
-      const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(payloadObj, phantomEncPub, dappKp.secretKeyBase58);
+const currentPath = window.location.pathname + window.location.search;
+localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
 
-      const currentPath = window.location.pathname + window.location.search;
-      localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
+const redirectLink = encodeURIComponent(
+  `${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(
+    currentPath
+  )}`
+);
+const appUrl = encodeURIComponent(window.location.origin);
+const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
 
-      const redirectLink = encodeURIComponent(`${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(currentPath)}`);
-      const appUrl = encodeURIComponent(window.location.origin);
-      const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
+const deeplink =
+  `https://phantom.app/ul/v1/signTransaction?` +
+  `app_url=${appUrl}` +
+  `&redirect_link=${redirectLink}` +
+  `&dapp_encryption_public_key=${dappPubEnc}` +
+  `&payload=${encodeURIComponent(payloadBase58)}` +
+  `&nonce=${encodeURIComponent(nonceBase58)}`;
 
-      const deeplink =
-        `https://phantom.app/ul/v1/signTransaction?` +
-        `app_url=${appUrl}` +
-        `&redirect_link=${redirectLink}` +
-        `&dapp_encryption_public_key=${dappPubEnc}` +
-        `&payload=${encodeURIComponent(payloadBase58)}` +
-        `&nonce=${encodeURIComponent(nonceBase58)}`;
-
-      window.location.href = deeplink;
+window.location.href = deeplink;
     } catch (e) {
       console.error("pay_entry error:", e);
       setIsLoadingTransaction(false);
