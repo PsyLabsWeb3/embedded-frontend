@@ -76,16 +76,22 @@ import { WALLET_CONFIG } from './constants';
  * Currently supports Phantom and WalletConnect for broad compatibility
  * across different user preferences and device types.
  */
+
+const NET = WalletAdapterNetwork.Devnet;
 const wallets = [
   new PhantomWalletAdapter(),
   new WalletConnectWalletAdapter({
-    network: WalletAdapterNetwork.Mainnet,
+    network: NET,
     options: {
       relayUrl: WALLET_CONFIG.RELAY_URL,
       projectId: WALLET_CONFIG.PROJECT_ID,
     },
   }),
 ];
+
+const RPC = import.meta.env.VITE_SOLANA_RPC ?? clusterApiUrl('devnet');
+
+
 
 /**
  * App Component
@@ -105,7 +111,7 @@ const wallets = [
  */
 const App: React.FC = () => {
   return (
-    <ConnectionProvider endpoint={clusterApiUrl('devnet')}>
+    <ConnectionProvider endpoint={RPC}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <Router>
