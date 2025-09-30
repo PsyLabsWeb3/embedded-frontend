@@ -188,7 +188,7 @@ const PayEntryButton: React.FC<Props> = ({
   const [degenModalOpen, setDegenModalOpen] = useState(false);
   const [degenSelected, setDegenSelected] = useState<number | null>(null);
 
-  const degenOptions = [1, 2, 5, 10];
+  const degenOptions = [5];
 
   const handleDegenOpen = () => {
     setDegenModalOpen(true);
@@ -835,7 +835,7 @@ window.location.href = deeplink;
         </div>
       )}
 
-      {/* Match confirmation modal */}
+      {/* Deprecated Match confirmation modal */}
       <MatchConfirmationModal
         isOpen={showMatchConfirmation}
         amountSol={amountSol}
