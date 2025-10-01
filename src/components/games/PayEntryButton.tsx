@@ -402,6 +402,36 @@ const PayEntryButton: React.FC<Props> = ({
   const preparing = !sending && !prereqsReady;
 
 
+  // Debug: log de prerequisites y señales relacionadas
+  useEffect(() => {
+    console.table({
+      usingDesktop,
+      anchorReady,
+      phantomReady,
+      amountReady,
+      networkReady,
+      prereqsReady,
+      treasuryOk,
+      hasWallet: !!wallet.publicKey,
+      hasProgram: !!program,
+      hasAnchorWallet: !!anchorWallet,
+      amountSol,
+    });
+  }, [
+    usingDesktop,
+    anchorReady,
+    phantomReady,
+    amountReady,
+    networkReady,
+    prereqsReady,
+    treasuryOk,
+    wallet.publicKey,
+    program,
+    anchorWallet,
+    amountSol,
+  ]);
+
+
 
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (
