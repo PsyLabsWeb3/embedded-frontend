@@ -26,35 +26,21 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
   return (
     <div className="game-page">
       <Navbar />
-      
       <div className="game-page-content">
-        <div className="game-central-container">
-          <div className="game-container">
-            {backgroundImage && (
-              <div 
-                className="game-container-background"
-                style={{
-                  backgroundImage: `url(${backgroundImage})`
-                }}
-              />
-            )}
-            <div className="game-inner-container">
-              {backgroundImage && (
-                <div 
-                  className="game-inner-background"
-                  style={{
-                    backgroundImage: `url(${backgroundImage})`
-                  }}
-                />
-              )}
-              <div className="game-content">
-                {gameComponent}
-              </div>
-            </div>
-            
-            <div className="game-title-inside">
-              <h1 className="game-title-simple">{gameTitle}</h1>
-            </div>
+        <div className="game-inner-container">
+          {backgroundImage && (
+            <div 
+              className="game-inner-background"
+              style={{
+                backgroundImage: `url(${backgroundImage})`
+              }}
+            />
+          )}
+          <div className="game-content">
+            {gameComponent}
+          </div>
+          <div className="game-title-inside">
+            <h1 className="game-title-simple">{gameTitle}</h1>
           </div>
         </div>
         
