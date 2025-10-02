@@ -402,7 +402,7 @@ const PayEntryButton: React.FC<Props> = ({
   const preparing = !sending && !prereqsReady;
 
 
-  // Debug: log de prerequisites y señales relacionadas
+  // Debug: log de prerequisites y señales relacionadas.
   useEffect(() => {
     console.table({
       usingDesktop,
