@@ -8,8 +8,8 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   const handleStartPlaying = () => {
-    navigate("/embedded");
-  };
+    navigate("/games");
+  } 
 
   return (
     <section className="hero-section section container mx-container">
@@ -27,9 +27,14 @@ const HeroSection = () => {
           >
             PLAY NOW
           </button>
-          <button className="hero-section__cta hero-section__cta--secondary">
+          <a
+            className="hero-section__cta hero-section__cta--secondary"
+            href="https://embedded.games/wp-content/uploads/2025/06/Embedded-Whitepaper.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             WHITEPAPER
-          </button>
+          </a>
         </div>
       </div>
       {/* Mobile Layout */}

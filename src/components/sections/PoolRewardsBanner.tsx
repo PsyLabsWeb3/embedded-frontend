@@ -33,7 +33,7 @@ const PoolRewardsBanner = () => {
 
   return (
     <section className="pool-rewards-section section container mx-container">
-      <div className="rewards-section">
+  <div className="pool-rewards-banner">
           <div className="rewards-section__icon-wrapper">
         <img
           src={solanaIcon}

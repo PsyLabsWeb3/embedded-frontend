@@ -15,12 +15,30 @@
   gap: var(--spacing-lg);
   justify-content: center;
   margin: var(--spacing-lg) auto;
-  width: 100vw;
-  max-width: none;
+  max-width: 340px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.2rem 1.5rem 1.7rem 1.5rem;
   min-height: 18rem;
-  padding: var(--spacing-3xl) 8vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
+}
+
+@media (max-width: 500px) {
+  .pool-rewards-banner {
+    max-width: 98vw;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pool-rewards-banner {
+    max-width: 80vw;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
 }
 
 .pool-rewards-icon-wrapper {
@@ -76,54 +94,3 @@
 }
 
 /* Mobile styles: igual que rewards distribuida */
-@media (max-width: 600px) {
-  .pool-rewards-amount {
-    color: var(--color-text);
-    font-family: var(--font-subheading);
-    font-size: var(--font-size-xl);
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    line-height: 1.05;
-    word-break: break-word;
-  }
-  .pool-rewards-label {
-    color: var(--color-primary);
-    font-family: var(--font-subheading);
-    font-size: 1.8rem;
-    font-weight: 300;
-    letter-spacing: 0.03em;
-    line-height: 1.05;
-    word-break: break-word;
-  }
-
-  .pool-rewards-banner {
-    align-items: center;
-    background: var(--color-surface-dark);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
-    box-sizing: border-box;
-    display: flex;
-    gap: var(--spacing-lg);
-    justify-content: flex-start;
-    margin: var(--spacing-lg) auto;
-    max-width: 600px;
-    min-height: 7.5rem;
-    padding: var(--spacing-xl) var(--spacing-lg);
-    width: 100%;
-    flex-direction: row-reverse;
-    margin-left: 0;
-    transform: none;
-  }
-  .pool-rewards-icon-wrapper {
-    min-height: 4.2rem;
-    min-width: 4.2rem;
-  }
-  .pool-rewards-icon {
-    height: 5.5rem;
-    width: 5.5rem;
-  }
-  .pool-rewards-content {
-    align-items: center;
-    text-align: center;
-  }
-}
