@@ -12,19 +12,22 @@
 .content {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
 .textSection {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.5rem;
-  flex: 1;
 }
 
 .subSection {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.5rem;
   flex-wrap: wrap;
 }

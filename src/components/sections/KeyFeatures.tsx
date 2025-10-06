@@ -17,17 +17,17 @@ const KeyFeatures = () => (
     
     <div className="key-features-cards">
       <div className="feature-card">
-  <img src="/src/assets/gameboy.png" alt="Skill-Based Gaming" className="feature-icon" />
+  <img src="/gameboy.png" alt="Skill-Based Gaming" className="feature-icon" />
         <h3 className="feature-card-title">Skill-Based Gaming</h3>
         <p className="feature-card-description">Compete in games that reward skill and strategy</p>
       </div>
       <div className="feature-card">
-  <img src="/src/assets/gameboy.png" alt="Real Rewards" className="feature-icon" />
+  <img src="/gameboy.png" alt="Real Rewards" className="feature-icon" />
         <h3 className="feature-card-title">Real Rewards</h3>
         <p className="feature-card-description">Earn $SOL for your gaming performance</p>
       </div>
       <div className="feature-card">
-  <img src="/src/assets/gameboy.png" alt="Decentralized" className="feature-icon" />
+  <img src="/gameboy.png" alt="Decentralized" className="feature-icon" />
         <h3 className="feature-card-title">Decentralized</h3>
         <p className="feature-card-description">No user names, no accs, just your wallet.</p>
       </div>

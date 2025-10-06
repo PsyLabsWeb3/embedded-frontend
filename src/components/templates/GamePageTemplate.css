@@ -159,6 +159,14 @@
 }
 
 .feature-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.feature-icon-game {
   width: 20px;
   height: 20px;
   object-fit: contain;
