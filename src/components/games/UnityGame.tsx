@@ -310,7 +310,9 @@ const UnityGame: React.FC<UnityGameProps> = ({
   // Game Over listener
   const [gameOver, setGameOver] = useState(false);
   const [lastMatchId, setLastMatchId] = useState<string | undefined>(undefined);
+  const [defaultWin, setDefaultWin] = useState<boolean>(false);
   const reloadingRef = useRef(false);
+
 
   // Listener del mensaje desde Unity (o iframe)
   useEffect(() => {
@@ -325,6 +327,12 @@ const UnityGame: React.FC<UnityGameProps> = ({
       }
       if (data?.source === "unity" && data?.type === GAME_OVER_TYPE) {
         setLastMatchId(data?.matchId);
+        const reason = data?.reason || "unknown";
+        if (reason === "Default Win") setDefaultWin(true);
+        console.log("[UnityGame]🕹️ GAME OVER 💀 received from Unity:", {
+          reason,
+          matchId: data?.matchId,
+        });
         setGameOver(true);
       }
     };
@@ -441,6 +449,11 @@ const UnityGame: React.FC<UnityGameProps> = ({
               <h3 style={{ fontFamily: 'Nunito, sans-serif', fontSize: 26, fontWeight: 900, marginBottom: 6 }}>
                 ¡Game Over!
               </h3>
+              {defaultWin && (
+                <p style={{ fontSize: 16, marginBottom: 12 }}>
+               Lucky day, degen! 🎰 Since your opponent didn’t show up, you’ve struck gold — automatic victory is yours! 🏆💎
+                </p>
+              )}
               {lastMatchId && (
                 <div style={{ fontSize: 12, color: "#666", marginBottom: 12 }}>
                   Match ID: {lastMatchId}
