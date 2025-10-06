@@ -15,10 +15,12 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({ item }) => {
       <div className={styles.cardContent}>
         {/* Primera fila: Ranking + Avatar + Wallet + Puntos principales */}
         <div className={styles.topRow}>
-          <PositionNumber position={item.position} />
-          <div className={styles.walletSection}>
-            <WalletIcon />
-            <WalletAddress address={item.walletAddress} />
+          <div className={styles.leftSection}>
+            <PositionNumber position={item.position} />
+            <div className={styles.walletSection}>
+              <WalletIcon />
+              <WalletAddress address={item.walletAddress} />
+            </div>
           </div>
           <div className={styles.rightSection}>
             <EmbeddedRewards points={item.points} />

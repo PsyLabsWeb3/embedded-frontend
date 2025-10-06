@@ -132,7 +132,8 @@
     overflow: visible;
     padding: 0;
     box-sizing: border-box;
-    background: linear-gradient(to bottom, #38454C, #171D20) !important;
+    background: #5DD62C;
+
   }
   
   .game-card-image {

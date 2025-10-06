@@ -52,8 +52,9 @@
 .topRow {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: var(--spacing-lg);
+  width: 100%;
 }
 
 /* Mobile-first: Card layout como la imagen */
@@ -73,7 +74,13 @@
   .topRow {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
     gap: var(--spacing-lg);
   }
   
@@ -84,7 +91,7 @@
   }
 }
 
-/* Desktop: Table-like layout */
+/* Desktop: Table-like layout with left-right distribution */
 @media (min-width: 768px) {
   .card {
     padding: var(--spacing-lg) var(--spacing-2xl);
@@ -93,22 +100,33 @@
   .cardContent {
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: var(--spacing-2xl);
+  }
+  
+  .topRow {
+    justify-content: space-between;
+    width: 100%;
   }
 
   .leftSection {
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-lg);
   }
   
   .walletSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
+    gap: var(--spacing-sm);
   }
 
   .rightSection {
     justify-content: flex-end;
-    margin-left: auto;
+    align-items: center;
     font-size: var(--reward-font-size-desktop);
   }
 }

@@ -47,9 +47,6 @@ import "../../styles/sections/HeroStatCard.css";
  */
 const HeroStatCard: React.FC = () => (
   <section className="hero-stat-section">
-    {/* Section Title - Visible only on desktop for enhanced hierarchy */}
-    <h2 className="hero-stat-section__title">Where Gaming Meets Crypto</h2>
-
     {/* Primary Content Card - Platform value proposition and CTA */}
     <article className="hero-stat-card">
       {/* Value Proposition - Core platform benefits */}
