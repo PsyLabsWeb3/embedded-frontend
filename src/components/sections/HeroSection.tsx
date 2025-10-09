@@ -4,6 +4,7 @@ import "../../styles/sections/HeroSection.css";
 import HeroStatCard from "./HeroStatCard";
 import { useNavigate } from "react-router-dom";
 
+
 const HeroSection = () => {
   const navigate = useNavigate();
 
