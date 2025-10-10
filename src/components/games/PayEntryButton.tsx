@@ -792,6 +792,10 @@ window.location.href = deeplink;
             <p className="modal-secondary-text">
               This will push you up in the 500x Leaderboard.
             </p>
+            {/* Error Text */}
+            {modalError && (
+              <p className="modal-error-text">{modalError}</p>
+            )}
 
             {/* Additional text */}
             <p className="modal-additional-text">
@@ -867,6 +871,10 @@ window.location.href = deeplink;
                 </button>
               ))}
             </div>
+               {/* Error Text */}
+            {modalError && (
+              <p className="modal-error-text">{modalError}</p>
+            )}
             <div style={{ marginTop: "4rem" }} className="modal-buttons">
               <button
                 onClick={handleDegenCancel}
