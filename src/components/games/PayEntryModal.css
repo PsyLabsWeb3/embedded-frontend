@@ -265,9 +265,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: .5rem;
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .modal-title-section {

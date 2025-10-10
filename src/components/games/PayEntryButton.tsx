@@ -922,7 +922,7 @@ window.location.href = deeplink;
             </p>
              {/* Disclaimer */}
             <p className="modal-disclaimer-text">
-               Do not refresh or disconnect as once the transaction has been processed or you could lose your entry fee.
+               Do not refresh or disconnect once the transaction has been processed or you could lose your entry fee.
             </p>
 
             {/* Secondary text */}
