@@ -15,7 +15,6 @@ import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from "../../constants";
-import MatchConfirmationModal from "../modals/MatchConfirmationModal";
 import "./PayEntryModal.css";
 import "./DegenModeModal.css";
 import gameboyIcon from "../../assets/gameboy.svg";
@@ -973,16 +972,7 @@ window.location.href = deeplink;
         </div>
       )}
 
-      {/* Deprecated Match confirmation modal */}
-      <MatchConfirmationModal
-        isOpen={showMatchConfirmation}
-        amountSol={amountSol}
-        onReturn={handleMatchReturn}
-        onConfirm={handleMatchConfirm}
-        isProcessing={sending}
-        isLoadingTransaction={isLoadingTransaction}
-        transactionId={currentTransactionId || undefined}
-      />
+      
     </>
   );
 };
