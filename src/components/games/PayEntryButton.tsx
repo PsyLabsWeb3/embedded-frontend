@@ -176,6 +176,10 @@ const PayEntryButton: React.FC<Props> = ({
     string | null
   >(null);
 
+  //log showMatchConfirmation and currentTransactionId
+  console.log("showMatchConfirmation:", showMatchConfirmation);
+  console.log("currentTransactionId:", currentTransactionId);
+
   // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null); 
@@ -237,19 +241,19 @@ const PayEntryButton: React.FC<Props> = ({
   };
 
   // Handle modal return button click
-  const handleMatchReturn = () => {
-    setShowMatchConfirmation(false);
-    setIsLoadingTransaction(false);
-    setCurrentTransactionId(null);
-  };
+  // const handleMatchReturn = () => {
+  //   setShowMatchConfirmation(false);
+  //   setIsLoadingTransaction(false);
+  //   setCurrentTransactionId(null);
+  // };
 
   // Handle modal confirm button click
-  const handleMatchConfirm = () => {
-    // Switch to loading state but keep modal open
-    setIsLoadingTransaction(true);
-    // Execute payment logic
-    handlePayEntry();
-  };
+  // const handleMatchConfirm = () => {
+  //   // Switch to loading state but keep modal open
+  //   setIsLoadingTransaction(true);
+  //   // Execute payment logic
+  //   handlePayEntry();
+  // };
 
   // Handle Open Casual Modal
   const handleOpenCasualModal = () => {
