@@ -919,7 +919,10 @@ window.location.href = deeplink;
             {/* Main waiting text */}
             <p className="modal-main-text">
               Please wait while transaction is processing for your game.
-              Do not refresh or disconnect as once the transaction has been processed or you could lose your entry fee.
+            </p>
+             {/* Disclaimer */}
+            <p className="modal-disclaimer-text">
+               Do not refresh or disconnect as once the transaction has been processed or you could lose your entry fee.
             </p>
 
             {/* Secondary text */}
