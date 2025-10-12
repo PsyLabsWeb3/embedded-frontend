@@ -1,0 +1,92 @@
+.ef-footer {
+  background: #0f1011;
+  color: #9be24a; /* green-ish */
+  padding: 2.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+.ef-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ef-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ef-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ef-logo img {
+  width: 56px;
+  height: auto;
+}
+
+.ef-brand {
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.ef-copy {
+  color: #9be24a;
+  font-size: 0.95rem;
+}
+
+.ef-powered {
+  color: #9be24a;
+  font-size: 0.95rem;
+}
+
+.ef-footer-center {
+  flex: 1;
+}
+
+.ef-footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.ef-link {
+  color: #9be24a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ef-social-title {
+  color: #9be24a;
+  font-size: 0.9rem;
+}
+
+.ef-social-icons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.ef-social img {
+  width: 28px;
+  height: 28px;
+  filter: hue-rotate(80deg) saturate(1.1) brightness(1.1);
+}
+
+@media (max-width: 768px) {
+  .ef-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ef-footer-right {
+    align-items: flex-start;
+  }
+}

@@ -8,6 +8,7 @@ import RewardSystemSection from '../components/sections/RewardSystemSection';
 import RewardsBannerSection from '../components/sections/RewardsBannerSection';
 
 import { useState, useEffect } from 'react';
+import { Footer } from '../components/sections';
 
 const Home = () => {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -39,6 +40,7 @@ const Home = () => {
       <GameListSection />
       <KeyFeatures />
       <RewardSystemSection />
+      <Footer />
     </>
   );
 };

@@ -1,6 +1,7 @@
 import '../../styles/theme.css';
 import '../../styles/utilities.css';
 import '../../styles/sections/KeyFeatures.css';
+import solanaIcon from "../../assets/solanaicon.png";
 
 const KeyFeatures = () => (
   <section className="section container key-features-section mx-container">
@@ -22,12 +23,12 @@ const KeyFeatures = () => (
         <p className="feature-card-description">Compete in games that reward skill and strategy</p>
       </div>
       <div className="feature-card">
-  <img src="/gameboy.png" alt="Real Rewards" className="feature-icon" />
+  <img src={solanaIcon} alt="Real Rewards" className="feature-icon" />
         <h3 className="feature-card-title">Real Rewards</h3>
         <p className="feature-card-description">Earn $SOL for your gaming performance</p>
       </div>
       <div className="feature-card">
-  <img src="/gameboy.png" alt="Decentralized" className="feature-icon" />
+  <img src="/banner-icon.svg" alt="Decentralized" className="feature-icon" />
         <h3 className="feature-card-title">Decentralized</h3>
         <p className="feature-card-description">No user names, no accs, just your wallet.</p>
       </div>
