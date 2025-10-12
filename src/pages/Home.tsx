@@ -5,17 +5,42 @@ import PoolRewardsBanner from '../components/sections/PoolRewardsBanner';
 import GameListSection from '../components/sections/GameListSection';
 import KeyFeatures from '../components/sections/KeyFeatures';
 import RewardSystemSection from '../components/sections/RewardSystemSection';
+import RewardsBannerSection from '../components/sections/RewardsBannerSection';
 
-const Home = () => (
-  <>
-    <Navbar />
-    <HeroSection />
-    <PoolRewardsBanner />
-    <RewardsSection />
-    <GameListSection />
-    <KeyFeatures />
-    <RewardSystemSection />
-  </>
-);
+import { useState, useEffect } from 'react';
+
+const Home = () => {
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  console.log("isMobileView:", isMobileView);
+
+  return (
+    <>
+      <Navbar />
+      <HeroSection />
+      {isMobileView ? (
+        <>
+          <PoolRewardsBanner />
+          <RewardsSection />
+        </>
+      ) : (
+        <RewardsBannerSection />
+      )}
+
+      <GameListSection />
+      <KeyFeatures />
+      <RewardSystemSection />
+    </>
+  );
+};
 
 export default Home;
