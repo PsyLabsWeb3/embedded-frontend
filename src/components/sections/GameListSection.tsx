@@ -73,6 +73,7 @@ const GameListSection: React.FC = () => (
             className={game.glowClass}
             slug={game.slug}
             ariaLabel={`Play ${game.title}${game.description ? ` - ${game.description}` : ''}`}
+            comingSoon={game.comingSoon}
           />
         </div>
       ))}

@@ -93,8 +93,14 @@
   .cardContent {
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: var(--spacing-2xl);
+    justify-content: space-around;
+    gap: var(--spacing-lg);
+  }
+   .topRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10rem;
   }
 
   .leftSection {

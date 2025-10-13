@@ -39,6 +39,8 @@ interface GameCardProps {
   testId?: string;
   /** Optional ARIA label for accessibility */
   ariaLabel?: string;
+
+  comingSoon?: boolean;
 }
 
 /**
@@ -55,6 +57,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
   className,
   testId = `game-card-${slug}`,
   ariaLabel,
+  comingSoon = false
 }) => {
   const navigate = useNavigate();
 
@@ -117,10 +120,12 @@ const GameCardComponent: React.FC<GameCardProps> = ({
 
   return (
     <div className="game-card-outer-wrapper">
+      
       <div
         className={cardClasses}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
+        //if comingSoon is true, disable click and keydown
+        onClick={comingSoon ? undefined : handleClick}
+        onKeyDown={comingSoon ? undefined : handleKeyDown}
         role="button"
         tabIndex={0}
         aria-label={accessibleLabel}
@@ -136,10 +141,12 @@ const GameCardComponent: React.FC<GameCardProps> = ({
         <div className="game-card-content">
           {/* Game Title */}
           <h3 className="game-card-title">{title}</h3>
+          {comingSoon && <div className="game-card-coming-soon-badge">COMING SOON</div>}
           
           {/* Play Button - Only visible on desktop */}
           <button
             className="game-card-play-button"
+            disabled={comingSoon}
             onClick={(e) => {
               e.stopPropagation(); // Prevent double click
               handleClick();
@@ -147,8 +154,9 @@ const GameCardComponent: React.FC<GameCardProps> = ({
             onKeyDown={handleKeyDown}
             aria-label={accessibleLabel}
           >
-            PLAY NOW
+            {comingSoon ? 'COMING SOON' : 'PLAY NOW'}
           </button>
+         
         </div>
       </div>
     </div>

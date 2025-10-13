@@ -12,7 +12,8 @@
 
 import { GameTypes } from '../types';
 // import snakeGameImage from '../assets/snake_game.jpg';
-// import asteroidsImage from '../assets/AsteroidsCover.png';
+import asteroidsImage from '../assets/AsteroidsCover.png';
+import colosseumImage from '../assets/ColosseumCover.png';
 // import bubbleImage from '../assets/bubble.jpg';
 import embeddedwarsImage from '../assets/embedded_wars.jpg';
 
@@ -34,18 +35,22 @@ export type Game = GameTypes.GameData;
  */
 
 const games: Game[] = [
+
+  // Outer Colosseum
   {
-    id: 'embedded-wars-game',
-    title: 'Embedded Wars',
-    slug: 'embeddedwars',
-    image: embeddedwarsImage,
-    glowClass: 'neon-green',
-    description: '1v1 realtime Sci-Fi battle ',
+    id: 'outer-colosseum-game',
+    title: 'Outer Colosseum',
+    slug: 'outercolosseum',
+    image: colosseumImage,
+    glowClass: 'neon-blue',
+    description: '3D Battle Royale in Space',
     isFeatured: true,
-    isNew: false,
-    createdAt: new Date('2024-01-01'),
-    updatedAt: new Date('2024-01-15'),
+    isNew: true,
+    createdAt: new Date('2024-11-01'),
+    updatedAt: new Date('2024-11-15'),
+    comingSoon: true
   },
+
   // {
   //   id: 'snake-game',
   //   title: 'Snake',
@@ -57,19 +62,34 @@ const games: Game[] = [
   //   isNew: false,
   //   createdAt: new Date('2024-01-01'),
   //   updatedAt: new Date('2024-01-15'),
+  //   comingSoon: true
   // },
-  // {
-  //   id: 'asteroids-game',
-  //   title: 'Asteroids',
-  //   slug: 'asteroids',
-  //   image: asteroidsImage,
-  //   glowClass: 'neon-white',
-  //   description: 'Fast-paced asteroid action',
-  //   isFeatured: true,
-  //   isNew: false,
-  //   createdAt: new Date('2024-01-02'),
-  //   updatedAt: new Date('2024-01-16'),
-  // },
+    {
+    id: 'embedded-wars-game',
+    title: 'Embedded Wars',
+    slug: 'embeddedwars',
+    image: embeddedwarsImage,
+    glowClass: 'neon-green',
+    description: '1v1 realtime Sci-Fi battle ',
+    isFeatured: true,
+    isNew: false,
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-15'),
+    comingSoon: false
+  },
+  {
+    id: 'asteroids-game',
+    title: 'Asteroids',
+    slug: 'asteroids',
+    image: asteroidsImage,
+    glowClass: 'neon-white',
+    description: 'Fast-paced asteroid action',
+    isFeatured: true,
+    isNew: false,
+    createdAt: new Date('2024-01-02'),
+    updatedAt: new Date('2024-01-16'),
+    comingSoon: true
+  },
   // {
   //   id: 'bubble-merge-game',
   //   title: 'Bubble Merge',

@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../sections/Navbar';
 import GameInfoBox from '../games/GameInfoBox';
 import GameDetailsBox from '../games/GameDetailsBox';
-import OnChainMetricsBox from '../games/OnChainMetricsBox';
+// import OnChainMetricsBox from '../games/OnChainMetricsBox';
 import './GamePageTemplate.css';
 
 interface GamePageTemplateProps {
@@ -68,7 +68,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
         {/* Game Info Box - layout general */}
         <GameInfoBox />
         <GameDetailsBox />
-        <OnChainMetricsBox />
+        {/* <OnChainMetricsBox /> */}
         
         {false && (instructions.length > 0 || gameInfo) && (
           <div className="game-info-section">
