@@ -53,6 +53,16 @@
 
 /* Desktop styles */
 @media (min-width: 900px) {
+ .game-list-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+      background-image:  url('/Home-3bg.jpg');
+          background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+        min-height: 100vh;
+  } 
+
   .game-list__title {
     font-size: 4rem;
     text-align: center !important;

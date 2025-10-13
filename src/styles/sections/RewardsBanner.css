@@ -26,8 +26,8 @@
   .rewards-section {
     max-width: 80vw;
     width: 100%;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
@@ -102,7 +102,7 @@
   }
   
   .rewards-section__amount {
-    font-size: 2.7rem;
+    font-size: 1.7rem;
   }
   
   .rewards-section__label {
@@ -111,7 +111,7 @@
 }
 
 /* Desktop styles */
-@media (min-width: 900px) {
+/* @media (min-width: 900px) {
   .rewards-section {
     gap: var(--spacing-2xl);
     width: 100vw;
@@ -143,7 +143,7 @@
   .rewards-section__label {
     font-size: 2.2rem;
   }
-}
+} */
 /* Rewards banner section styles */
 .rewards-section {
   align-items: center;
@@ -231,7 +231,7 @@
   }
   
   .rewards-section__amount {
-    font-size: 2.7rem;
+    font-size: 1.7rem;
   }
   
   .rewards-section__label {
@@ -240,7 +240,7 @@
 }
 
 /* Desktop styles */
-@media (min-width: 900px) {
+/* @media (min-width: 900px) {
   .rewards-section {
     gap: var(--spacing-2xl);
     width: 100vw;
@@ -272,4 +272,4 @@
   .rewards-section__label {
     font-size: 2.2rem;
   }
-}
+} */
