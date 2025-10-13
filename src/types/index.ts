@@ -93,6 +93,9 @@ export namespace GameTypes {
     isFeatured?: boolean;
     /** Whether the game is newly added */
     isNew?: boolean;
+    /** Whether the game is coming soon */
+    comingSoon?: boolean;
+    
   }
 
   /**
