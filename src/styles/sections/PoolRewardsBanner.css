@@ -108,7 +108,7 @@
     margin: var(--spacing-lg) auto;
     max-width: 600px;
     min-height: 7.5rem;
-    padding: var(--spacing-xl) var(--spacing-lg);
+    padding: var(--spacing-xl) 3rem;
     width: 100%;
     flex-direction: row-reverse;
     margin-left: 0;
