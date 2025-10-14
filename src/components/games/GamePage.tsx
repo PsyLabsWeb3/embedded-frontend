@@ -100,7 +100,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     if (gameConfig.assets) {
       if ((!connected || !publicKey) && !isConnectedMobile) {
         return (
-          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '1.2rem' }}>
+          <div style={{ borderRadius: '12px', background: '#1d1d1dc6', padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', fontSize: '1.2rem', fontWeight: "700", textShadow: "0 0 5px black" }}>
             Connect your wallet to play.
           </div>
         );
