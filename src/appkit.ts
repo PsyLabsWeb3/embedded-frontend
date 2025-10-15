@@ -2,7 +2,7 @@ import { createAppKit } from '@reown/appkit';
 import { SolanaAdapter } from '@reown/appkit-adapter-solana/react';
 // import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 // import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
-import { solanaDevnet /* o solana (mainnet) */ } from '@reown/appkit/networks';
+import { solana /* o solana (mainnet) */ } from '@reown/appkit/networks';
 import { WALLET_CONFIG } from './constants';
 
 // 0. Set up Solana Adapter
@@ -12,7 +12,7 @@ const solanaWeb3JsAdapter = new SolanaAdapter();
 export const appkit = createAppKit({
   adapters: [solanaWeb3JsAdapter],
   projectId: WALLET_CONFIG.PROJECT_ID, // tu Project ID de Reown
-  networks: [solanaDevnet],            // cámbialo a [solana] si usas mainnet
+  networks: [solana],            // cámbialo a [solana] si usas mainnet
   metadata: {
     name: 'Embedded Games',
     description: 'Mini juegos on-chain',

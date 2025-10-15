@@ -718,7 +718,7 @@ window.location.href = deeplink;
   // };
 
   const explorerUrl = txSig
-    ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
+    ? `https://explorer.solana.com/tx/${txSig}`
     : "#";
 
   return (

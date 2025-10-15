@@ -6,7 +6,7 @@ import solanaIcon from "../../assets/solanaicon.png";
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 
 const POOL_ADDRESS = "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM";
-const CLUSTER = "devnet";
+const CLUSTER = "mainnet-beta";
 
 function formatSol(amount: number) {
   return amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
