@@ -32,7 +32,7 @@ import {
   PhantomWalletAdapter,
   WalletConnectWalletAdapter
 } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+// import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -77,7 +77,7 @@ import { WALLET_CONFIG } from './constants';
  * across different user preferences and device types.
  */
 
-const NET = WalletAdapterNetwork.Devnet;
+const NET = WalletAdapterNetwork.Mainnet;
 const wallets = [
   new PhantomWalletAdapter(),
   new WalletConnectWalletAdapter({
@@ -89,7 +89,7 @@ const wallets = [
   }),
 ];
 
-const RPC = import.meta.env.VITE_SOLANA_RPC ?? clusterApiUrl('devnet');
+const RPC = import.meta.env.VITE_SOLANA_RPC;
 
 
 
