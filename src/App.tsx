@@ -32,7 +32,7 @@ import {
   PhantomWalletAdapter,
   WalletConnectWalletAdapter
 } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+// import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
