@@ -89,7 +89,7 @@ const wallets = [
   }),
 ];
 
-const RPC = import.meta.env.VITE_SOLANA_RPC ?? clusterApiUrl('devnet');
+const RPC = import.meta.env.VITE_SOLANA_RPC;
 
 
 
