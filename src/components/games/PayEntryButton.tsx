@@ -19,7 +19,7 @@ import "./PayEntryModal.css";
 import "./DegenModeModal.css";
 import gameboyIcon from "../../assets/gameboy.svg";
 
-// Program constants for devnet
+// Program constants for mainet
 const PROGRAM_ID = new PublicKey(
   "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8"
 );
