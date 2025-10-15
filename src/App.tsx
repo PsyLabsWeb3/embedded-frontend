@@ -77,7 +77,7 @@ import { WALLET_CONFIG } from './constants';
  * across different user preferences and device types.
  */
 
-const NET = WalletAdapterNetwork.Devnet;
+const NET = WalletAdapterNetwork.Mainnet;
 const wallets = [
   new PhantomWalletAdapter(),
   new WalletConnectWalletAdapter({
