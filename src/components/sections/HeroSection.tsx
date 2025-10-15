@@ -18,8 +18,7 @@ const HeroSection = () => {
       {/* Desktop/Tablet Layout */}
       <div className="hero-section__row">
         <p className="hero-section__subtitle">
-          A decentralized gaming platform that rewards players with real crypto.
-          No accounts needed—just your wallet.{" "}
+        Welcome to the Embedded Universe. The place where skill turns into currency. Play PVE and PVP games while earning Solana.
         </p>
         <div className="hero-section__buttons">
           <button

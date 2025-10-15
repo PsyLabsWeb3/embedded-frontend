@@ -82,7 +82,9 @@ const GameListSection: React.FC = () => (
     {/* View All Games Button - Desktop only */}
     <div className="game-list__button-container">
       <button className="game-list__view-all-button">
-        VIEW ALL GAMES
+        <a href="/games">
+          VIEW ALL GAMES
+        </a>
       </button>
     </div>
   </section>

@@ -48,7 +48,7 @@
 
 .game-title-inside {
   position: absolute;
-  bottom: 45%;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;

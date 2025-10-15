@@ -921,7 +921,7 @@ window.location.href = deeplink;
 
             {/* Main waiting text */}
             <p className="modal-main-text">
-              Please wait while transaction is processing for your game.
+              Please wait while your game transaction is being processed.
             </p>
              {/* Disclaimer */}
             <p className="modal-disclaimer-text">
