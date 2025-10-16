@@ -718,7 +718,7 @@ window.location.href = deeplink;
   // };
 
   const explorerUrl = txSig
-    ? `https://explorer.solana.com/tx/${txSig}`
+    ? `https://explorer.solana.com/tx/${txSig}?cluster=mainnet-beta`
     : "#";
 
   return (
@@ -941,7 +941,7 @@ window.location.href = deeplink;
                     {txSig}
                   </a>
                 ) : (
-                  "—"
+                  "Transaction Error, close and try again."
                 )}
               </p>
               {/* Logo and Loading */}
