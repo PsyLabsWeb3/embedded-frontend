@@ -4,8 +4,12 @@ import LeaderboardTable from '../components/LeaderboardTable';
 import { RewardsBanner } from '../components/molecules/RewardsBanner';
 import './Leaderboard.css';
 
-// Fecha objetivo (ajústala)
-const TARGET_DATE = new Date('2025-10-15T00:00:00Z');
+// Fecha objetivo ejemplo
+// const TARGET_DATE = new Date('2025-11-30T00:00:00Z');
+
+// Fecha objetivo desde env (exposed by Vite)
+const RAW_TARGET = import.meta.env.VITE_SEASON_TARGET_DATE as string;
+const TARGET_DATE = new Date(RAW_TARGET);
 
 function calcDaysLeft(target: Date): string {
   const now = new Date();
