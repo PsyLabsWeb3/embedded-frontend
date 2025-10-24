@@ -403,6 +403,44 @@ export namespace APITypes {
 }
 
 /**
+ * Category-related type definitions
+ */
+export namespace CategoryTypes {
+  /**
+   * Game category data structure for display and navigation
+   * Used for organizing games into logical groups like PvP, PvE, etc.
+   */
+  export interface Category extends BaseEntity {
+    /** Display title of the category */
+    title: string;
+    /** URL-friendly identifier for routing */
+    slug: string;
+    /** Path to the category's cover image */
+    image: string;
+    /** CSS class for visual effects (glow, animations) */
+    glowClass: string;
+    /** Brief description of the category */
+    description: string;
+    /** Number of games in this category */
+    gameCount: number;
+    /** Whether the category is currently featured */
+    isFeatured?: boolean;
+    /** Category icon (optional) */
+    icon?: string;
+  }
+
+  /**
+   * Category navigation and filtering
+   */
+  export interface CategoryFilter {
+    /** Active category filter */
+    activeCategory?: string;
+    /** Available categories for filtering */
+    availableCategories: Category[];
+  }
+}
+
+/**
  * Utility types for common patterns
  */
 export namespace UtilityTypes {
