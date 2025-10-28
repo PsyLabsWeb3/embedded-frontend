@@ -55,6 +55,9 @@ import {
 // Import constants for configuration
 import { WALLET_CONFIG } from "./constants";
 
+// Import Terms Modal
+import TermsModal from "./components/molecules/TermsModal";
+
 /**
  * Wallet adapter configuration
  *
@@ -100,6 +103,9 @@ const App: React.FC = () => {
         <WalletModalProvider>
           <Router>
             <div className="app">
+              {/* Terms and Conditions Modal - shown on first visit */}
+              <TermsModal />
+
               <Routes>
                 {/* Main Application Routes */}
                 <Route path="/" element={<Home />} />
