@@ -52,6 +52,8 @@ export namespace GameTypes {
     title: string;
     /** Brief description of the game (optional) */
     description?: string;
+    /** Detailed description for the game info box (optional) */
+    longDescription?: string;
     /** Unity assets configuration (for Unity-based games) */
     assets?: UnityAssets;
     /** Array of instruction strings for gameplay */

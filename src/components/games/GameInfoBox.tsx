@@ -1,18 +1,15 @@
 import React from "react";
 import "./GameInfoBox.css";
 
-const GameInfoBox: React.FC = () => (
+interface GameInfoBoxProps {
+  description?: string;
+}
+
+const GameInfoBox: React.FC<GameInfoBoxProps> = ({ description }) => (
   <div className="game-info-box">
     <h3 className="game-info-title">Game Info</h3>
     <p className="game-info-text">
-     In 2248, mega-corporations rule
-      Earth, vying to control ‘Aetherion’, the rare fuel enabling
-      faster-than-light travel. Synthesised using red mercury - found deep
-      within certain planets - Aetherion fuels an interstellar economy.
-      Smugglers, and five rival factions (mega-corporations) battle for
-      dominance to control its supply and the interstellar economy. Embedded
-      Wars takes place on a mining planet where these factions battle it out for
-      control of resources.
+      {description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
     </p>
   </div>
 );

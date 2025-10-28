@@ -13,6 +13,7 @@ interface GamePageTemplateProps {
   gameInfo?: React.ReactNode;
   backgroundImage?: string;
   customContent?: React.ReactNode;
+  gameDescription?: string;
 }
 
 const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
@@ -21,7 +22,8 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
   paymentComponent,
   instructions = [],
   gameInfo,
-  backgroundImage
+  backgroundImage,
+  gameDescription
 }) => {
   return (
     <div className="game-page">
@@ -39,10 +41,12 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           <div className="game-content">
             {gameComponent}
           </div>
-          <div className="game-title-inside">
+          </div>
+
+          {/* Title placed below the game container, above the features row */}
+          <div className="game-title-below">
             <h1 className="game-title-simple">{gameTitle}</h1>
           </div>
-        </div>
         
         {/* Game Features Row */}
         <div className="game-features-row">
@@ -66,7 +70,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           </div>
         )}
         {/* Game Info Box - layout general */}
-        <GameInfoBox />
+        <GameInfoBox description={gameDescription} />
         <GameDetailsBox />
         {/* <OnChainMetricsBox /> */}
         

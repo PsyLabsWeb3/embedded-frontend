@@ -62,8 +62,9 @@ const CategoryCardComponent: React.FC<CategoryCardProps> = ({
    * This approach centralizes route management and provides type safety
    */
   const categoryRoutes: Record<string, string> = {
-    'pvp': '/games?category=pvp',
-    'pve': '/games?category=pve',
+    // Route directly to dedicated pages for PvP/PvE
+    'pvp': '/games-pvp',
+    'pve': '/games-pve',
     'puzzle': '/games?category=puzzle',
     'action': '/games?category=action',
     'strategy': '/games?category=strategy',

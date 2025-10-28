@@ -11,8 +11,9 @@
 
 import type { CategoryTypes } from '../types';
 // Import placeholder images - these will be replaced with actual category images
-import embeddedWarsImage from '../assets/embedded_wars.jpg';
-import colosseumImage from '../assets/ColosseumCover.png';
+// Replaced with new category card images added to src/assets/
+import pvpCard from '../assets/pvp-card.png';
+import pveCard from '../assets/pve-card.png';
 
 /**
  * Category data interface for UI display
@@ -35,7 +36,7 @@ const categories: Category[] = [
     id: 'pvp-category',
     title: 'PvP',
     slug: 'pvp',
-    image: embeddedWarsImage, // Temporary - replace with actual PvP image
+  image: pvpCard, // Category card image for PvP
     glowClass: 'neon-red',
     description: 'Player vs Player battles',
     gameCount: 2,
@@ -50,7 +51,7 @@ const categories: Category[] = [
     id: 'pve-category',
     title: 'PvE',
     slug: 'pve',
-    image: colosseumImage, // Temporary - replace with actual PvE image
+  image: pveCard, // Category card image for PvE
     glowClass: 'neon-purple',
     description: 'Player vs Environment adventures',
     gameCount: 3,

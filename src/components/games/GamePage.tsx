@@ -182,6 +182,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       instructions={gameConfig.instructions}
       customContent={customContent}
       backgroundImage={gameConfig.backgroundImage}
+      gameDescription={gameConfig.longDescription}
     />
   );
 };
