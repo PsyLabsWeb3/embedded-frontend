@@ -40,6 +40,8 @@ type Props = {
   onContinue?: (sig: string) => void; // abre Unity / siguiente paso
   onDegenPlay?: (betAmountSol: number, betAmountUsd: number) => void;
   fixedAmountSol?: number;
+  gameLoading?: boolean;
+  gameLoaded?: boolean;
 };
 
 /**
@@ -160,6 +162,8 @@ const PayEntryButton: React.FC<Props> = ({
   onContinue,
   onDegenPlay,
   fixedAmountSol,
+  gameLoading = false,
+  gameLoaded = false,
 }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
@@ -184,6 +188,7 @@ const PayEntryButton: React.FC<Props> = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null); 
   const [txSig, setTxSig] = useState<string | null>(null);
+  const [isLoadingGame, setIsLoadingGame] = useState(false);
 
   // Casual mode modal
   const [casualModalOpen, setCasualModalOpen] = useState(false);
@@ -277,6 +282,14 @@ const PayEntryButton: React.FC<Props> = ({
 
   // Prerequisitos
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
+
+  // Close modal when game has loaded
+  useEffect(() => {
+    if (gameLoaded && isLoadingGame) {
+      setModalOpen(false);
+      setIsLoadingGame(false);
+    }
+  }, [gameLoaded, isLoadingGame]);
 
   // Handle price loading and Phantom wallet return flow
   useEffect(() => {
@@ -410,7 +423,7 @@ const PayEntryButton: React.FC<Props> = ({
     : phantomReady && amountReady && networkReady;
 
   // Disable button while processing or prerequisites not met
-  const disabled = sending || !prereqsReady;
+  const disabled = sending || !prereqsReady || gameLoading || isLoadingGame;
   const preparing = !sending && !prereqsReady;
 
 
@@ -902,7 +915,7 @@ window.location.href = deeplink;
         <div className="pay-entry-modal-backdrop">
           <div className="pay-entry-modal">
             <h3>
-              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : "Transaction Complete"}
+              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : isLoadingGame ? "Loading Game..." : "Transaction Complete"}
             </h3>
 
             {modalError ? (
@@ -954,10 +967,37 @@ window.location.href = deeplink;
                   </div>
                 </div>
               </>
+            ) : isLoadingGame ? (
+              <>
+                <p className="modal-disclaimer-text">
+                  Loading game... Please wait.
+                </p>
+                <div className="pay-entry-modal-content">
+                  <div className="loading-section">
+                    <div className="embedded-logo-container">
+                      <img
+                        src="/logo.svg"
+                        alt="Embedded Logo"
+                        className="embedded-logo"
+                      />
+                    </div>
+                    <div className="loading-text">
+                      <span className="loading-spinner"></span>
+                      <p className="loading-label">Loading Game</p>
+                    </div>
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="modal-buttons">
                 <button
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => {
+                    setIsLoadingGame(true);
+                    // Call onContinue which will trigger game loading
+                    if (txSig) {
+                      onContinue?.(txSig);
+                    }
+                  }}
                   className="modal-button return-button"
                 >
                   Continue to Game
