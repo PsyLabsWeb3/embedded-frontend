@@ -34,6 +34,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   // Mode state to forward to Unity - can be 'Betting' for PvP or 'PvE' for PvE
   const [gameMode, setGameMode] = React.useState<string | null>(null);
   const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(null);
+  const [gameLoading, setGameLoading] = React.useState(false);
+  const [gameLoaded, setGameLoaded] = React.useState(false);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -150,9 +152,23 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             onContinue={(sig) => {
               setTxSig(sig);
               setGameMode('PvE');
-              setEntryConfirmed(true);
-              if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
+              setGameLoading(true);
+              setGameLoaded(false);
+              
+              // Simulate game loading time and then set entry confirmed
+              setTimeout(() => {
+                setEntryConfirmed(true);
+                if (isMobile()) setShowMobileFull(true);
+                
+                // Simulate additional time for game to fully load
+                setTimeout(() => {
+                  setGameLoaded(true);
+                  setGameLoading(false);
+                }, 1000); // Give game components time to mount
+              }, 500); // Small delay to show loading state
             }}
+            gameLoading={gameLoading}
+            gameLoaded={gameLoaded}
           />
         );
       }
@@ -163,8 +179,20 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           onSent={(sig) => setTxSig(sig)}
           onContinue={(sig) => {
             setTxSig(sig);
-            setEntryConfirmed(true);
-            if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
+            setGameLoading(true);
+            setGameLoaded(false);
+            
+            // Simulate game loading time and then set entry confirmed
+            setTimeout(() => {
+              setEntryConfirmed(true);
+              if (isMobile()) setShowMobileFull(true);
+              
+              // Simulate additional time for game to fully load
+              setTimeout(() => {
+                setGameLoaded(true);
+                setGameLoading(false);
+              }, 1000); // Give game components time to mount
+            }, 500); // Small delay to show loading state
           }}
           onDegenPlay={(betSol: number, _betUsd: number) => {
             setGameMode('Betting');
@@ -184,6 +212,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
             setDegenBetAmount(betUsd ?? null);
           }}
+          gameLoading={gameLoading}
+          gameLoaded={gameLoaded}
         />
       );
     }

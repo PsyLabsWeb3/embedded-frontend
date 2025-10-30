@@ -37,6 +37,8 @@ type AnchorWallet = {
 type Props = {
   onSent?: (sig: string) => void;
   onContinue?: (sig: string) => void;
+  gameLoading?: boolean;
+  gameLoaded?: boolean;
 };
 
 // Helper function to wait for transaction finalization - simplified polling approach
@@ -124,7 +126,7 @@ async function buildPvEPayEntryTx(
   return new VersionedTransaction(msgV0);
 }
 
-const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
+const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = false, gameLoaded = false }) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
@@ -138,6 +140,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
   const [modalError, setModalError] = useState<string | null>(null);
   const [txSig, setTxSig] = useState<string | null>(null);
   const [isLoadingTransaction, setIsLoadingTransaction] = useState(false);
+  const [isLoadingGame, setIsLoadingGame] = useState(false);
 
   // Treasury verification
   const [treasuryOk, setTreasuryOk] = useState<boolean | null>(null);
@@ -204,7 +207,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
     ? anchorReady && amountReady && networkReady
     : phantomReady && amountReady && networkReady;
 
-  const disabled = sending || !prereqsReady;
+  const disabled = sending || !prereqsReady || gameLoading || isLoadingGame;
 
   // Verify treasury account once on component mount
   useEffect(() => {
@@ -223,6 +226,14 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
       alive = false;
     };
   }, [connection]);
+
+  // Close modal when game has loaded
+  useEffect(() => {
+    if (gameLoaded && isLoadingGame) {
+      setModalOpen(false);
+      setIsLoadingGame(false);
+    }
+  }, [gameLoaded, isLoadingGame]);
 
   // Set PvE amount (0.10 USD) on component mount
   useEffect(() => {
@@ -514,7 +525,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
         <div className="pay-entry-modal-backdrop">
           <div className="pay-entry-modal">
             <h3>
-              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : "Transaction Complete"}
+              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : isLoadingGame ? "Loading Game..." : "Transaction Complete"}
             </h3>
 
             {modalError ? (
@@ -566,10 +577,37 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue }) => {
                   </div>
                 </div>
               </>
+            ) : isLoadingGame ? (
+              <>
+                <p className="modal-disclaimer-text">
+                  Loading game... Please wait.
+                </p>
+                <div className="pay-entry-modal-content">
+                  <div className="loading-section">
+                    <div className="embedded-logo-container">
+                      <img
+                        src="/logo.svg"
+                        alt="Embedded Logo"
+                        className="embedded-logo"
+                      />
+                    </div>
+                    <div className="loading-text">
+                      <span className="loading-spinner"></span>
+                      <p className="loading-label">Loading Game</p>
+                    </div>
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="modal-buttons">
                 <button
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => {
+                    setIsLoadingGame(true);
+                    // Call onContinue which will trigger game loading
+                    if (txSig) {
+                      onContinue?.(txSig);
+                    }
+                  }}
                   className="modal-button return-button"
                 >
                   Continue to Game
