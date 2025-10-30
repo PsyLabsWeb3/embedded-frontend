@@ -7,6 +7,7 @@ import { useGameConfig } from '../../hooks/useGameConfig';
 import { ERROR_MESSAGES, LOCAL_STORAGE_CONF } from '../../constants';
 import { useWallet } from '@solana/wallet-adapter-react';
 import PayEntryButton from './PayEntryButton';
+import PayEntryPvEButton from './PayEntryPvEButton';
 
 interface GamePageProps {
   gameId: string;
@@ -30,8 +31,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
   const [txSig, setTxSig] = React.useState<string | null>(null);
   const [entryConfirmed, setEntryConfirmed] = React.useState(false);
-  // Degen mode state to forward to Unity
-  const [degenMode, setDegenMode] = React.useState<string | null>(null);
+  // Mode state to forward to Unity - can be 'Betting' for PvP or 'PvE' for PvE
+  const [gameMode, setGameMode] = React.useState<string | null>(null);
   const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(null);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
@@ -68,7 +69,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   // Vista hija de mobile: full-window por layout
   if (isMobile() && gameConfig.assets && entryConfirmed && showMobileFull && !isExiting) {
     //Si existe local storage GAME_MODE y DEGEN_BET_AMOUNT, los pasa a UnityGameMobile
-    const localDegenMode = (typeof localStorage !== 'undefined')
+    const localGameMode = (typeof localStorage !== 'undefined')
       ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
       : null;
     localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
@@ -82,7 +83,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         gameAssets={gameConfig.assets}
         publicKey={publicKey?.toString() || mobileWalletAddress || null}
         transactionId={txSig ?? null}
-        degenMode={localDegenMode}
+        degenMode={localGameMode}
         degenBetAmount={localDegenBetAmount}
         onExit={handleExitFromMobile}
       />
@@ -113,7 +114,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             gameAssets={gameConfig.assets}
             publicKey={publicKey?.toString() || mobileWalletAddress}
             transactionId={txSig ?? ''}
-            degenMode={degenMode}
+            degenMode={gameMode}
             degenBetAmount={degenBetAmount}
             enableFullscreen={true}
           />
@@ -141,6 +142,22 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     if (gameConfig.placeholder) return null;
 
     if (gameConfig.assets && (connected || isConnectedMobile) && !entryConfirmed) {
+      // Check if this is a PvE game
+      if (gameConfig.isPvE) {
+        return (
+          <PayEntryPvEButton
+            onSent={(sig) => setTxSig(sig)}
+            onContinue={(sig) => {
+              setTxSig(sig);
+              setGameMode('PvE');
+              setEntryConfirmed(true);
+              if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
+            }}
+          />
+        );
+      }
+
+      // Regular PvP game
       return (
         <PayEntryButton
           onSent={(sig) => setTxSig(sig)}
@@ -150,7 +167,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             if (isMobile()) setShowMobileFull(true); // entra a fullscreen móvil
           }}
           onDegenPlay={(betSol: number, _betUsd: number) => {
-            setDegenMode('Betting');
+            setGameMode('Betting');
 
             let betUsd;
             if (_betUsd) {
@@ -182,7 +199,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       instructions={gameConfig.instructions}
       customContent={customContent}
       backgroundImage={gameConfig.backgroundImage}
-      gameDescription={gameConfig.longDescription}
+      gameDescription={gameConfig.longDescription || gameConfig.description}
     />
   );
 };

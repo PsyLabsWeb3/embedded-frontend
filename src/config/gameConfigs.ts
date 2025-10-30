@@ -66,6 +66,17 @@ const embeddedWarsAssets: GameAssets = {
   codeUrl: embeddedWarsCodeUrl,
 };
 
+import embeddedSpaceRaceLoaderUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url';
+import embeddedSpaceRaceDataUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url';
+import embeddedSpaceRaceFrameworkUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url';
+import embeddedSpaceRaceCodeUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url';
+
+const embeddedSpaceRaceAssets: GameAssets = {
+  loaderUrl: embeddedSpaceRaceLoaderUrl,
+  dataUrl: embeddedSpaceRaceDataUrl,
+  frameworkUrl: embeddedSpaceRaceFrameworkUrl,
+  codeUrl: embeddedSpaceRaceCodeUrl,
+};
 
 /**
  * Future Game Assets Template
@@ -162,21 +173,23 @@ export const gameConfigs: Record<string, GameConfig> = {
   }
 };
 
-// Add Smugglers Run - single PvE game (placeholder background until final art/assets)
-gameConfigs['12-smugglers-run'] = {
-  id: '12-smugglers-run',
-  title: 'Smugglers Run',
-  description: 'A fast-paced PvE smuggling adventure',
+// Add Embedded Space Race
+gameConfigs['12-embedded-space-race'] = {
+  id: '12-embedded-space-race',
+  title: 'Embedded Space Race',
+  description: 'A fast-paced PvE racing adventure.',
+  assets: embeddedSpaceRaceAssets,
   backgroundImage: smugglersBackground,
-  category: GameTypes.GameCategory.ACTION,
+  category: GameTypes.GameCategory.RACING,
   difficulty: GameTypes.GameDifficulty.MEDIUM,
-  estimatedPlayTime: 20,
+  estimatedPlayTime: 10,
   isMultiplayer: false,
-  minAge: 12,
-  placeholder: true,
+  minAge: 5,
+  isPvE: true,
   instructions: [
-    'Pilot your ship through guarded sectors',
-    'Avoid detection and deliver cargo safely',
-    'Upgrade your ship between runs to improve stealth and speed'
+    'Use WASD to control your ship.',
+    'Press Shift to use your powerup.',
+    'Press R to backtrack.',
+    'Win by getting to the finish line faster than your opponents!'
   ]
 };

@@ -899,79 +899,71 @@ window.location.href = deeplink;
 
       {/* Modal de confirmación */}
       {modalOpen && (
-        <div className="match-confirmation-backdrop">
-          <div className="match-confirmation-modal">
-            {/* Header row: Title + Icon */}
-            <div className="modal-header-row">
-              <div className="modal-title-section">
-                <h1 className="modal-title">
-                  Match
-                  <br />
-                  Confirmation
-                </h1>
-              </div>
-              <div className="modal-icon-section">
-                <img
-                  src={gameboyIcon}
-                  alt="Game Console"
-                  className="gameboy-icon"
-                />
-              </div>
-            </div>
+        <div className="pay-entry-modal-backdrop">
+          <div className="pay-entry-modal">
+            <h3>
+              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : "Transaction Complete"}
+            </h3>
 
-            {/* Main waiting text */}
-            <p className="modal-main-text">
-              Please wait while your game transaction is being processed.
-            </p>
-             {/* Disclaimer */}
-            <p className="modal-disclaimer-text">
-               Do not refresh or disconnect once the transaction has been processed or you could lose your entry fee.
-            </p>
-
-            {/* Secondary text */}
-            <p className="modal-secondary-text">
-              You can check the status in the link below
-            </p>
-
-            <div className="pay-entry-modal-content">
-              <p className="pay-entry-transaction-info">
-                Tx:{" "}
-                {txSig ? (
-                  <a href={explorerUrl} target="_blank" rel="noreferrer">
-                    {txSig}
-                  </a>
-                ) : (
-                  "Transaction Error, close and try again."
-                )}
-              </p>
-              {/* Logo and Loading */}
-              <div className="loading-section">
-                <div className="embedded-logo-container">
-                  <img
-                    src="/logo.svg"
-                    alt="Embedded Logo"
-                    className="embedded-logo"
-                  />
+            {modalError ? (
+              <>
+                <p className="modal-error-text">{modalError}</p>
+                <div className="modal-buttons">
+                  <button
+                    onClick={() => {
+                      setModalOpen(false);
+                      setModalError(null);
+                    }}
+                    className="modal-button return-button"
+                  >
+                    Close
+                  </button>
                 </div>
-                <div className="loading-text">
-                  <span className="loading-spinner"></span>
-                  <p className="loading-label">Loading</p>
-                </div>
-              </div>
-
-              {/* {modalPhase === "waiting" ? (
-                <div className="pay-entry-waiting">
-                  <div className="pay-entry-spinner" />
-                  <div className="pay-entry-waiting-text">
-                    Waiting for confirmation (~10s)…
+              </>
+            ) : isLoadingTransaction ? (
+              <>
+                <p className="modal-disclaimer-text">
+                  Do not refresh or disconnect once the transaction has been processed or you could lose your entry fee.
+                </p>
+                <p className="modal-secondary-text">
+                  You can check the status in the link below
+                </p>
+                <div className="pay-entry-modal-content">
+                  <p className="pay-entry-transaction-info">
+                    Tx:{" "}
+                    {txSig ? (
+                      <a href={explorerUrl} target="_blank" rel="noreferrer">
+                        {txSig}
+                      </a>
+                    ) : (
+                      "Transaction Error, close and try again."
+                    )}
+                  </p>
+                  <div className="loading-section">
+                    <div className="embedded-logo-container">
+                      <img
+                        src="/logo.svg"
+                        alt="Embedded Logo"
+                        className="embedded-logo"
+                      />
+                    </div>
+                    <div className="loading-text">
+                      <span className="loading-spinner"></span>
+                      <p className="loading-label">Loading</p>
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <button onClick={handleContinue} className="pay-entry-continue-button">
-                  Continue
+              </>
+            ) : (
+              <div className="modal-buttons">
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="modal-button return-button"
+                >
+                  Continue to Game
                 </button>
-              )} */}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       )}

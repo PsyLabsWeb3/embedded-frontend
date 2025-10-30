@@ -41,13 +41,13 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           <div className="game-content">
             {gameComponent}
           </div>
-          </div>
+        </div>
 
-          {/* Title placed below the game container, above the features row */}
-          <div className="game-title-below">
-            <h1 className="game-title-simple">{gameTitle}</h1>
-          </div>
-        
+        {/* Title placed below the game container, above the features row */}
+        <div className="game-title-below">
+          <h1 className="game-title-simple">{gameTitle}</h1>
+        </div>
+      
         {/* Game Features Row */}
         <div className="game-features-row">
           <div className="feature-item">
@@ -69,9 +69,9 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
             {paymentComponent}
           </div>
         )}
-        {/* Game Info Box - layout general */}
+        {/* Game Info Box - now with dynamic description */}
         <GameInfoBox description={gameDescription} />
-        <GameDetailsBox />
+        <GameDetailsBox instructions={instructions} />
         {/* <OnChainMetricsBox /> */}
         
         {false && (instructions.length > 0 || gameInfo) && (

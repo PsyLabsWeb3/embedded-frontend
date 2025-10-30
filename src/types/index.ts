@@ -70,6 +70,8 @@ export namespace GameTypes {
     isMultiplayer?: boolean;
     /** Minimum age recommendation */
     minAge?: number;
+    /** Whether the game is player vs environment */
+    isPvE?: boolean;
     /** Whether the game should rotate on mobile devices */
     rotateOnMobile?: boolean;
     /** Background image URL for the game page */
@@ -110,6 +112,7 @@ export namespace GameTypes {
     ARCADE = 'arcade',
     CASUAL = 'casual',
     MULTIPLAYER = 'multiplayer',
+    RACING = 'racing',
   }
 
   /**

@@ -33,7 +33,7 @@ export const GAME_ROUTES = {
   SNAKE: '/game/01-snake',
   ASTEROIDS: '/game/02-asteroids',
   EMBEDDED_WARS: '/game/03-embedded-wars',
-  SMUGGLERS_RUN: '/game/12-smugglers-run',
+  EMBEDDED_SPACE_RACE: '/game/12-embedded-space-race',
 } as const;
 
 /**

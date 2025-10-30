@@ -3,9 +3,9 @@ import PageHeader from '../components/molecules/PageHeader';
 import { Link } from 'react-router-dom';
 import './Games.css';
 
-// Single PvE game: Smugglers Run
+// Single PvE game: Embedded Space Race
 const gamesList = [
-  { id: 12, title: 'Smugglers Run', path: '/game/12-smugglers-run' }
+  { id: 12, title: 'Embedded Space Race', path: '/game/12-embedded-space-race' }
 ];
 
 const GamesPvE = () => (
