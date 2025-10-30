@@ -16,7 +16,6 @@ import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
 import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from "../../constants";
 import "./PayEntryModal.css";
-import gameboyIcon from "../../assets/gameboy.svg";
 
 // Program constants for mainnet
 const PROGRAM_ID = new PublicKey(
