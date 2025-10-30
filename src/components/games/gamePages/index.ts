@@ -17,27 +17,13 @@
 export { default as Snake } from './01_Snake';
 export { default as Asteroids } from './02_Asteroids';
 export { default as EmbeddedWars } from './03_EmbeddedWars';
-export { default as CandySweet } from './04_CandySweet';
-export { default as SortPuzzle } from './05_SortPuzzle';
-export { default as PipesFlood } from './06_PipesFlood';
-export { default as HoverRacer } from './07_HoverRacer';
-export { default as InfiniteRunner } from './08_InfiniteRunner';
-export { default as CakeMania } from './09_CakeMania';
-export { default as Game10 } from './10_Game10';
-export { default as Game11 } from './11_Game11';
+export { default as EmbeddedSpaceRace } from './12_EmbeddedSpaceRace';
 
 // Import components for internal mapping
 import Snake from './01_Snake';
 import Asteroids from './02_Asteroids';
 import EmbeddedWars from './03_EmbeddedWars';
-import CandySweet from './04_CandySweet';
-import SortPuzzle from './05_SortPuzzle';
-import PipesFlood from './06_PipesFlood';
-import HoverRacer from './07_HoverRacer';
-import InfiniteRunner from './08_InfiniteRunner';
-import CakeMania from './09_CakeMania';
-import Game10 from './10_Game10';
-import Game11 from './11_Game11';
+import EmbeddedSpaceRace from './12_EmbeddedSpaceRace';
 
 /**
  * Game component mapping for dynamic access
@@ -56,14 +42,7 @@ export const gamePageComponents = {
   '01-snake': Snake,
   '02-asteroids': Asteroids,
   '03-embedded-wars': EmbeddedWars,
-  '04-candy-sweet': CandySweet,
-  '05-sort-puzzle': SortPuzzle,
-  '06-pipes-flood': PipesFlood,
-  '07-hover-racer': HoverRacer,
-  '08-infinite-runner': InfiniteRunner,
-  '09-cake-mania': CakeMania,
-  '10-game-10': Game10,
-  '11-game-11': Game11,
+  '12-embedded-space-race': EmbeddedSpaceRace,
 } as const;
 
 /**

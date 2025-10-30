@@ -52,6 +52,8 @@ export namespace GameTypes {
     title: string;
     /** Brief description of the game (optional) */
     description?: string;
+    /** Detailed description for the game info box (optional) */
+    longDescription?: string;
     /** Unity assets configuration (for Unity-based games) */
     assets?: UnityAssets;
     /** Array of instruction strings for gameplay */
@@ -68,6 +70,8 @@ export namespace GameTypes {
     isMultiplayer?: boolean;
     /** Minimum age recommendation */
     minAge?: number;
+    /** Whether the game is player vs environment */
+    isPvE?: boolean;
     /** Whether the game should rotate on mobile devices */
     rotateOnMobile?: boolean;
     /** Background image URL for the game page */
@@ -108,6 +112,7 @@ export namespace GameTypes {
     ARCADE = 'arcade',
     CASUAL = 'casual',
     MULTIPLAYER = 'multiplayer',
+    RACING = 'racing',
   }
 
   /**
@@ -399,6 +404,44 @@ export namespace APITypes {
     error?: string;
     /** Whether the operation has completed at least once */
     hasLoaded: boolean;
+  }
+}
+
+/**
+ * Category-related type definitions
+ */
+export namespace CategoryTypes {
+  /**
+   * Game category data structure for display and navigation
+   * Used for organizing games into logical groups like PvP, PvE, etc.
+   */
+  export interface Category extends BaseEntity {
+    /** Display title of the category */
+    title: string;
+    /** URL-friendly identifier for routing */
+    slug: string;
+    /** Path to the category's cover image */
+    image: string;
+    /** CSS class for visual effects (glow, animations) */
+    glowClass: string;
+    /** Brief description of the category */
+    description: string;
+    /** Number of games in this category */
+    gameCount: number;
+    /** Whether the category is currently featured */
+    isFeatured?: boolean;
+    /** Category icon (optional) */
+    icon?: string;
+  }
+
+  /**
+   * Category navigation and filtering
+   */
+  export interface CategoryFilter {
+    /** Active category filter */
+    activeCategory?: string;
+    /** Available categories for filtering */
+    availableCategories: Category[];
   }
 }
 

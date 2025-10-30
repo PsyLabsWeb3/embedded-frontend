@@ -33,14 +33,7 @@ export const GAME_ROUTES = {
   SNAKE: '/game/01-snake',
   ASTEROIDS: '/game/02-asteroids',
   EMBEDDED_WARS: '/game/03-embedded-wars',
-  CANDY_SWEET: '/game/04-candy-sweet',
-  SORT_PUZZLE: '/game/05-sort-puzzle',
-  PIPES_FLOOD: '/game/06-pipes-flood',
-  HOVER_RACER: '/game/07-hover-racer',
-  INFINITE_RUNNER: '/game/08-infinite-runner',
-  CAKE_MANIA: '/game/09-cake-mania',
-  GAME_10: '/game/10-game-10',
-  GAME_11: '/game/11-game-11',
+  EMBEDDED_SPACE_RACE: '/game/12-embedded-space-race',
 } as const;
 
 /**

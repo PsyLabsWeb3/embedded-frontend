@@ -42,6 +42,7 @@
 }
 
 .modeCasual { background: #2CB1D6; border-color: #2CB1D6; color: #FFFFFF; }
+.modePvE { background: #5DD62C; border-color: #5DD62C; color: #FFFFFF; }
 
 .date { grid-column: 2; font-family: var(--font-body); font-weight: 300; color: #757575; font-size: var(--font-size-sm); line-height: 1.2; }
 .vsRow { grid-column: 2; display: flex; align-items: baseline; gap: 8px; }

@@ -73,14 +73,6 @@ export { default as PlaceholderGame } from './games/PlaceholderGame';
 export {
   Snake,
   Asteroids,
-  CandySweet,
-  SortPuzzle,
-  PipesFlood,
-  HoverRacer,
-  InfiniteRunner,
-  CakeMania,
-  Game10,
-  Game11,
   gamePageComponents,
   type GamePageKey
 } from './games/gamePages';

@@ -74,6 +74,21 @@
   margin: 0;
 }
 
+/* PvE button specific styling */
+.pay-entry-amount-display {
+  color: var(--color-text-secondary, #CCCCCC);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Single button layout for PvE */
+.pay-entry-section .button-group button[style*="width: 100%"] {
+  min-width: 200px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .pay-entry-waiting-text {
   font-size: 0.9rem;
   opacity: 0.8;
@@ -354,6 +369,20 @@
   justify-content: space-between;
   margin-top: 1.5rem;
   width: 100%;
+}
+
+/* Center buttons when there's only one button (like error state) */
+.modal-buttons:has(button:only-child) {
+  justify-content: center;
+}
+
+/* Error text styling - centered like the title */
+.modal-error-text {
+  text-align: center;
+  margin: 1rem 0;
+  color: var(--color-text, #FFFFFF);
+  opacity: 0.9;
+  line-height: 1.4;
 }
 
 /* Base button styling - Alumni Sans Regular, uppercase */

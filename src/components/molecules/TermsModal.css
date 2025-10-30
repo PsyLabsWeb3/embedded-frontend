@@ -1,0 +1,232 @@
+/**
+ * Terms Modal Styles
+ *
+ * Styling for the terms and conditions modal overlay and content.
+ * Features a dark theme matching the platform design with responsive
+ * behavior for mobile and desktop viewports.
+ */
+
+/* Overlay - covers entire viewport and blocks interaction */
+.terms-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Modal container */
+.terms-modal-container {
+  background: #38454C;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header section */
+.terms-modal-header {
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terms-modal-header h2 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.terms-last-updated {
+  margin: 0;
+  font-size: 14px;
+  color: #a0a0a0;
+  text-align: center;
+}
+
+/* Content section - scrollable */
+.terms-modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 400;
+  color: #e0e0e0;
+  line-height: 1.7;
+}
+
+/* Custom scrollbar */
+.terms-modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.terms-modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+}
+
+.terms-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.terms-modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Section styling */
+.terms-modal-content section {
+  margin-bottom: 30px;
+}
+
+.terms-modal-content h3 {
+  font-size: 20px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 15px 0;
+}
+
+.terms-modal-content h4 {
+  font-size: 16px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 20px 0 10px 0;
+}
+
+.terms-modal-content p {
+  margin: 0 0 15px 0;
+  font-size: 14px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 400;
+  color: #d0d0d0;
+}
+
+.terms-modal-content ul {
+  margin: 10px 0 15px 0;
+  padding-left: 25px;
+}
+
+.terms-modal-content li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 400;
+  color: #d0d0d0;
+}
+
+.terms-modal-content strong {
+  color: #ffffff;
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 700;
+}
+
+/* Footer section */
+.terms-modal-footer {
+  padding: 20px 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+/* Accept button */
+.terms-accept-button {
+  background: #5DD62C;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 40px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(93, 214, 44, 0.4);
+}
+
+.terms-accept-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 214, 44, 0.6);
+}
+
+.terms-accept-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(93, 214, 44, 0.4);
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .terms-modal-overlay {
+    padding: 10px;
+  }
+
+  .terms-modal-container {
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .terms-modal-header {
+    padding: 20px 20px 15px;
+  }
+
+  .terms-modal-header h2 {
+    font-size: 22px;
+  }
+
+  .terms-modal-content {
+    padding: 20px;
+  }
+
+  .terms-modal-content h3 {
+    font-size: 18px;
+  }
+
+  .terms-modal-content h4 {
+    font-size: 15px;
+  }
+
+  .terms-modal-content p,
+  .terms-modal-content li {
+    font-size: 13px;
+  }
+
+  .terms-modal-footer {
+    padding: 15px 20px;
+  }
+
+  .terms-accept-button {
+    width: 100%;
+    padding: 12px 30px;
+    font-size: 15px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .terms-modal-header h2 {
+    font-size: 20px;
+  }
+
+  .terms-modal-content h3 {
+    font-size: 16px;
+  }
+
+  .terms-modal-content p,
+  .terms-modal-content li {
+    font-size: 12px;
+  }
+}

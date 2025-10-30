@@ -53,21 +53,11 @@ import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-Embedd
 
 // Background images imports
 import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
+import smugglersBackground from '../assets/pve-card.png?url';
 
 // Existing background images
 import snakeBackground from '../assets/snake_game.jpg?url';
 import asteroidsBackground from '../assets/AsteroidsCover.png?url';
-import bubbleBackground from '../assets/bubble.jpg?url';
-
-// Placeholder backgrounds (use existing images temporarily - you can replace these paths later)
-const candySweetBackground = bubbleBackground; // Replace with actual candy_sweet.jpg when ready
-const sortPuzzleBackground = snakeBackground; // Replace with actual sort_puzzle.jpg when ready
-const pipesFloodBackground = bubbleBackground; // Replace with actual pipes_flood.jpg when ready
-const hoverRacerBackground = embeddedWarsBackground; // Replace with actual hover_racer.jpg when ready
-const infiniteRunnerBackground = snakeBackground; // Replace with actual infinite_runner.jpg when ready
-const cakeManiaBackground = bubbleBackground; // Replace with actual cake_mania.jpg when ready
-const game10Background = asteroidsBackground; // Replace with actual game_10.jpg when ready
-const game11Background = embeddedWarsBackground; // Replace with actual game_11.jpg when ready
 
 const embeddedWarsAssets: GameAssets = {
   loaderUrl: embeddedWarsLoaderUrl,
@@ -76,6 +66,17 @@ const embeddedWarsAssets: GameAssets = {
   codeUrl: embeddedWarsCodeUrl,
 };
 
+import embeddedSpaceRaceLoaderUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url';
+import embeddedSpaceRaceDataUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url';
+import embeddedSpaceRaceFrameworkUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url';
+import embeddedSpaceRaceCodeUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url';
+
+const embeddedSpaceRaceAssets: GameAssets = {
+  loaderUrl: embeddedSpaceRaceLoaderUrl,
+  dataUrl: embeddedSpaceRaceDataUrl,
+  frameworkUrl: embeddedSpaceRaceFrameworkUrl,
+  codeUrl: embeddedSpaceRaceCodeUrl,
+};
 
 /**
  * Future Game Assets Template
@@ -154,6 +155,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     id: '03-Embedded-Wars',
     title: 'Embedded-Wars',
     description: 'PvP Sci-Fi 3rd person droid battle',
+    longDescription: "In 2248, mega-corporations rule Earth, vying to control 'Aetherion', the rare fuel enabling faster-than-light travel. Synthesised using red mercury - found deep within certain planets - Aetherion fuels an interstellar economy. Smugglers, and five rival factions (mega-corporations) battle for dominance to control its supply and the interstellar economy. Embedded Wars takes place on a mining planet where these factions battle it out for control of resources.",
     assets: embeddedWarsAssets,
     backgroundImage: embeddedWarsBackground,
     category: GameTypes.GameCategory.PUZZLE,
@@ -167,102 +169,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       'Avoid hitting with the laser',
       'Eliminate your opponent!'
     ]
-  
-  },
-  '04-candy-sweet': {
-    id: '04-candy-sweet',
-    title: 'Candy Sweet',
-    description: 'Match sweet candies in this delightful puzzle game',
-    backgroundImage: candySweetBackground,
-    category: GameTypes.GameCategory.PUZZLE,
-    difficulty: GameTypes.GameDifficulty.MEDIUM,
-    estimatedPlayTime: 20,
-    isMultiplayer: false,
-    minAge: 7,
-    placeholder: true
-  },
-  '05-sort-puzzle': {
-    id: '05-sort-puzzle',
-    title: 'Sort Puzzle',
-    description: 'Organize and sort elements to solve challenging puzzles',
-    backgroundImage: sortPuzzleBackground,
-    category: GameTypes.GameCategory.PUZZLE,
-    difficulty: GameTypes.GameDifficulty.HARD,
-    estimatedPlayTime: 25,
-    isMultiplayer: false,
-    minAge: 10,
-    placeholder: true
-  },
-  '06-pipes-flood': {
-    id: '06-pipes-flood',
-    title: 'Pipes Flood',
-    description: 'Connect pipes to prevent flooding in this strategy game',
-    backgroundImage: pipesFloodBackground,
-    category: GameTypes.GameCategory.STRATEGY,
-    difficulty: GameTypes.GameDifficulty.MEDIUM,
-    estimatedPlayTime: 18,
-    isMultiplayer: false,
-    minAge: 9,
-    placeholder: true
-  },
-  '07-hover-racer': {
-    id: '07-hover-racer',
-    title: 'Hover Racer',
-    description: 'High-speed racing with futuristic hover vehicles',
-    backgroundImage: hoverRacerBackground,
-    category: GameTypes.GameCategory.ACTION,
-    difficulty: GameTypes.GameDifficulty.HARD,
-    estimatedPlayTime: 30,
-    isMultiplayer: true,
-    minAge: 12,
-    placeholder: true
-  },
-  '08-infinite-runner': {
-    id: '08-infinite-runner',
-    title: 'Infinite Runner',
-    description: 'Endless running adventure with obstacles and power-ups',
-    backgroundImage: infiniteRunnerBackground,
-    category: GameTypes.GameCategory.ARCADE,
-    difficulty: GameTypes.GameDifficulty.MEDIUM,
-    estimatedPlayTime: 15,
-    isMultiplayer: false,
-    minAge: 8,
-    placeholder: true
-  },
-  '09-cake-mania': {
-    id: '09-cake-mania',
-    title: 'Cake Mania',
-    description: 'Manage a busy bakery in this time management game',
-    backgroundImage: cakeManiaBackground,
-    category: GameTypes.GameCategory.STRATEGY,
-    difficulty: GameTypes.GameDifficulty.MEDIUM,
-    estimatedPlayTime: 35,
-    isMultiplayer: false,
-    minAge: 10,
-    placeholder: true
-  },
-  '10-game-10': {
-    id: '10-game-10',
-    title: 'Game 10',
-    description: 'Exciting new game coming soon',
-    backgroundImage: game10Background,
-    category: GameTypes.GameCategory.CASUAL,
-    difficulty: GameTypes.GameDifficulty.EASY,
-    estimatedPlayTime: 10,
-    isMultiplayer: false,
-    minAge: 6,
-    placeholder: true
-  },
-  '11-game-11': {
-    id: '11-game-11',
-    title: 'Game 11',
-    description: 'Another exciting game in development',
-    backgroundImage: game11Background,
-    category: GameTypes.GameCategory.CASUAL,
-    difficulty: GameTypes.GameDifficulty.EASY,
-    estimatedPlayTime: 10,
-    isMultiplayer: false,
-    minAge: 6,
-    placeholder: true
+
   }
+};
+
+// Add Embedded Space Race
+gameConfigs['12-embedded-space-race'] = {
+  id: '12-embedded-space-race',
+  title: 'Embedded Space Race',
+  description: 'A fast-paced PvE racing adventure.',
+  assets: embeddedSpaceRaceAssets,
+  backgroundImage: smugglersBackground,
+  category: GameTypes.GameCategory.RACING,
+  difficulty: GameTypes.GameDifficulty.MEDIUM,
+  estimatedPlayTime: 10,
+  isMultiplayer: false,
+  minAge: 5,
+  isPvE: true,
+  instructions: [
+    'Use WASD to control your ship.',
+    'Press Shift to use your powerup.',
+    'Press R to backtrack.',
+    'Win by getting to the finish line faster than your opponents!'
+  ]
 };

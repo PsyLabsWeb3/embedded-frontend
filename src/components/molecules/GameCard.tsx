@@ -69,14 +69,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     'snake': GAME_ROUTES.SNAKE,
     'asteroids': GAME_ROUTES.ASTEROIDS,
     'embeddedwars': GAME_ROUTES.EMBEDDED_WARS,
-    'candysweet': GAME_ROUTES.CANDY_SWEET,
-    'sortpuzzle': GAME_ROUTES.SORT_PUZZLE,
-    'pipesflood': GAME_ROUTES.PIPES_FLOOD,
-    'hoverracer': GAME_ROUTES.HOVER_RACER,
-    'infiniterunner': GAME_ROUTES.INFINITE_RUNNER,
-    'cakemania': GAME_ROUTES.CAKE_MANIA,
-    'game10': GAME_ROUTES.GAME_10,
-    'game11': GAME_ROUTES.GAME_11
+    'embeddedspacerace': GAME_ROUTES.EMBEDDED_SPACE_RACE
   };
 
   /**

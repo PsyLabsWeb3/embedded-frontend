@@ -67,6 +67,8 @@ const UnityGameMobile: React.FC<Props> = ({ gameAssets, publicKey, transactionId
   useEffect(() => {
     if (degenMode === 'Betting') {
       console.log('[UnityGameMobile] incoming degen props:', { degenMode, degenBetAmount });
+    } else if (degenMode === 'PvE') {
+      console.log('[UnityGameMobile] incoming PvE props:', { degenMode });
     }
   }, [degenMode, degenBetAmount]);
 

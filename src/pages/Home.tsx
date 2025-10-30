@@ -3,6 +3,7 @@ import HeroSection from '../components/sections/HeroSection';
 import RewardsSection from '../components/sections/RewardsSection';
 import PoolRewardsBanner from '../components/sections/PoolRewardsBanner';
 import GameListSection from '../components/sections/GameListSection';
+import CategoryListSection from '../components/sections/CategoryListSection';
 import KeyFeatures from '../components/sections/KeyFeatures';
 import RewardSystemSection from '../components/sections/RewardSystemSection';
 import RewardsBannerSection from '../components/sections/RewardsBannerSection';
@@ -38,6 +39,7 @@ const Home = () => {
       )}
 
       <GameListSection />
+      <CategoryListSection />
       <KeyFeatures />
       <RewardSystemSection />
       <Footer />

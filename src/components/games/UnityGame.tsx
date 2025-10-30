@@ -144,20 +144,33 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   useEffect(() => {
     if (isLoaded && publicKey) {
-      sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
-      if (degenMode === "Betting" && typeof degenMode === "string") {
-        sendMessage("WalletManager", "SetGameMode", degenMode);
-        const payloadBet = degenBetAmount;
-        if (typeof payloadBet === "string") {
-          console.log(
-            "[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=",
-            payloadBet
-          );
-          sendMessage("WalletManager", "SetBetAmount", payloadBet);
+      // Handle PvE mode - only send credentials to "Global" GameObject
+      if (degenMode === "PvE" && transactionId) {
+        const credsDto = {
+          wallet: publicKey.toString(),
+          tx: transactionId
+        };
+        console.log("[Unity] sendMessage -> target=Global method=SetCredentialsJson payload=", JSON.stringify(credsDto));
+        sendMessage("Global", "SetCredentialsJson", JSON.stringify(credsDto));
+      }
+      // Handle PvP modes - use WalletManager as before
+      else {
+        sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
+        
+        if (degenMode === "Betting" && typeof degenMode === "string") {
+          sendMessage("WalletManager", "SetGameMode", degenMode);
+          const payloadBet = degenBetAmount;
+          if (typeof payloadBet === "string") {
+            console.log(
+              "[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=",
+              payloadBet
+            );
+            sendMessage("WalletManager", "SetBetAmount", payloadBet);
+          }
         }
       }
     }
-  }, [isLoaded, publicKey, sendMessage, degenMode, degenBetAmount]);
+  }, [isLoaded, publicKey, sendMessage, degenMode, degenBetAmount, transactionId]);
 
   useEffect(() => {
     if (degenMode || typeof degenBetAmount === "string") {

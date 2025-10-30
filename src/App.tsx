@@ -36,6 +36,8 @@ import Snake2048Page from "./pages/Snake2048Page";
 import EmbeddedGamePage from "./pages/EmbeddedGame";
 import History from "./pages/History";
 import Games from "./pages/Games";
+import GamesPvP from "./pages/GamesPvP";
+import GamesPvE from "./pages/GamesPvE";
 import Leaderboard from "./pages/Leaderboard";
 import Rewards from "./pages/Rewards";
 import Tournaments from "./pages/Tournaments";
@@ -47,18 +49,14 @@ import {
   Snake,
   Asteroids,
   EmbeddedWars,
-  CandySweet,
-  SortPuzzle,
-  PipesFlood,
-  HoverRacer,
-  InfiniteRunner,
-  CakeMania,
-  Game10,
-  Game11,
+  EmbeddedSpaceRace,
 } from "./components/games/gamePages";
 
 // Import constants for configuration
 import { WALLET_CONFIG } from "./constants";
+
+// Import Terms Modal
+import TermsModal from "./components/molecules/TermsModal";
 
 /**
  * Wallet adapter configuration
@@ -105,6 +103,9 @@ const App: React.FC = () => {
         <WalletModalProvider>
           <Router>
             <div className="app">
+              {/* Terms and Conditions Modal - shown on first visit */}
+              <TermsModal />
+
               <Routes>
                 {/* Main Application Routes */}
                 <Route path="/" element={<Home />} />
@@ -112,6 +113,8 @@ const App: React.FC = () => {
                 <Route path="/embedded-game" element={<EmbeddedGamePage />} />
                 <Route path="/history" element={<History />} />
                 <Route path="/games" element={<Games />} />
+                <Route path="/games-pvp" element={<GamesPvP />} />
+                <Route path="/games-pve" element={<GamesPvE />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/rewards" element={<Rewards />} />
                 <Route path="/tournaments" element={<Tournaments />} />
@@ -128,17 +131,7 @@ const App: React.FC = () => {
                   path="/game/03-embedded-wars"
                   element={<EmbeddedWars />}
                 />
-                <Route path="/game/04-candy-sweet" element={<CandySweet />} />
-                <Route path="/game/05-sort-puzzle" element={<SortPuzzle />} />
-                <Route path="/game/06-pipes-flood" element={<PipesFlood />} />
-                <Route path="/game/07-hover-racer" element={<HoverRacer />} />
-                <Route
-                  path="/game/08-infinite-runner"
-                  element={<InfiniteRunner />}
-                />
-                <Route path="/game/09-cake-mania" element={<CakeMania />} />
-                <Route path="/game/10-game-10" element={<Game10 />} />
-                <Route path="/game/11-game-11" element={<Game11 />} />
+                <Route path="/game/12-embedded-space-race" element={<EmbeddedSpaceRace />} />
               </Routes>
             </div>
           </Router>
