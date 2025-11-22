@@ -57,6 +57,10 @@ import { WALLET_CONFIG } from "./constants";
 
 // Import Terms Modal
 import TermsModal from "./components/molecules/TermsModal";
+import "./styles/geoblock.css";
+
+// Import Geoblocker
+import { useGeoblock } from './hooks/useGeoblock';
 
 /**
  * Wallet adapter configuration
@@ -97,6 +101,31 @@ const RPC = import.meta.env.VITE_SOLANA_RPC;
  * @returns JSX element representing the entire application
  */
 const App: React.FC = () => {
+  const geo = useGeoblock();
+
+  if (geo.loading) {
+    return (
+      <div className="geoblock-message-bg">
+        <div className="geoblock-message">
+          <p>Checking region eligibility…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!geo.allowed) {
+    return (
+      <div className="geoblock-message-bg">
+        <div className="geoblock-message">
+          <h1>Embedded is not available in your region</h1>
+          <p>
+            Due to regulatory restrictions, our platform cannot be accessed from your current location.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ConnectionProvider endpoint={RPC}>
       <WalletProvider wallets={wallets} autoConnect>
