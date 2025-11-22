@@ -1,0 +1,29 @@
+/* Geoblock message styles */
+.geoblock-message-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  color: #f1f5f9;
+  padding: 1rem;
+}
+
+.geoblock-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.geoblock-message h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.geoblock-message p {
+  max-width: 28rem;
+  color: #94a3b8;
+  margin-top: 0;
+}
