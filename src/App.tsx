@@ -35,7 +35,6 @@ import Home from "./pages/Home";
 import Snake2048Page from "./pages/Snake2048Page";
 import EmbeddedGamePage from "./pages/EmbeddedGame";
 import History from "./pages/History";
-import Games from "./pages/Games";
 import GamesPvP from "./pages/GamesPvP";
 import GamesPvE from "./pages/GamesPvE";
 import Leaderboard from "./pages/Leaderboard";
@@ -49,7 +48,7 @@ import {
   Snake,
   Asteroids,
   EmbeddedWars,
-  EmbeddedSpaceRace,
+  SmugglersRun,
 } from "./components/games/gamePages";
 
 // Import constants for configuration
@@ -141,7 +140,6 @@ const App: React.FC = () => {
                 <Route path="/snake2048" element={<Snake2048Page />} />
                 <Route path="/embedded-game" element={<EmbeddedGamePage />} />
                 <Route path="/history" element={<History />} />
-                <Route path="/games" element={<Games />} />
                 <Route path="/games-pvp" element={<GamesPvP />} />
                 <Route path="/games-pve" element={<GamesPvE />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
@@ -160,7 +158,7 @@ const App: React.FC = () => {
                   path="/game/03-embedded-wars"
                   element={<EmbeddedWars />}
                 />
-                <Route path="/game/12-embedded-space-race" element={<EmbeddedSpaceRace />} />
+                <Route path="/game/12-smugglers-run" element={<SmugglersRun />} />
               </Routes>
             </div>
           </Router>

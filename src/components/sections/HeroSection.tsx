@@ -3,13 +3,14 @@ import "../../styles/utilities.css";
 import "../../styles/sections/HeroSection.css";
 import HeroStatCard from "./HeroStatCard";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants";
 
 
 const HeroSection = () => {
   const navigate = useNavigate();
 
   const handleStartPlaying = () => {
-    navigate("/games");
+    navigate(ROUTES.GAMES_PVE);
   } 
 
   return (

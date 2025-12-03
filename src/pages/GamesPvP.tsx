@@ -2,12 +2,7 @@ import MainLayout from '../components/templates/MainLayout';
 import PageHeader from '../components/molecules/PageHeader';
 import { Link } from 'react-router-dom';
 import './Games.css';
-
-const gamesList = [
-  { id: 3, title: 'Embedded Wars', path: '/game/03-embedded-wars' },
-  // { id: 1, title: 'Snake', path: '/game/01-snake' },
-  // { id: 2, title: 'Asteroids', path: '/game/02-asteroids' }
-];
+import { pvpGames } from '../data/gameSections';
 
 const GamesPvP = () => (
   <MainLayout>
@@ -17,7 +12,7 @@ const GamesPvP = () => (
     />
     
     <div className="games-container">
-      {gamesList.map((game) => (
+      {pvpGames.map((game) => (
         <Link 
           key={game.id} 
           to={game.path}

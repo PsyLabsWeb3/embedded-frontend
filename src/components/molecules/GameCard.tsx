@@ -18,7 +18,7 @@
 
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GAME_ROUTES, A11Y_LABELS } from '../../constants';
+import { GAME_ROUTES, ROUTES, A11Y_LABELS } from '../../constants';
 import { gameComponentPropsEqual } from '../../utils/performance';
 import '../../styles/sections/GameCard.css';
 
@@ -69,7 +69,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     'snake': GAME_ROUTES.SNAKE,
     'asteroids': GAME_ROUTES.ASTEROIDS,
     'embeddedwars': GAME_ROUTES.EMBEDDED_WARS,
-    'embeddedspacerace': GAME_ROUTES.EMBEDDED_SPACE_RACE
+    'smugglersrun': GAME_ROUTES.SMUGGLERS_RUN
   };
 
   /**
@@ -86,7 +86,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
       console.warn(`No route found for game slug: ${slug}`);
       
       // Graceful fallback: navigate to games page
-      navigate('/games');
+      navigate(ROUTES.GAMES_PVE);
     }
   }, [navigate, slug, gameRoutes]);
 

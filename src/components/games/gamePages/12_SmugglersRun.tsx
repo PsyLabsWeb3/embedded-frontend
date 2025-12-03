@@ -1,13 +1,13 @@
 import React from 'react';
 import GamePage from '../GamePage';
 
-const EmbeddedSpaceRace: React.FC = () => {
+const SmugglersRun: React.FC = () => {
   return (
     <GamePage
-      gameId="12-embedded-space-race"
+      gameId="12-smugglers-run"
       customContent={<div></div>}
     />
   );
 };
 
-export default EmbeddedSpaceRace;
+export default SmugglersRun;
