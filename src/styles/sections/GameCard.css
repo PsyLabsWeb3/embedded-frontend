@@ -94,6 +94,14 @@
   box-shadow: 0 10px 10px 0 #FFFFFF;
 }
 
+.game-card.neon-smugglers {
+  background-image: url('../../assets/smugglers-run-poster.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 10px 0 #5DD62C;
+}
+
 /* Ensure no green border/outline on any game cards */
 .game-card,
 .game-card *,
@@ -186,7 +194,8 @@
   /* Reset background images for desktop - use gradient instead */
   .game-card.neon-green,
   .game-card.neon-blue,
-  .game-card.neon-white {
+  .game-card.neon-white,
+  .game-card.neon-smugglers {
     background-image: none !important;
     background: linear-gradient(to bottom, #38454C, #171D20) !important;
   }
@@ -204,6 +213,11 @@
   /* Ping Pong - White glow */
   .game-card.neon-white {
     box-shadow: 0 10px 10px 0 #FFFFFF;
+  }
+
+  /* Smugglers Run - Green glow */
+  .game-card.neon-smugglers {
+    box-shadow: 0 10px 10px 0 #5DD62C;
   }
 }
 

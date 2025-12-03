@@ -87,7 +87,7 @@ const CategoryCardComponent: React.FC<CategoryCardProps> = ({
       console.warn(`No route found for category slug: ${slug}`);
       
       // Graceful fallback: navigate to games page
-      navigate('/games');
+      navigate('/games-pve');
     }
   }, [navigate, slug]);
 

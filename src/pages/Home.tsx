@@ -7,6 +7,7 @@ import CategoryListSection from '../components/sections/CategoryListSection';
 import KeyFeatures from '../components/sections/KeyFeatures';
 import RewardSystemSection from '../components/sections/RewardSystemSection';
 import RewardsBannerSection from '../components/sections/RewardsBannerSection';
+import MobileGameSections from '../components/sections/MobileGameSections';
 
 import { useState, useEffect } from 'react';
 import { Footer } from '../components/sections';
@@ -28,7 +29,9 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <HeroSection />
+      {!isMobileView && <HeroSection />}
+      {isMobileView && <h1 className="hero-title gradient-title">Play, Compete, Earn</h1>}
+      {isMobileView && <MobileGameSections />}
       {isMobileView ? (
         <>
           <PoolRewardsBanner />
@@ -37,9 +40,8 @@ const Home = () => {
       ) : (
         <RewardsBannerSection />
       )}
-
-      <GameListSection />
-      <CategoryListSection />
+      {!isMobileView && <GameListSection />}
+      {!isMobileView && <CategoryListSection />}
       <KeyFeatures />
       <RewardSystemSection />
       <Footer />

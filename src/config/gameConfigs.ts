@@ -53,7 +53,7 @@ import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-Embedd
 
 // Background images imports
 import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
-import smugglersBackground from '../assets/pve-card.png?url';
+import smugglersPoster from '../assets/smugglers-run-poster.png?url';
 
 // Existing background images
 import snakeBackground from '../assets/snake_game.jpg?url';
@@ -173,13 +173,13 @@ export const gameConfigs: Record<string, GameConfig> = {
   }
 };
 
-// Add Embedded Space Race
-gameConfigs['12-embedded-space-race'] = {
-  id: '12-embedded-space-race',
-  title: 'Embedded Space Race',
+// Add Smugglers Run
+gameConfigs['12-smugglers-run'] = {
+  id: '12-smugglers-run',
+  title: 'Smugglers Run',
   description: 'A fast-paced PvE racing adventure.',
   assets: embeddedSpaceRaceAssets,
-  backgroundImage: smugglersBackground,
+  backgroundImage: smugglersPoster,
   category: GameTypes.GameCategory.RACING,
   difficulty: GameTypes.GameDifficulty.MEDIUM,
   estimatedPlayTime: 10,
@@ -193,3 +193,6 @@ gameConfigs['12-embedded-space-race'] = {
     'Win by getting to the finish line faster than your opponents!'
   ]
 };
+
+// Legacy slug support for any older references
+gameConfigs['12-embedded-space-race'] = gameConfigs['12-smugglers-run'];

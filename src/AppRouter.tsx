@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
 import History from './pages/History';
-import Games from './pages/Games';
+import GamesPvP from './pages/GamesPvP';
+import GamesPvE from './pages/GamesPvE';
 import Leaderboard from './pages/Leaderboard';
 import Tournaments from './pages/Tournaments';
 import EmbeddedGame from './pages/EmbeddedGame';
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
     element: <History />,
   },
   {
-    path: '/games',
-    element: <Games />,
+    path: '/games-pve',
+    element: <GamesPvE />,
+  },
+  {
+    path: '/games-pvp',
+    element: <GamesPvP />,
   },
   {
     path: '/leaderboard',

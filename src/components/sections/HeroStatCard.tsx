@@ -57,7 +57,7 @@ const HeroStatCard: React.FC = () => (
 
       {/* Primary Call-to-Action - Conversion driver */}
       <Link
-        to={ROUTES.GAMES}
+        to={ROUTES.GAMES_PVE}
         className="hero-stat-card__button"
         aria-label={A11Y_LABELS.PLAY_GAME}
       >

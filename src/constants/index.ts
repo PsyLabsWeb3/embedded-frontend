@@ -15,7 +15,8 @@
  */
 export const ROUTES = {
   HOME: '/',
-  GAMES: '/games',
+  GAMES_PVE: '/games-pve',
+  GAMES_PVP: '/games-pvp',
   HISTORY: '/history',
   LEADERBOARD: '/leaderboard',
   REWARDS: '/rewards',
@@ -33,7 +34,7 @@ export const GAME_ROUTES = {
   SNAKE: '/game/01-snake',
   ASTEROIDS: '/game/02-asteroids',
   EMBEDDED_WARS: '/game/03-embedded-wars',
-  EMBEDDED_SPACE_RACE: '/game/12-embedded-space-race',
+  SMUGGLERS_RUN: '/game/12-smugglers-run',
 } as const;
 
 /**

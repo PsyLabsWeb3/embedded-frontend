@@ -18,6 +18,7 @@
 
 import React from 'react';
 import games from '../../data/games';
+import pveGames from '../../data/pveGames';
 import GameCard from '../molecules/GameCard';
 
 // Import theme and component styles
@@ -48,17 +49,34 @@ const GameListSection: React.FC = () => (
       id="hot-games-heading"
   className="game-list__title gradient-title"
     >
-      Hot Games
+      PvE
     </h2>
-    
-    {/* Section Description - Desktop only */}
-    <p className="game-list__description">
-      Jump into the action with our most played games
-    </p>
-    
-    {/* Divider - Desktop only */}
-    <div className="game-list__divider"></div>
-    
+    {/* Games Grid */}
+    <div 
+      className="game-list__grid"
+      role="list"
+      aria-label="Featured games collection"
+    >
+      {pveGames.map((game) => (
+        <div key={game.slug} role="listitem">
+          <GameCard
+            title={game.title}
+            image={game.image}
+            className={game.glowClass}
+            slug={game.slug}
+            ariaLabel={`Play ${game.title}${game.description ? ` - ${game.description}` : ''}`}
+            comingSoon={game.comingSoon}
+          />
+        </div>
+      ))}
+    </div>
+    {/* Section Heading */}
+    <h2 
+      id="hot-games-heading"
+  className="game-list__title gradient-title"
+    >
+      PvP
+    </h2>
     {/* Games Grid */}
     <div 
       className="game-list__grid"
@@ -77,15 +95,6 @@ const GameListSection: React.FC = () => (
           />
         </div>
       ))}
-    </div>
-    
-    {/* View All Games Button - Desktop only */}
-    <div className="game-list__button-container">
-      <button className="game-list__view-all-button">
-        <a href="/games-pvp">
-          VIEW ALL GAMES
-        </a>
-      </button>
     </div>
   </section>
 );

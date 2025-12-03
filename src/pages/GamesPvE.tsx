@@ -2,11 +2,7 @@ import MainLayout from '../components/templates/MainLayout';
 import PageHeader from '../components/molecules/PageHeader';
 import { Link } from 'react-router-dom';
 import './Games.css';
-
-// Single PvE game: Embedded Space Race
-const gamesList = [
-  { id: 12, title: 'Embedded Space Race', path: '/game/12-embedded-space-race' }
-];
+import { pveGames } from '../data/gameSections';
 
 const GamesPvE = () => (
   <MainLayout>
@@ -16,9 +12,9 @@ const GamesPvE = () => (
     />
     
     <div className="games-container">
-      {gamesList.map((game) => (
+      {pveGames.map((game) => (
         <Link 
-          key={game.id} 
+          key={game.id}
           to={game.path}
           className="game-link"
         >
