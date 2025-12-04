@@ -83,7 +83,7 @@ const GameListSection: React.FC = () => (
       role="list"
       aria-label="Featured games collection"
     >
-      {games.map((game) => (
+      {games.map((game) => ( !game.comingSoon &&
         <div key={game.slug} role="listitem">
           <GameCard
             title={game.title}
