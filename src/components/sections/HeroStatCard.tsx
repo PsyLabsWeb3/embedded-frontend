@@ -52,7 +52,7 @@ const HeroStatCard: React.FC = () => (
       {/* Value Proposition - Core platform benefits */}
       <p className="hero-stat-card__desc">
         A decentralized gaming platform that rewards players with real crypto.
-        No accounts needed—just your wallet.
+        No accounts needed, just your wallet.
       </p>
 
       {/* Primary Call-to-Action - Conversion driver */}

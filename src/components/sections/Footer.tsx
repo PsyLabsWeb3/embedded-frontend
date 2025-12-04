@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
             {/* <span className="ef-brand">Embedded</span> */}
           </div>
           <div className="ef-copy">@ Embedded Games 2025 All rights<br/>reserved</div>
-          <div className="ef-powered">Powered By Psylabs</div>
+          <div className="ef-powered">Powered By Psy Labs Web3</div>
         </div>
 
         <div className="ef-footer-center" />
