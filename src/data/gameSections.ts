@@ -14,7 +14,7 @@ export const pveGames: GameNavItem[] = [
   },
   {
     id: '01-embedded-snake',
-    title: 'Embedded Snake',
+    title: 'Snake',
     path: '/game/01-embedded-snake',
     mode: 'pve',
   }

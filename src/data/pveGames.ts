@@ -47,7 +47,7 @@ const games: Game[] = [
   },
   {
     id: 'embeddedsnake',
-    title: 'Embedded Snake',
+    title: 'Snake',
     slug: 'embeddedsnake',
     image: embeddedSnakeImage,
     glowClass: 'neon-snake',

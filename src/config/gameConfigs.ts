@@ -165,7 +165,7 @@ export const gameConfigs: Record<string, GameConfig> = {
   },
   '03-Embedded-Wars': {
     id: '03-Embedded-Wars',
-    title: 'Embedded-Wars',
+    title: 'Embedded Wars',
     description: 'PvP Sci-Fi 3rd person droid battle',
     longDescription: "In 2248, mega-corporations rule Earth, vying to control 'Aetherion', the rare fuel enabling faster-than-light travel. Synthesised using red mercury - found deep within certain planets - Aetherion fuels an interstellar economy. Smugglers, and five rival factions (mega-corporations) battle for dominance to control its supply and the interstellar economy. Embedded Wars takes place on a mining planet where these factions battle it out for control of resources.",
     assets: embeddedWarsAssets,
@@ -209,7 +209,7 @@ gameConfigs['12-smugglers-run'] = {
 // Add Embedded Snake
 gameConfigs['01-embedded-snake'] = {
   id: '01-embedded-snake',
-  title: 'Embedded Snake',
+  title: 'Snake',
   description: 'Survival of the fittest Snake!',
   assets: embeddedSnakeAssets,
   backgroundImage: snakeBackground,

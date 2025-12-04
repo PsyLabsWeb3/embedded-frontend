@@ -509,7 +509,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
             {sending ? (
               "PROCESSING"
             ) : (
-              "PLAY PvE"
+              "PLAY"
             )}
           </button>
         </div>

@@ -16,3 +16,16 @@
     padding: var(--spacing-xl) var(--container-padding-desktop);
   }
 }
+
+/* Background image for desktop */
+@media (min-width: 900px) {
+  .main-layout {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-image: url('/web_hero.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+  }
+}
