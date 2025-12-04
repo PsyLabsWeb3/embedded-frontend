@@ -102,6 +102,14 @@
   box-shadow: 0 10px 10px 0 #5DD62C;
 }
 
+.game-card.neon-snake {
+  background-image: url('../../assets/snake_game.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 10px 0 #2CB1D6;
+}
+
 /* Ensure no green border/outline on any game cards */
 .game-card,
 .game-card *,
@@ -195,7 +203,8 @@
   .game-card.neon-green,
   .game-card.neon-blue,
   .game-card.neon-white,
-  .game-card.neon-smugglers {
+  .game-card.neon-smugglers,
+  .game-card.neon-snake {
     background-image: none !important;
     background: linear-gradient(to bottom, #38454C, #171D20) !important;
   }
@@ -206,6 +215,9 @@
   }
 
   /* Snake - Blue glow */
+  .game-card.neon-snake {
+    box-shadow: 0 10px 10px 0 #2CB1D6;
+  }
   .game-card.neon-blue {
     box-shadow: 0 10px 10px 0 #2CB1D6;
   }

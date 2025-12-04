@@ -12,6 +12,7 @@
 
 import { GameTypes } from '../types';
 import smugglersRunImage from '../assets/smugglers-run-poster.png';
+import embeddedSnakeImage from '../assets/snake_game.jpg';
 
 /**
  * Game data interface for UI display
@@ -38,6 +39,19 @@ const games: Game[] = [
     image: smugglersRunImage,
     glowClass: 'neon-smugglers',
     description: '3D Race in Space',
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date('2024-11-01'),
+    updatedAt: new Date('2024-11-15'),
+    comingSoon: false
+  },
+  {
+    id: 'embeddedsnake',
+    title: 'Embedded Snake',
+    slug: 'embeddedsnake',
+    image: embeddedSnakeImage,
+    glowClass: 'neon-snake',
+    description: 'Suvival of the fittest Snake!',
     isFeatured: true,
     isNew: true,
     createdAt: new Date('2024-11-01'),
