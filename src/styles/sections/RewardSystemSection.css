@@ -3,6 +3,11 @@
   .reward-card-desktop .reward-bullet {
     display: none;
   }
+  /* Show background image in reward system section */
+  .reward-system-section {
+    background-image:  url('/Home-bg-4.jpg');
+    min-height: 100vh !important;
+  }
 }
 @media (min-width: 768px) {
   .reward-list-item-wrapper:nth-child(1) .reward-card-desktop,
@@ -99,11 +104,10 @@
 /* Reward system section styles */
 .reward-system-section {
   margin-top: 2.5rem;
-    min-height: 100vh;
-    background-image:  url('/Home-bg-4.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  min-height: 60vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .reward-title {
