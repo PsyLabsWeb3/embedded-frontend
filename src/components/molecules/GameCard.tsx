@@ -69,7 +69,8 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     'snake': GAME_ROUTES.SNAKE,
     'asteroids': GAME_ROUTES.ASTEROIDS,
     'embeddedwars': GAME_ROUTES.EMBEDDED_WARS,
-    'smugglersrun': GAME_ROUTES.SMUGGLERS_RUN
+    'smugglersrun': GAME_ROUTES.SMUGGLERS_RUN,
+    'embeddedsnake': GAME_ROUTES.EMBEDDED_SNAKE,
   };
 
   /**

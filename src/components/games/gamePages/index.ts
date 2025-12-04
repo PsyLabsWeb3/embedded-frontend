@@ -18,12 +18,14 @@ export { default as Snake } from './01_Snake';
 export { default as Asteroids } from './02_Asteroids';
 export { default as EmbeddedWars } from './03_EmbeddedWars';
 export { default as SmugglersRun } from './12_SmugglersRun';
+export { default as EmbeddedSnake } from './01_EmbeddedSnake';
 
 // Import components for internal mapping
 import Snake from './01_Snake';
 import Asteroids from './02_Asteroids';
 import EmbeddedWars from './03_EmbeddedWars';
 import SmugglersRun from './12_SmugglersRun';
+import EmbeddedSnake from './01_EmbeddedSnake';
 
 /**
  * Game component mapping for dynamic access
@@ -43,6 +45,7 @@ export const gamePageComponents = {
   '02-asteroids': Asteroids,
   '03-embedded-wars': EmbeddedWars,
   '12-smugglers-run': SmugglersRun,
+  '01-embedded-snake': EmbeddedSnake,
 } as const;
 
 /**

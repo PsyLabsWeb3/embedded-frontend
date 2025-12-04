@@ -78,6 +78,18 @@ const embeddedSpaceRaceAssets: GameAssets = {
   codeUrl: embeddedSpaceRaceCodeUrl,
 };
 
+import embeddedSnakeLoaderUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.loader.js?url';
+import embeddedSnakeDataUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.data.unityweb?url';
+import embeddedSnakeFrameworkUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.framework.js.unityweb?url';
+import embeddedSnakeCodeUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.wasm.unityweb?url';
+
+const embeddedSnakeAssets: GameAssets = {
+  loaderUrl: embeddedSnakeLoaderUrl,
+  dataUrl: embeddedSnakeDataUrl,
+  frameworkUrl: embeddedSnakeFrameworkUrl,
+  codeUrl: embeddedSnakeCodeUrl,
+};
+
 /**
  * Future Game Assets Template
  * 
@@ -194,5 +206,23 @@ gameConfigs['12-smugglers-run'] = {
   ]
 };
 
-// Legacy slug support for any older references
-gameConfigs['12-embedded-space-race'] = gameConfigs['12-smugglers-run'];
+// Add Embedded Snake
+gameConfigs['01-embedded-snake'] = {
+  id: '01-embedded-snake',
+  title: 'Embedded Snake',
+  description: 'Survival of the fittest Snake!',
+  assets: embeddedSnakeAssets,
+  backgroundImage: snakeBackground,
+  category: GameTypes.GameCategory.ARCADE,
+  difficulty: GameTypes.GameDifficulty.EASY,
+  estimatedPlayTime: 5,
+  isMultiplayer: false,
+  minAge: 5,
+  isPvE: true,
+  instructions: [
+    'Use your cursor / finger to move the snake',
+    'Eat food with lower or equal numbers to grow longer',
+    'Avoid hitting walls, longer snakes or yourself',
+    'Survive as long as you can!'
+  ]
+};
