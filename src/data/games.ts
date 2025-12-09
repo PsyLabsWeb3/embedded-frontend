@@ -88,7 +88,7 @@ const games: Game[] = [
     isNew: false,
     createdAt: new Date('2024-01-02'),
     updatedAt: new Date('2024-01-16'),
-    comingSoon: true
+    comingSoon: false
   },
   // {
   //   id: 'bubble-merge-game',
