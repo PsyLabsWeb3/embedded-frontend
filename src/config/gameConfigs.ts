@@ -34,10 +34,10 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
-import asteroidsLoaderUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.loader.js?url';
-import asteroidsDataUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.data?url';
-import asteroidsFrameworkUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.framework.js?url';
-import asteroidsCodeUrl from '../assets/Unity/Asteroids/Build/EM-44-AsteroidsShared.wasm?url';
+import asteroidsLoaderUrl from '../assets/Unity/Asteroids/Build/Asteroids.loader.js?url';
+import asteroidsDataUrl from '../assets/Unity/Asteroids/Build/Asteroids.data?url';
+import asteroidsFrameworkUrl from '../assets/Unity/Asteroids/Build/Asteroids.framework.js?url';
+import asteroidsCodeUrl from '../assets/Unity/Asteroids/Build/Asteroids.wasm?url';
 
 const asteroidsAssets: GameAssets = {
   loaderUrl: asteroidsLoaderUrl,
@@ -147,7 +147,7 @@ export const gameConfigs: Record<string, GameConfig> = {
   '02-asteroids': {
     id: '02-asteroids',
     title: 'Asteroids',
-    description: 'Fast-paced asteroid action',
+    description: 'Pilot a lone star fighter through the endless void as waves of asteroids hurtle toward you. Dodge, spin, and fire with precision. Every rock you blast counts!',
     assets: asteroidsAssets,
     backgroundImage: asteroidsBackground,
     category: GameTypes.GameCategory.ARCADE,
@@ -157,10 +157,10 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 6,
     // placeholder: true,
     instructions: [
-      'Use arrow keys to move the snake',
-      'Combine equal numbers to create larger numbers',
-      'Avoid hitting walls or yourself',
-      'Try to reach the number 2048!'
+      'Use arrow keys to control the ship',
+      'Shoot the asteroids to destroy them',
+      'Avoid hitting the asteroids',
+      'Earn more points than your opponent!'
     ]
   },
   '03-Embedded-Wars': {

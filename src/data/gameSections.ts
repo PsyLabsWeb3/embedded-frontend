@@ -27,4 +27,10 @@ export const pvpGames: GameNavItem[] = [
     path: '/game/03-embedded-wars',
     mode: 'pvp',
   },
+  {
+    id: '02-asteroids',
+    title: 'Asteroids',
+    path: '/game/02-asteroids',
+    mode: 'pvp',
+  }
 ];
