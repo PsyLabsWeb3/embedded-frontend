@@ -30,7 +30,7 @@ const HeroSection = () => {
           </button>
           <a
             className="hero-section__cta hero-section__cta--secondary"
-            href="https://embedded.games/wp-content/uploads/2025/06/Embedded-Whitepaper.pdf"
+            href="https://embedded.games/whitepaper.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >

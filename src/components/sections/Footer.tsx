@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
         <div className="ef-footer-center" />
 
         <div className="ef-footer-right">
-          <a className="ef-link" href="https://embedded.games/wp-content/uploads/2025/06/Embedded-Whitepaper.pdf" target="_blank" rel="noreferrer">White Paper</a>
+          <a className="ef-link" href="https://embedded.games/whitepaper.pdf" target="_blank" rel="noreferrer">White Paper</a>
           <div className="ef-social-title">Social Media:</div>
           <div className="ef-social-icons">
             <a href="https://discord.gg/y9TkSUXF6G" aria-label="discord" className="ef-social"> 

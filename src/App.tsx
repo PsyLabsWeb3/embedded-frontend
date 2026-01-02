@@ -42,6 +42,7 @@ import Rewards from "./pages/Rewards";
 import Tournaments from "./pages/Tournaments";
 import PhantomCallback from "./pages/PhantomCallback";
 import PhantomSignCallback from "./pages/PhantomSignCallback";
+import Whitepaper from "./pages/Whitepaper";
 
 // Import game page components
 import {
@@ -151,6 +152,8 @@ const App: React.FC = () => {
                   path="/phantom-sign-callback"
                   element={<PhantomSignCallback />}
                 />
+
+                <Route path="/whitepaper" element={<Whitepaper />} />
 
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />

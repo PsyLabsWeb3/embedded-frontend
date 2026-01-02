@@ -15,7 +15,7 @@ const RewardsSection = () => (
       </div> */}
       <div className="pool-rewards-content">
         <span className="rewards-section__amount">
-          $851
+          $1023
         </span>
         <span className="rewards-section__label">
           DISTRIBUTED IN REWARDS!
