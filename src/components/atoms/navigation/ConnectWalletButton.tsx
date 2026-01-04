@@ -67,16 +67,18 @@ const ConnectWalletButton = () => {
       return (
         <button
           onClick={handlePhantomDisconnect}
-          className="btn bg-red-500"
+          className="connect-wallet-btn"
         >
-          Disconnect ({short})
+          <span className="connect-wallet-text">Disconnect ({short})</span>
+          <span className="connect-wallet-text-short">Disconnect</span>
         </button>
       );
     }
 
     return (
-      <button onClick={handlePhantomConnect} className="btn bg-purple-500">
-        Connect Phantom
+      <button onClick={handlePhantomConnect} className="connect-wallet-btn">
+        <span className="connect-wallet-text">Connect Phantom</span>
+        <span className="connect-wallet-text-short">Connect</span>
       </button>
     );
   }
@@ -93,13 +95,17 @@ const ConnectWalletButton = () => {
   };
 
   return connected ? (
-    <button onClick={disconnect} className="btn bg-red-500" disabled={connecting}>
-      Disconnect ({short})
+    <button onClick={disconnect} className="connect-wallet-btn" disabled={connecting}>
+      <span className="connect-wallet-text">Disconnect ({short})</span>
+      <span className="connect-wallet-text-short">Disconnect</span>
     </button>
   ) : (
-    <button onClick={handleClickConnect} className="btn bg-blue-500" disabled={connecting}>
+    <button onClick={handleClickConnect} className="connect-wallet-btn" disabled={connecting}>
       <img src={walletIcon} alt="wallet" className="w-6 h-6" />
-      <span className="ml-2">{connecting ? 'Connecting…' : 'Connect'}</span>
+      <span className="connect-wallet-text" style={{ marginLeft: 8 }}>
+        {connecting ? 'Connecting…' : 'Connect'}
+      </span>
+      <span className="connect-wallet-text-short">{connecting ? '…' : 'Connect'}</span>
     </button>
   );
 };
