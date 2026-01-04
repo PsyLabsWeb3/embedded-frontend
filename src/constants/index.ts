@@ -15,12 +15,14 @@
  */
 export const ROUTES = {
   HOME: '/',
+  GAMES_FREE: '/games-free',
   GAMES_PVE: '/games-pve',
   GAMES_PVP: '/games-pvp',
   HISTORY: '/history',
   LEADERBOARD: '/leaderboard',
   REWARDS: '/rewards',
   TOURNAMENTS: '/tournaments',
+  WHITEPAPER: '/whitepaper',
   SNAKE_2048: '/snake2048',
   EMBEDDED_GAME: '/embedded-game',
   GAME_BASE: '/game',

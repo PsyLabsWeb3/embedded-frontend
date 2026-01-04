@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 import './MobileMenu.css';
 
 const MobileMenu = () => {
@@ -51,19 +52,17 @@ const MobileMenu = () => {
           </div>
           <nav className="mobile-nav">
             <ul className="menu-items">
-              <li><Link to="/" onClick={closeMenu} className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
-              <li><Link to="/history" onClick={closeMenu} className={location.pathname === '/history' ? 'active' : ''}>History</Link></li>
-              <li><Link to="/games-pve" onClick={closeMenu} className={location.pathname === '/games-pve' ? 'active' : ''}>PvE</Link></li>
-              <li><Link to="/games-pvp" onClick={closeMenu} className={location.pathname === '/games-pvp' ? 'active' : ''}>PvP</Link></li>
-              <li><Link to="/leaderboard" onClick={closeMenu} className={location.pathname === '/leaderboard' ? 'active' : ''}>Leaderboard</Link></li>
+              <li><Link to={ROUTES.HOME} onClick={closeMenu} className={location.pathname === ROUTES.HOME ? 'active' : ''}>Home</Link></li>
+              <li><Link to={ROUTES.HISTORY} onClick={closeMenu} className={location.pathname === ROUTES.HISTORY ? 'active' : ''}>History</Link></li>
+              <li><Link to={ROUTES.GAMES_PVE} onClick={closeMenu} className={location.pathname === ROUTES.GAMES_PVE ? 'active' : ''}>PvE</Link></li>
+              <li><Link to={ROUTES.GAMES_PVP} onClick={closeMenu} className={location.pathname === ROUTES.GAMES_PVP ? 'active' : ''}>PvP</Link></li>
+              <li><Link to={ROUTES.LEADERBOARD} onClick={closeMenu} className={location.pathname === ROUTES.LEADERBOARD ? 'active' : ''}>Leaderboard</Link></li>
               <li className="coming-soon-row">
                 <div className="coming-soon-label">Tournaments</div>
                 <div className="coming-soon-pill">COMING SOON</div>
               </li>
-              <li className="coming-soon-row">
-                <div className="coming-soon-label">Rewards</div>
-                <div className="coming-soon-pill">COMING SOON</div>
-              </li>
+              <li><Link to={ROUTES.REWARDS} onClick={closeMenu} className={location.pathname === ROUTES.REWARDS ? 'active' : ''}>Rewards</Link></li>
+              <li><Link to={ROUTES.WHITEPAPER} onClick={closeMenu} className={location.pathname === ROUTES.WHITEPAPER ? 'active' : ''}>Whitepaper</Link></li>
             </ul>
           </nav>
         </div>

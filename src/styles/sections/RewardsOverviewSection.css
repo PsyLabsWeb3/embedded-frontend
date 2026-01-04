@@ -1,0 +1,56 @@
+/* Rewards overview styling */
+.rewards-overview__title {
+  color: #fff;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.rewards-overview__desc {
+  color: #959698;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+}
+
+.rewards-overview__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.rewards-card {
+  background: #121214;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0,0,0,0.25);
+  padding: 1.2rem;
+  text-align: center;
+  color: #fff;
+}
+
+.rewards-card__value {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.rewards-card__detail {
+  font-size: 1.1rem;
+  color: #f8f8f8;
+}
+
+.rewards-card__sub {
+  color: #959698;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 900px) {
+  .rewards-overview__cards {
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .rewards-card {
+    width: 272px;
+  }
+}
