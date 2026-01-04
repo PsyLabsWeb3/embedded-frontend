@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants";
 
 // Figma hero gallery assets (temporary URLs; replace with local later)
-const imgRectangle24 = "https://www.figma.com/api/mcp/asset/032bc56d-58d9-4895-90d3-b26b7dd694d8";
-const imgRectangle25 = "https://www.figma.com/api/mcp/asset/7d9b2811-8214-4a5f-b03e-77026acbfe6a";
-const imgRectangle26 = "https://www.figma.com/api/mcp/asset/556df02d-0732-4c94-9214-841e9f66931e";
-const imgRectangle27 = "https://www.figma.com/api/mcp/asset/40bf7dfb-4113-4f8f-a55d-ec5791269008";
-
+const imgRectangle24 = "/032bc56d-58d9-4895-90d3-b26b7dd694d8.png";
+const imgRectangle25 = "/7d9b2811-8214-4a5f-b03e-77026acbfe6a.png";
+const imgRectangle26 = "/556df02d-0732-4c94-9214-841e9f66931e.png";
+const imgRectangle27 = "/40bf7dfb-4113-4f8f-a55d-ec5791269008.png";
 
 const HeroSection = () => {
   const navigate = useNavigate();
