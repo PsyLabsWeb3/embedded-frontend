@@ -1,7 +1,7 @@
 /* Base navbar styles */
 .navbar {
-  background: var(--color-bg);
-  border-bottom: none;
+  background: #0e0f11; /* Figma: dark header */
+  border-bottom: 1px solid rgba(85, 85, 85, 0.75); /* subtle divider */
   box-shadow: none;
   position: relative;
   width: 100%;
@@ -12,9 +12,15 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  min-height: 56px;
-  padding: var(--spacing-sm) 0;
+  min-height: 64px; /* Figma */
+  padding: 9px 26px; /* Figma px */
   position: relative;
+}
+
+/* Remove outer container margins inside navbar to match Figma padding */
+.navbar .mx-container {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .navbar__actions {
@@ -22,6 +28,24 @@
   display: flex;
   gap: var(--spacing-lg);
 }
+
+/* Center links matching Figma */
+.navbar__links {
+  display: none; /* hidden on small screens; MobileMenu handles nav */
+}
+
+.navbar__link {
+  color: #adafae; /* muted by default */
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600; /* Semi-bold */
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.navbar__link:hover { color: var(--color-text); filter: brightness(1.1); }
+.navbar__link.is-active { color: #ffffff; /* active: bright */ }
+.navbar__link.is-muted { color: #adafae; /* explicit muted variant */ }
 
 .navbar__search-btn {
   align-items: center;
@@ -38,30 +62,27 @@
   outline: 2px solid var(--color-primary);
 }
 
-.navbar::after {
-  background: var(--color-primary);
-  border-radius: 2px 2px 0 0;
-  bottom: 0;
+.navbar::after { /* disable green underline for Figma */
   content: '';
-  display: block;
-  height: 0.5px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: var(--z-above);
+  height: 0;
+  display: none;
 }
 
 /* Desktop styles */
 @media (min-width: 768px) {
   .navbar__content {
     min-height: 64px;
-    padding-bottom: var(--spacing-md);
-    padding-left: var(--container-padding-desktop);
-    padding-right: var(--container-padding-desktop);
-    padding-top: var(--spacing-md);
+    padding: 9px 26px; /* keep Figma spacing on desktop */
   }
   
   .navbar__actions {
-    gap: var(--spacing-xl);
+    gap: 26px; /* tighter spacing (Figma shows compact controls) */
+  }
+
+  .navbar__links {
+    align-items: center;
+    display: flex;
+    gap: 73px; /* Figma spacing */
+    padding: 17px 70px; /* center block visual spacing per Figma */
   }
 }

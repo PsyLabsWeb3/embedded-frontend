@@ -37,6 +37,7 @@ import EmbeddedGamePage from "./pages/EmbeddedGame";
 import History from "./pages/History";
 import GamesPvP from "./pages/GamesPvP";
 import GamesPvE from "./pages/GamesPvE";
+import GamesFree from "./pages/GamesFree";
 import Leaderboard from "./pages/Leaderboard";
 import Rewards from "./pages/Rewards";
 import Tournaments from "./pages/Tournaments";
@@ -144,6 +145,7 @@ const App: React.FC = () => {
                 <Route path="/history" element={<History />} />
                 <Route path="/games-pvp" element={<GamesPvP />} />
                 <Route path="/games-pve" element={<GamesPvE />} />
+                <Route path="/games-free" element={<GamesFree />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/rewards" element={<Rewards />} />
                 <Route path="/tournaments" element={<Tournaments />} />

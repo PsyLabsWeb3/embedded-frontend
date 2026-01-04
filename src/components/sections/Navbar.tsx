@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '../atoms/common/Logo';
 import SearchIcon from '../atoms/navigation/SearchIcon';
 import ConnectWalletButton from '../atoms/navigation/ConnectWalletButton';
@@ -40,31 +41,43 @@ import '../../styles/sections/SearchIcon.css';
  * 
  * @returns JSX element representing the navigation bar
  */
-const Navbar: React.FC = () => (
-  <nav className="navbar" role="navigation" aria-label="Main navigation">
-    <div className="navbar__content mx-container">
-      {/* Brand/Logo Section */}
-      <Logo />
-      
-      {/* Actions Section - Search, Mobile Menu, Wallet */}
-      <div className="navbar__actions">
-        {/* Search Button */}
-        <button 
-          className="navbar__search-btn" 
-          aria-label={A11Y_LABELS.SEARCH_BUTTON}
-          type="button"
-        >
-          <SearchIcon />
-        </button>
-        
-        {/* Mobile Menu Toggle */}
-        <MobileMenu />
-        
-        {/* Wallet Connection */}
-        <ConnectWalletButton />
+const Navbar: React.FC = () => {
+  const location = useLocation();
+
+  return (
+    <nav className="navbar" role="navigation" aria-label="Main navigation">
+      <div className="navbar__content mx-container">
+        {/* Brand/Logo Section */}
+        <Logo />
+
+        {/* Center Links Section */}
+        <div className="navbar__links" aria-label="Primary links">
+          <Link to="/" className={`navbar__link ${location.pathname === '/' ? 'is-active' : ''}`}>Home</Link>
+          <Link to="/games-free" className={`navbar__link ${location.pathname === '/games-free' ? 'is-active' : 'is-muted'}`}>Free to Play</Link>
+          <Link to="/games-pvp" className={`navbar__link ${location.pathname === '/games-pvp' ? 'is-active' : 'is-muted'}`}>PVP Games</Link>
+          <Link to="/games-pve" className={`navbar__link ${location.pathname === '/games-pve' ? 'is-active' : 'is-muted'}`}>PVE Games</Link>
+        </div>
+
+        {/* Actions Section - Search, Mobile Menu, Wallet */}
+        <div className="navbar__actions">
+          {/* Search Button */}
+          <button 
+            className="navbar__search-btn" 
+            aria-label={A11Y_LABELS.SEARCH_BUTTON}
+            type="button"
+          >
+            <SearchIcon />
+          </button>
+          
+          {/* Mobile Menu Toggle */}
+          <MobileMenu />
+          
+          {/* Wallet Connection */}
+          <ConnectWalletButton />
+        </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default Navbar;
