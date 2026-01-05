@@ -26,9 +26,9 @@ const HeroSection = () => {
           <div className="hero-section__pill" aria-label="Platform highlights">
             <ul className="hero-section__pill-list" role="list">
               <li role="listitem"><span className="hero-section__pill-dot" aria-hidden="true">◉</span> Free Games</li>
-              <li role="listitem">Leaderboards</li>
-              <li role="listitem">No accounts</li>
-              <li role="listitem">Just Fun</li>
+              <li role="listitem">• Leaderboards</li>
+              <li role="listitem">• No accounts</li>
+              <li role="listitem">• Just Fun</li>
             </ul>
           </div>
 
@@ -70,8 +70,8 @@ const HeroSection = () => {
 
           {/* Desktop hero stats row */}
           <div className="hero-section__stats" aria-label="Platform stats">
-            <span className="hero-stats__item hero-stats__item--strong">250k+</span>
-            <span className="hero-stats__label">players</span>
+            <span className="hero-stats__item hero-stats__item--strong">250k+players</span>
+            {/* <span className="hero-stats__label">players</span> */}
             <span className="hero-stats__sep" aria-hidden="true"></span>
             <span className="hero-stats__item">$735.52 distributed</span>
             <span className="hero-stats__dot hero-stats__dot--red" aria-hidden="true"></span>

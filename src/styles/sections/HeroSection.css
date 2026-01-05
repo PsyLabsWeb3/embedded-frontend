@@ -123,7 +123,7 @@
 .hero-section__content { display: flex; flex-direction: column; gap: clamp(16px, 2.5vw, 28px); }
 .hero-gallery { display: none; }
 .hero-gallery__grid { position: relative; }
-.hero-gallery__item { position: relative; overflow: hidden; border-radius: 16px; }
+.hero-gallery__item { position: relative; overflow: hidden; border-radius: 16px; margin: 0; }
 .hero-gallery__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-gallery__item figcaption { position: absolute; left: 16px; bottom: 12px; color: #fff; font-weight: 600; font-size: 16px; }
 
@@ -178,6 +178,34 @@
     gap: 0.9rem;
     margin-top: 0.2rem;
   }
+
+  /* Tablet gallery: visible, centered and responsive */
+  .hero-gallery { 
+    display: block; 
+    background: transparent; 
+    margin: 0 auto; 
+  }
+  .hero-gallery__grid {
+    background: #121214;
+    border-radius: 16px;
+    box-shadow: 3px 4px 4px 2px rgba(0,0,0,0.25);
+    padding: 0;
+    width: 100%;
+    max-width: 684px; /* a bit wider for tablets */
+    aspect-ratio: 608 / 486; /* keep card proportion while scaling */
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: 2fr 1fr; /* proportional tracks for responsiveness */
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 0 auto;
+  }
+  .hero-gallery__item--main { grid-column: 1; grid-row: 1 / span 2; }
+  .hero-gallery__item--top-right { grid-column: 2; grid-row: 1; }
+  .hero-gallery__item--mid-right { grid-column: 2; grid-row: 2; }
+  .hero-gallery__item--bottom { grid-column: 1 / span 2; grid-row: 3; }
 }
 
 @media (min-width: 1200px) {
@@ -277,7 +305,8 @@
   }
   .hero-section__cta--outline-purple:hover { 
     background-color: #AE43FF;
-    filter: brightness(1.05); }
+    color: #FFFFFF;
+    filter: brightness(1.1); }
 
   .hero-section__stats {
     display: flex;
@@ -291,6 +320,17 @@
     color: #a8b2aa;
     font-size: 14px;
   }
+  /* Ensure strong variant overrides desktop item color/weight */
+  .hero-stats__item.hero-stats__item--strong {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 18px;
+  }
+
+  /* Bring "players" closer to 250k+ on desktop */
+  /* .hero-stats__label {
+    margin-left: -16px;
+  } */
 
   .hero-stats__dot {
     width: 8px;
@@ -303,11 +343,13 @@
     background: #121214;
     border-radius: 16px;
     box-shadow: 3px 4px 4px 2px rgba(0,0,0,0.25);
-    padding: 16px;
+    padding: 0;
     width: 608px;
     height: 486px;
     position: relative;
     display: grid;
+    justify-content: center;
+    align-content: center;
     grid-template-columns: 379px 181px;
     grid-template-rows: 141px 140px 141px;
     gap: 16px;
