@@ -33,21 +33,21 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      {!isMobileView && <HeroSection />}
-      {isMobileView && <h1 className="hero-title gradient-title">Play. Win. Level up.</h1>}
-      {isMobileView && <MobileGameSections />}
-      {isMobileView ? (
+    <HeroSection />
+    
+      <MobileGameSections />
+      
         <>
           <PoolRewardsBanner />
           <RewardsSection />
         </>
-      ) : (
+     
         <RewardsBannerSection />
-      )}
-      {!isMobileView && <FreeToPlaySection />}
-      {!isMobileView && <PvPSection />}
-      {!isMobileView && <PvESection />}
-      {!isMobileView && <RewardsOverviewSection />}
+     
+    <FreeToPlaySection />
+      <PvPSection />
+      <PvESection />
+   <RewardsOverviewSection />
       <KeyFeatures />
       <RewardSystemSection />
       <Footer />
