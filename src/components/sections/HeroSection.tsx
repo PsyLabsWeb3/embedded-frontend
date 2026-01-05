@@ -15,17 +15,26 @@ const HeroSection = () => {
 
   const handleStartPlaying = () => {
     navigate(ROUTES.GAMES_PVE);
-  } 
+  };
 
   return (
-    <section className="hero-section section" data-name="Hero Section" data-node-id="3307:1736">
+    <section
+      className="hero-section section"
+      data-name="Hero Section"
+      data-node-id="3307:1736"
+    >
       <div className="hero-section__grid">
         {/* Left content column */}
         <div className="hero-section__content" data-node-id="3307:1813">
           {/* Badge pill row */}
           <div className="hero-section__pill" aria-label="Platform highlights">
             <ul className="hero-section__pill-list" role="list">
-              <li role="listitem"><span className="hero-section__pill-dot" aria-hidden="true">◉</span> Free Games</li>
+              <li role="listitem">
+                <span className="hero-section__pill-dot" aria-hidden="true">
+                  ◉
+                </span>{" "}
+                Free Games
+              </li>
               <li role="listitem">• Leaderboards</li>
               <li role="listitem">• No accounts</li>
               <li role="listitem">• Just Fun</li>
@@ -45,7 +54,8 @@ const HeroSection = () => {
           <p className="hero-section__subtitle">
             Welcome to Embedded Games.
             <br />
-            Play free browser games or step into competitive matches when you’re ready.
+            Play free browser games or step into competitive matches when you’re
+            ready.
             <br />
             Climb the leaderboard where top players win monthly rewards.
           </p>
@@ -70,15 +80,18 @@ const HeroSection = () => {
 
           {/* Desktop hero stats row */}
           <div className="hero-section__stats" aria-label="Platform stats">
-            <span className="hero-stats__item hero-stats__item--strong">250k+players</span>
+            <span className="hero-stats__item hero-stats__item--strong">
+              250k+ players
+            </span>
             {/* <span className="hero-stats__label">players</span> */}
             <span className="hero-stats__sep" aria-hidden="true"></span>
             <span className="hero-stats__item">$735.52 distributed</span>
-            <span className="hero-stats__dot hero-stats__dot--red" aria-hidden="true"></span>
+            <span
+              className="hero-stats__dot hero-stats__dot--red"
+              aria-hidden="true"
+            ></span>
             <span className="hero-stats__item">Top 500 Paid Monthly</span>
           </div>
-
-        
         </div>
 
         {/* Right gallery column */}
