@@ -54,7 +54,7 @@
   .game-list-section {
     padding-left: 0;
     padding-right: 0;
-
+    padding-top: 0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -91,9 +91,10 @@
 
   .game-list__grid {
     flex-direction: row;
-    gap: 3rem;
-    justify-content: center;
+    gap: clamp(16px, 2.5vw, 32px);
+    justify-content: center; /* center cards on each row */
     align-items: stretch;
+    flex-wrap: wrap; /* allow wrapping at 1280 widths */
   }
 
   .game-list__button-container {

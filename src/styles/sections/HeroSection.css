@@ -223,11 +223,12 @@
   }
   .hero-section__grid {
     display: grid;
-    grid-template-columns: 646px 608px;
-    gap: 48px;
+    grid-template-columns: minmax(520px, 1fr) minmax(420px, 0.9fr);
+    gap: clamp(24px, 3vw, 48px);
     align-items: start;
     justify-content: center;
     margin: 0 auto;
+    width: 100%;
   }
   .hero-section__content {
     padding-top: 50px;
@@ -235,6 +236,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(24px, 3vh, 48px);
+    max-width: 646px;
   }
 
   .hero-section__row {
@@ -360,14 +362,16 @@
     border-radius: 16px;
     box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
     padding: 0;
-    width: 608px;
-    height: 486px;
+    width: 100%;
+    max-width: 608px;
+    aspect-ratio: 608 / 486;
+    height: auto;
     position: relative;
     display: grid;
     justify-content: center;
     align-content: center;
-    grid-template-columns: 379px 181px;
-    grid-template-rows: 141px 140px 141px;
+    grid-template-columns: 62.3% 29.8%;
+    grid-template-rows: 29% 28.8% 29%;
     gap: 16px;
   }
   .hero-gallery__item--main {

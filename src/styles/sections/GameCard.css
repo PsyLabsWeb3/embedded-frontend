@@ -103,10 +103,14 @@
 /* ==================== DESKTOP STYLES ==================== */
 /* Desktop styles */
 @media (min-width: 900px) {
+  .game-card-outer-wrapper {
+    width: auto; /* allow cards to size by their own width */
+    flex: 0 0 auto;
+  }
   .game-card {
     min-height: 414px;
     max-height: 414px;
-    width: 420px;
+    width: clamp(280px, 25vw, 336px);
     flex: none;
     position: relative;
     overflow: visible;
@@ -121,7 +125,7 @@
     min-height: 227px;
     max-height: 227px;
     width: 100%;
-    min-width: 420px;
+    min-width: 0;
     margin: 0;
     padding: 0;
     border-radius: 16px 16px 0 0;
