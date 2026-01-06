@@ -33,12 +33,9 @@ const RewardSystemSection = () => (
           // Alternate gradient: even indices use gradient-a, odd use gradient-b
           const cardClass = idx % 2 === 0 ? 'reward-card--gradient-a' : 'reward-card--gradient-b';
           return (
-            <li key={idx} className="reward-list-item-wrapper">
-              {/* Each reward item is wrapped in a card with gradient and green shadow (desktop only) */}
-              <div className={`reward-card-desktop ${cardClass}`}>
-                <RewardListItem>{text}</RewardListItem>
-              </div>
-            </li>
+            <RewardListItem key={idx} cardClass={cardClass}>
+              {text}
+            </RewardListItem>
           );
         })}
       </ul>
