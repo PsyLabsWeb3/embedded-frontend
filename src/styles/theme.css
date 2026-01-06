@@ -3,21 +3,27 @@
    ===================== */
 :root {
   /* Colors */
-  --color-bg: #171D20;
-  --color-background: #171D20;
-  --color-surface-dark: #38454C;
+  --color-bg: #171d20;
+  --color-background: #171d20;
+  --color-surface-dark: #38454c;
   --color-border-subtle: #23272a;
-  --color-primary: #5DD62C;
+  --color-primary: #5dd62c;
   --color-primary-dark: #337418;
-  --color-accent-pink: #AE43FF;
-  --color-accent-blue: #2CB1D6;
-  --color-text: #FFFFFF;
-  --color-text-muted: #D0D0D0;
+  --color-accent-pink: #ae43ff;
+  --color-accent-blue: #2cb1d6;
+  --color-text: #ffffff;
+  --color-text-muted: #d0d0d0;
 
+  /* Backgrounds */
+  --app-gradient: linear-gradient(
+    -90deg,
+    rgba(16, 16, 16, 1) 0%,
+    rgba(15, 33, 24, 1) 100%
+  );
   /* Typography */
-  --font-heading: 'Lobster', cursive;
-  --font-subheading: 'Nubolts Rounded', sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  --font-heading: "Lobster", cursive;
+  --font-subheading: "Nubolts Rounded", sans-serif;
+  --font-body: "Nunito", sans-serif;
   --font-size-xs: clamp(0.75rem, 2vw, 0.875rem);
   --font-size-sm: clamp(0.875rem, 2.5vw, 1rem);
   --font-size-base: clamp(1rem, 3vw, 1.125rem);
@@ -54,7 +60,7 @@
   --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.1);
   --shadow-hard: 0 4px 12px rgba(0, 0, 0, 0.25);
   --shadow-glow-green: 0 0 12px rgba(93, 214, 44, 0.6);
-  --shadow-glow-blue: 0 8px 10px 0 #2CB1D6cc;
+  --shadow-glow-blue: 0 8px 10px 0 #2cb1d6cc;
   --shadow-glow-white: 0 8px 10px 0 #ffffff;
 
   /* Border Radius */
@@ -78,4 +84,26 @@
   --z-above: 10;
   --z-overlay: 100;
   --z-modal: 1000;
+}
+
+/* Responsive container side margins for sections */
+@media (min-width: 768px) {
+  :root {
+    /* Tablet: slightly larger margins */
+    --container-margin: 2rem; /* 32px */
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    /* Desktop: align with hero layout spacing */
+    --container-margin: 10rem; /* 64px */
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    /* Wide screens: a bit more breathing room */
+    --container-margin: 18rem; /* 80px */
+  }
 }

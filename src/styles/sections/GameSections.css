@@ -1,50 +1,54 @@
 /* Shared game sections styling matching existing theme */
 .games-section__title {
-  color: #FFFFFF;
-  font-family: var(--font-heading);
-  font-weight: 700;
+  color: #ffffff;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: normal;
   text-align: left;
   margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 7px;
+}
+
+.games-section__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
 }
 
 .games-section__subtitle {
   color: #959698;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
+  font-size: 14px;
 }
 
 .games-section__viewall {
-  color: #FFFFFF;
-  font-size: 0.95rem;
+  color: #ffffff;
+  font-size: 16px;
   display: inline-block;
-  margin-left: auto;
 }
 
 .games-section__grid {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 0.75rem;
+  gap: 26px;
+  margin-top: 0;
 }
 
 @media (min-width: 900px) {
   .games-section__title {
     text-align: left;
-    font-size: 2.5rem;
+    font-size: 32px;
     margin-top: 3rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 7px;
   }
   .games-section__subtitle {
-    font-size: 1rem;
+    font-size: 14px;
   }
   .games-section__grid {
     flex-direction: row;
-    gap: 2rem;
-    justify-content: flex-start;
-  }
-  .games-section__viewall {
-    float: right;
-    margin-top: -1.5rem;
+    gap: 26px;
+    justify-content: center;
+    align-items: center;
   }
 }

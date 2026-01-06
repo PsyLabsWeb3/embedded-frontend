@@ -28,7 +28,11 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
-  background: var(--color-bg);
+  /* Global app background gradient matching HeroSection */
+  background-color: var(--color-bg);
+  background-image: var(--app-gradient);
+  background-repeat: no-repeat;
+  background-size: cover;
   /* Eliminado flex y place-items para layout normal */
 }
 
@@ -36,7 +40,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   font-family: var(--font-heading);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 h2 {

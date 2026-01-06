@@ -45,10 +45,15 @@ const GameListSection: React.FC = () => (
     aria-labelledby="hot-games-heading"
   >
     {/* Section Heading */}
-    <h2 id="hot-games-heading" className="game-list__title gradient-title">
-      PvE
+    <h2 id="free-to-play-heading" className="games-section__title">
+      Free to Play
     </h2>
-    {/* Games Grid */}
+    <div className="games-section__row">
+      <p className="games-section__subtitle">Free PvE Games to Play</p>
+      <a className="games-section__viewall" href="/games-pve">
+        View all
+      </a>
+    </div>
     <div
       className="game-list__grid"
       role="list"
@@ -72,9 +77,15 @@ const GameListSection: React.FC = () => (
       ))}
     </div>
     {/* Section Heading */}
-    <h2 id="hot-games-heading" className="game-list__title gradient-title">
+    <h2 id="pvp-heading" className="games-section__title">
       PvP
     </h2>
+    <div className="games-section__row">
+      <p className="games-section__subtitle">Player vs Player</p>
+      <a className="games-section__viewall" href="/games-pvp">
+        View all
+      </a>
+    </div>
     {/* Games Grid */}
     <div
       className="game-list__grid"
