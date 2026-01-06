@@ -52,8 +52,8 @@
 /* Desktop styles */
 @media (min-width: 900px) {
   .game-list-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0;
+    padding-right: 0;
 
     background-size: cover;
     background-repeat: no-repeat;
