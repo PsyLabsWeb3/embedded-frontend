@@ -54,6 +54,10 @@
   --container-padding-desktop: clamp(2rem, 6vw, 3rem);
   --container-margin: clamp(1rem, 5vw, 2.5rem);
 
+  /* Home page section vertical padding */
+  --home-padding-block-mobile: clamp(32px, 6vw, 64px);
+  --home-padding-block-desktop: clamp(64px, 8vw, 96px);
+
   /* Shadows & Transitions */
   --transition-fast: all 0.2s ease-in-out;
   --transition-slow: all 0.4s ease;
@@ -97,7 +101,9 @@
 @media (min-width: 1200px) {
   :root {
     /* Desktop: align with hero layout spacing */
-    --container-margin: 10rem; /* 64px */
+    --container-margin: clamp(4rem, 8vw, 10rem);
+    /* Increase vertical rhythm on desktop */
+    --home-padding-block-mobile: var(--home-padding-block-desktop);
   }
 }
 

@@ -11,10 +11,10 @@
  */
 
 import { GameTypes } from "../types";
-import snakeGameImage from "../assets/snake_game.jpg";
+// import snakeGameImage from "../assets/snake_game.jpg";
 import asteroidsImage from "../assets/AsteroidsCover.png";
-import colosseumImage from "../assets/ColosseumCover.png";
-import bubbleImage from "../assets/bubble.jpg";
+// import colosseumImage from "../assets/ColosseumCover.png";
+// import bubbleImage from "../assets/bubble.jpg";
 import embeddedwarsImage from "../assets/embedded_wars.jpg";
 
 /**
@@ -36,33 +36,33 @@ export type Game = GameTypes.GameData;
 
 const games: Game[] = [
   // Outer Colosseum
-  {
-    id: "outer-colosseum-game",
-    title: "Outer Colosseum",
-    slug: "outercolosseum",
-    image: colosseumImage,
-    glowClass: "neon-blue",
-    description: "3D Battle Royale in Space",
-    isFeatured: true,
-    isNew: true,
-    createdAt: new Date("2024-11-01"),
-    updatedAt: new Date("2024-11-15"),
-    comingSoon: false,
-  },
+  // {
+  //   id: "outer-colosseum-game",
+  //   title: "Outer Colosseum",
+  //   slug: "outercolosseum",
+  //   image: colosseumImage,
+  //   glowClass: "neon-blue",
+  //   description: "3D Battle Royale in Space",
+  //   isFeatured: true,
+  //   isNew: true,
+  //   createdAt: new Date("2024-11-01"),
+  //   updatedAt: new Date("2024-11-15"),
+  //   comingSoon: false,
+  // },
 
-  {
-    id: "snake-game",
-    title: "Snake",
-    slug: "snake",
-    image: snakeGameImage,
-    glowClass: "neon-blue",
-    description: "Classic snake game with number merging mechanics",
-    isFeatured: true,
-    isNew: false,
-    createdAt: new Date("2024-01-01"),
-    updatedAt: new Date("2024-01-15"),
-    comingSoon: false,
-  },
+  // {
+  //   id: "snake-game",
+  //   title: "Snake",
+  //   slug: "snake",
+  //   image: snakeGameImage,
+  //   glowClass: "neon-blue",
+  //   description: "Classic snake game with number merging mechanics",
+  //   isFeatured: true,
+  //   isNew: false,
+  //   createdAt: new Date("2024-01-01"),
+  //   updatedAt: new Date("2024-01-15"),
+  //   comingSoon: false,
+  // },
   {
     id: "embedded-wars-game",
     title: "Embedded Wars",
@@ -89,18 +89,18 @@ const games: Game[] = [
     updatedAt: new Date("2024-01-16"),
     comingSoon: false,
   },
-  {
-    id: "bubble-merge-game",
-    title: "Bubble Merge",
-    slug: "bubblemerge",
-    image: bubbleImage,
-    glowClass: "neon-purple",
-    description: "Merge colorful bubbles to score points",
-    isFeatured: true,
-    isNew: true,
-    createdAt: new Date("2024-01-03"),
-    updatedAt: new Date("2024-01-17"),
-  },
+  // {
+  //   id: "bubble-merge-game",
+  //   title: "Bubble Merge",
+  //   slug: "bubblemerge",
+  //   image: bubbleImage,
+  //   glowClass: "neon-purple",
+  //   description: "Merge colorful bubbles to score points",
+  //   isFeatured: true,
+  //   isNew: true,
+  //   createdAt: new Date("2024-01-03"),
+  //   updatedAt: new Date("2024-01-17"),
+  // },
 ];
 
 export default games;

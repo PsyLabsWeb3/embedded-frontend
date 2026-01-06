@@ -41,7 +41,7 @@ import "../../styles/sections/GameCard.css";
  */
 const GameListSection: React.FC = () => (
   <section
-    className="game-list-section container mx-container"
+    className="game-list-section section mx-container"
     aria-labelledby="hot-games-heading"
   >
     {/* Section Heading */}

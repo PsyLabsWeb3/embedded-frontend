@@ -5,7 +5,9 @@
     rgba(16, 16, 16, 1) 0%,
     rgba(15, 33, 24, 1) 100%
   );
-  padding: 24px 16px 48px;
+  /* Horizontal inset aligned with app container; vertical via .section */
+  padding-left: var(--container-margin);
+  padding-right: var(--container-margin);
 }
 .hero-title {
   font-family: Inter, system-ui, -apple-system, sans-serif;
@@ -215,8 +217,9 @@
       rgba(16, 16, 16, 1) 0%,
       rgba(15, 33, 24, 1) 100%
     );
-    padding-top: 65px;
-    padding-bottom: 64px;
+    /* Vertical padding handled by .section utility */
+    padding-left: var(--container-margin);
+    padding-right: var(--container-margin);
   }
   .hero-section__grid {
     display: grid;
