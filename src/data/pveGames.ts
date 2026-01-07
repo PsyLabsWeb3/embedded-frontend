@@ -58,19 +58,6 @@ const games: Game[] = [
     updatedAt: new Date("2024-11-15"),
     comingSoon: false,
   },
-  {
-    id: "embeddedsnake",
-    title: "Snake",
-    slug: "embeddedsnake",
-    image: embeddedSnakeImage,
-    glowClass: "neon-snake",
-    description: "Suvival of the fittest Snake!",
-    isFeatured: true,
-    isNew: true,
-    createdAt: new Date("2024-11-01"),
-    updatedAt: new Date("2024-11-15"),
-    comingSoon: false,
-  },
 ];
 
 export default games;

@@ -62,7 +62,7 @@ import TermsModal from "./components/molecules/TermsModal";
 import "./styles/geoblock.css";
 
 // Import Geoblocker
-import { useGeoblock } from './hooks/useGeoblock';
+import { useGeoblock } from "./hooks/useGeoblock";
 
 /**
  * Wallet adapter configuration
@@ -121,7 +121,8 @@ const App: React.FC = () => {
         <div className="geoblock-message">
           <h1>Embedded is not available in your region</h1>
           <p>
-            Due to regulatory restrictions, our platform cannot be accessed from your current location.
+            Due to regulatory restrictions, our platform cannot be accessed from
+            your current location.
           </p>
         </div>
       </div>
@@ -164,8 +165,14 @@ const App: React.FC = () => {
                   path="/game/03-embedded-wars"
                   element={<EmbeddedWars />}
                 />
-                <Route path="/game/12-smugglers-run" element={<SmugglersRun />} />
-                <Route path="/game/01-embedded-snake" element={<EmbeddedSnake />} />
+                <Route
+                  path="/game/12-smugglers-run"
+                  element={<SmugglersRun />}
+                />
+                <Route
+                  path="/game/01-embedded-snake"
+                  element={<EmbeddedSnake />}
+                />
               </Routes>
             </div>
           </Router>

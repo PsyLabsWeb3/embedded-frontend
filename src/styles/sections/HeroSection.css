@@ -232,7 +232,7 @@
   }
   .hero-section__content {
     padding-top: 50px;
-    padding-bottom: 144px;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
     gap: clamp(24px, 3vh, 48px);
