@@ -110,7 +110,7 @@
   .game-card {
     min-height: 414px;
     max-height: 414px;
-    width: clamp(280px, 25vw, 336px);
+    width: clamp(280px, 25vw, 420px);
     flex: none;
     position: relative;
     overflow: visible;
