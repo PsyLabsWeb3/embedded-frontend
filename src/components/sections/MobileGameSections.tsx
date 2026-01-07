@@ -78,7 +78,43 @@ const GameListSection: React.FC = () => (
     </div>
     {/* Section Heading */}
     <h2 id="pvp-heading" className="games-section__title">
-      PvP
+      PVP
+    </h2>
+    <div className="games-section__row">
+      <p className="games-section__subtitle">Player vs Player</p>
+      <a className="games-section__viewall" href="/games-pvp">
+        View all
+      </a>
+    </div>
+    {/* Games Grid */}
+    <div
+      className="game-list__grid"
+      role="list"
+      aria-label="Featured games collection"
+    >
+      {games.map(
+        (game) =>
+          !game.comingSoon && (
+            <div key={game.slug} role="listitem">
+              <GameCard
+                title={game.title}
+                image={game.image}
+                className={game.glowClass}
+                slug={game.slug}
+                description={game.description}
+                isLive={!game.comingSoon}
+                ariaLabel={`Play ${game.title}${
+                  game.description ? ` - ${game.description}` : ""
+                }`}
+                comingSoon={game.comingSoon}
+              />
+            </div>
+          )
+      )}
+    </div>
+    {/* Section Heading */}
+    <h2 id="pvp-heading" className="games-section__title">
+      PVE
     </h2>
     <div className="games-section__row">
       <p className="games-section__subtitle">Player vs Player</p>
