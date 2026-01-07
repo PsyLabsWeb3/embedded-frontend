@@ -236,7 +236,7 @@
   .game-card.neon-smugglers,
   .game-card.neon-snake {
     background-image: none !important;
-    background: linear-gradient(to bottom, #38454c, #171d20) !important;
+    background: #121214 !important;
   }
 
   /* Embedded Wars - Green glow (X:0, Y:10, Blur:10, Spread:0) */

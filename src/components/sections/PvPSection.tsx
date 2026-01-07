@@ -1,5 +1,5 @@
 import React from "react";
-import games from "../../data/games";
+import games from "../../data/freeGames";
 import GameCard from "../molecules/GameCard";
 
 import "../../styles/theme.css";

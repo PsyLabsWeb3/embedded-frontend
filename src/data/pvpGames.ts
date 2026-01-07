@@ -34,7 +34,7 @@ export type Game = GameTypes.GameData;
  * proper routing and configuration lookup.
  */
 
-const games: Game[] = [
+const pvpGames: Game[] = [
   // Outer Colosseum
   // {
   //   id: "outer-colosseum-game",
@@ -103,4 +103,4 @@ const games: Game[] = [
   // },
 ];
 
-export default games;
+export default pvpGames;

@@ -17,9 +17,10 @@
  */
 
 import React from "react";
-import games from "../../data/games";
+import freeGames from "../../data/freeGames";
 import pveGames from "../../data/pveGames";
 import GameCard from "../molecules/GameCard";
+import pvpGames from "../../data/pvpGames";
 
 // Import theme and component styles
 import "../../styles/theme.css";
@@ -59,7 +60,7 @@ const GameListSection: React.FC = () => (
       role="list"
       aria-label="Featured games collection"
     >
-      {pveGames.map((game) => (
+      {freeGames.map((game) => (
         <div key={game.slug} role="listitem">
           <GameCard
             title={game.title}
@@ -92,7 +93,7 @@ const GameListSection: React.FC = () => (
       role="list"
       aria-label="Featured games collection"
     >
-      {games.map(
+      {pvpGames.map(
         (game) =>
           !game.comingSoon && (
             <div key={game.slug} role="listitem">
@@ -113,12 +114,12 @@ const GameListSection: React.FC = () => (
       )}
     </div>
     {/* Section Heading */}
-    <h2 id="pvp-heading" className="games-section__title">
+    <h2 id="pve-heading" className="games-section__title">
       PVE
     </h2>
     <div className="games-section__row">
-      <p className="games-section__subtitle">Player vs Player</p>
-      <a className="games-section__viewall" href="/games-pvp">
+      <p className="games-section__subtitle">Player vs Enviroment</p>
+      <a className="games-section__viewall" href="/games-pve">
         View all
       </a>
     </div>
@@ -128,7 +129,7 @@ const GameListSection: React.FC = () => (
       role="list"
       aria-label="Featured games collection"
     >
-      {games.map(
+      {pveGames.map(
         (game) =>
           !game.comingSoon && (
             <div key={game.slug} role="listitem">
