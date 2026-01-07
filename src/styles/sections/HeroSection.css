@@ -390,4 +390,24 @@
     grid-column: 1 / span 2;
     grid-row: 3;
   }
+
+  /* Apply same fade overlay as game cards to gallery images */
+  .hero-gallery__item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 0.7) 80%
+    );
+    pointer-events: none;
+    z-index: 1; /* under captions */
+  }
+
+  /* Keep captions above the overlay */
+  .hero-gallery__item figcaption {
+    z-index: 2;
+  }
 }
