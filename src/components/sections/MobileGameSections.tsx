@@ -80,6 +80,7 @@ const GameListSection: React.FC = () => (
         </figure>
       )}
     </div>
+    {/* Games Grid for larger screens */}
     <div
       className="game-list__grid game-list__grid--free"
       role="list"
@@ -112,9 +113,33 @@ const GameListSection: React.FC = () => (
         View all
       </a>
     </div>
-    {/* Games Grid */}
+    {/* Mobile-only gallery layout for Free to Play */}
     <div
-      className="game-list__grid"
+      className="free-games-gallery"
+      aria-label="Featured PVP games (mobile)"
+    >
+      {pvpGames[0] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--main">
+          <img src={pvpGames[0].image} alt={pvpGames[0].title} />
+          <figcaption>{pvpGames[0].title}</figcaption>
+        </figure>
+      )}
+      {pvpGames[1] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--top-right">
+          <img src={pvpGames[1].image} alt={pvpGames[1].title} />
+          <figcaption>{pvpGames[1].title}</figcaption>
+        </figure>
+      )}
+      {pvpGames[2] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--bottom">
+          <img src={pvpGames[2].image} alt={pvpGames[2].title} />
+          <figcaption>{pvpGames[2].title}</figcaption>
+        </figure>
+      )}
+    </div>
+    {/* Games Grid (desktop-only via CSS) */}
+    <div
+      className="game-list__grid game-list__grid--pvp"
       role="list"
       aria-label="Featured games collection"
     >
@@ -148,9 +173,33 @@ const GameListSection: React.FC = () => (
         View all
       </a>
     </div>
-    {/* Games Grid */}
+    {/* Mobile-only gallery layout for PVE */}
     <div
-      className="game-list__grid"
+      className="free-games-gallery"
+      aria-label="Featured PVE games (mobile)"
+    >
+      {pveGames[0] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--main">
+          <img src={pveGames[0].image} alt={pveGames[0].title} />
+          <figcaption>{pveGames[0].title}</figcaption>
+        </figure>
+      )}
+      {pveGames[1] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--top-right">
+          <img src={pveGames[1].image} alt={pveGames[1].title} />
+          <figcaption>{pveGames[1].title}</figcaption>
+        </figure>
+      )}
+      {pveGames[2] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--bottom">
+          <img src={pveGames[2].image} alt={pveGames[2].title} />
+          <figcaption>{pveGames[2].title}</figcaption>
+        </figure>
+      )}
+    </div>
+    {/* Games Grid (desktop-only via CSS) */}
+    <div
+      className="game-list__grid game-list__grid--pve"
       role="list"
       aria-label="Featured games collection"
     >

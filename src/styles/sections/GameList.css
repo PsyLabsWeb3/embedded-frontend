@@ -86,6 +86,12 @@
 .game-list__grid--free {
   display: none;
 }
+/* Hide PVP/PVE lists on mobile; show galleries instead */
+.game-list__grid--free,
+.game-list__grid--pvp,
+.game-list__grid--pve {
+  display: none;
+}
 
 /* Description text - hidden by default, shown only on desktop */
 .game-list__description {
@@ -175,6 +181,11 @@
     display: none;
   }
   .game-list__grid--free {
+    display: flex;
+  }
+  /* Desktop: show PVP/PVE lists */
+  .game-list__grid--pvp,
+  .game-list__grid--pve {
     display: flex;
   }
 
