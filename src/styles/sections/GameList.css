@@ -15,6 +15,78 @@
   gap: 2.2rem;
 }
 
+/* Free-to-Play: mobile gallery layout (visible only on mobile) */
+.free-games-gallery {
+  background: #121214;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  width: 100%;
+  aspect-ratio: 608 / 486;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: 62.3% 29.8%;
+  grid-template-rows: 29% 28.8% 29%;
+  gap: 12px;
+}
+.free-games-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0;
+}
+.free-games-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.free-games-gallery__item figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 2;
+}
+.free-games-gallery__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 78%,
+    rgba(0, 0, 0, 0.38) 92%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.free-games-gallery__item--main {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.free-games-gallery__item--top-right {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.free-games-gallery__item--mid-right {
+  grid-column: 2;
+  grid-row: 2;
+}
+.free-games-gallery__item--bottom {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+
+/* Hide the standard list for Free to Play on mobile; show gallery instead */
+.game-list__grid--free {
+  display: none;
+}
+
 /* Description text - hidden by default, shown only on desktop */
 .game-list__description {
   display: none;
@@ -96,6 +168,14 @@
     align-items: stretch;
     flex-wrap: wrap; /* allow wrapping at 1280 widths */
     margin-bottom: 10rem;
+  }
+
+  /* Desktop: hide mobile gallery, show standard list */
+  .free-games-gallery {
+    display: none;
+  }
+  .game-list__grid--free {
+    display: flex;
   }
 
   .game-list__button-container {

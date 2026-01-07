@@ -55,8 +55,33 @@ const GameListSection: React.FC = () => (
         View all
       </a>
     </div>
+
+    {/* Mobile-only gallery layout for Free to Play */}
     <div
-      className="game-list__grid"
+      className="free-games-gallery"
+      aria-label="Featured free games (mobile)"
+    >
+      {freeGames[0] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--main">
+          <img src={freeGames[0].image} alt={freeGames[0].title} />
+          <figcaption>{freeGames[0].title}</figcaption>
+        </figure>
+      )}
+      {freeGames[1] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--top-right">
+          <img src={freeGames[1].image} alt={freeGames[1].title} />
+          <figcaption>{freeGames[1].title}</figcaption>
+        </figure>
+      )}
+      {freeGames[2] && (
+        <figure className="free-games-gallery__item free-games-gallery__item--bottom">
+          <img src={freeGames[2].image} alt={freeGames[2].title} />
+          <figcaption>{freeGames[2].title}</figcaption>
+        </figure>
+      )}
+    </div>
+    <div
+      className="game-list__grid game-list__grid--free"
       role="list"
       aria-label="Featured games collection"
     >
