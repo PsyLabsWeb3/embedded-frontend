@@ -39,9 +39,9 @@ const Home = () => {
 
       <MobileGameSections />
 
-      <FreeToPlaySection />
+      {/* <FreeToPlaySection />
       <PvPSection />
-      <PvESection />
+      <PvESection /> */}
       <RewardsOverviewSection />
       <KeyFeatures />
       <RewardSystemSection />

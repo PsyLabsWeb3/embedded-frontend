@@ -95,6 +95,7 @@
     justify-content: center; /* center cards on each row */
     align-items: stretch;
     flex-wrap: wrap; /* allow wrapping at 1280 widths */
+    margin-bottom: 10rem;
   }
 
   .game-list__button-container {
