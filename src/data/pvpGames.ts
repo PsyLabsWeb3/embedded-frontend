@@ -12,10 +12,11 @@
 
 import { GameTypes } from "../types";
 // import snakeGameImage from "../assets/snake_game.jpg";
-import asteroidsImage from "../assets/AsteroidsCover.png";
+import asteroidsImage from "../assets/gamesImages/Asteroids.png";
+import cyberarenaImage from "../assets/gamesImages/CyberArena.png";
 // import colosseumImage from "../assets/ColosseumCover.png";
 // import bubbleImage from "../assets/bubble.jpg";
-import embeddedwarsImage from "../assets/embedded_wars.jpg";
+import embeddedwarsImage from "../assets/gamesImages/EmbeddedWars.png";
 
 /**
  * Game data interface for UI display
@@ -35,45 +36,33 @@ export type Game = GameTypes.GameData;
  */
 
 const pvpGames: Game[] = [
-  // Outer Colosseum
-  // {
-  //   id: "outer-colosseum-game",
-  //   title: "Outer Colosseum",
-  //   slug: "outercolosseum",
-  //   image: colosseumImage,
-  //   glowClass: "neon-blue",
-  //   description: "3D Battle Royale in Space",
-  //   isFeatured: true,
-  //   isNew: true,
-  //   createdAt: new Date("2024-11-01"),
-  //   updatedAt: new Date("2024-11-15"),
-  //   comingSoon: false,
-  // },
-
-  // {
-  //   id: "snake-game",
-  //   title: "Snake",
-  //   slug: "snake",
-  //   image: snakeGameImage,
-  //   glowClass: "neon-blue",
-  //   description: "Classic snake game with number merging mechanics",
-  //   isFeatured: true,
-  //   isNew: false,
-  //   createdAt: new Date("2024-01-01"),
-  //   updatedAt: new Date("2024-01-15"),
-  //   comingSoon: false,
-  // },
   {
     id: "embedded-wars-game",
     title: "Embedded Wars",
     slug: "embeddedwars",
     image: embeddedwarsImage,
     glowClass: "neon-green",
-    description: "1v1 realtime Sci-Fi battle ",
+    description:
+      "Battle armored space tanks in fast-paced arena combat where only the strongest survive, dominating the battlefield with strategy, firepower, and unshakable grit.",
     isFeatured: true,
     isNew: false,
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-15"),
+    comingSoon: false,
+  },
+  // Cyber Arena
+  {
+    id: "cyber-arena-game",
+    title: "Cyber Arena",
+    slug: "cyberarena",
+    image: cyberarenaImage,
+    glowClass: "neon-blue",
+    description:
+      "Fast paced arena shooter where two players battle each other in a dynamic colosseum. Jump between platforms and use powerful guns to outshoot your opponent.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-11-01"),
+    updatedAt: new Date("2024-11-15"),
     comingSoon: false,
   },
   {
@@ -82,7 +71,8 @@ const pvpGames: Game[] = [
     slug: "asteroids",
     image: asteroidsImage,
     glowClass: "neon-white",
-    description: "Fast-paced asteroid action",
+    description:
+      "Classic arcade space shooter where players pilot a spaceship, destroying drifting asteroids and enemy threats while avoiding collisions in the depths of space.",
     isFeatured: true,
     isNew: false,
     createdAt: new Date("2024-01-02"),
