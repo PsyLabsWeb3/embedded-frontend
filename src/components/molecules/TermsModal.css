@@ -24,7 +24,7 @@
 
 /* Modal container */
 .terms-modal-container {
-  background: #38454C;
+  background: #38454c;
   border-radius: 16px;
   max-width: 800px;
   width: 100%;
@@ -44,7 +44,7 @@
 .terms-modal-header h2 {
   margin: 0 0 8px 0;
   font-size: 28px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   color: #ffffff;
   text-align: center;
@@ -62,7 +62,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 30px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   color: #e0e0e0;
   line-height: 1.7;
@@ -94,7 +94,7 @@
 
 .terms-modal-content h3 {
   font-size: 20px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   color: #ffffff;
   margin: 0 0 15px 0;
@@ -102,7 +102,7 @@
 
 .terms-modal-content h4 {
   font-size: 16px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   color: #ffffff;
   margin: 20px 0 10px 0;
@@ -111,7 +111,7 @@
 .terms-modal-content p {
   margin: 0 0 15px 0;
   font-size: 14px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   color: #d0d0d0;
 }
@@ -124,14 +124,14 @@
 .terms-modal-content li {
   margin-bottom: 10px;
   font-size: 14px;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   color: #d0d0d0;
 }
 
 .terms-modal-content strong {
   color: #ffffff;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
 }
 
@@ -145,12 +145,12 @@
 
 /* Accept button */
 .terms-accept-button {
-  background: #5DD62C;
+  background: #5dd62c;
   color: #ffffff;
   border: none;
   border-radius: 8px;
   padding: 14px 40px;
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;

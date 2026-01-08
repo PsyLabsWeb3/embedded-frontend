@@ -1,5 +1,5 @@
 .walletAddress {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
   font-weight: 400;

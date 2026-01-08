@@ -10,8 +10,8 @@
 
 .pay-entry-modal {
   width: min(92vw, 520px);
-  background: var(--color-bg, #171D20);
-  color: var(--color-text, #FFFFFF);
+  background: var(--color-bg, #171d20);
+  color: var(--color-text, #ffffff);
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -19,8 +19,8 @@
 }
 
 .pay-entry-modal h3 {
-  margin: 0 0 .5rem 0;
-  color: var(--color-primary, #5DD62C);
+  margin: 0 0 0.5rem 0;
+  color: var(--color-primary, #5dd62c);
   font-size: 1.5rem;
   text-align: center;
 }
@@ -41,7 +41,7 @@
 }
 
 .pay-entry-transaction-info a {
-  color: var(--color-primary, #5DD62C);
+  color: var(--color-primary, #5dd62c);
   text-decoration: none;
 }
 
@@ -60,7 +60,7 @@
   width: 32px;
   height: 32px;
   border: 3px solid rgba(93, 214, 44, 0.3);
-  border-top: 3px solid var(--color-primary, #5DD62C);
+  border-top: 3px solid var(--color-primary, #5dd62c);
   border-radius: 50%;
   animation: pay-entry-spin 1s linear infinite;
 }
@@ -76,7 +76,7 @@
 
 /* PvE button specific styling */
 .pay-entry-amount-display {
-  color: var(--color-text-secondary, #CCCCCC);
+  color: var(--color-text-secondary, #cccccc);
   font-size: 0.9rem;
   margin-top: 0.5rem;
   text-align: center;
@@ -96,8 +96,8 @@
 }
 
 .pay-entry-continue-button {
-  background: var(--color-primary, #5DD62C);
-  color: var(--color-bg, #171D20);
+  background: var(--color-primary, #5dd62c);
+  color: var(--color-bg, #171d20);
   border: none;
   border-radius: 8px;
   padding: 0.75rem 2rem;
@@ -109,7 +109,7 @@
 }
 
 .pay-entry-continue-button:hover {
-  background: var(--color-primary-dark, #4BC123);
+  background: var(--color-primary-dark, #4bc123);
   transform: translateY(-2px);
 }
 
@@ -128,7 +128,7 @@
 }
 
 .pay-entry-message {
-  color: var(--color-text, #FFFFFF);
+  color: var(--color-text, #ffffff);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   opacity: 0.9;
@@ -138,7 +138,7 @@
   border: none;
   border-radius: 12px;
   padding: 1.2rem 3rem;
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1.4rem;
   cursor: pointer;
@@ -148,31 +148,31 @@
   letter-spacing: 0.5px;
   box-shadow: none !important;
   outline: none !important;
-  color: #FFFFFF;
+  color: #ffffff;
   white-space: nowrap;
 }
 
 .degen-mode-button {
-  background: linear-gradient(90deg, #AE43FF 0%, #9000FF 100%);
+  background: linear-gradient(90deg, #ae43ff 0%, #9000ff 100%);
 }
 
 .degen-mode-button:hover:not(:disabled) {
-  background: linear-gradient(90deg, #9A35E6 0%, #7A00E6 100%) !important;
+  background: linear-gradient(90deg, #9a35e6 0%, #7a00e6 100%) !important;
   transform: translateY(-3px);
 }
 
 .degen-mode-button:disabled {
-  background: linear-gradient(90deg, #AE43FF 0%, #9000FF 100%) !important;
+  background: linear-gradient(90deg, #ae43ff 0%, #9000ff 100%) !important;
   opacity: 0.8;
   cursor: not-allowed;
 }
 
 .casual-play-button {
-  background: linear-gradient(90deg, #275813 0%, #5DD62C 100%);
+  background: linear-gradient(90deg, #275813 0%, #5dd62c 100%);
 }
 
 .casual-play-button:hover:not(:disabled) {
-  background: linear-gradient(90deg, #1e4a0f 0%, #4BC123 100%) !important;
+  background: linear-gradient(90deg, #1e4a0f 0%, #4bc123 100%) !important;
   transform: translateY(-3px);
 }
 
@@ -201,8 +201,12 @@
 }
 
 @keyframes pay-entry-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mobile responsiveness */
@@ -210,16 +214,16 @@
   .pay-entry-modal {
     padding: 1.5rem;
   }
-  
+
   .pay-entry-section {
     margin: 0.5rem 0;
     padding: 1rem;
   }
-  
+
   .button-group {
     gap: 0.5rem;
   }
-  
+
   .pay-entry-button {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
@@ -232,11 +236,11 @@
     margin: 0.5rem 0;
     padding: 0.75rem;
   }
-  
+
   .button-group {
     gap: 0.4rem;
   }
-  
+
   .pay-entry-button {
     padding: 0.7rem 1.3rem;
     font-size: 0.9rem;
@@ -263,7 +267,7 @@
 }
 
 .match-confirmation-modal {
-  background: linear-gradient(135deg, #38454C 0%, #171D20 100%);
+  background: linear-gradient(135deg, #38454c 0%, #171d20 100%);
   border: none;
   border-radius: 16px;
   padding: 3rem;
@@ -280,7 +284,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   width: 100%;
   gap: 1rem;
 }
@@ -299,10 +303,10 @@
 
 /* Title styling - Lobster Regular, color #5DD62C */
 .modal-title {
-  font-family: 'Lobster', cursive;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 2.5rem;
-  color: #5DD62C;
+  color: #5dd62c;
   margin: 0;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -317,34 +321,34 @@
 
 /* Main text styling - Nunito Extra Bold, color #FFFFFF */
 .modal-main-text {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 800; /* Extra Bold */
   font-size: 1.1rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 1rem 0;
   line-height: 1.4;
 }
 
 .sol-amount {
-  color: #5DD62C;
+  color: #5dd62c;
   font-weight: 800;
 }
 
 /* Secondary text styling - Nunito Regular, color #FFFFFF */
 .modal-secondary-text {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400; /* Regular */
   font-size: 1rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
   line-height: 1.4;
 }
 
 .modal-disclaimer-text {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400; /* Regular */
   font-size: 0.8rem;
-  color: #FF6B6B;
+  color: #ff6b6b;
   margin: 0 0 0.5rem 0;
   line-height: 1.4;
   opacity: 0.9;
@@ -352,10 +356,10 @@
 
 /* Additional text styling - Nunito Regular, color #FFFFFF */
 .modal-additional-text {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400; /* Regular */
   font-size: 0.9rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 2rem 0;
   line-height: 1.4;
   opacity: 0.9;
@@ -380,14 +384,14 @@
 .modal-error-text {
   text-align: center;
   margin: 1rem 0;
-  color: var(--color-text, #FFFFFF);
+  color: var(--color-text, #ffffff);
   opacity: 0.9;
   line-height: 1.4;
 }
 
 /* Base button styling - Alumni Sans Regular, uppercase */
 .modal-button {
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400; /* Regular */
   font-size: 1rem;
   text-transform: uppercase;
@@ -404,8 +408,8 @@
 
 /* RETURN button styling - color #38454C */
 .return-button {
-  background-color: #38454C;
-  color: #FFFFFF;
+  background-color: #38454c;
+  color: #ffffff;
 }
 
 .return-button:hover:not(:disabled) {
@@ -420,8 +424,8 @@
 
 /* CONFIRM MATCH button styling - color #AE43FF */
 .confirm-button {
-  background-color: #AE43FF;
-  color: #FFFFFF;
+  background-color: #ae43ff;
+  color: #ffffff;
 }
 
 .confirm-button:hover:not(:disabled) {
@@ -469,8 +473,8 @@
 }
 
 .transaction-label {
-  color: #FFFFFF;
-  font-family: 'Satoshi', sans-serif;
+  color: #ffffff;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 400;
   margin: 0 0 0.25rem 0;
@@ -478,8 +482,8 @@
 }
 
 .transaction-id {
-  color: #5DD62C;
-  font-family: 'Satoshi', sans-serif;
+  color: #5dd62c;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 400;
   text-align: left;
@@ -499,7 +503,7 @@
   width: 24px;
   height: 24px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid #5DD62C;
+  border-top: 3px solid #5dd62c;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -513,19 +517,22 @@
   align-self: center;
 }
 
-
 .loading-label {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
   opacity: 0.9;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Price badge in corner */
@@ -533,9 +540,9 @@
   position: absolute;
   top: -10px;
   right: -10px;
-  background: linear-gradient(135deg, #AE43FF 0%, #9333ea 100%);
-  color: #FFFFFF;
-  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #ae43ff 0%, #9333ea 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.8rem;
   padding: 0.3rem 0.8rem;
@@ -558,16 +565,13 @@
     font-size: 1.1rem;
     text-align: left;
     margin-bottom: 3rem;
-    }
+  }
 
-.modal-additional-text {
+  .modal-additional-text {
     font-size: 1rem;
     text-align: left;
     margin-bottom: 1.5rem;
-}
-
- 
-
+  }
 
   .modal-title {
     font-size: 2.4rem;

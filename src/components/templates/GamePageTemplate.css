@@ -5,8 +5,8 @@
 
 .game-page {
   min-height: 100vh;
-  background: var(--color-background, #171D20);
-  color: var(--color-text, #FFFFFF);
+  background: var(--color-background, #171d20);
+  color: var(--color-text, #ffffff);
   overflow-x: hidden;
   width: 100%;
 }
@@ -34,9 +34,7 @@
   font-weight: 700;
   color: white;
   text-align: center;
-  text-shadow: 
-    0 0 10px rgba(0, 188, 212, 0.8),
-    0 0 20px rgba(0, 188, 212, 0.6);
+  text-shadow: 0 0 10px rgba(0, 188, 212, 0.8), 0 0 20px rgba(0, 188, 212, 0.6);
 }
 
 .game-title-below {
@@ -112,7 +110,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 1.0;
+  opacity: 1;
   z-index: 1;
 }
 
@@ -175,7 +173,7 @@
 }
 
 .feature-label {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.8rem;
   color: #ffffff;
@@ -200,7 +198,7 @@
 }
 
 .game-instructions h3 {
-  color: var(--color-primary, #5DD62C);
+  color: var(--color-primary, #5dd62c);
   margin-bottom: 1rem;
 }
 
@@ -217,7 +215,7 @@
 
 .game-instructions li::before {
   content: "→";
-  color: var(--color-primary, #5DD62C);
+  color: var(--color-primary, #5dd62c);
   position: absolute;
   left: 0;
 }
@@ -240,35 +238,35 @@
   .game-page-content {
     padding: 1rem 0.5rem;
   }
-  
+
   .game-title {
     font-size: 1.8rem;
   }
-  
+
   .game-features-row {
     gap: 0.8rem;
     margin: 1rem auto;
     padding: 0 0.5rem;
   }
-  
+
   .feature-item {
     gap: 0.4rem;
   }
-  
+
   .feature-icon {
     width: 20px;
     height: 20px;
   }
-  
+
   .feature-label {
     font-size: 1rem;
   }
-  
+
   .payment-section {
     margin: 0 auto 1rem auto;
     padding: 0 0.5rem;
   }
-  
+
   .game-info-section {
     padding: 1rem;
   }

@@ -44,7 +44,7 @@ const Home = () => {
       <PvESection /> */}
       <RewardsOverviewSection />
       <KeyFeatures />
-      <RewardSystemSection />
+      {/* <RewardSystemSection /> */}
       <Footer />
     </>
   );
