@@ -6,7 +6,7 @@ const CursorGlow: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOnInteractive, setIsOnInteractive] = useState(false);
   const positionRef = useRef({ x: 0, y: 0 });
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     let isMoving = false;
