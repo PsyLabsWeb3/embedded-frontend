@@ -7,6 +7,7 @@ import RewardSystemSection from "../components/sections/RewardSystemSection";
 // import PvESection from "../components/sections/PvESection";
 import RewardsOverviewSection from "../components/sections/RewardsOverviewSection";
 import MobileGameSections from "../components/sections/MobileGameSections";
+import CursorGlow from "../components/ui/CursorGlow";
 
 import { useState, useEffect } from "react";
 import { Footer } from "../components/sections";
@@ -27,6 +28,7 @@ const Home = () => {
 
   return (
     <>
+      <CursorGlow />
       <Navbar />
       <HeroSection />
 
