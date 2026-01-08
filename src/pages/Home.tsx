@@ -2,9 +2,9 @@ import Navbar from "../components/sections/Navbar";
 import HeroSection from "../components/sections/HeroSection";
 import KeyFeatures from "../components/sections/KeyFeatures";
 import RewardSystemSection from "../components/sections/RewardSystemSection";
-import FreeToPlaySection from "../components/sections/FreeToPlaySection";
-import PvPSection from "../components/sections/PvPSection";
-import PvESection from "../components/sections/PvESection";
+// import FreeToPlaySection from "../components/sections/FreeToPlaySection";
+// import PvPSection from "../components/sections/PvPSection";
+// import PvESection from "../components/sections/PvESection";
 import RewardsOverviewSection from "../components/sections/RewardsOverviewSection";
 import MobileGameSections from "../components/sections/MobileGameSections";
 

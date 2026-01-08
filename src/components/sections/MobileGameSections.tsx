@@ -27,6 +27,7 @@ import "../../styles/theme.css";
 import "../../styles/utilities.css";
 import "../../styles/sections/GameList.css";
 import "../../styles/sections/GameCard.css";
+import "../../styles/sections/GameSections.css";
 
 /**
  * GameListSection Component
