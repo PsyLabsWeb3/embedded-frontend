@@ -251,3 +251,32 @@
     transform: translate(-50%, -50%) scale(1.2);
   }
 }
+
+/* Reduced glow near images - 80% reduction */
+.cursor-glow.near-image {
+  opacity: 0.2 !important;
+  filter: blur(40px);
+  transition: opacity 0.3s ease-out;
+}
+
+.cursor-glow.near-image::before {
+  opacity: 0.2;
+}
+
+.cursor-glow.near-image::after {
+  opacity: 0.2;
+}
+
+/* Complete glow off when over videos */
+.cursor-glow.on-video {
+  opacity: 0 !important;
+  transition: opacity 0.2s ease-out;
+}
+
+.cursor-glow.on-video::before {
+  opacity: 0 !important;
+}
+
+.cursor-glow.on-video::after {
+  opacity: 0 !important;
+}

@@ -3,6 +3,7 @@ import "../../styles/utilities.css";
 import "../../styles/sections/HeroSection.css";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants";
+import { useState } from "react";
 
 // Figma hero gallery assets (temporary URLs; replace with local later)
 const imgRectangle24 = "/032bc56d-58d9-4895-90d3-b26b7dd694d8.png";
@@ -10,8 +11,15 @@ const imgRectangle25 = "/7d9b2811-8214-4a5f-b03e-77026acbfe6a.png";
 const imgRectangle26 = "/556df02d-0732-4c94-9214-841e9f66931e.png";
 const imgRectangle27 = "/40bf7dfb-4113-4f8f-a55d-ec5791269008.png";
 
+// Game videos
+const videoEmbeddedWars = "/src/assets/gameVideos/Embedded Wars.mp4";
+const videoAsteroids = "/src/assets/gameVideos/Asteroids.mp4";
+const videoSmugglersRun = "/src/assets/gameVideos/Smugglers Run.mp4";
+const videoCyberArena = "/src/assets/gameVideos/Outer Colosseum.mp4";
+
 const HeroSection = () => {
   const navigate = useNavigate();
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleStartPlaying = () => {
     navigate(ROUTES.GAMES_PVE);
@@ -97,20 +105,116 @@ const HeroSection = () => {
         {/* Right gallery column */}
         <aside className="hero-gallery" aria-label="Featured games">
           <div className="hero-gallery__grid">
-            <figure className="hero-gallery__item hero-gallery__item--main">
-              <img src={imgRectangle24} alt="Embedded Wars" />
+            <figure
+              className="hero-gallery__item hero-gallery__item--main"
+              onMouseEnter={() => setHoveredItem("embeddedwars")}
+              onMouseLeave={() => setHoveredItem(null)}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={imgRectangle24}
+                alt="Embedded Wars"
+                style={{
+                  display: hoveredItem === "embeddedwars" ? "none" : "block",
+                }}
+              />
+              <video
+                src={videoEmbeddedWars}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  display: hoveredItem === "embeddedwars" ? "block" : "none",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
               <figcaption>Embedded Wars</figcaption>
             </figure>
-            <figure className="hero-gallery__item hero-gallery__item--top-right">
-              <img src={imgRectangle25} alt="Asteroids" />
+            <figure
+              className="hero-gallery__item hero-gallery__item--top-right"
+              onMouseEnter={() => setHoveredItem("asteroids")}
+              onMouseLeave={() => setHoveredItem(null)}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={imgRectangle25}
+                alt="Asteroids"
+                style={{
+                  display: hoveredItem === "asteroids" ? "none" : "block",
+                }}
+              />
+              <video
+                src={videoAsteroids}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  display: hoveredItem === "asteroids" ? "block" : "none",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
               <figcaption>Asteroids</figcaption>
             </figure>
-            <figure className="hero-gallery__item hero-gallery__item--mid-right">
-              <img src={imgRectangle26} alt="Smugglers Run" />
+            <figure
+              className="hero-gallery__item hero-gallery__item--mid-right"
+              onMouseEnter={() => setHoveredItem("smugglersrun")}
+              onMouseLeave={() => setHoveredItem(null)}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={imgRectangle26}
+                alt="Smugglers Run"
+                style={{
+                  display: hoveredItem === "smugglersrun" ? "none" : "block",
+                }}
+              />
+              <video
+                src={videoSmugglersRun}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  display: hoveredItem === "smugglersrun" ? "block" : "none",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
               <figcaption>Smugglers Run</figcaption>
             </figure>
-            <figure className="hero-gallery__item hero-gallery__item--bottom">
-              <img src={imgRectangle27} alt="Cyber Arena" />
+            <figure
+              className="hero-gallery__item hero-gallery__item--bottom"
+              onMouseEnter={() => setHoveredItem("cyberarena")}
+              onMouseLeave={() => setHoveredItem(null)}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={imgRectangle27}
+                alt="Cyber Arena"
+                style={{
+                  display: hoveredItem === "cyberarena" ? "none" : "block",
+                }}
+              />
+              <video
+                src={videoCyberArena}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  display: hoveredItem === "cyberarena" ? "block" : "none",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
               <figcaption>Cyber Arena</figcaption>
             </figure>
           </div>
