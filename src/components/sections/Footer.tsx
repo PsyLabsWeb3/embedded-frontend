@@ -15,10 +15,10 @@ const Footer: React.FC = () => {
             <div className="ef-brand-logo" aria-hidden="true">
               <Logo />
             </div>
-            <div className="ef-brand-text">
+            {/* <div className="ef-brand-text">
               <span className="ef-brand-primary">Embedded</span>
               <span className="ef-brand-accent">Games</span>
-            </div>
+            </div> */}
           </div>
           <p className="ef-desc">
             Play skill-based games, compete for real rewards in SOL, and join a

@@ -53,16 +53,72 @@
   max-width: 669px;
 }
 
+/* Default/mobile-first cards: stacked list */
+.key-features-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.feature-card {
+  background: #121214;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  padding: 16px 24px 24px 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 201px;
+}
+
+.feature-icon-wrap {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+.feature-icon-bg {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+.feature-icon-fg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+}
+
+.feature-card-title {
+  color: #f8f8f8;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: normal;
+  margin: 0;
+}
+
+.feature-card-description {
+  color: #959698;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+}
+
 /* Mobile styles */
 @media (max-width: 480px) {
   .key-features-section {
     margin-top: 1.5rem;
     max-width: 100vw;
-    padding: 1.5rem 0.7rem;
+    padding: 0; /* handled by card container */
   }
 
   .key-features-title {
-    font-size: 2.3rem;
+    font-size: 22px;
   }
 
   .key-features-header {
@@ -115,14 +171,6 @@
   }
 
   .feature-card {
-    background: #121214;
-    border-radius: 16px;
-    box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
-    padding: 16px 24px 24px 24px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     min-height: 233px;
     height: 100%;
     transition: var(--transition-fast);
@@ -132,63 +180,19 @@
   }
 
   .feature-icon-wrap {
-    position: relative;
     width: 48px;
     height: 48px;
   }
   .feature-icon-bg {
     width: 48px;
     height: 48px;
-    display: block;
   }
   .feature-icon-fg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 28px;
     height: 28px;
   }
 
-  .feature-card-title {
-    color: #f8f8f8;
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 20px;
-    line-height: normal;
-    margin: 0;
-  }
   .feature-card-description {
-    color: #959698;
-    font-family: var(--font-body);
-    font-size: 12px;
-    line-height: 20px;
-    margin: 0;
     max-width: 359px;
-  }
-
-  .feature-card-title {
-    color: #5dd62c;
-    font-family: "Alumni Sans", sans-serif;
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  .feature-card-description {
-    color: var(--color-text);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.4;
-    margin: 0;
-    text-align: center;
-  }
-}
-
-/* Hide cards on mobile */
-@media (max-width: 767px) {
-  .key-features-cards {
-    display: none;
   }
 }
