@@ -16,7 +16,7 @@
  * @version 1.0.0
  */
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GAME_ROUTES, ROUTES, A11Y_LABELS } from "../../constants";
 import { gameComponentPropsEqual } from "../../utils/performance";
@@ -47,6 +47,8 @@ interface GameCardProps {
   isLive?: boolean;
   /** Fee text displayed next to CTA on desktop */
   feeText?: string;
+  /** Optional video URL to play on hover */
+  video?: string;
 }
 
 /**
@@ -67,8 +69,10 @@ const GameCardComponent: React.FC<GameCardProps> = ({
   comingSoon = false,
   isLive,
   feeText = "No Entry Fee",
+  video,
 }) => {
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
 
   /**
    * Professional game route mapping for scalable navigation
@@ -129,6 +133,8 @@ const GameCardComponent: React.FC<GameCardProps> = ({
         //if comingSoon is true, disable click and keydown
         onClick={comingSoon ? undefined : handleClick}
         onKeyDown={comingSoon ? undefined : handleKeyDown}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         role="button"
         tabIndex={0}
         aria-label={accessibleLabel}
@@ -137,8 +143,30 @@ const GameCardComponent: React.FC<GameCardProps> = ({
         {/* Game Image */}
         <div
           className="game-card-image"
-          style={{ backgroundImage: `url(${image})` }}
-        ></div>
+          style={{
+            backgroundImage: isHovered && video ? "none" : `url(${image})`,
+            position: "relative",
+          }}
+        >
+          {video && (
+            <video
+              src={video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                display: isHovered ? "block" : "none",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            />
+          )}
+        </div>
 
         {/* Game Content */}
         <div className="game-card-content">
