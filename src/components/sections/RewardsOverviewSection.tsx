@@ -3,6 +3,9 @@ import "../../styles/theme.css";
 import "../../styles/utilities.css";
 import "../../styles/sections/RewardsOverviewSection.css";
 import { Connection, PublicKey } from "@solana/web3.js";
+import iconArrow from "../../assets/icons/trendigUpIcon.svg";
+import iconCoins from "../../assets/icons/coinsIcon.svg";
+import peopleIcon from "../../assets/icons/peopleIcon.svg";
 
 const POOL_ADDRESS = "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM";
 const RPC = import.meta.env.VITE_SOLANA_RPC;
@@ -60,10 +63,7 @@ const RewardsOverviewSection: React.FC = () => {
           {/* Card 1: SOL Pool */}
           <div className="rewards-card" role="listitem">
             <div className="rewards-card__icon" aria-hidden="true">
-              <img
-                src="https://www.figma.com/api/mcp/asset/ba14acb4-da94-4deb-93a7-cb7154d4439a"
-                alt="SOL pool icon"
-              />
+              <img src={iconCoins} alt="SOL pool icon" />
             </div>
             <div className="rewards-card__value">{poolAmount} SOL</div>
             <div className="rewards-card__label">Total Distributed</div>
@@ -75,10 +75,7 @@ const RewardsOverviewSection: React.FC = () => {
           {/* Card 2: Total distributed value */}
           <div className="rewards-card" role="listitem">
             <div className="rewards-card__icon" aria-hidden="true">
-              <img
-                src="https://www.figma.com/api/mcp/asset/f437388c-b4f0-441d-9197-ac088929bafa"
-                alt="Total distributed icon"
-              />
+              <img src={iconArrow} alt="Total distributed icon" />
             </div>
             <div className="rewards-card__value">$735.52</div>
             <div className="rewards-card__label">Total Distributed</div>
@@ -90,10 +87,7 @@ const RewardsOverviewSection: React.FC = () => {
           {/* Card 3: Top players */}
           <div className="rewards-card" role="listitem">
             <div className="rewards-card__icon" aria-hidden="true">
-              <img
-                src="https://www.figma.com/api/mcp/asset/7595cb9f-6708-462c-9aeb-e5440f598440"
-                alt="Top players icon"
-              />
+              <img src={peopleIcon} alt="Top players icon" />
             </div>
             <div className="rewards-card__value">500</div>
             <div className="rewards-card__label">Top players</div>
