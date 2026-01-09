@@ -17,11 +17,13 @@
  */
 
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import freeGames from "../../data/freeGames";
 import pveGames from "../../data/pveGames";
 import GameCard from "../molecules/GameCard";
 import pvpGames from "../../data/pvpGames";
+import { GAME_ROUTES, ROUTES } from "../../constants";
 
 // Import theme and component styles
 import "../../styles/theme.css";
@@ -56,7 +58,33 @@ const gameVideos: Record<string, string> = {
  * @returns JSX element representing the featured games section
  */
 const GameListSection: React.FC = () => {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  // const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  // Game route mapping
+  const gameRoutes: Record<string, string> = {
+    snake: GAME_ROUTES.SNAKE,
+    asteroids: GAME_ROUTES.ASTEROIDS,
+    embeddedwars: GAME_ROUTES.EMBEDDED_WARS,
+    smugglersrun: GAME_ROUTES.SMUGGLERS_RUN,
+    embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
+    cyberarena: GAME_ROUTES.CYBER_ARENA || "/game/cyberarena",
+    underwateradventure: "/game/underwateradventure",
+    topdownshooter: "/game/topdownshooter",
+    slice: "/game/slice",
+    guerreromaya: "/game/guerreromaya",
+    endlessrunner: "/game/endlessrunner",
+  };
+
+  const handleGameClick = (slug: string) => {
+    const route = gameRoutes[slug];
+    if (route) {
+      navigate(route);
+    } else {
+      console.warn(`No route found for game slug: ${slug}`);
+      navigate(ROUTES.GAMES_PVE);
+    }
+  };
 
   return (
     <section
@@ -82,19 +110,14 @@ const GameListSection: React.FC = () => {
         {freeGames[0] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--main"
-            onMouseEnter={() => setHoveredItem(freeGames[0].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(freeGames[0].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={freeGames[0].image}
               alt={freeGames[0].title}
               style={{
-                display:
-                  hoveredItem === freeGames[0].slug &&
-                  gameVideos[freeGames[0].slug]
-                    ? "none"
-                    : "block",
+                display: gameVideos[freeGames[0].slug] ? "none" : "block",
               }}
             />
             {gameVideos[freeGames[0].slug] && (
@@ -105,7 +128,7 @@ const GameListSection: React.FC = () => {
                 muted
                 playsInline
                 style={{
-                  display: hoveredItem === freeGames[0].slug ? "block" : "none",
+                  display: "block",
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
@@ -118,72 +141,28 @@ const GameListSection: React.FC = () => {
         {freeGames[1] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--top-right"
-            onMouseEnter={() => setHoveredItem(freeGames[1].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(freeGames[1].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={freeGames[1].image}
               alt={freeGames[1].title}
-              style={{
-                display:
-                  hoveredItem === freeGames[1].slug &&
-                  gameVideos[freeGames[1].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[freeGames[1].slug] && (
-              <video
-                src={gameVideos[freeGames[1].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === freeGames[1].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{freeGames[1].title}</figcaption>
           </figure>
         )}
         {freeGames[2] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--bottom"
-            onMouseEnter={() => setHoveredItem(freeGames[2].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(freeGames[2].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={freeGames[2].image}
               alt={freeGames[2].title}
-              style={{
-                display:
-                  hoveredItem === freeGames[2].slug &&
-                  gameVideos[freeGames[2].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[freeGames[2].slug] && (
-              <video
-                src={gameVideos[freeGames[2].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === freeGames[2].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{freeGames[2].title}</figcaption>
           </figure>
         )}
@@ -230,19 +209,14 @@ const GameListSection: React.FC = () => {
         {pvpGames[0] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--main"
-            onMouseEnter={() => setHoveredItem(pvpGames[0].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pvpGames[0].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pvpGames[0].image}
               alt={pvpGames[0].title}
               style={{
-                display:
-                  hoveredItem === pvpGames[0].slug &&
-                  gameVideos[pvpGames[0].slug]
-                    ? "none"
-                    : "block",
+                display: gameVideos[pvpGames[0].slug] ? "none" : "block",
               }}
             />
             {gameVideos[pvpGames[0].slug] && (
@@ -253,7 +227,7 @@ const GameListSection: React.FC = () => {
                 muted
                 playsInline
                 style={{
-                  display: hoveredItem === pvpGames[0].slug ? "block" : "none",
+                  display: "block",
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
@@ -266,72 +240,28 @@ const GameListSection: React.FC = () => {
         {pvpGames[1] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--top-right"
-            onMouseEnter={() => setHoveredItem(pvpGames[1].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pvpGames[1].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pvpGames[1].image}
               alt={pvpGames[1].title}
-              style={{
-                display:
-                  hoveredItem === pvpGames[1].slug &&
-                  gameVideos[pvpGames[1].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[pvpGames[1].slug] && (
-              <video
-                src={gameVideos[pvpGames[1].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === pvpGames[1].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{pvpGames[1].title}</figcaption>
           </figure>
         )}
         {pvpGames[2] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--bottom"
-            onMouseEnter={() => setHoveredItem(pvpGames[2].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pvpGames[2].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pvpGames[2].image}
               alt={pvpGames[2].title}
-              style={{
-                display:
-                  hoveredItem === pvpGames[2].slug &&
-                  gameVideos[pvpGames[2].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[pvpGames[2].slug] && (
-              <video
-                src={gameVideos[pvpGames[2].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === pvpGames[2].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{pvpGames[2].title}</figcaption>
           </figure>
         )}
@@ -381,19 +311,14 @@ const GameListSection: React.FC = () => {
         {pveGames[0] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--main"
-            onMouseEnter={() => setHoveredItem(pveGames[0].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pveGames[0].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pveGames[0].image}
               alt={pveGames[0].title}
               style={{
-                display:
-                  hoveredItem === pveGames[0].slug &&
-                  gameVideos[pveGames[0].slug]
-                    ? "none"
-                    : "block",
+                display: gameVideos[pveGames[0].slug] ? "none" : "block",
               }}
             />
             {gameVideos[pveGames[0].slug] && (
@@ -404,7 +329,7 @@ const GameListSection: React.FC = () => {
                 muted
                 playsInline
                 style={{
-                  display: hoveredItem === pveGames[0].slug ? "block" : "none",
+                  display: "block",
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
@@ -417,72 +342,28 @@ const GameListSection: React.FC = () => {
         {pveGames[1] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--top-right"
-            onMouseEnter={() => setHoveredItem(pveGames[1].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pveGames[1].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pveGames[1].image}
               alt={pveGames[1].title}
-              style={{
-                display:
-                  hoveredItem === pveGames[1].slug &&
-                  gameVideos[pveGames[1].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[pveGames[1].slug] && (
-              <video
-                src={gameVideos[pveGames[1].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === pveGames[1].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{pveGames[1].title}</figcaption>
           </figure>
         )}
         {pveGames[2] && (
           <figure
             className="free-games-gallery__item free-games-gallery__item--bottom"
-            onMouseEnter={() => setHoveredItem(pveGames[2].slug)}
-            onMouseLeave={() => setHoveredItem(null)}
-            style={{ position: "relative" }}
+            onClick={() => handleGameClick(pveGames[2].slug)}
+            style={{ position: "relative", cursor: "pointer" }}
           >
             <img
               src={pveGames[2].image}
               alt={pveGames[2].title}
-              style={{
-                display:
-                  hoveredItem === pveGames[2].slug &&
-                  gameVideos[pveGames[2].slug]
-                    ? "none"
-                    : "block",
-              }}
+              style={{ display: "block" }}
             />
-            {gameVideos[pveGames[2].slug] && (
-              <video
-                src={gameVideos[pveGames[2].slug]}
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  display: hoveredItem === pveGames[2].slug ? "block" : "none",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
             <figcaption>{pveGames[2].title}</figcaption>
           </figure>
         )}
