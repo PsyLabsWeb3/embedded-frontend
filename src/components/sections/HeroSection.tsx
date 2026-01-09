@@ -12,10 +12,10 @@ const imgRectangle26 = "/556df02d-0732-4c94-9214-841e9f66931e.png";
 const imgRectangle27 = "/40bf7dfb-4113-4f8f-a55d-ec5791269008.png";
 
 // Game videos
-const videoEmbeddedWars = "/src/assets/gameVideos/Embedded Wars.mp4";
-const videoAsteroids = "/src/assets/gameVideos/Asteroids.mp4";
-const videoSmugglersRun = "/src/assets/gameVideos/Smugglers Run.mp4";
-const videoCyberArena = "/src/assets/gameVideos/Outer Colosseum.mp4";
+const videoEmbeddedWars = "/gameVideos/Embedded Wars.mp4";
+const videoAsteroids = "/gameVideos/Asteroids.mp4";
+const videoSmugglersRun = "/gameVideos/Smugglers Run.mp4";
+const videoCyberArena = "/gameVideos/Outer Colosseum.mp4";
 
 const HeroSection = () => {
   const navigate = useNavigate();

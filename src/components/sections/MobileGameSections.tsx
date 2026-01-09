@@ -32,15 +32,15 @@ import "../../styles/sections/GameSections.css";
 
 // Game videos mapping
 const gameVideos: Record<string, string> = {
-  embeddedwars: "/src/assets/gameVideos/Embedded Wars.mp4",
-  asteroids: "/src/assets/gameVideos/Asteroids.mp4",
-  smugglersrun: "/src/assets/gameVideos/Smugglers Run.mp4",
-  cyberarena: "/src/assets/gameVideos/Outer Colosseum.mp4",
-  underwateradventure: "/src/assets/gameVideos/Underwater Adventure.mp4",
-  topdownshooter: "/src/assets/gameVideos/Multiplayer Top-Down Shooter.mp4",
-  slice: "/src/assets/gameVideos/Ball Slizing.mp4",
-  guerreromaya: "/src/assets/gameVideos/GuerreroMaya.mp4",
-  endlessrunner: "/src/assets/gameVideos/Endless 3D Runner Templaten.mp4",
+  embeddedwars: "/gameVideos/Embedded Wars.mp4",
+  asteroids: "/gameVideos/Asteroids.mp4",
+  smugglersrun: "/gameVideos/Smugglers Run.mp4",
+  cyberarena: "/gameVideos/Outer Colosseum.mp4",
+  underwateradventure: "/gameVideos/Underwater Adventure.mp4",
+  topdownshooter: "/gameVideos/Multiplayer Top-Down Shooter.mp4",
+  slice: "/gameVideos/Ball Slizing.mp4",
+  guerreromaya: "/gameVideos/GuerreroMaya.mp4",
+  endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
 };
 
 /**
