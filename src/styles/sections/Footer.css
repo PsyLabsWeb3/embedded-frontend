@@ -38,7 +38,7 @@
 
 .ef-desc {
   color: #959698;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 20px;
   margin: 0;
   max-width: 480px;
@@ -112,7 +112,7 @@
 }
 .ef-copyright {
   color: #959698;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 20px;
 }
 .ef-legal-links {
@@ -121,7 +121,7 @@
 }
 .ef-legal-link {
   color: #959698;
-  font-size: 16px;
+  font-size: 12px;
   text-decoration: none;
 }
 .ef-legal-link:hover {
