@@ -3,7 +3,6 @@ import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
 import freeGames from "../data/freeGames";
 import "./Games.css";
-import "./GamesFree.css";
 
 // Game videos mapping
 const gameVideos: Record<string, string> = {
@@ -21,11 +20,11 @@ const gameVideos: Record<string, string> = {
 const GamesFree = () => (
   <MainLayout>
     <GamesPageLayout>
-      <div className="games-free-page">
-        <div className="games-free-header">
-          <h1 className="games-free-title">Free to Play</h1>
-          <p className="games-free-subtitle">Free PvE Games to Play</p>
-          <p className="games-free-description">
+      <div className="games-page">
+        <div className="games-header">
+          <h1 className="games-title">Free to Play</h1>
+          <p className="games-subtitle">Free PvE Games to Play</p>
+          <p className="games-description">
             All games are free to enjoy, jump in and have fun!
             <br />
             <br />
@@ -37,7 +36,7 @@ const GamesFree = () => (
           </p>
         </div>
 
-        <div className="games-free-grid">
+        <div className="games-grid">
           {freeGames.map((game) => (
             <GameCard
               key={game.slug}

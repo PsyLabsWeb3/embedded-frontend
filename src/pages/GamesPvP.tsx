@@ -3,7 +3,6 @@ import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
 import pvpGames from "../data/pvpGames";
 import "./Games.css";
-import "./GamesPvP.css";
 
 // Game videos mapping
 const gameVideos: Record<string, string> = {
@@ -21,22 +20,23 @@ const gameVideos: Record<string, string> = {
 const GamesPvP = () => (
   <MainLayout>
     <GamesPageLayout>
-      <div className="games-pvp-page">
-        <div className="games-pvp-header">
-          <h1 className="games-pvp-title">Player vs Player</h1>
-          <p className="games-pvp-subtitle">Player vs Player - Web3 Feature</p>
-          <p className="games-pvp-description">
+      <div className="games-page">
+        <div className="games-header">
+          <h1 className="games-title">Player vs Player</h1>
+          <p className="games-subtitle">Player vs Player - Web3 Feature</p>
+          <p className="games-description">
             Head to head skill matches against other players.
             <br />
             <br />
             Choose a low entry match or a high stakes match when you're ready.
             <br />
             <br />
-            Winners take the match's pool and earn 2 leaderboard point or take 1 point of you lose the match.
+            Winners take the match's pool and earn 2 leaderboard point or take 1
+            point of you lose the match.
           </p>
         </div>
 
-        <div className="games-pvp-grid">
+        <div className="games-grid">
           {pvpGames.map((game) => (
             <GameCard
               key={game.slug}

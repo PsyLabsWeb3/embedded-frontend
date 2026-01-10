@@ -3,7 +3,6 @@ import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
 import pveGames from "../data/pveGames";
 import "./Games.css";
-import "./GamesPvE.css";
 
 // Game videos mapping
 const gameVideos: Record<string, string> = {
@@ -21,22 +20,23 @@ const gameVideos: Record<string, string> = {
 const GamesPvE = () => (
   <MainLayout>
     <GamesPageLayout>
-      <div className="games-pve-page">
-        <div className="games-pve-header">
-          <h1 className="games-pve-title">Player vs Environment</h1>
-          <p className="games-pve-subtitle">Player vs Environment - Web3 Feature</p>
-          <p className="games-pve-description">
+      <div className="games-page">
+        <div className="games-header">
+          <h1 className="games-title">Player vs Environment</h1>
+          <p className="games-subtitle">Player vs Environment - Web3 Feature</p>
+          <p className="games-description">
             Single player games to earn points and climb the leaderboard.
             <br />
             <br />
             Play solo against the game itself, no opponents required.
             <br />
             <br />
-            Win matches to earn leaderboard points and compete for monthly prizes.
+            Win matches to earn leaderboard points and compete for monthly
+            prizes.
           </p>
         </div>
 
-        <div className="games-pve-grid">
+        <div className="games-grid">
           {pveGames.map((game) => (
             <GameCard
               key={game.slug}
