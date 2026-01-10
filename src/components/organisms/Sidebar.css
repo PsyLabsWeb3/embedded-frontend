@@ -1,0 +1,99 @@
+/* Sidebar Component Styles - Based on Figma Design */
+
+.sidebar {
+  display: none;
+  width: 156px;
+  border-right: 1px solid rgba(149, 150, 152, 0.49);
+  padding: 34px 0;
+  background: transparent;
+  position: fixed;
+  left: 0;
+  top: 78px; /* Below navbar */
+  bottom: 0;
+  /* z-index: 10; */
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 61px;
+  width: 100%;
+}
+
+/* Sidebar Item Styles */
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.sidebar__item:hover {
+  opacity: 0.8;
+}
+
+.sidebar__item--active {
+  color: #5dd62c;
+}
+
+.sidebar__item--disabled {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+  padding: 0 14px;
+}
+
+.sidebar__item--disabled:hover {
+  opacity: 1;
+}
+
+/* Icon Styles */
+.sidebar__item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* Text Styles */
+.sidebar__text {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  color: inherit;
+}
+
+.sidebar__text--centered {
+  text-align: center;
+  color: #959698;
+  font-size: 14px;
+}
+
+/* Coming Soon Badge */
+.sidebar__badge {
+  background: #292929;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: normal;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+  width: 72px;
+}
+
+/* Show sidebar on desktop only */
+@media (min-width: 1024px) {
+  .sidebar {
+    display: block;
+  }
+}

@@ -5,6 +5,8 @@
   font-family: var(--font-body);
   padding-top: 28px;
   padding-bottom: 32px;
+  position: relative;
+  z-index: 20;
 }
 
 /* Top area */
