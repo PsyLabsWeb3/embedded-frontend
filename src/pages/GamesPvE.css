@@ -1,0 +1,91 @@
+/* GamesPvE Page Styles - Based on Figma Design */
+
+.games-pve-page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Header Section */
+.games-pve-header {
+  margin-bottom: 2.5rem;
+  max-width: 876px;
+}
+
+.games-pve-title {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: normal;
+  color: #ffffff;
+  margin: 0 0 0.75rem 0;
+}
+
+.games-pve-subtitle {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  color: #959698;
+  margin: 0 0 1.5rem 0;
+}
+
+.games-pve-description {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #959698;
+  margin: 0;
+}
+
+/* Games Grid */
+.games-pve-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .games-pve-page {
+    padding: 2rem 2rem;
+  }
+
+  .games-pve-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .games-pve-page {
+    padding: 3rem 2rem 3rem 2rem;
+  }
+
+  .games-pve-header {
+    margin-bottom: 3rem;
+  }
+
+  .games-pve-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .games-pve-page {
+    padding: 3rem 4rem 3rem 2.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .games-pve-page {
+    padding: 3rem 4rem 3rem 3rem;
+  }
+}

@@ -1,26 +1,60 @@
 import MainLayout from "../components/templates/MainLayout";
 import GamesPageLayout from "../components/templates/GamesPageLayout";
-import PageHeader from "../components/molecules/PageHeader";
-import { Link } from "react-router-dom";
+import GameCard from "../components/molecules/GameCard";
+import pvpGames from "../data/pvpGames";
 import "./Games.css";
-import { pvpGames } from "../data/gameSections";
+import "./GamesPvP.css";
+
+// Game videos mapping
+const gameVideos: Record<string, string> = {
+  embeddedwars: "/gameVideos/Embedded Wars.mp4",
+  asteroids: "/gameVideos/Asteroids.mp4",
+  smugglersrun: "/gameVideos/Smugglers Run.mp4",
+  cyberarena: "/gameVideos/Outer Colosseum.mp4",
+  underwateradventure: "/gameVideos/Underwater Adventure.mp4",
+  topdownshooter: "/gameVideos/Multiplayer Top-Down Shooter.mp4",
+  slice: "/gameVideos/Ball Slizing.mp4",
+  guerreromaya: "/gameVideos/GuerreroMaya.mp4",
+  endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+};
 
 const GamesPvP = () => (
   <MainLayout>
     <GamesPageLayout>
-      <PageHeader
-        title="PvP Games"
-        description="Choose from our collection of blockchain-powered multiplayer games and start earning rewards"
-      />
+      <div className="games-pvp-page">
+        <div className="games-pvp-header">
+          <h1 className="games-pvp-title">Player vs Player</h1>
+          <p className="games-pvp-subtitle">Player vs Player - Web3 Feature</p>
+          <p className="games-pvp-description">
+            Head to head skill matches against other players.
+            <br />
+            <br />
+            Choose a low entry match or a high stakes match when you're ready.
+            <br />
+            <br />
+            Winners take the match's pool and earn 2 leaderboard point or take 1 point of you lose the match.
+          </p>
+        </div>
 
-      <div className="games-container">
-        {pvpGames.map((game) => (
-          <Link key={game.id} to={game.path} className="game-link">
-            <div className="game-card">
-              <h3 className="game-title text-center">{game.title}</h3>
-            </div>
-          </Link>
-        ))}
+        <div className="games-pvp-grid">
+          {pvpGames.map((game) => (
+            <GameCard
+              key={game.slug}
+              title={game.title}
+              image={game.image}
+              className={game.glowClass}
+              slug={game.slug}
+              description={game.description}
+              isLive={!game.comingSoon}
+              ariaLabel={`Play ${game.title}${
+                game.description ? ` - ${game.description}` : ""
+              }`}
+              comingSoon={game.comingSoon}
+              video={gameVideos[game.slug]}
+              feeText="Entry from 0.5 USD"
+            />
+          ))}
+        </div>
       </div>
     </GamesPageLayout>
   </MainLayout>
