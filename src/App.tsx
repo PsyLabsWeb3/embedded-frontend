@@ -44,6 +44,7 @@ import Tournaments from "./pages/Tournaments";
 import PhantomCallback from "./pages/PhantomCallback";
 import PhantomSignCallback from "./pages/PhantomSignCallback";
 import Whitepaper from "./pages/Whitepaper";
+import ScrollToTop from "./components/atoms/ScrollToTop";
 
 // Import game page components
 import {
@@ -103,31 +104,31 @@ const RPC = import.meta.env.VITE_SOLANA_RPC;
  * @returns JSX element representing the entire application
  */
 const App: React.FC = () => {
-  const geo = useGeoblock();
+  // const geo = useGeoblock();
 
-  if (geo.loading) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <p>Checking region eligibility…</p>
-        </div>
-      </div>
-    );
-  }
+  // if (geo.loading) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <p>Checking region eligibility…</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!geo.allowed) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <h1>Embedded is not available in your region</h1>
-          <p>
-            Due to regulatory restrictions, our platform cannot be accessed from
-            your current location.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // if (!geo.allowed) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <h1>Embedded is not available in your region</h1>
+  //         <p>
+  //           Due to regulatory restrictions, our platform cannot be accessed from
+  //           your current location.
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <ConnectionProvider endpoint={RPC}>
@@ -137,6 +138,8 @@ const App: React.FC = () => {
             <div className="app">
               {/* Terms and Conditions Modal - shown on first visit */}
               <TermsModal />
+
+              <ScrollToTop />
 
               <Routes>
                 {/* Main Application Routes */}

@@ -220,6 +220,7 @@
     /* Vertical padding handled by .section utility */
     padding-left: var(--container-margin);
     padding-right: var(--container-margin);
+    padding-top: 12rem;
   }
   .hero-section__grid {
     display: grid;
