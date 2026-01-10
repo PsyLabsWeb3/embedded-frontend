@@ -95,8 +95,8 @@ const GameListSection: React.FC = () => {
         Free to Play
       </h2>
       <div className="games-section__row">
-        <p className="games-section__subtitle">Free PvE Games to Play</p>
-        <a className="games-section__viewall" href="/games-pve">
+        <p className="games-section__subtitle">Free Games to Play</p>
+        <a className="games-section__viewall" href="/games-free">
           View all
         </a>
       </div>
