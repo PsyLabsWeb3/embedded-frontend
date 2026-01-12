@@ -1,7 +1,7 @@
 import MainLayout from "../components/templates/MainLayout";
 import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
-import pveGames from "../data/pveGames";
+import completePveGames from "../data/completePveGames";
 import "./Games.css";
 
 // Game videos mapping
@@ -15,6 +15,8 @@ const gameVideos: Record<string, string> = {
   slice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+  tankieracerattack: "/gameVideos/Tankie Racer Attack.mp4",
+  embeddedsnake: "/gameVideos/Embedded Snake.mp4",
 };
 
 const GamesPvE = () => (
@@ -37,7 +39,7 @@ const GamesPvE = () => (
         </div>
 
         <div className="games-grid">
-          {pveGames.map((game) => (
+          {completePveGames.map((game) => (
             <GameCard
               key={game.slug}
               title={game.title}

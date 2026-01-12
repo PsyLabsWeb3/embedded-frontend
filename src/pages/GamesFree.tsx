@@ -1,7 +1,7 @@
 import MainLayout from "../components/templates/MainLayout";
 import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
-import freeGames from "../data/freeGames";
+import completeFreeGames from "../data/completeFreeGames";
 import "./Games.css";
 
 // Game videos mapping
@@ -37,7 +37,7 @@ const GamesFree = () => (
         </div>
 
         <div className="games-grid">
-          {freeGames.map((game) => (
+          {completeFreeGames.map((game) => (
             <GameCard
               key={game.slug}
               title={game.title}

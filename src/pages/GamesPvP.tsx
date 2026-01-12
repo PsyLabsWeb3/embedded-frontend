@@ -1,7 +1,7 @@
 import MainLayout from "../components/templates/MainLayout";
 import GamesPageLayout from "../components/templates/GamesPageLayout";
 import GameCard from "../components/molecules/GameCard";
-import pvpGames from "../data/pvpGames";
+import completePvpGames from "../data/completePvpGames";
 import "./Games.css";
 
 // Game videos mapping
@@ -37,7 +37,7 @@ const GamesPvP = () => (
         </div>
 
         <div className="games-grid">
-          {pvpGames.map((game) => (
+          {completePvpGames.map((game) => (
             <GameCard
               key={game.slug}
               title={game.title}
