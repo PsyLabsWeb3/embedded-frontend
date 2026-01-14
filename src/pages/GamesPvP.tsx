@@ -51,7 +51,11 @@ const GamesPvP = () => (
               }`}
               comingSoon={game.comingSoon}
               video={gameVideos[game.slug]}
-              feeText="Entry from 0.5 USD"
+              feeText={
+                game.slug === "cyberarena"
+                  ? "Free to Play"
+                  : "Entry from 0.5 USD"
+              }
             />
           ))}
         </div>

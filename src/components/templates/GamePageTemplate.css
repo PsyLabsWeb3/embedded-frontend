@@ -12,6 +12,7 @@
 }
 
 .game-page-content {
+  margin-top: 6rem;
   padding: 2rem 1rem;
   max-width: 100vw;
   overflow-x: hidden;

@@ -1,15 +1,15 @@
 /**
  * @fileoverview Enhanced TypeScript type definitions and interfaces
- * 
+ *
  * This file provides comprehensive type definitions for the entire application,
  * ensuring type safety, better IntelliSense support, and improved maintainability.
  * Types are organized by functional domains and include detailed JSDoc comments.
- * 
+ *
  * @author Embedded Frontend Team
  * @version 1.0.0
  */
 
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 /**
  * Base entity interface that all data models should extend
@@ -72,6 +72,8 @@ export namespace GameTypes {
     minAge?: number;
     /** Whether the game is player vs environment */
     isPvE?: boolean;
+    /** Whether the game is free to play (no payment required) */
+    isFreeToPlay?: boolean;
     /** Whether the game should rotate on mobile devices */
     rotateOnMobile?: boolean;
     /** Background image URL for the game page */
@@ -99,30 +101,29 @@ export namespace GameTypes {
     isNew?: boolean;
     /** Whether the game is coming soon */
     comingSoon?: boolean;
-    
   }
 
   /**
    * Game categories for organization and filtering
    */
   export enum GameCategory {
-    PUZZLE = 'puzzle',
-    ACTION = 'action',
-    STRATEGY = 'strategy',
-    ARCADE = 'arcade',
-    CASUAL = 'casual',
-    MULTIPLAYER = 'multiplayer',
-    RACING = 'racing',
+    PUZZLE = "puzzle",
+    ACTION = "action",
+    STRATEGY = "strategy",
+    ARCADE = "arcade",
+    CASUAL = "casual",
+    MULTIPLAYER = "multiplayer",
+    RACING = "racing",
   }
 
   /**
    * Game difficulty levels
    */
   export enum GameDifficulty {
-    EASY = 'easy',
-    MEDIUM = 'medium',
-    HARD = 'hard',
-    EXPERT = 'expert',
+    EASY = "easy",
+    MEDIUM = "medium",
+    HARD = "hard",
+    EXPERT = "expert",
   }
 
   /**
@@ -314,10 +315,10 @@ export namespace WalletTypes {
    * Possible wallet connection states
    */
   export enum WalletStatus {
-    DISCONNECTED = 'disconnected',
-    CONNECTING = 'connecting',
-    CONNECTED = 'connected',
-    ERROR = 'error',
+    DISCONNECTED = "disconnected",
+    CONNECTING = "connecting",
+    CONNECTED = "connected",
+    ERROR = "error",
   }
 
   /**
@@ -340,9 +341,9 @@ export namespace WalletTypes {
    * Transaction status enumeration
    */
   export enum TransactionStatus {
-    PENDING = 'pending',
-    CONFIRMED = 'confirmed',
-    FAILED = 'failed',
+    PENDING = "pending",
+    CONFIRMED = "confirmed",
+    FAILED = "failed",
   }
 }
 
@@ -462,9 +463,12 @@ export namespace UtilityTypes {
   /**
    * Create a type with only the specified keys from T
    */
-  export type PickByValue<T, V> = Pick<T, {
-    [K in keyof T]: T[K] extends V ? K : never;
-  }[keyof T]>;
+  export type PickByValue<T, V> = Pick<
+    T,
+    {
+      [K in keyof T]: T[K] extends V ? K : never;
+    }[keyof T]
+  >;
 
   /**
    * Recursive partial type for nested objects

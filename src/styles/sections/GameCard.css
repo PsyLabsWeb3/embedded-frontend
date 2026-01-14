@@ -8,17 +8,17 @@
 }
 
 .game-card {
-  align-items: flex-start;
+  align-items: center;
   background: #121214;
   border-radius: 16px;
-  border: none !important;
-  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  border: none !important; /* override any external .game-card border */
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  min-height: 362px;
+  justify-content: space-between;
+  min-height: 280px;
   overflow: hidden;
-  padding: 0 !important;
+  padding: 0 !important; /* prevent inherited 12px top padding */
   position: relative;
   transition: transform 0.2s;
   width: 100%;
@@ -28,27 +28,11 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 227px;
+  flex: 1;
   width: 100%;
-  margin: 0 !important;
-  border-radius: 16px 16px 0 0;
+  margin: 0 !important; /* guard against offsets */
+  border-radius: 1.3rem 1.3rem 0 0;
   display: block;
-  position: relative;
-  flex-shrink: 0;
-}
-
-/* Gradient overlay on mobile */
-.game-card-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px 16px 0 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 71.186%,
-    rgba(0, 0, 0, 0.78) 87.571%
-  );
-  pointer-events: none;
 }
 
 .game-card-title {
@@ -60,88 +44,21 @@
   padding: 0;
   text-align: left;
   text-shadow: none;
+  width: 100%;
   margin: 0;
 }
 
 .game-card-content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 18px;
+  justify-content: space-between;
+  padding: 1rem;
   width: 100%;
-  flex: 1;
-  position: relative;
 }
 
-.game-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.game-card-description {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: normal;
-  color: #959698;
-  margin: 0 0 12px 0;
-  text-align: left;
-}
-
-.game-card-live-badge {
-  background: rgba(174, 67, 255, 0.16);
-  border: 1px solid #ae43ff;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 2px 8px;
-  line-height: normal;
-  height: 23px;
-  min-width: 51px;
-}
-
-.game-card-cta-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-top: auto;
-}
-
+/* Hide play button on mobile/tablet - card is fully clickable */
 .game-card-play-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  padding: 10px;
-  margin: 0;
-  width: 61px;
-  height: auto;
-  box-sizing: border-box;
-  background: #5dd62c;
-  border: none;
-  border-radius: 6px;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.game-card-fee-text {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: normal;
-  color: #959698;
-  text-align: right;
+  display: none;
 }
 
 .game-card.neon-blue .game-card-title,
@@ -175,7 +92,11 @@
 /* Tablet styles */
 @media (min-width: 600px) {
   .game-card {
-    min-height: 380px;
+    min-height: 320px;
+  }
+
+  .game-card-title {
+    font-size: 2.7rem;
   }
 }
 
@@ -183,10 +104,9 @@
 /* Desktop styles */
 @media (min-width: 900px) {
   .game-card-outer-wrapper {
-    width: auto;
+    width: auto; /* allow cards to size by their own width */
     flex: 0 0 auto;
   }
-  
   .game-card {
     min-height: 414px;
     max-height: 414px;
@@ -204,7 +124,6 @@
   .game-card-image {
     min-height: 227px;
     max-height: 227px;
-    height: 227px;
     width: 100%;
     min-width: 0;
     margin: 0;
@@ -218,7 +137,6 @@
     overflow: hidden;
     position: relative;
   }
-  
   .game-card-image::after {
     content: "";
     position: absolute;
@@ -279,9 +197,7 @@
   }
 
   .game-card-play-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block; /* Show button on desktop */
     font-size: 14px;
     padding: 10px 12px;
     margin: 0;
