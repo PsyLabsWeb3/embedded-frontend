@@ -1,9 +1,27 @@
-import React from 'react';
-import Navbar from '../sections/Navbar';
-import GameInfoBox from '../games/GameInfoBox';
-import GameDetailsBox from '../games/GameDetailsBox';
-// import OnChainMetricsBox from '../games/OnChainMetricsBox';
-import './GamePageTemplate.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../sections/Navbar";
+import Sidebar from "../organisms/Sidebar";
+import "./GamePageTemplate.css";
+
+// Import game data for related games sidebar
+import pvpGames from "../../data/pvpGames";
+import pveGames from "../../data/pveGames";
+import freeGames from "../../data/freeGames";
+import { GAME_ROUTES, ROUTES } from "../../constants";
+
+// Game videos mapping
+const gameVideos: Record<string, string> = {
+  embeddedwars: "/gameVideos/Embedded Wars.mp4",
+  asteroids: "/gameVideos/Asteroids.mp4",
+  smugglersrun: "/gameVideos/Smugglers Run.mp4",
+  cyberarena: "/gameVideos/Outer Colosseum.mp4",
+  underwateradventure: "/gameVideos/Underwater Adventure.mp4",
+  topdownshooter: "/gameVideos/Multiplayer Top-Down Shooter.mp4",
+  slice: "/gameVideos/Ball Slizing.mp4",
+  guerreromaya: "/gameVideos/GuerreroMaya.mp4",
+  endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+};
 
 interface GamePageTemplateProps {
   gameTitle: string;
@@ -14,6 +32,10 @@ interface GamePageTemplateProps {
   backgroundImage?: string;
   customContent?: React.ReactNode;
   gameDescription?: string;
+  currentGameSlug?: string;
+  isLive?: boolean;
+  isPvE?: boolean;
+  feeText?: string;
 }
 
 const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
@@ -21,79 +43,184 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
   gameComponent,
   paymentComponent,
   instructions = [],
-  gameInfo,
   backgroundImage,
-  gameDescription
+  gameDescription,
+  currentGameSlug,
+  isLive = true,
+  isPvE = false,
+  feeText = "Entry from 0.5 USD",
 }) => {
+  const navigate = useNavigate();
+
+  // Game route mapping
+  const gameRoutes: Record<string, string> = {
+    snake: GAME_ROUTES.SNAKE,
+    asteroids: GAME_ROUTES.ASTEROIDS,
+    embeddedwars: GAME_ROUTES.EMBEDDED_WARS,
+    smugglersrun: GAME_ROUTES.SMUGGLERS_RUN,
+    embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
+    cyberarena: GAME_ROUTES.CYBER_ARENA || "/game/cyberarena",
+    underwateradventure: "/game/underwateradventure",
+    topdownshooter: "/game/topdownshooter",
+    slice: "/game/slice",
+    guerreromaya: "/game/guerreromaya",
+    endlessrunner: "/game/endlessrunner",
+  };
+
+  const handleGameClick = (slug: string) => {
+    const route = gameRoutes[slug];
+    if (route) {
+      navigate(route);
+    } else {
+      console.warn(`No route found for game slug: ${slug}`);
+      navigate(ROUTES.GAMES_PVE);
+    }
+  };
+
+  // Combine all games and filter out current game
+  const allGames = [...pvpGames, ...pveGames, ...freeGames].filter(
+    (game) => game.slug !== currentGameSlug && !game.comingSoon
+  );
+
+  // Get a subset of games for the sidebar (max 10)
+  const relatedGames = allGames.slice(0, 10);
+
   return (
     <div className="game-page">
       <Navbar />
-      <div className="game-page-content">
-        <div className="game-inner-container">
-          {backgroundImage && (
-            <div 
-              className="game-inner-background"
-              style={{
-                backgroundImage: `url(${backgroundImage})`
-              }}
-            />
-          )}
-          <div className="game-content">
-            {gameComponent}
-          </div>
-        </div>
+      <div className="game-page-layout">
+        {/* Left Sidebar */}
+        <Sidebar />
 
-        {/* Title placed below the game container, above the features row */}
-        <div className="game-title-below">
-          <h1 className="game-title-simple">{gameTitle}</h1>
-        </div>
-      
-        {/* Game Features Row */}
-        <div className="game-features-row">
-          <div className="feature-item">
-            <img src="/multiplayer_icon.svg" alt="Multiplayer" className="feature-icon-game" />
-            <span className="feature-label">Multiplayer</span>
-          </div>
-          <div className="feature-item">
-            <img src="/realtime_icon.png" alt="Realtime" className="feature-icon-game" />
-            <span className="feature-label">Realtime</span>
-          </div>
-          <div className="feature-item">
-            <img src="/pvp_icon.png" alt="PvP" className="feature-icon-game" />
-            <span className="feature-label">PvP</span>
-          </div>
-        </div>
-        
-        {paymentComponent && (
-          <div className="payment-section">
-            {paymentComponent}
-          </div>
-        )}
-        {/* Game Info Box - now with dynamic description */}
-        <GameInfoBox description={gameDescription} />
-        <GameDetailsBox instructions={instructions} />
-        {/* <OnChainMetricsBox /> */}
-        
-        {false && (instructions.length > 0 || gameInfo) && (
-          <div className="game-info-section">
-            {instructions.length > 0 && (
-              <div className="game-instructions">
-                <h3>Instructions:</h3>
-                <ul>
-                  {instructions.map((instruction, index) => (
-                    <li key={index}>{instruction}</li>
-                  ))}
-                </ul>
+        {/* Main Content */}
+        <main className="game-page-main">
+          {/* Main Game Card */}
+          <div className="game-main-card">
+            {/* Game Image/Video Area */}
+            <div className="game-main-card__media">
+              {backgroundImage && (
+                <div
+                  className="game-main-card__background"
+                  style={{ backgroundImage: `url(${backgroundImage})` }}
+                />
+              )}
+              <div className="game-main-card__gradient" />
+              <div className="game-main-card__content">{gameComponent}</div>
+            </div>
+
+            {/* Game Info Section */}
+            <div className="game-main-card__info">
+              {/* Features Row */}
+              <div className="game-main-card__features">
+                <div className="game-feature">
+                  <img
+                    src="/multiplayer_icon.svg"
+                    alt=""
+                    className="game-feature__icon"
+                  />
+                  <span className="game-feature__label">Multiplayer</span>
+                </div>
+                <div className="game-feature">
+                  <img
+                    src="/realtime_icon.png"
+                    alt=""
+                    className="game-feature__icon"
+                  />
+                  <span className="game-feature__label">Realtime</span>
+                </div>
+                <div className="game-feature">
+                  <img
+                    src="/pvp_icon.png"
+                    alt=""
+                    className="game-feature__icon"
+                  />
+                  <span className="game-feature__label">
+                    {isPvE ? "PvE" : "PvP"}
+                  </span>
+                </div>
               </div>
-            )}
-            
-            {gameInfo && (
-              <div className="game-additional-info">
-                {gameInfo}
+
+              {/* Title Row */}
+              <div className="game-main-card__header">
+                <h1 className="game-main-card__title">{gameTitle}</h1>
+                {isLive && (
+                  <div className="game-main-card__live-badge">LIVE</div>
+                )}
               </div>
-            )}
+
+              {/* Description */}
+              <p className="game-main-card__description">
+                {gameDescription ||
+                  "Fast 1v1 sci-fi duel. Win rounds, bank SOL, climb the seasonal ladder."}
+              </p>
+
+              {/* Fee Text */}
+              <p className="game-main-card__fee">{feeText}</p>
+
+              {/* Payment/Action Buttons */}
+              {paymentComponent && (
+                <div className="game-main-card__actions">
+                  {paymentComponent}
+                </div>
+              )}
+            </div>
           </div>
-        )}
+
+          {/* Instructions Box */}
+          {instructions.length > 0 && (
+            <div className="game-instructions-box">
+              <h3 className="game-instructions-box__title">Instructions</h3>
+              <div className="game-instructions-box__content">
+                {instructions.map((instruction, index) => (
+                  <p key={index} className="game-instructions-box__item">
+                    - {instruction}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+        </main>
+
+        {/* Right Sidebar - Related Games */}
+        <aside className="game-page-related">
+          <div className="related-games-grid">
+            {relatedGames.map((game, index) => {
+              // Determine the size class based on position for variety
+              const sizeClass =
+                index === 0 || index === 4
+                  ? "related-game--large"
+                  : index === 1 || index === 5
+                  ? "related-game--tall"
+                  : "related-game--small";
+
+              return (
+                <figure
+                  key={game.slug}
+                  className={`related-game ${sizeClass}`}
+                  onClick={() => handleGameClick(game.slug)}
+                >
+                  <img
+                    src={game.image}
+                    alt={game.title}
+                    style={{
+                      display: gameVideos[game.slug] ? "none" : "block",
+                    }}
+                  />
+                  {gameVideos[game.slug] && (
+                    <video
+                      src={gameVideos[game.slug]}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  )}
+                  <figcaption>{game.title}</figcaption>
+                </figure>
+              );
+            })}
+          </div>
+        </aside>
       </div>
     </div>
   );

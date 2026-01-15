@@ -1,91 +1,441 @@
-/* Game Page Template Styles */
+/* Game Page Template Styles - Figma Design Implementation */
 * {
   box-sizing: border-box;
 }
 
 .game-page {
   min-height: 100vh;
-  background: var(--color-background, #171d20);
+  background: linear-gradient(to bottom, #101010, #0f2118);
   color: var(--color-text, #ffffff);
   overflow-x: hidden;
   width: 100%;
+  position: relative;
 }
 
+/* Main Layout - Three Column */
+.game-page-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+/* ==================== MAIN GAME CARD ==================== */
+.game-page-main {
+  margin-top: 4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.game-main-card {
+  background: #111;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Media Section (Image/Video) */
+.game-main-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+.game-main-card__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.game-main-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 71.186%,
+    rgba(0, 0, 0, 0.78) 87.571%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.game-main-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Info Section */
+.game-main-card__info {
+  padding: 18px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Features Row */
+.game-main-card__features {
+  display: flex;
+  gap: 19px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.game-feature {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-feature__icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.game-feature__label {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
+  color: #959698;
+}
+
+/* Header Row */
+.game-main-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.game-main-card__title {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: normal;
+  color: #ffffff;
+  margin: 0;
+}
+
+.game-main-card__live-badge {
+  background: rgba(57, 161, 72, 0.15);
+  border: 1px solid rgba(57, 161, 72, 0.42);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  min-width: 51px;
+  height: 23px;
+}
+
+/* Description */
+.game-main-card__description {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #959698;
+  margin: 0;
+}
+
+/* Fee Text */
+.game-main-card__fee {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
+  color: #959698;
+  text-align: right;
+  margin: 0;
+}
+
+/* Action Buttons */
+.game-main-card__actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 8px;
+}
+
+/* ==================== INSTRUCTIONS BOX ==================== */
+.game-instructions-box {
+  background: #111;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+.game-instructions-box__title {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: normal;
+  color: #959698;
+  margin: 0 0 16px 0;
+}
+
+.game-instructions-box__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.game-instructions-box__item {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #959698;
+  margin: 0;
+}
+
+/* ==================== RELATED GAMES SIDEBAR ==================== */
+.game-page-related {
+  display: none;
+  margin-top: 4rem;
+}
+
+.related-games-grid {
+  background: #111;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.related-game {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  margin: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.related-game:hover {
+  transform: scale(1.02);
+}
+
+.related-game img,
+.related-game video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.related-game figcaption {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  color: #fff;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.related-game::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 71%,
+    rgba(0, 0, 0, 0.62) 84%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Size variants for masonry effect */
+.related-game--small {
+  grid-column: span 1;
+  grid-row: span 1;
+  aspect-ratio: 1;
+}
+
+.related-game--tall {
+  grid-column: span 1;
+  grid-row: span 2;
+  min-height: 180px;
+}
+
+.related-game--large {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 180px;
+}
+
+.related-game--wide {
+  grid-column: span 3;
+  grid-row: span 1;
+  aspect-ratio: 3;
+}
+
+/* ==================== TABLET STYLES ==================== */
+@media (min-width: 600px) {
+  .game-page-layout {
+    padding: 1.5rem;
+  }
+
+  .game-main-card__title {
+    font-size: 20px;
+  }
+
+  .game-main-card__description {
+    font-size: 15px;
+  }
+
+  .game-instructions-box__item {
+    font-size: 15px;
+  }
+}
+
+/* ==================== DESKTOP STYLES ==================== */
+@media (min-width: 900px) {
+  .game-page-layout {
+    flex-direction: row;
+    padding: 2rem;
+    gap: 2rem;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  /* Sidebar takes fixed width on left */
+  .game-page-layout > .sidebar {
+    width: 156px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+  }
+
+  /* Main content takes remaining space */
+  .game-page-main {
+    flex: 1;
+    min-width: 0;
+    max-width: 1028px;
+  }
+
+  .game-main-card {
+    max-width: 100%;
+  }
+
+  .game-main-card__media {
+    height: 436px;
+    aspect-ratio: unset;
+  }
+
+  .game-main-card__info {
+    padding: 24px 22px 32px;
+    gap: 17px;
+  }
+
+  .game-main-card__title {
+    font-size: 18px;
+  }
+
+  .game-main-card__actions {
+    gap: 92px;
+  }
+
+  .game-instructions-box {
+    padding: 33px 28px;
+    max-width: 1029px;
+  }
+
+  .game-instructions-box__item {
+    font-size: 16px;
+  }
+
+  /* Related Games Sidebar - Visible on Desktop */
+  .game-page-related {
+    display: block;
+    width: 290px;
+    flex-shrink: 0;
+  }
+
+  .related-games-grid {
+    height: 898px;
+    overflow-y: auto;
+    grid-template-columns: 86px 86px 86px;
+    grid-auto-rows: 91px;
+    gap: 8px;
+  }
+
+  .related-game--small {
+    aspect-ratio: unset;
+    height: 91px;
+  }
+
+  .related-game--tall {
+    min-height: 190px;
+    grid-row: span 2;
+  }
+
+  .related-game--large {
+    min-height: 190px;
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .related-game--wide {
+    grid-column: span 3;
+    height: 91px;
+    aspect-ratio: unset;
+  }
+
+  .related-game figcaption {
+    font-size: 11px;
+    left: 6px;
+    bottom: 6px;
+  }
+}
+
+/* ==================== LARGE DESKTOP ==================== */
+@media (min-width: 1400px) {
+  .game-page-main {
+    max-width: 1028px;
+  }
+
+  .related-games-grid {
+    width: 290px;
+    grid-template-columns: 86px 86px 86px;
+  }
+}
+
+/* ==================== LEGACY SUPPORT ==================== */
+/* Keep these for any existing components that might use old classes */
 .game-page-content {
   padding: 2rem 1rem;
   max-width: 100vw;
   overflow-x: hidden;
   box-sizing: border-box;
-}
-
-.game-page-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-.game-title {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(0, 188, 212, 0.8), 0 0 20px rgba(0, 188, 212, 0.6);
-}
-
-.game-title-below {
-  text-align: center;
-  margin-top: 1rem;
-  position: relative;
-  z-index: 3;
-}
-
-.game-title-inside {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  text-align: center;
-  width: 100%;
-}
-
-.game-title-simple {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: white;
-  text-align: center;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
-}
-
-.game-container {
-  max-width: 600px;
-  width: 90%;
-  aspect-ratio: 16 / 9;
-  margin: 0 auto 2rem auto;
-  position: relative;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.1);
-  border: none;
-  outline: none;
-}
-
-.game-container-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.2;
-  z-index: 1;
 }
 
 .game-inner-container {
@@ -126,60 +476,6 @@
   align-items: center;
 }
 
-.game-outer-container {
-  max-width: 100%;
-  margin: 0 auto 2rem auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-/* Game Features Row */
-.game-features-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  max-width: 1600px;
-  width: 100%;
-  margin: 1.5rem auto 1.5rem auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.feature-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  display: block;
-  flex-shrink: 0;
-}
-
-.feature-icon-game {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  display: block;
-  flex-shrink: 0;
-}
-
-.feature-label {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.8rem;
-  color: #ffffff;
-  text-align: center;
-}
-
 .payment-section {
   max-width: 1600px;
   margin: 0 auto 2rem auto;
@@ -187,87 +483,14 @@
   box-sizing: border-box;
 }
 
-.game-info-section {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 2.5rem 3rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(93, 214, 44, 0.2);
-  box-sizing: border-box;
-}
-
-.game-instructions h3 {
-  color: var(--color-primary, #5dd62c);
-  margin-bottom: 1rem;
-}
-
-.game-instructions ul {
-  list-style: none;
-  padding: 0;
-}
-
-.game-instructions li {
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.game-instructions li::before {
-  content: "→";
-  color: var(--color-primary, #5dd62c);
-  position: absolute;
-  left: 0;
-}
-
-.game-additional-info {
-  margin-top: 2rem;
-}
-
-.custom-content-section {
-  max-width: 1700px;
-  margin: 0 auto 2rem auto;
-  padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  border: 1px solid rgba(93, 214, 44, 0.1);
-}
-
-/* Responsive */
+/* Responsive for legacy */
 @media (max-width: 768px) {
   .game-page-content {
     padding: 1rem 0.5rem;
   }
 
-  .game-title {
-    font-size: 1.8rem;
-  }
-
-  .game-features-row {
-    gap: 0.8rem;
-    margin: 1rem auto;
-    padding: 0 0.5rem;
-  }
-
-  .feature-item {
-    gap: 0.4rem;
-  }
-
-  .feature-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .feature-label {
-    font-size: 1rem;
-  }
-
   .payment-section {
     margin: 0 auto 1rem auto;
     padding: 0 0.5rem;
-  }
-
-  .game-info-section {
-    padding: 1rem;
   }
 }
