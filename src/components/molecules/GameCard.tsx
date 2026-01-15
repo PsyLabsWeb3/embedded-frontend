@@ -150,11 +150,12 @@ const GameCardComponent: React.FC<GameCardProps> = ({
         >
           {video && (
             <video
-              src={video}
+              src={isHovered ? video : undefined}
               autoPlay
               loop
               muted
               playsInline
+              preload="none"
               style={{
                 display: isHovered ? "block" : "none",
                 width: "100%",

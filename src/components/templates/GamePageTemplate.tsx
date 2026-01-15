@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../sections/Navbar";
 import Sidebar from "../organisms/Sidebar";
@@ -9,6 +9,7 @@ import pvpGames from "../../data/pvpGames";
 import pveGames from "../../data/pveGames";
 import freeGames from "../../data/freeGames";
 import { GAME_ROUTES, ROUTES } from "../../constants";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 // Game videos mapping
 const gameVideos: Record<string, string> = {
@@ -21,6 +22,58 @@ const gameVideos: Record<string, string> = {
   slice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+};
+
+// Related Game Card Component with hover-to-play video
+interface RelatedGameCardProps {
+  game: { slug: string; image: string; title: string };
+  sizeClass: string;
+  onClick: () => void;
+}
+
+const RelatedGameCard: React.FC<RelatedGameCardProps> = ({
+  game,
+  sizeClass,
+  onClick,
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
+  const videoSrc = gameVideos[game.slug];
+
+  // Don't load videos on mobile to save user data
+  const shouldShowVideo = !isMobile && videoSrc;
+
+  return (
+    <figure
+      className={`related-game ${sizeClass}`}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={game.image}
+        alt={game.title}
+        loading="lazy"
+        style={{
+          display: isHovered && shouldShowVideo ? "none" : "block",
+        }}
+      />
+      {shouldShowVideo && (
+        <video
+          src={isHovered ? videoSrc : undefined}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          style={{
+            display: isHovered ? "block" : "none",
+          }}
+        />
+      )}
+      <figcaption>{game.title}</figcaption>
+    </figure>
+  );
 };
 
 interface GamePageTemplateProps {
@@ -194,29 +247,12 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
                   : "related-game--small";
 
               return (
-                <figure
+                <RelatedGameCard
                   key={game.slug}
-                  className={`related-game ${sizeClass}`}
+                  game={game}
+                  sizeClass={sizeClass}
                   onClick={() => handleGameClick(game.slug)}
-                >
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    style={{
-                      display: gameVideos[game.slug] ? "none" : "block",
-                    }}
-                  />
-                  {gameVideos[game.slug] && (
-                    <video
-                      src={gameVideos[game.slug]}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  )}
-                  <figcaption>{game.title}</figcaption>
-                </figure>
+                />
               );
             })}
           </div>
