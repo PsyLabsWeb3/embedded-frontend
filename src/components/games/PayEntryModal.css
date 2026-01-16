@@ -115,16 +115,26 @@
 
 /* Pay Entry Button - Outside Modal */
 .pay-entry-section {
-  margin: 2rem 0;
+  margin: 0;
   text-align: center;
+  width: 100%;
 }
 
 .button-group {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Desktop - center the buttons */
+@media (min-width: 1024px) {
+  .button-group {
+    justify-content: center;
+    gap: 92px;
+  }
 }
 
 .pay-entry-message {
@@ -277,189 +287,151 @@
   }
 }
 
-/* Match Confirmation Modal Styles */
+/* Match Confirmation Modal Styles - Based on Figma Design */
 .match-confirmation-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .match-confirmation-modal {
-  background: linear-gradient(135deg, #38454c 0%, #171d20 100%);
-  border: none;
+  background: #121214;
   border-radius: 16px;
-  padding: 3rem;
-  max-width: 500px;
-  width: 95%;
-  min-height: 600px;
-  position: relative;
-  box-shadow: none;
+  padding: 33px 18px;
+  max-width: 520px;
+  width: min(92vw, 520px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  overflow: clip;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Title styling */
+.modal-title {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: normal;
+  color: #ffffff;
+  margin: 0;
   text-align: center;
 }
 
-/* Header row: Title and Icon layout */
-.modal-header-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  gap: 1rem;
-}
-
-.modal-title-section {
-  flex: 0 0 auto;
-  text-align: left;
-}
-
-.modal-icon-section {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Title styling - Lobster Regular, color #5DD62C */
-.modal-title {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 2.5rem;
-  color: #5dd62c;
-  margin: 0;
-  line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Gameboy icon styling */
-.gameboy-icon {
-  width: 90px;
-  height: 90px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-/* Main text styling - Nunito Extra Bold, color #FFFFFF */
+/* Main text styling */
 .modal-main-text {
-  font-family: var(--font-body);
-  font-weight: 800; /* Extra Bold */
-  font-size: 1.1rem;
-  color: #ffffff;
-  margin: 0 0 1rem 0;
-  line-height: 1.4;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+  color: #959698;
+  margin: 0;
+  text-align: center;
 }
 
 .sol-amount {
   color: #5dd62c;
-  font-weight: 800;
+  font-weight: 400;
 }
 
-/* Secondary text styling - Nunito Regular, color #FFFFFF */
+/* Secondary text styling */
 .modal-secondary-text {
-  font-family: var(--font-body);
-  font-weight: 400; /* Regular */
-  font-size: 1rem;
-  color: #ffffff;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.4;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
+  color: #959698;
+  margin: 0;
+  text-align: center;
 }
 
 .modal-disclaimer-text {
-  font-family: var(--font-body);
-  font-weight: 400; /* Regular */
-  font-size: 0.8rem;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
   color: #ff6b6b;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.4;
-  opacity: 0.9;
-}
-
-/* Additional text styling - Nunito Regular, color #FFFFFF */
-.modal-additional-text {
-  font-family: var(--font-body);
-  font-weight: 400; /* Regular */
-  font-size: 0.9rem;
-  color: #ffffff;
-  margin: 0 0 2rem 0;
-  line-height: 1.4;
-  opacity: 0.9;
+  margin: 0;
+  text-align: center;
 }
 
 /* Button container layout */
 .modal-buttons {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  justify-content: space-between;
-  margin-top: 1.5rem;
+  gap: 103px;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
 }
 
 /* Center buttons when there's only one button (like error state) */
 .modal-buttons:has(button:only-child) {
   justify-content: center;
+  gap: 0;
 }
 
-/* Error text styling - centered like the title */
+/* Error text styling */
 .modal-error-text {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
   text-align: center;
-  margin: 1rem 0;
-  color: var(--color-text, #ffffff);
-  opacity: 0.9;
-  line-height: 1.4;
+  color: #959698;
+  margin: 0;
+  line-height: normal;
 }
 
-/* Base button styling - Alumni Sans Regular, uppercase */
+/* Base button styling */
 .modal-button {
-  font-family: var(--font-body);
-  font-weight: 400; /* Regular */
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 0.8rem 1.2rem;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  padding: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  flex: 1;
-  max-width: 45%;
-  font-weight: 600;
+  transition: all 0.2s ease;
+  width: 138px;
+  color: #ffffff;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
-/* RETURN button styling - color #38454C */
+/* Cancel/Return button styling */
 .return-button {
-  background-color: #38454c;
-  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid #636363;
 }
 
 .return-button:hover:not(:disabled) {
-  background-color: #455259;
+  background-color: rgba(99, 99, 99, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(56, 69, 76, 0.4);
 }
 
 .return-button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-/* CONFIRM MATCH button styling - color #AE43FF */
+/* Confirm button styling */
 .confirm-button {
-  background-color: #ae43ff;
-  color: #ffffff;
+  background-color: #5dd62c;
+  border: none;
 }
 
 .confirm-button:hover:not(:disabled) {
-  background-color: #c155ff;
+  background-color: #4bc123;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(174, 67, 255, 0.4);
 }
 
 .confirm-button:active:not(:disabled) {
@@ -473,13 +445,12 @@
   transform: none;
 }
 
-/* Loading Section - State 2 */
+/* Loading Section */
 .loading-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
-  gap: 1.5rem;
+  gap: 20px;
 }
 
 .embedded-logo-container {
@@ -489,42 +460,41 @@
 }
 
 .embedded-logo {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  width: 80px;
+  height: 80px;
 }
 
 .transaction-section {
-  margin: 0.5rem 0;
-  text-align: left;
+  margin: 0;
+  text-align: center;
   width: 100%;
 }
 
 .transaction-label {
-  color: #ffffff;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-weight: 400;
-  margin: 0 0 0.25rem 0;
-  text-align: left;
+  font-size: 12px;
+  color: #959698;
+  margin: 0 0 4px 0;
+  text-align: center;
 }
 
 .transaction-id {
-  color: #5dd62c;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-weight: 400;
-  text-align: left;
+  font-size: 12px;
+  color: #5dd62c;
+  text-align: center;
   margin: 0;
   word-break: break-all;
-  line-height: 1.4;
+  line-height: normal;
 }
 
 .loading-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .loading-spinner {
@@ -535,9 +505,10 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
 .loading-spinner-button {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-top: 3px solid #ffffff;
   border-radius: 50%;
@@ -546,12 +517,11 @@
 }
 
 .loading-label {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1rem;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
   color: #ffffff;
   margin: 0;
-  opacity: 0.9;
 }
 
 @keyframes spin {
@@ -563,119 +533,42 @@
   }
 }
 
-/* Price badge in corner */
-.price-badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: linear-gradient(135deg, #ae43ff 0%, #9333ea 100%);
-  color: #ffffff;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.8rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 12px;
-  border: 2px solid #1a2332;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   .match-confirmation-modal {
-    max-width: 420px;
-    min-height: 550px;
-    padding: 2.5rem;
-    margin: 1rem;
-    width: 92%;
-  }
-
-  .modal-secondary-text {
-    font-size: 1.1rem;
-    text-align: left;
-    margin-bottom: 3rem;
-  }
-
-  .modal-additional-text {
-    font-size: 1rem;
-    text-align: left;
-    margin-bottom: 1.5rem;
-  }
-
-  .modal-title {
-    font-size: 2.4rem;
-    padding-bottom: 1.8rem;
-  }
-
-  .modal-main-text {
-    font-size: 1.5rem;
-    text-align: left;
-  }
-
-  .modal-header-row {
-    margin-bottom: 1.5rem;
-    gap: 1.5rem;
-  }
-
-  .modal-icon-section {
-    margin-right: 0;
+    padding: 24px 16px;
+    gap: 24px;
   }
 
   .modal-buttons {
-    flex-direction: row;
-    gap: 0.8rem;
-    justify-content: space-between;
+    gap: 20px;
   }
 
   .modal-button {
-    flex: 1;
-    max-width: none;
-    min-width: auto;
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .gameboy-icon {
     width: 120px;
-    height: 120px;
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .match-confirmation-modal {
+    padding: 20px 14px;
+    gap: 20px;
   }
 
-  .loading-section {
-    margin-top: 1.5rem;
-    gap: 1rem;
+  .modal-buttons {
+    gap: 16px;
   }
 
-  .embedded-logo {
-    width: 100px;
-    height: 100px;
-  }
-
-  .transaction-label {
-    font-size: 0.8rem;
-  }
-
-  .transaction-id {
-    font-size: 0.8rem;
-  }
-
-  .loading-spinner {
-    width: 20px;
-    height: 20px;
-  }
-
-  .loading-label {
-    font-size: 0.9rem;
+  .modal-button {
+    width: 110px;
+    padding: 10px 6px;
+    font-size: 12px;
   }
 }
 
 /* Entry animations */
-.match-confirmation-backdrop {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.match-confirmation-modal {
-  animation: slideUp 0.3s ease-out;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -688,10 +581,10 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
