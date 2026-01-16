@@ -1,31 +1,37 @@
 /**
  * @fileoverview Game Configuration Registry
- * 
+ *
  * This file manages all game configurations for the platform, including
  * Unity WebGL assets, game metadata, and placeholder configurations.
  * Each game must be registered here to be accessible through the application.
- * 
+ *
  * @author Embedded Frontend Team
  * @version 1.0.0
  */
 
-import { GameTypes } from '../types';
+import { GameTypes } from "../types";
 
 // Re-export types for convenience
 export type GameAssets = GameTypes.UnityAssets;
 export type GameConfig = GameTypes.GameConfig;
 
+//GamePageImages
+import embeddedWarsBackground from "../assets/gamesImages/EmbeddedWars.png?url";
+import smugglersPoster from "../assets/gamesImages/SmugglersRun.png?url";
+import snakeBackground from "../assets/gamesImages/EmbeddedSnake.png?url";
+import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
+
 /**
  * Snake2048 Unity WebGL Assets Configuration
- * 
+ *
  * These assets are loaded using Vite's explicit URL imports to ensure
  * proper bundling and asset optimization. The ?url suffix tells Vite
  * to return the asset URL rather than importing the file content.
  */
-import snake2048LoaderUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url';
-import snake2048DataUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url';
-import snake2048FrameworkUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url';
-import snake2048CodeUrl from '../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url';
+import snake2048LoaderUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url";
+import snake2048DataUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url";
+import snake2048FrameworkUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url";
+import snake2048CodeUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url";
 
 const snake2048Assets: GameAssets = {
   loaderUrl: snake2048LoaderUrl,
@@ -34,10 +40,10 @@ const snake2048Assets: GameAssets = {
   codeUrl: snake2048CodeUrl,
 };
 
-import asteroidsLoaderUrl from '../assets/Unity/Asteroids/Build/Asteroids.loader.js?url';
-import asteroidsDataUrl from '../assets/Unity/Asteroids/Build/Asteroids.data?url';
-import asteroidsFrameworkUrl from '../assets/Unity/Asteroids/Build/Asteroids.framework.js?url';
-import asteroidsCodeUrl from '../assets/Unity/Asteroids/Build/Asteroids.wasm?url';
+import asteroidsLoaderUrl from "../assets/Unity/Asteroids/Build/Asteroids.loader.js?url";
+import asteroidsDataUrl from "../assets/Unity/Asteroids/Build/Asteroids.data?url";
+import asteroidsFrameworkUrl from "../assets/Unity/Asteroids/Build/Asteroids.framework.js?url";
+import asteroidsCodeUrl from "../assets/Unity/Asteroids/Build/Asteroids.wasm?url";
 
 const asteroidsAssets: GameAssets = {
   loaderUrl: asteroidsLoaderUrl,
@@ -46,18 +52,10 @@ const asteroidsAssets: GameAssets = {
   codeUrl: asteroidsCodeUrl,
 };
 
-import embeddedWarsLoaderUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.loader.js?url';
-import embeddedWarsDataUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.data?url';
-import embeddedWarsFrameworkUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.framework.js?url';
-import embeddedWarsCodeUrl from '../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.wasm?url';
-
-// Background images imports
-import embeddedWarsBackground from '../assets/embedded_wars.jpg?url';
-import smugglersPoster from '../assets/smugglers-run-poster.png?url';
-
-// Existing background images
-import snakeBackground from '../assets/snake_game.jpg?url';
-import asteroidsBackground from '../assets/AsteroidsCover.png?url';
+import embeddedWarsLoaderUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.loader.js?url";
+import embeddedWarsDataUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.data?url";
+import embeddedWarsFrameworkUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.framework.js?url";
+import embeddedWarsCodeUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.wasm?url";
 
 const embeddedWarsAssets: GameAssets = {
   loaderUrl: embeddedWarsLoaderUrl,
@@ -66,10 +64,10 @@ const embeddedWarsAssets: GameAssets = {
   codeUrl: embeddedWarsCodeUrl,
 };
 
-import embeddedSpaceRaceLoaderUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url';
-import embeddedSpaceRaceDataUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url';
-import embeddedSpaceRaceFrameworkUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url';
-import embeddedSpaceRaceCodeUrl from '../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url';
+import embeddedSpaceRaceLoaderUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url";
+import embeddedSpaceRaceDataUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url";
+import embeddedSpaceRaceFrameworkUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url";
+import embeddedSpaceRaceCodeUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url";
 
 const embeddedSpaceRaceAssets: GameAssets = {
   loaderUrl: embeddedSpaceRaceLoaderUrl,
@@ -78,10 +76,10 @@ const embeddedSpaceRaceAssets: GameAssets = {
   codeUrl: embeddedSpaceRaceCodeUrl,
 };
 
-import embeddedSnakeLoaderUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.loader.js?url';
-import embeddedSnakeDataUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.data.unityweb?url';
-import embeddedSnakeFrameworkUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.framework.js.unityweb?url';
-import embeddedSnakeCodeUrl from '../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.wasm.unityweb?url';
+import embeddedSnakeLoaderUrl from "../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.loader.js?url";
+import embeddedSnakeDataUrl from "../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.data.unityweb?url";
+import embeddedSnakeFrameworkUrl from "../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.framework.js.unityweb?url";
+import embeddedSnakeCodeUrl from "../assets/Unity/EmbeddedSnake/Build/EmbeddedSnake.wasm.unityweb?url";
 
 const embeddedSnakeAssets: GameAssets = {
   loaderUrl: embeddedSnakeLoaderUrl,
@@ -92,18 +90,18 @@ const embeddedSnakeAssets: GameAssets = {
 
 /**
  * Future Game Assets Template
- * 
+ *
  * When adding new Unity games, follow this pattern for asset configuration:
- * 
+ *
  * const newGameAssets: GameAssets = {
  *   loaderUrl: new URL('../../assets/Unity/NewGame/Build/NewGame.loader.js', import.meta.url).href,
  *   dataUrl: new URL('../../assets/Unity/NewGame/Build/NewGame.data.unityweb', import.meta.url).href,
  *   frameworkUrl: new URL('../../assets/Unity/NewGame/Build/NewGame.framework.js.unityweb', import.meta.url).href,
  *   codeUrl: new URL('../../assets/Unity/NewGame/Build/NewGame.wasm.unityweb', import.meta.url).href,
  * };
- * 
+ *
  * Or use Vite's ?url imports for explicit URL handling:
- * 
+ *
  * import loaderUrl from '../assets/Unity/NewGame/Build/NewGame.loader.js?url';
  * import dataUrl from '../assets/Unity/NewGame/Build/NewGame.data.unityweb?url';
  * import frameworkUrl from '../assets/Unity/NewGame/Build/NewGame.framework.js.unityweb?url';
@@ -112,11 +110,11 @@ const embeddedSnakeAssets: GameAssets = {
 
 /**
  * Centralized game configurations registry
- * 
+ *
  * This object contains all game configurations indexed by their unique IDs.
  * Each game can either have actual Unity assets or be marked as a placeholder
  * for future implementation. The configuration supports:
- * 
+ *
  * - Unity WebGL asset loading
  * - Game instructions and metadata
  * - Placeholder states for unreleased games
@@ -124,10 +122,10 @@ const embeddedSnakeAssets: GameAssets = {
  */
 export const gameConfigs: Record<string, GameConfig> = {
   // Production Games
-  '01-snake': {
-    id: '01-snake',
-    title: 'Snake Game',
-    description: 'Classic snake game with number merging mechanics',
+  "01-snake": {
+    id: "01-snake",
+    title: "Snake Game",
+    description: "Classic snake game with number merging mechanics",
     assets: snake2048Assets,
     backgroundImage: snakeBackground,
     category: GameTypes.GameCategory.PUZZLE,
@@ -136,18 +134,19 @@ export const gameConfigs: Record<string, GameConfig> = {
     isMultiplayer: false,
     minAge: 8,
     instructions: [
-      'Use arrow keys to move the snake',
-      'Combine equal numbers to create larger numbers',
-      'Avoid hitting walls or yourself',
-      'Try to reach the number 2048!'
-    ]
+      "Use arrow keys to move the snake",
+      "Combine equal numbers to create larger numbers",
+      "Avoid hitting walls or yourself",
+      "Try to reach the number 2048!",
+    ],
   },
 
   // Placeholder Games - These will be implemented in future releases
-  '02-asteroids': {
-    id: '02-asteroids',
-    title: 'Asteroids',
-    description: 'Pilot a lone star fighter through the endless void as waves of asteroids hurtle toward you. Dodge, spin, and fire with precision. Every rock you blast counts!',
+  "02-asteroids": {
+    id: "02-asteroids",
+    title: "Asteroids",
+    description:
+      "Pilot a lone star fighter through the endless void as waves of asteroids hurtle toward you. Dodge, spin, and fire with precision. Every rock you blast counts!",
     assets: asteroidsAssets,
     backgroundImage: asteroidsBackground,
     category: GameTypes.GameCategory.ARCADE,
@@ -157,17 +156,18 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 6,
     // placeholder: true,
     instructions: [
-      'Use arrow keys to control the ship',
-      'Shoot the asteroids to destroy them',
-      'Avoid hitting the asteroids',
-      'Earn more points than your opponent!'
-    ]
+      "Use arrow keys to control the ship",
+      "Shoot the asteroids to destroy them",
+      "Avoid hitting the asteroids",
+      "Earn more points than your opponent!",
+    ],
   },
-  '03-Embedded-Wars': {
-    id: '03-Embedded-Wars',
-    title: 'Embedded Wars',
-    description: 'PvP Sci-Fi 3rd person droid battle',
-    longDescription: "In 2248, mega-corporations rule Earth, vying to control 'Aetherion', the rare fuel enabling faster-than-light travel. Synthesised using red mercury - found deep within certain planets - Aetherion fuels an interstellar economy. Smugglers, and five rival factions (mega-corporations) battle for dominance to control its supply and the interstellar economy. Embedded Wars takes place on a mining planet where these factions battle it out for control of resources.",
+  "03-Embedded-Wars": {
+    id: "03-Embedded-Wars",
+    title: "Embedded Wars",
+    description: "PvP Sci-Fi 3rd person droid battle",
+    longDescription:
+      "In 2248, mega-corporations rule Earth, vying to control 'Aetherion', the rare fuel enabling faster-than-light travel. Synthesised using red mercury - found deep within certain planets - Aetherion fuels an interstellar economy. Smugglers, and five rival factions (mega-corporations) battle for dominance to control its supply and the interstellar economy. Embedded Wars takes place on a mining planet where these factions battle it out for control of resources.",
     assets: embeddedWarsAssets,
     backgroundImage: embeddedWarsBackground,
     category: GameTypes.GameCategory.PUZZLE,
@@ -175,21 +175,20 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 12,
     isMultiplayer: false,
     minAge: 5,
-     instructions: [
-      'Use arrow keys to move your drone',
-      'Shoot projectiles with left click to eliminate enemies',
-      'Avoid hitting with the laser',
-      'Eliminate your opponent!'
-    ]
-
-  }
+    instructions: [
+      "Use arrow keys to move your drone",
+      "Shoot projectiles with left click to eliminate enemies",
+      "Avoid hitting with the laser",
+      "Eliminate your opponent!",
+    ],
+  },
 };
 
 // Add Smugglers Run
-gameConfigs['12-smugglers-run'] = {
-  id: '12-smugglers-run',
-  title: 'Smugglers Run',
-  description: 'A fast-paced PvE racing adventure.',
+gameConfigs["12-smugglers-run"] = {
+  id: "12-smugglers-run",
+  title: "Smugglers Run",
+  description: "A fast-paced PvE racing adventure.",
   assets: embeddedSpaceRaceAssets,
   backgroundImage: smugglersPoster,
   category: GameTypes.GameCategory.RACING,
@@ -199,18 +198,18 @@ gameConfigs['12-smugglers-run'] = {
   minAge: 5,
   isPvE: true,
   instructions: [
-    'Use WASD to control your ship.',
-    'Press Shift to use your powerup.',
-    'Press R to backtrack.',
-    'Win by getting to the finish line faster than your opponents!'
-  ]
+    "Use WASD to control your ship.",
+    "Press Shift to use your powerup.",
+    "Press R to backtrack.",
+    "Win by getting to the finish line faster than your opponents!",
+  ],
 };
 
 // Add Embedded Snake
-gameConfigs['01-embedded-snake'] = {
-  id: '01-embedded-snake',
-  title: 'Snake',
-  description: 'Survival of the fittest Snake!',
+gameConfigs["01-embedded-snake"] = {
+  id: "01-embedded-snake",
+  title: "Snake",
+  description: "Survival of the fittest Snake!",
   assets: embeddedSnakeAssets,
   backgroundImage: snakeBackground,
   category: GameTypes.GameCategory.ARCADE,
@@ -220,9 +219,9 @@ gameConfigs['01-embedded-snake'] = {
   minAge: 5,
   isPvE: true,
   instructions: [
-    'Use your cursor / finger to move the snake',
-    'Eat food with lower or equal numbers to grow longer',
-    'Avoid hitting walls, longer snakes or yourself',
-    'Survive as long as you can!'
-  ]
+    "Use your cursor / finger to move the snake",
+    "Eat food with lower or equal numbers to grow longer",
+    "Avoid hitting walls, longer snakes or yourself",
+    "Survive as long as you can!",
+  ],
 };
