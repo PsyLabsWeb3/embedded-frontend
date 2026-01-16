@@ -5,9 +5,10 @@ import Sidebar from "../organisms/Sidebar";
 import "./GamePageTemplate.css";
 
 // Import game data for related games sidebar
-import pvpGames from "../../data/pvpGames";
-import pveGames from "../../data/pveGames";
-import freeGames from "../../data/freeGames";
+import completePvpGames from "../../data/completePvpGames";
+import completePveGames from "../../data/completePveGames";
+import completeFreeGames from "../../data/completeFreeGames";
+import gridGames, { getGridSizeClass } from "../../data/gamePageGridGames";
 import { GAME_ROUTES, ROUTES } from "../../constants";
 import { useIsMobile } from "../../hooks/useIsMobile";
 
@@ -22,6 +23,8 @@ const gameVideos: Record<string, string> = {
   slice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+  embeddedsnake: "/gameVideos/Embedded Snake.mp4",
+  tankieracerattack: "/gameVideos/Tankie Racer Attack.mp4",
 };
 
 // Related Game Card Component with hover-to-play video
@@ -130,13 +133,25 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
     }
   };
 
-  // Combine all games and filter out current game
-  const allGames = [...pvpGames, ...pveGames, ...freeGames].filter(
-    (game) => game.slug !== currentGameSlug && !game.comingSoon
-  );
+  // Combine all games for lookup
+  const allGames = [
+    ...completePvpGames,
+    ...completePveGames,
+    ...completeFreeGames,
+  ].filter((game) => !game.comingSoon);
 
-  // Get a subset of games for the sidebar (max 10)
-  const relatedGames = allGames.slice(0, 10);
+  // Create a map for quick lookup
+  const gamesBySlug = new Map(allGames.map((game) => [game.slug, game]));
+
+  // Get games for the grid based on configuration, excluding current game
+  const relatedGames = gridGames
+    .filter((gridGame) => gridGame.slug !== currentGameSlug)
+    .map((gridGame) => {
+      const game = gamesBySlug.get(gridGame.slug);
+      return game ? { ...game, position: gridGame.position } : null;
+    })
+    .filter((game): game is NonNullable<typeof game> => game !== null)
+    .slice(0, 12);
 
   return (
     <div className="game-page">
@@ -237,24 +252,14 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
         {/* Right Sidebar - Related Games */}
         <aside className="game-page-related">
           <div className="related-games-grid">
-            {relatedGames.map((game, index) => {
-              // Determine the size class based on position for variety
-              const sizeClass =
-                index === 0 || index === 4
-                  ? "related-game--large"
-                  : index === 1 || index === 5
-                  ? "related-game--tall"
-                  : "related-game--small";
-
-              return (
-                <RelatedGameCard
-                  key={game.slug}
-                  game={game}
-                  sizeClass={sizeClass}
-                  onClick={() => handleGameClick(game.slug)}
-                />
-              );
-            })}
+            {relatedGames.map((game) => (
+              <RelatedGameCard
+                key={`${game.slug}-${game.position}`}
+                game={game}
+                sizeClass={getGridSizeClass(game.position)}
+                onClick={() => handleGameClick(game.slug)}
+              />
+            ))}
           </div>
         </aside>
       </div>

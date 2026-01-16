@@ -221,6 +221,7 @@
   padding: 8px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 91px;
   gap: 8px;
   width: 100%;
 }
@@ -276,25 +277,21 @@
 .related-game--small {
   grid-column: span 1;
   grid-row: span 1;
-  aspect-ratio: 1;
 }
 
 .related-game--tall {
   grid-column: span 1;
   grid-row: span 2;
-  min-height: 180px;
 }
 
 .related-game--large {
   grid-column: span 2;
   grid-row: span 2;
-  min-height: 180px;
 }
 
 .related-game--wide {
   grid-column: span 3;
   grid-row: span 1;
-  aspect-ratio: 3;
 }
 
 /* ==================== TABLET STYLES ==================== */
@@ -353,7 +350,7 @@
 
   .game-main-card__info {
     padding: 24px 22px 32px;
-    gap: 17px;
+    gap: 2rem;
   }
 
   .game-main-card__title {
@@ -381,33 +378,29 @@
   }
 
   .related-games-grid {
-    height: 898px;
-    overflow-y: auto;
     grid-template-columns: 86px 86px 86px;
     grid-auto-rows: 91px;
     gap: 8px;
   }
 
   .related-game--small {
-    aspect-ratio: unset;
-    height: 91px;
+    grid-column: span 1;
+    grid-row: span 1;
   }
 
   .related-game--tall {
-    min-height: 190px;
+    grid-column: span 1;
     grid-row: span 2;
   }
 
   .related-game--large {
-    min-height: 190px;
     grid-column: span 2;
     grid-row: span 2;
   }
 
   .related-game--wide {
     grid-column: span 3;
-    height: 91px;
-    aspect-ratio: unset;
+    grid-row: span 1;
   }
 
   .related-game figcaption {
