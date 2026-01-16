@@ -314,29 +314,20 @@
 }
 
 /* ==================== DESKTOP STYLES ==================== */
-@media (min-width: 900px) {
+@media (min-width: 1024px) {
   .game-page-layout {
     flex-direction: row;
     padding: 2rem;
     gap: 2rem;
     max-width: 1800px;
     margin: 0 auto;
-  }
-
-  /* Sidebar takes fixed width on left */
-  .game-page-layout > .sidebar {
-    width: 156px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 100px;
-    height: fit-content;
+    margin-left: 156px; /* Account for fixed sidebar width */
   }
 
   /* Main content takes remaining space */
   .game-page-main {
     flex: 1;
     min-width: 0;
-    max-width: 1028px;
   }
 
   .game-main-card {
@@ -363,7 +354,7 @@
 
   .game-instructions-box {
     padding: 33px 28px;
-    max-width: 1029px;
+    max-width: 1429px;
   }
 
   .game-instructions-box__item {
@@ -413,7 +404,7 @@
 /* ==================== LARGE DESKTOP ==================== */
 @media (min-width: 1400px) {
   .game-page-main {
-    max-width: 1028px;
+    max-width: 1428px;
   }
 
   .related-games-grid {
