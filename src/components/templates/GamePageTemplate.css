@@ -107,7 +107,11 @@
 }
 
 .game-feature__label {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: normal;
@@ -123,7 +127,11 @@
 }
 
 .game-main-card__title {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: normal;
@@ -139,7 +147,11 @@
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 12px;
   font-weight: 500;
   padding: 4px 12px;
@@ -149,7 +161,11 @@
 
 /* Description */
 .game-main-card__description {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -159,7 +175,11 @@
 
 /* Fee Text */
 .game-main-card__fee {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: normal;
@@ -184,7 +204,11 @@
 }
 
 .game-instructions-box__title {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 700;
   font-size: 22px;
   line-height: normal;
@@ -199,7 +223,11 @@
 }
 
 .game-instructions-box__item {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
@@ -251,7 +279,11 @@
   left: 8px;
   bottom: 8px;
   color: #fff;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 600;
   font-size: 12px;
   z-index: 2;
@@ -400,7 +432,22 @@
   }
 }
 
-/* ==================== LARGE DESKTOP ==================== */
+/* ==================== LARGE DESKTOP (1340px+) ==================== */
+@media (min-width: 1340px) {
+  .game-main-card__media {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .game-main-card__content {
+    position: relative;
+    inset: unset;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ==================== EXTRA LARGE DESKTOP ==================== */
 @media (min-width: 1400px) {
   .game-page-main {
     max-width: 1428px;

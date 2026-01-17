@@ -1,47 +1,71 @@
-/* Pay Entry Modal Styles */
+/* Pay Entry Modal Styles - Figma Design Implementation */
 .pay-entry-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: grid;
-  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .pay-entry-modal {
-  width: min(92vw, 520px);
-  background: var(--color-bg, #171d20);
-  color: var(--color-text, #ffffff);
+  background: #121214;
   border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(93, 214, 44, 0.3);
+  padding: 33px 18px;
+  max-width: 520px;
+  width: min(92vw, 520px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  overflow: clip;
+  animation: slideUp 0.3s ease-out;
 }
 
 .pay-entry-modal h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--color-primary, #5dd62c);
-  font-size: 1.5rem;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: normal;
+  color: #ffffff;
+  margin: 0;
   text-align: center;
 }
 
 .pay-entry-modal-content {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 30px;
   align-items: center;
+  width: 100%;
 }
 
 .pay-entry-transaction-info {
-  margin: 0.5rem 0 0.5rem 0;
-  word-break: break-all;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
+  color: #959698;
+  margin: 0;
   text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.8;
+  word-break: break-all;
 }
 
 .pay-entry-transaction-info a {
-  color: var(--color-primary, #5dd62c);
+  color: #5dd62c;
   text-decoration: none;
 }
 
@@ -53,14 +77,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 20px;
 }
 
 .pay-entry-spinner {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border: 3px solid rgba(93, 214, 44, 0.3);
-  border-top: 3px solid var(--color-primary, #5dd62c);
+  border-top: 3px solid #5dd62c;
   border-radius: 50%;
   animation: pay-entry-spin 1s linear infinite;
 }
@@ -76,9 +100,15 @@
 
 /* PvE button specific styling */
 .pay-entry-amount-display {
-  color: var(--color-text-secondary, #cccccc);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #959698;
+  margin-top: 8px;
   text-align: center;
 }
 
@@ -90,26 +120,39 @@
 }
 
 .pay-entry-waiting-text {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: normal;
+  color: #959698;
   text-align: center;
+  margin: 0;
 }
 
 .pay-entry-continue-button {
-  background: var(--color-primary, #5dd62c);
-  color: var(--color-bg, #171d20);
+  background: #5dd62c;
+  color: #121214;
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 120px;
 }
 
 .pay-entry-continue-button:hover {
-  background: var(--color-primary-dark, #4bc123);
+  background: #4bc123;
   transform: translateY(-2px);
 }
 
@@ -148,7 +191,11 @@
   border: none;
   border-radius: 6px;
   padding: 10px;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
@@ -251,7 +298,8 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .pay-entry-modal {
-    padding: 1.5rem;
+    padding: 24px 16px;
+    gap: 24px;
   }
 
   .pay-entry-section {
@@ -271,6 +319,11 @@
 }
 
 @media (max-width: 480px) {
+  .pay-entry-modal {
+    padding: 20px 14px;
+    gap: 20px;
+  }
+
   .pay-entry-section {
     margin: 0.5rem 0;
     padding: 0.75rem;
@@ -318,7 +371,11 @@
 
 /* Title styling */
 .modal-title {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: normal;
@@ -329,7 +386,11 @@
 
 /* Main text styling */
 .modal-main-text {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: normal;
@@ -343,9 +404,13 @@
   font-weight: 400;
 }
 
-/* Secondary text styling */
+/* Secondary text styling - "You can check the status..." */
 .modal-secondary-text {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: normal;
@@ -354,14 +419,47 @@
   text-align: center;
 }
 
-.modal-disclaimer-text {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+/* Transaction info text with green link */
+.modal-tx-info {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: normal;
-  color: #ff6b6b;
+  color: #959698;
   margin: 0;
   text-align: center;
+  max-width: 265px;
+  word-break: break-all;
+}
+
+.modal-tx-info a,
+.modal-tx-link {
+  color: #5dd62c;
+  text-decoration: none;
+}
+
+.modal-tx-info a:hover,
+.modal-tx-link:hover {
+  text-decoration: underline;
+}
+
+.modal-disclaimer-text {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+  color: #959698;
+  margin: 0;
+  text-align: center;
+  max-width: 369px;
 }
 
 /* Button container layout */
@@ -382,7 +480,11 @@
 
 /* Error text styling */
 .modal-error-text {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 16px;
   text-align: center;
@@ -393,7 +495,11 @@
 
 /* Base button styling */
 .modal-button {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: normal;
@@ -445,7 +551,7 @@
   transform: none;
 }
 
-/* Loading Section */
+/* Loading Section - Figma Design */
 .loading-section {
   display: flex;
   flex-direction: column;
@@ -460,8 +566,9 @@
 }
 
 .embedded-logo {
-  width: 80px;
-  height: 80px;
+  width: 87px;
+  height: 59px;
+  object-fit: contain;
 }
 
 .transaction-section {
@@ -471,7 +578,11 @@
 }
 
 .transaction-label {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #959698;
@@ -480,7 +591,11 @@
 }
 
 .transaction-id {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #5dd62c;
@@ -517,11 +632,16 @@
 }
 
 .loading-label {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #ffffff;
   margin: 0;
+  display: none; /* Hidden per Figma design - only spinner shows */
 }
 
 @keyframes spin {
