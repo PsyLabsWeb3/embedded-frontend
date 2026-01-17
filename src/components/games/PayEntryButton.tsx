@@ -17,14 +17,13 @@ import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from "../../constants";
 import "./PayEntryModal.css";
 import "./DegenModeModal.css";
-import gameboyIcon from "../../assets/gameboy.svg";
 
 // Program constants for mainet
 const PROGRAM_ID = new PublicKey(
-  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8"
+  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8",
 );
 const TREASURY_PDA = new PublicKey(
-  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM"
+  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM",
 );
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -51,7 +50,7 @@ type Props = {
 async function waitForFinalized(
   connection: ReturnType<typeof useConnection>["connection"],
   signature: string,
-  opts: { timeoutMs?: number; pollMs?: number } = {}
+  opts: { timeoutMs?: number; pollMs?: number } = {},
 ): Promise<boolean> {
   const timeoutMs = opts.timeoutMs ?? 120_000;
   const pollMs = opts.pollMs ?? 1500;
@@ -81,7 +80,7 @@ async function waitForFinalized(
         void res;
         cleanup();
       },
-      "finalized"
+      "finalized",
     );
   } catch {
     // Fallback to polling if WebSocket subscription fails
@@ -128,7 +127,7 @@ async function buildPayEntryV0Tx(
   connection: ReturnType<typeof useConnection>["connection"],
   payer: PublicKey,
   lamports: BN,
-  program: Program
+  program: Program,
 ): Promise<VersionedTransaction> {
   const computeIxs = [
     ComputeBudgetProgram.setComputeUnitLimit({ units: 350_000 }),
@@ -216,7 +215,7 @@ const PayEntryButton: React.FC<Props> = ({
         let price = solPriceUsd;
         if (!price || !(price > 0)) {
           const r = await fetch(
-            "https://backend.embedded.games/api/solanaPriceUSD"
+            "https://backend.embedded.games/api/solanaPriceUSD",
           );
           const data = await r.json();
           price = Number(data?.priceUsd);
@@ -226,7 +225,7 @@ const PayEntryButton: React.FC<Props> = ({
         }
 
         const solAmount = Number(
-          (degenSelected / (price as number)).toFixed(8)
+          (degenSelected / (price as number)).toFixed(8),
         );
         setDegenModalOpen(false);
         // notify parent that a degen play is about to happen (USD and SOL)
@@ -293,7 +292,7 @@ const PayEntryButton: React.FC<Props> = ({
   // Handle price loading and Phantom wallet return flow
   useEffect(() => {
     const last = localStorage.getItem(
-      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION
+      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION,
     );
     if (last) {
       setTxSig(last);
@@ -319,7 +318,7 @@ const PayEntryButton: React.FC<Props> = ({
     (async () => {
       try {
         const r = await fetch(
-          "https://backend.embedded.games/api/solanaPriceUSD"
+          "https://backend.embedded.games/api/solanaPriceUSD",
         );
         const data = await r.json();
         const price = Number(data?.priceUsd);
@@ -457,7 +456,7 @@ const PayEntryButton: React.FC<Props> = ({
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (
     overrideSol?: number,
-    usdBetAmount?: number
+    usdBetAmount?: number,
   ) => {
     // check wallet/provider readiness depending on desktop/mobile flow
     const anchorReady = !!anchorWallet && !!program;
@@ -492,7 +491,7 @@ const PayEntryButton: React.FC<Props> = ({
           connection,
           anchorWallet.publicKey,
           lamports,
-          program
+          program,
         );
 
         // Pre-simulación (sin verificación de firma y pudiendo reemplazar blockhash)
@@ -505,14 +504,14 @@ const PayEntryButton: React.FC<Props> = ({
           console.error(
             "Pre-sim failed (desktop):",
             sim.value.err,
-            sim.value.logs
+            sim.value.logs,
           );
           setIsLoadingTransaction(false);
           setShowMatchConfirmation(false);
           setCurrentTransactionId(null);
           setSending(false);
           setModalError(
-            formatTxError("Pre-simulation failed.", sim.value.logs)
+            formatTxError("Pre-simulation failed.", sim.value.logs),
           );
           setModalOpen(true);
           return;
@@ -628,7 +627,7 @@ const PayEntryButton: React.FC<Props> = ({
       const tempProvider = new AnchorProvider(
         connection,
         { publicKey: tempWalletPub } as any,
-        { commitment: "confirmed" }
+        { commitment: "confirmed" },
       );
       const tempProgram = new Program(idl as Idl, tempProvider);
 
@@ -637,7 +636,7 @@ const PayEntryButton: React.FC<Props> = ({
         connection,
         tempWalletPub,
         lamports,
-        tempProgram
+        tempProgram,
       );
 
       // Pre-simulación
@@ -650,7 +649,7 @@ const PayEntryButton: React.FC<Props> = ({
         console.error(
           "Pre-sim failed (mobile):",
           sim.value.err,
-          sim.value.logs
+          sim.value.logs,
         );
         setIsLoadingTransaction(false);
         setShowMatchConfirmation(false);
@@ -666,7 +665,7 @@ const PayEntryButton: React.FC<Props> = ({
         localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
         localStorage.setItem(
           LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
-          usdBetAmount.toString()
+          usdBetAmount.toString(),
         );
       } else {
         localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
@@ -688,7 +687,7 @@ const PayEntryButton: React.FC<Props> = ({
       const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
         payloadObj,
         phantomEncPub,
-        dappKp.secretKeyBase58
+        dappKp.secretKeyBase58,
       );
 
       const currentPath = window.location.pathname + window.location.search;
@@ -697,7 +696,7 @@ const PayEntryButton: React.FC<Props> = ({
       const redirectLink = encodeURIComponent(
         `${
           window.location.origin
-        }/phantom-sign-callback?state=${encodeURIComponent(currentPath)}`
+        }/phantom-sign-callback?state=${encodeURIComponent(currentPath)}`,
       );
       const appUrl = encodeURIComponent(window.location.origin);
       const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
@@ -729,7 +728,7 @@ const PayEntryButton: React.FC<Props> = ({
         setModalOpen(true);
       } else {
         setModalError(
-          (e as Error)?.message ?? "Transaction failed. Try again."
+          (e as Error)?.message ?? "Transaction failed. Try again.",
         );
         setModalOpen(true);
       }
@@ -899,10 +898,10 @@ const PayEntryButton: React.FC<Props> = ({
               {modalError
                 ? "Transaction Error"
                 : isLoadingTransaction
-                ? "Processing..."
-                : isLoadingGame
-                ? "Loading Game..."
-                : "Transaction Complete"}
+                  ? "Processing..."
+                  : isLoadingGame
+                    ? "Loading Game..."
+                    : "Transaction Complete"}
             </h3>
 
             {modalError ? (
