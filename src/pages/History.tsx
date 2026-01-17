@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/sections/Navbar";
+import Footer from "../components/sections/Footer";
 import Sidebar from "../components/organisms/Sidebar";
 import UserHistorySection from "../components/organisms/history/UserHistorySection";
 import { LOCAL_STORAGE_CONF, GAME_ROUTES, ROUTES } from "../constants";
@@ -251,6 +252,7 @@ const History = () => {
           </div>
         </aside>
       </div>
+      <Footer />
     </div>
   );
 };

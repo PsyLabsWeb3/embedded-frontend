@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../sections/Navbar";
+import Footer from "../sections/Footer";
 import Sidebar from "../organisms/Sidebar";
 import "./GamePageTemplate.css";
 
@@ -267,6 +268,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           </div>
         </aside>
       </div>
+      <Footer />
     </div>
   );
 };
