@@ -6,7 +6,9 @@ import UserHistorySection from "../components/organisms/history/UserHistorySecti
 import { LOCAL_STORAGE_CONF, GAME_ROUTES, ROUTES } from "../constants";
 import { useMatchHistory } from "../hooks/useMatchHistory";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { generateDappKeypair } from "../utils/phantomCrypto";
 import "./History.css";
 
 // Import game data for related games sidebar
@@ -79,8 +81,14 @@ const RelatedGameCard: React.FC<RelatedGameCardProps> = ({
 const History = () => {
   const navigate = useNavigate();
   const { publicKey, connected } = useWallet();
+  const { setVisible } = useWalletModal();
   const walletAddress = publicKey?.toString();
   const isConnected = connected && Boolean(walletAddress);
+
+  // Check if mobile device
+  const isMobileDevice = () =>
+    typeof navigator !== "undefined" &&
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   const mobileSession = localStorage.getItem(LOCAL_STORAGE_CONF.LOCAL_SESSION);
   const mobileWalletAddress =
@@ -181,13 +189,36 @@ const History = () => {
                   </p>
                   <button
                     className="history-not-connected__button"
-                    onClick={() =>
-                      document
-                        .querySelector<HTMLButtonElement>(
-                          '.appkit-button button, [data-testid="connect-button"]',
-                        )
-                        ?.click()
-                    }
+                    onClick={() => {
+                      if (isMobileDevice()) {
+                        // Phantom deep link for mobile
+                        const kp = generateDappKeypair();
+                        localStorage.setItem(
+                          LOCAL_STORAGE_CONF.LOCAL_KEYS,
+                          JSON.stringify(kp),
+                        );
+                        const appUrl = encodeURIComponent(
+                          window.location.origin,
+                        );
+                        const currentPath =
+                          window.location.pathname + window.location.search;
+                        localStorage.setItem(
+                          LOCAL_STORAGE_CONF.LOCAL_REDIRECT,
+                          currentPath,
+                        );
+                        const redirectLink = encodeURIComponent(
+                          `${window.location.origin}/phantom-callback?state=${encodeURIComponent(currentPath)}`,
+                        );
+                        window.location.href =
+                          `https://phantom.app/ul/v1/connect?` +
+                          `app_url=${appUrl}` +
+                          `&redirect_link=${redirectLink}` +
+                          `&dapp_encryption_public_key=${encodeURIComponent(kp.publicKeyBase58)}`;
+                      } else {
+                        // Desktop wallet modal
+                        setVisible(true);
+                      }
+                    }}
                   >
                     Connect Wallet
                   </button>
