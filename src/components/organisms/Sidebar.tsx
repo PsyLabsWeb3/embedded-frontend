@@ -16,7 +16,7 @@
  * @version 1.0.0
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../constants";
 import "./Sidebar.css";
@@ -24,6 +24,7 @@ import leaderboardIcon from "../../assets/icons/leaderboardIcon.svg";
 import historyIcon from "../../assets/icons/historyIcon.svg";
 import advertiseIcon from "../../assets/icons/adIcon.svg";
 import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
+import AdvertiseModal from "./AdvertiseModal";
 
 /**
  * Icon components using imported SVG assets
@@ -55,89 +56,108 @@ const WhitepaperIcon: React.FC = () => (
  */
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const [isAdvertiseModalOpen, setIsAdvertiseModalOpen] = useState(false);
+
+  const handleAdvertiseClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsAdvertiseModalOpen(true);
+  };
+
+  const handleCloseAdvertiseModal = () => {
+    setIsAdvertiseModalOpen(false);
+  };
 
   return (
-    <aside
-      className="sidebar"
-      role="navigation"
-      aria-label="Secondary navigation"
-    >
-      <nav className="sidebar__nav">
-        {/* Leaderboard Link */}
-        <Link
-          to={ROUTES.LEADERBOARD}
-          className={`sidebar__item ${
-            location.pathname === ROUTES.LEADERBOARD
-              ? "sidebar__item--active"
-              : ""
-          }`}
-          aria-label="View leaderboard"
-        >
-          <LeaderboardIcon />
-          <span className="sidebar__text">Leaderboard</span>
-        </Link>
+    <>
+      <aside
+        className="sidebar"
+        role="navigation"
+        aria-label="Secondary navigation"
+      >
+        <nav className="sidebar__nav">
+          {/* Leaderboard Link */}
+          <Link
+            to={ROUTES.LEADERBOARD}
+            className={`sidebar__item ${
+              location.pathname === ROUTES.LEADERBOARD
+                ? "sidebar__item--active"
+                : ""
+            }`}
+            aria-label="View leaderboard"
+          >
+            <LeaderboardIcon />
+            <span className="sidebar__text">Leaderboard</span>
+          </Link>
 
-        {/* History Link */}
-        <Link
-          to={ROUTES.HISTORY}
-          className={`sidebar__item ${
-            location.pathname === ROUTES.HISTORY ? "sidebar__item--active" : ""
-          }`}
-          aria-label="View game history"
-        >
-          <HistoryIcon />
-          <span className="sidebar__text">History</span>
-        </Link>
+          {/* History Link */}
+          <Link
+            to={ROUTES.HISTORY}
+            className={`sidebar__item ${
+              location.pathname === ROUTES.HISTORY
+                ? "sidebar__item--active"
+                : ""
+            }`}
+            aria-label="View game history"
+          >
+            <HistoryIcon />
+            <span className="sidebar__text">History</span>
+          </Link>
 
-        {/* Advertise Link */}
-        <Link
-          to="#"
-          className="sidebar__item"
-          aria-label="Advertise with us"
-          onClick={(e) => {
-            e.preventDefault();
-            // TODO: Add advertise functionality or external link
-          }}
-        >
-          <AdvertiseIcon />
-          <span className="sidebar__text">Advertise</span>
-        </Link>
+          {/* Advertise Link */}
+          <button
+            className="sidebar__item sidebar__item--button"
+            aria-label="Advertise with us"
+            onClick={handleAdvertiseClick}
+            type="button"
+          >
+            <AdvertiseIcon />
+            <span className="sidebar__text">Advertise</span>
+          </button>
 
-        {/* Whitepaper Link */}
-        <Link
-          to={ROUTES.WHITEPAPER}
-          className={`sidebar__item ${
-            location.pathname === ROUTES.WHITEPAPER
-              ? "sidebar__item--active"
-              : ""
-          }`}
-          aria-label="Read whitepaper"
-        >
-          <WhitepaperIcon />
-          <span className="sidebar__text">Whitepaper</span>
-        </Link>
+          {/* Whitepaper Link */}
+          <Link
+            to={ROUTES.WHITEPAPER}
+            className={`sidebar__item ${
+              location.pathname === ROUTES.WHITEPAPER
+                ? "sidebar__item--active"
+                : ""
+            }`}
+            aria-label="Read whitepaper"
+          >
+            <WhitepaperIcon />
+            <span className="sidebar__text">Whitepaper</span>
+          </Link>
 
-        {/* Tournaments - Coming Soon */}
-        <div
-          className="sidebar__item sidebar__item--disabled"
-          aria-label="Tournaments (Coming soon)"
-        >
-          <span className="sidebar__text sidebar__text--centered">
-            Tournaments
-          </span>
-          <span className="sidebar__badge">COMING SOON</span>
-        </div>
+          {/* Tournaments - Coming Soon */}
+          <div
+            className="sidebar__item sidebar__item--disabled"
+            aria-label="Tournaments (Coming soon)"
+          >
+            <span className="sidebar__text sidebar__text--centered">
+              Tournaments
+            </span>
+            <span className="sidebar__badge">COMING SOON</span>
+          </div>
 
-        {/* Rewards - Coming Soon */}
-        <div
-          className="sidebar__item sidebar__item--disabled"
-          aria-label="Rewards (Coming soon)"
-        >
-          <span className="sidebar__text sidebar__text--centered">Rewards</span>
-          <span className="sidebar__badge">COMING SOON</span>
-        </div>
-      </nav>
-    </aside>
+          {/* Rewards - Coming Soon */}
+          <div
+            className="sidebar__item sidebar__item--disabled"
+            aria-label="Rewards (Coming soon)"
+          >
+            <span className="sidebar__text sidebar__text--centered">
+              Rewards
+            </span>
+            <span className="sidebar__badge">COMING SOON</span>
+          </div>
+        </nav>
+      </aside>
+
+      {/* Advertise Modal */}
+      <AdvertiseModal
+        isOpen={isAdvertiseModalOpen}
+        onClose={handleCloseAdvertiseModal}
+      />
+    </>
   );
 };
 
