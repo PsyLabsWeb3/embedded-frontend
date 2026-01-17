@@ -10,7 +10,7 @@
   --color-primary: #5dd62c;
   --color-primary-dark: #337418;
   --color-accent-pink: #ae43ff;
-  --color-accent-blue: #2cb1d6;
+  --color-accent-blue: #83ea5a;
   --color-text: #ffffff;
   --color-text-muted: #d0d0d0;
 
@@ -64,7 +64,7 @@
   --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.1);
   --shadow-hard: 0 4px 12px rgba(0, 0, 0, 0.25);
   --shadow-glow-green: 0 0 12px rgba(93, 214, 44, 0.6);
-  --shadow-glow-blue: 0 8px 10px 0 #2cb1d6cc;
+  --shadow-glow-blue: 0 8px 10px 0 #5dd62c;
   --shadow-glow-white: 0 8px 10px 0 #ffffff;
 
   /* Border Radius */
