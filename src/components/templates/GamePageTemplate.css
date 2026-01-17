@@ -434,12 +434,13 @@
 
 /* ==================== LARGE DESKTOP (1340px+) ==================== */
 @media (min-width: 1340px) {
-  .game-main-card__media {
+  /* Only apply responsive sizing when game is actively playing */
+  .game-main-card__media--playing {
     height: auto;
     aspect-ratio: 16 / 9;
   }
 
-  .game-main-card__content {
+  .game-main-card__media--playing .game-main-card__content {
     position: relative;
     inset: unset;
     width: 100%;

@@ -38,7 +38,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   // Mode state to forward to Unity - can be 'Betting' for PvP or 'PvE' for PvE
   const [gameMode, setGameMode] = React.useState<string | null>(null);
   const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(
-    null
+    null,
   );
   const [gameLoading, setGameLoading] = React.useState(false);
   const [gameLoaded, setGameLoaded] = React.useState(false);
@@ -279,6 +279,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       isLive={!gameConfig.placeholder}
       isPvE={gameConfig.isPvE}
       feeText="Entry from 0.5 USD"
+      isGamePlaying={entryConfirmed}
     />
   );
 };

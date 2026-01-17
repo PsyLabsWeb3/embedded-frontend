@@ -92,6 +92,7 @@ interface GamePageTemplateProps {
   isLive?: boolean;
   isPvE?: boolean;
   feeText?: string;
+  isGamePlaying?: boolean;
 }
 
 const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
@@ -105,6 +106,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
   isLive = true,
   isPvE = false,
   feeText = "Entry from 0.5 USD",
+  isGamePlaying = false,
 }) => {
   const navigate = useNavigate();
 
@@ -165,7 +167,9 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
           {/* Main Game Card */}
           <div className="game-main-card">
             {/* Game Image/Video Area */}
-            <div className="game-main-card__media">
+            <div
+              className={`game-main-card__media${isGamePlaying ? " game-main-card__media--playing" : ""}`}
+            >
               {backgroundImage && (
                 <div
                   className="game-main-card__background"
