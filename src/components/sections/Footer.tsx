@@ -42,6 +42,9 @@ const Footer: React.FC = () => {
               <a href="/leaderboard">Leaderboard</a>
             </li>
             <li>
+              <a href="/faqs">FAQs</a>
+            </li>
+            <li>
               <a
                 href="https://embedded.games/whitepaper.pdf"
                 target="_blank"

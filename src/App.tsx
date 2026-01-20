@@ -44,6 +44,7 @@ import Tournaments from "./pages/Tournaments";
 import PhantomCallback from "./pages/PhantomCallback";
 import PhantomSignCallback from "./pages/PhantomSignCallback";
 import Whitepaper from "./pages/Whitepaper";
+import FAQsPage from "./pages/FAQs";
 import ScrollToTop from "./components/atoms/ScrollToTop";
 
 // Import game page components
@@ -160,6 +161,9 @@ const App: React.FC = () => {
                 />
 
                 <Route path="/whitepaper" element={<Whitepaper />} />
+
+                {/* FAQs Page */}
+                <Route path="/faqs" element={<FAQsPage />} />
 
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />
