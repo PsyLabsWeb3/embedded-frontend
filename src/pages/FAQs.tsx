@@ -113,6 +113,25 @@ const FAQS = [
     ),
   },
   {
+    question: "How does Friendly Match work?",
+    answer: (
+      <>
+        Friendly Match is available in Cyber Arena. Create a private match to
+        get a unique code and invite up to 6 friends to join the same arena for
+        skill-based action.
+        <br />
+        <br />
+        Each player pays a $0.10 entry fee to join.
+        <br />
+        Every Friendly Match grants 1 leaderboard point, counting toward monthly
+        airdrop rewards for players with points.
+        <br />
+        It’s a great way to practice, compete, and earn rewards together.
+      </>
+    ),
+  },
+
+  {
     question: "What can I win?",
     answer: (
       <>
