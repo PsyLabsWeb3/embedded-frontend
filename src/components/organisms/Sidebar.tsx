@@ -25,7 +25,7 @@ import historyIcon from "../../assets/icons/historyIcon.svg";
 import advertiseIcon from "../../assets/icons/adIcon.svg";
 import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
 import AdvertiseModal from "./AdvertiseModal";
-import tournamentIcon from "../../assets/icons/TournamentIcon.svg";
+import tournamentIcon from "../../assets/icons/tournamentIcon.svg";
 
 /**
  * Icon components using imported SVG assets
