@@ -25,6 +25,7 @@ import historyIcon from "../../assets/icons/historyIcon.svg";
 import advertiseIcon from "../../assets/icons/adIcon.svg";
 import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
 import AdvertiseModal from "./AdvertiseModal";
+import tournamentIcon from "../../assets/icons/TournamentIcon.svg";
 
 /**
  * Icon components using imported SVG assets
@@ -43,6 +44,10 @@ const AdvertiseIcon: React.FC = () => (
 
 const WhitepaperIcon: React.FC = () => (
   <img src={whitepaperIcon} alt="" width="20" height="20" />
+);
+
+const TournamentIcon: React.FC = () => (
+  <img src={tournamentIcon} alt="" width="20" height="20" />
 );
 
 /**
@@ -103,6 +108,20 @@ const Sidebar: React.FC = () => {
             <span className="sidebar__text">History</span>
           </Link>
 
+          {/* Tournaments Link */}
+          <Link
+            to={ROUTES.TOURNAMENTS}
+            className={`sidebar__item ${
+              location.pathname === ROUTES.TOURNAMENTS
+                ? "sidebar__item--active"
+                : ""
+            }`}
+            aria-label="View tournaments"
+          >
+            <TournamentIcon />
+            <span className="sidebar__text">Tournaments</span>
+          </Link>
+
           {/* Advertise Link */}
           <button
             className="sidebar__item sidebar__item--button"
@@ -128,24 +147,13 @@ const Sidebar: React.FC = () => {
             <span className="sidebar__text">Whitepaper</span>
           </Link>
 
-          {/* Tournaments - Coming Soon */}
-          <div
-            className="sidebar__item sidebar__item--disabled"
-            aria-label="Tournaments (Coming soon)"
-          >
-            <span className="sidebar__text sidebar__text--centered">
-              Tournaments
-            </span>
-            <span className="sidebar__badge">COMING SOON</span>
-          </div>
-
           {/* Rewards - Coming Soon */}
           <div
             className="sidebar__item sidebar__item--disabled"
             aria-label="Rewards (Coming soon)"
           >
             <span className="sidebar__text sidebar__text--centered">
-              Rewards
+              Rewards Dashboard
             </span>
             <span className="sidebar__badge">COMING SOON</span>
           </div>

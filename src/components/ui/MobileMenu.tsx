@@ -109,11 +109,18 @@ const MobileMenu = () => {
                   PvP
                 </Link>
               </li>
-
-              <li className="coming-soon-row">
-                <div className="coming-soon-label">Tournaments</div>
-                <div className="coming-soon-pill">COMING SOON</div>
+              <li>
+                <Link
+                  to={ROUTES.TOURNAMENTS}
+                  onClick={closeMenu}
+                  className={
+                    location.pathname === ROUTES.TOURNAMENTS ? "active" : ""
+                  }
+                >
+                  Tournaments
+                </Link>
               </li>
+
               <li className="coming-soon-row">
                 <div className="coming-soon-label">Rewards</div>
                 <div className="coming-soon-pill">COMING SOON</div>

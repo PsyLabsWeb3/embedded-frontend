@@ -328,7 +328,7 @@
 /* ==================== EXTRA LARGE DESKTOP ==================== */
 @media (min-width: 1400px) {
   .tournaments-page-main {
-    max-width: 1028px;
+    max-width: 1428px;
   }
   .tournaments-main-card__content {
     max-width: 100%;
