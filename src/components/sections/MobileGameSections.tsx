@@ -115,6 +115,7 @@ const GameListSection: React.FC = () => {
             <img
               src={freeGames[0].image}
               alt={freeGames[0].title}
+              loading="lazy"
               style={{
                 display: gameVideos[freeGames[0].slug] ? "none" : "block",
               }}
@@ -126,6 +127,7 @@ const GameListSection: React.FC = () => {
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 style={{
                   display: "block",
                   width: "100%",
@@ -146,6 +148,7 @@ const GameListSection: React.FC = () => {
             <img
               src={freeGames[1].image}
               alt={freeGames[1].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{freeGames[1].title}</figcaption>
@@ -160,6 +163,7 @@ const GameListSection: React.FC = () => {
             <img
               src={freeGames[2].image}
               alt={freeGames[2].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{freeGames[2].title}</figcaption>
@@ -214,6 +218,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pvpGames[0].image}
               alt={pvpGames[0].title}
+              loading="lazy"
               style={{
                 display: gameVideos[pvpGames[0].slug] ? "none" : "block",
               }}
@@ -225,6 +230,7 @@ const GameListSection: React.FC = () => {
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 style={{
                   display: "block",
                   width: "100%",
@@ -245,6 +251,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pvpGames[1].image}
               alt={pvpGames[1].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{pvpGames[1].title}</figcaption>
@@ -259,6 +266,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pvpGames[2].image}
               alt={pvpGames[2].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{pvpGames[2].title}</figcaption>
@@ -316,6 +324,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pveGames[0].image}
               alt={pveGames[0].title}
+              loading="lazy"
               style={{
                 display: gameVideos[pveGames[0].slug] ? "none" : "block",
               }}
@@ -327,6 +336,7 @@ const GameListSection: React.FC = () => {
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 style={{
                   display: "block",
                   width: "100%",
@@ -347,6 +357,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pveGames[1].image}
               alt={pveGames[1].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{pveGames[1].title}</figcaption>
@@ -361,6 +372,7 @@ const GameListSection: React.FC = () => {
             <img
               src={pveGames[2].image}
               alt={pveGames[2].title}
+              loading="lazy"
               style={{ display: "block" }}
             />
             <figcaption>{pveGames[2].title}</figcaption>

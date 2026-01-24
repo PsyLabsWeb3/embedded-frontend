@@ -1,54 +1,54 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
-import History from './pages/History';
-import GamesPvP from './pages/GamesPvP';
-import GamesPvE from './pages/GamesPvE';
-import GamesFree from './pages/GamesFree';
-import Leaderboard from './pages/Leaderboard';
-import Rewards from './pages/Rewards';
-import Whitepaper from './pages/Whitepaper';
-import Tournaments from './pages/Tournaments';
-import EmbeddedGame from './pages/EmbeddedGame';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import History from "./pages/History";
+import GamesPvP from "./pages/GamesPvP";
+import GamesPvE from "./pages/GamesPvE";
+import GamesFree from "./pages/GamesFree";
+import Leaderboard from "./pages/Leaderboard";
+import Rewards from "./pages/Rewards";
+import Whitepaper from "./pages/Whitepaper";
+import Tournaments from "./pages/Tournaments";
+import EmbeddedGame from "./pages/EmbeddedGame";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
   },
   {
-    path: '/history',
+    path: "/history",
     element: <History />,
   },
   {
-    path: '/games-pve',
+    path: "/games-pve",
     element: <GamesPvE />,
   },
   {
-    path: '/games-pvp',
+    path: "/games-pvp",
     element: <GamesPvP />,
   },
   {
-    path: '/games-free',
+    path: "/games-free",
     element: <GamesFree />,
   },
   {
-    path: '/leaderboard',
+    path: "/leaderboard",
     element: <Leaderboard />,
   },
   {
-    path: '/rewards',
+    path: "/rewards",
     element: <Rewards />,
   },
   {
-    path: '/tournaments',
+    path: "/tournaments",
     element: <Tournaments />,
   },
   {
-    path: '/whitepaper',
+    path: "/whitepaper",
     element: <Whitepaper />,
   },
   {
-    path: '/embedded-game',
+    path: "/embedded-game",
     element: <EmbeddedGame />,
   },
 ]);

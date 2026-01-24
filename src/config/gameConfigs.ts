@@ -15,6 +15,12 @@ import { GameTypes } from "../types";
 export type GameAssets = GameTypes.UnityAssets;
 export type GameConfig = GameTypes.GameConfig;
 
+//GamePageImages
+import embeddedWarsBackground from "../assets/gamesImages/EmbeddedWars.png?url";
+import smugglersPoster from "../assets/gamesImages/SmugglersRun.png?url";
+import snakeBackground from "../assets/gamesImages/EmbeddedSnake.png?url";
+import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
+
 /**
  * Snake2048 Unity WebGL Assets Configuration
  *
@@ -50,15 +56,6 @@ import embeddedWarsLoaderUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-Embe
 import embeddedWarsDataUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.data?url";
 import embeddedWarsFrameworkUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.framework.js?url";
 import embeddedWarsCodeUrl from "../assets/Unity/EmbeddedWars/Build/EM-35-EmbeddedWars.wasm?url";
-
-// Background images imports
-import embeddedWarsBackground from "../assets/embedded_wars.jpg?url";
-import smugglersPoster from "../assets/smugglers-run-poster.png?url";
-import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
-
-// Existing background images
-import snakeBackground from "../assets/snake_game.jpg?url";
-import asteroidsBackground from "../assets/AsteroidsCover.png?url";
 
 const embeddedWarsAssets: GameAssets = {
   loaderUrl: embeddedWarsLoaderUrl,
@@ -230,7 +227,7 @@ gameConfigs["13-cyber-arena"] = {
   longDescription:
     "Jump between platforms and use powerful guns to outshoot your opponent in this fast-paced PvP arena shooter set in a futuristic cybernetic colosseum.",
   assets: cyberArenaAssets,
-  backgroundImage: cyberArenaBackground,
+  backgroundImage: snakeBackground,
   category: GameTypes.GameCategory.ARCADE,
   difficulty: GameTypes.GameDifficulty.MEDIUM,
   estimatedPlayTime: 8,

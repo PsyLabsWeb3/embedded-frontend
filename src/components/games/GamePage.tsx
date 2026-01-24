@@ -6,8 +6,10 @@ import PlaceholderGame from "./PlaceholderGame";
 import { useGameConfig } from "../../hooks/useGameConfig";
 import { ERROR_MESSAGES, LOCAL_STORAGE_CONF } from "../../constants";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import PayEntryButton from "./PayEntryButton";
 import PayEntryPvEButton from "./PayEntryPvEButton";
+import { generateDappKeypair } from "../../utils/phantomCrypto";
 
 interface GamePageProps {
   gameId: string;
@@ -21,6 +23,7 @@ const isMobile = () =>
 const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const gameConfig = useGameConfig(gameId);
   const { publicKey, connected } = useWallet();
+  const { setVisible } = useWalletModal();
 
   const mobileSession =
     typeof localStorage !== "undefined"
@@ -38,7 +41,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   // Mode state to forward to Unity - can be 'Betting' for PvP or 'PvE' for PvE
   const [gameMode, setGameMode] = React.useState<string | null>(null);
   const [degenBetAmount, setDegenBetAmount] = React.useState<string | null>(
-    null
+    null,
   );
   const [gameLoading, setGameLoading] = React.useState(false);
   const [gameLoaded, setGameLoaded] = React.useState(false);
@@ -125,20 +128,124 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
     if (gameConfig.assets) {
       if ((!connected || !publicKey) && !isConnectedMobile) {
+        const isMobileView = isMobile();
         return (
           <div
             style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: isMobileView ? "180px" : "300px",
+              padding: isMobileView ? "1.25rem 1rem" : "2rem",
+              gap: isMobileView ? "0.75rem" : "1.25rem",
+              textAlign: "center",
               borderRadius: "12px",
               background: "#1d1d1dc6",
-              padding: "2rem",
-              textAlign: "center",
-              color: "var(--color-text-secondary)",
-              fontSize: "1.2rem",
-              fontWeight: "700",
-              textShadow: "0 0 5px black",
             }}
           >
-            Connect your wallet to play.
+            <div
+              style={{
+                width: isMobileView ? "48px" : "64px",
+                height: isMobileView ? "48px" : "64px",
+                borderRadius: "50%",
+                background: "rgba(93, 214, 44, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#5dd62c",
+              }}
+            >
+              <svg
+                width={isMobileView ? "24" : "32"}
+                height={isMobileView ? "24" : "32"}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+            <h3
+              style={{
+                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontWeight: 600,
+                fontSize: isMobileView ? "16px" : "20px",
+                color: "#ffffff",
+                margin: 0,
+              }}
+            >
+              Wallet Not Connected
+            </h3>
+            {!isMobileView && (
+              <p
+                style={{
+                  fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  color: "#959698",
+                  margin: 0,
+                  maxWidth: "300px",
+                  lineHeight: 1.5,
+                }}
+              >
+                Connect your wallet to start playing
+              </p>
+            )}
+            <button
+              onClick={() => {
+                if (isMobile()) {
+                  // Phantom deep link for mobile
+                  const kp = generateDappKeypair();
+                  localStorage.setItem(
+                    LOCAL_STORAGE_CONF.LOCAL_KEYS,
+                    JSON.stringify(kp),
+                  );
+                  const appUrl = encodeURIComponent(window.location.origin);
+                  const currentPath =
+                    window.location.pathname + window.location.search;
+                  localStorage.setItem(
+                    LOCAL_STORAGE_CONF.LOCAL_REDIRECT,
+                    currentPath,
+                  );
+                  const redirectLink = encodeURIComponent(
+                    `${window.location.origin}/phantom-callback?state=${encodeURIComponent(currentPath)}`,
+                  );
+                  window.location.href =
+                    `https://phantom.app/ul/v1/connect?` +
+                    `app_url=${appUrl}` +
+                    `&redirect_link=${redirectLink}` +
+                    `&dapp_encryption_public_key=${encodeURIComponent(kp.publicKeyBase58)}`;
+                } else {
+                  // Desktop wallet modal
+                  setVisible(true);
+                }
+              }}
+              style={{
+                background: "#5dd62c",
+                border: "none",
+                borderRadius: "8px",
+                color: "#1a1d1f",
+                cursor: "pointer",
+                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontSize: isMobileView ? "13px" : "14px",
+                fontWeight: 600,
+                padding: isMobileView ? "10px 20px" : "12px 24px",
+                marginTop: isMobileView ? "0" : "0.25rem",
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = "#4bc123")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = "#5dd62c")
+              }
+            >
+              Connect Wallet
+            </button>
           </div>
         );
       }
@@ -335,6 +442,11 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       customContent={customContent}
       backgroundImage={gameConfig.backgroundImage}
       gameDescription={gameConfig.longDescription || gameConfig.description}
+      currentGameSlug={gameId}
+      isLive={!gameConfig.placeholder}
+      isPvE={gameConfig.isPvE}
+      feeText="Entry from 0.5 USD"
+      isGamePlaying={entryConfirmed}
     />
   );
 };
