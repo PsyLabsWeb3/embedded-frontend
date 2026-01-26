@@ -38,8 +38,18 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
 
   const amountText = getAmountText();
 
-  // Format mode text to match Figma design
-  const getModeText = (mode: string | null | undefined): string => {
+  // Format mode text to match Figma design, with special case for Cyber Arena PvE
+  const getModeText = (
+    mode: string | null | undefined,
+    game: string | null | undefined,
+  ): string => {
+    if (
+      game &&
+      game.toLowerCase() === "cyberarena" &&
+      mode?.toLowerCase() === "pve"
+    ) {
+      return "Friendly PvP";
+    }
     if (!mode) return "Match";
     const lowerMode = mode.toLowerCase();
     if (lowerMode === "casual") return "Casual Match";
@@ -62,7 +72,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
     <div className={styles.item} role="listitem">
       {/* Header Row: Match Type | Date | Result */}
       <div className={styles.headerRow}>
-        <span className={styles.matchType}>{getModeText(mode)}</span>
+        <span className={styles.matchType}>{getModeText(mode, game)}</span>
         <span className={styles.matchDate}>{formatShortDate(dateText)}</span>
         <span
           className={`${styles.matchResult} ${isWin ? styles.resultWin : styles.resultLoss}`}
@@ -74,7 +84,13 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({
       {/* Content Row: Game Name | vs: Opponent | Amount */}
       <div className={styles.contentRow}>
         <span className={styles.gameName}>{game || "Unknown Game"}</span>
-        <span className={styles.opponent}>vs: {opponent}</span>
+        <span className={styles.opponent}>
+          {game &&
+          game.toLowerCase() === "cyberarena" &&
+          mode?.toLowerCase() === "pve"
+            ? "vs: Friendly PvP"
+            : `vs: ${opponent}`}
+        </span>
         <div className={styles.amountWrapper}>
           {isWin && amountText && (
             <img
