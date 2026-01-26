@@ -224,6 +224,8 @@ export const gameConfigs: Record<string, GameConfig> = {
     isMultiplayer: true,
     minAge: 6,
     isPvE: false,
+    isFriendlyPvP: true,
+    isFreeToPlay: false,
     instructions: [
       "Use arrow keys or joystick to move your character.",
       "Jump between platforms to avoid enemy fire.",

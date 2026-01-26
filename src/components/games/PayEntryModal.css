@@ -1,3 +1,33 @@
+/* Play Free Button Variant */
+.play-free-button {
+  background: linear-gradient(90deg, #00c3ff 0%, #ffff1c 100%);
+  color: #121214;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 195, 255, 0.15);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.play-free-button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00b3e6 0%, #ffe600 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.play-free-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 /* Pay Entry Modal Styles - Figma Design Implementation */
 .pay-entry-modal-backdrop {
   position: fixed;

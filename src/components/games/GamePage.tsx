@@ -325,6 +325,35 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         );
       }
 
+      // Check if this is a Friendly PvP game (we are using PvE payment method for this tier)
+      if (gameConfig.isFriendlyPvP) {
+        return (
+          <PayEntryPvEButton
+            onSent={(sig) => setTxSig(sig)}
+            onContinue={(sig) => {
+              setTxSig(sig);
+              setGameMode("PvE");
+              setGameLoading(true);
+              setGameLoaded(false);
+
+              // Simulate game loading time and then set entry confirmed
+              setTimeout(() => {
+                setEntryConfirmed(true);
+                if (isMobile()) setShowMobileFull(true);
+
+                // Simulate additional time for game to fully load
+                setTimeout(() => {
+                  setGameLoaded(true);
+                  setGameLoading(false);
+                }, 1000); // Give game components time to mount
+              }, 500); // Small delay to show loading state
+            }}
+            gameLoading={gameLoading}
+            gameLoaded={gameLoaded}
+          />
+        );
+      }
+
       // Regular PvP game
       return (
         <PayEntryButton
