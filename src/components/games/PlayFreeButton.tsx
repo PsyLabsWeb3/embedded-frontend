@@ -10,7 +10,7 @@ interface PlayFreeButtonProps {
 const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
   onPlay,
   gameLoading = false,
-  gameLoaded = false,
+  // gameLoaded = false,
 }) => {
   const [isLoadingGame, setIsLoadingGame] = useState(false);
 

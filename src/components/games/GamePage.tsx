@@ -10,6 +10,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import PayEntryButton from "./PayEntryButton";
 import PayEntryPvEButton from "./PayEntryPvEButton";
 import { generateDappKeypair } from "../../utils/phantomCrypto";
+import PlayFreeButton from "./PlayFreeButton";
 
 interface GamePageProps {
   gameId: string;
@@ -350,6 +351,19 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             }}
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}
+            playText="Friendly Match"
+          />
+        );
+      }
+
+      if (gameConfig.isFreeToPlay) {
+        return (
+          <PlayFreeButton
+            onPlay={() => {
+              setGameMode("FreePlay");
+              setEntryConfirmed(true);
+              if (isMobile()) setShowMobileFull(true);
+            }}
           />
         );
       }
