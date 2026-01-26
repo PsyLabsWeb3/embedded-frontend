@@ -297,120 +297,105 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       (connected || isConnectedMobile) &&
       !entryConfirmed
     ) {
-      // Check if this is a PvE game
+      const buttons: React.ReactNode[] = [];
+
       if (gameConfig.isPvE) {
-        return (
+        buttons.push(
           <PayEntryPvEButton
+            key="pve"
             onSent={(sig) => setTxSig(sig)}
             onContinue={(sig) => {
               setTxSig(sig);
               setGameMode("PvE");
               setGameLoading(true);
               setGameLoaded(false);
-
-              // Simulate game loading time and then set entry confirmed
               setTimeout(() => {
                 setEntryConfirmed(true);
                 if (isMobile()) setShowMobileFull(true);
-
-                // Simulate additional time for game to fully load
                 setTimeout(() => {
                   setGameLoaded(true);
                   setGameLoading(false);
-                }, 1000); // Give game components time to mount
-              }, 500); // Small delay to show loading state
+                }, 1000);
+              }, 500);
             }}
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}
-          />
+          />,
         );
       }
 
-      // Check if this is a Friendly PvP game (we are using PvE payment method for this tier)
       if (gameConfig.isFriendlyPvP) {
-        return (
+        buttons.push(
           <PayEntryPvEButton
+            key="friendly"
             onSent={(sig) => setTxSig(sig)}
             onContinue={(sig) => {
               setTxSig(sig);
               setGameMode("PvE");
               setGameLoading(true);
               setGameLoaded(false);
-
-              // Simulate game loading time and then set entry confirmed
               setTimeout(() => {
                 setEntryConfirmed(true);
                 if (isMobile()) setShowMobileFull(true);
-
-                // Simulate additional time for game to fully load
                 setTimeout(() => {
                   setGameLoaded(true);
                   setGameLoading(false);
-                }, 1000); // Give game components time to mount
-              }, 500); // Small delay to show loading state
+                }, 1000);
+              }, 500);
             }}
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}
             playText="Friendly Match"
-          />
+          />,
         );
       }
 
       if (gameConfig.isFreeToPlay) {
-        return (
+        buttons.push(
           <PlayFreeButton
+            key="free"
             onPlay={() => {
               setGameMode("FreePlay");
               setEntryConfirmed(true);
               if (isMobile()) setShowMobileFull(true);
             }}
-          />
+          />,
         );
       }
 
-      // Regular PvP game
-      return (
-        <PayEntryButton
-          onSent={(sig) => setTxSig(sig)}
-          onContinue={(sig) => {
-            setTxSig(sig);
-            setGameLoading(true);
-            setGameLoaded(false);
-
-            // Simulate game loading time and then set entry confirmed
-            setTimeout(() => {
-              setEntryConfirmed(true);
-              if (isMobile()) setShowMobileFull(true);
-
-              // Simulate additional time for game to fully load
+      if (gameConfig.isPvP) {
+        buttons.push(
+          <PayEntryButton
+            key="pvp"
+            onSent={(sig) => setTxSig(sig)}
+            onContinue={(sig) => {
+              setTxSig(sig);
+              setGameLoading(true);
+              setGameLoaded(false);
               setTimeout(() => {
-                setGameLoaded(true);
-                setGameLoading(false);
-              }, 1000); // Give game components time to mount
-            }, 500); // Small delay to show loading state
-          }}
-          onDegenPlay={(betSol: number, _betUsd: number) => {
-            setGameMode("Betting");
+                setEntryConfirmed(true);
+                if (isMobile()) setShowMobileFull(true);
+                setTimeout(() => {
+                  setGameLoaded(true);
+                  setGameLoading(false);
+                }, 1000);
+              }, 500);
+            }}
+            onDegenPlay={(_betUsd: number) => {
+              setGameMode("Betting");
+              let betUsd;
+              if (_betUsd) {
+                betUsd = _betUsd.toString();
+              }
+              setDegenBetAmount(betUsd ?? null);
+            }}
+            gameLoading={gameLoading}
+            gameLoaded={gameLoaded}
+          />,
+        );
+      }
 
-            let betUsd;
-            if (_betUsd) {
-              betUsd = _betUsd.toString();
-            }
-
-            // Log amount and data type (safely handle optional USD param)
-            console.log("Degen mode: Betting", {
-              betUsd_type: typeof betUsd,
-              betUsd_value: betUsd ?? null,
-              betSol_type: typeof betSol,
-              betSol_value: betSol,
-            });
-
-            setDegenBetAmount(betUsd ?? null);
-          }}
-          gameLoading={gameLoading}
-          gameLoaded={gameLoaded}
-        />
-      );
+      return <>{buttons}</>;
     }
 
     return null;

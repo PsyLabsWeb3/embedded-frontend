@@ -160,7 +160,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: true,
     minAge: 6,
-    // placeholder: true,
+    isPvP: true,
     instructions: [
       "Use arrow keys to control the ship",
       "Shoot the asteroids to destroy them",
@@ -181,6 +181,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 12,
     isMultiplayer: false,
     minAge: 5,
+    isPvP: true,
     instructions: [
       "Use arrow keys to move your drone",
       "Shoot projectiles with left click to eliminate enemies",
@@ -224,7 +225,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     isMultiplayer: true,
     minAge: 6,
     isPvE: false,
-    isFriendlyPvP: false,
+    isFriendlyPvP: true,
     isFreeToPlay: true,
     instructions: [
       "Use arrow keys or joystick to move your character.",

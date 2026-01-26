@@ -70,6 +70,8 @@ export namespace GameTypes {
     isMultiplayer?: boolean;
     /** Minimum age recommendation */
     minAge?: number;
+    /** Whether the game is player vs player */
+    isPvP?: boolean;
     /** Whether the game is player vs environment */
     isPvE?: boolean;
     /** Whether the game is a friendly player vs player game */
