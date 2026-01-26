@@ -54,6 +54,7 @@ import {
   EmbeddedWars,
   SmugglersRun,
   EmbeddedSnake,
+  CyberArena,
 } from "./components/games/gamePages";
 
 // Import constants for configuration
@@ -180,6 +181,7 @@ const App: React.FC = () => {
                   path="/game/01-embedded-snake"
                   element={<EmbeddedSnake />}
                 />
+                <Route path="/game/13-cyber-arena" element={<CyberArena />} />
               </Routes>
             </div>
           </Router>

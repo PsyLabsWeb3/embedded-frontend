@@ -20,6 +20,7 @@ import embeddedWarsBackground from "../assets/gamesImages/EmbeddedWars.png?url";
 import smugglersPoster from "../assets/gamesImages/SmugglersRun.png?url";
 import snakeBackground from "../assets/gamesImages/EmbeddedSnake.png?url";
 import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
+import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -28,17 +29,6 @@ import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
  * proper bundling and asset optimization. The ?url suffix tells Vite
  * to return the asset URL rather than importing the file content.
  */
-import snake2048LoaderUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.loader.js?url";
-import snake2048DataUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.data.unityweb?url";
-import snake2048FrameworkUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.framework.js.unityweb?url";
-import snake2048CodeUrl from "../assets/Unity/Snake2048/Build/Snake2048webgl.wasm.unityweb?url";
-
-const snake2048Assets: GameAssets = {
-  loaderUrl: snake2048LoaderUrl,
-  dataUrl: snake2048DataUrl,
-  frameworkUrl: snake2048FrameworkUrl,
-  codeUrl: snake2048CodeUrl,
-};
 
 import asteroidsLoaderUrl from "../assets/Unity/Asteroids/Build/Asteroids.loader.js?url";
 import asteroidsDataUrl from "../assets/Unity/Asteroids/Build/Asteroids.data?url";
@@ -88,6 +78,18 @@ const embeddedSnakeAssets: GameAssets = {
   codeUrl: embeddedSnakeCodeUrl,
 };
 
+import cyberarenaLoaderUrl from "../assets/Unity/CyberArena/Build/CyberArena.loader.js?url";
+import cyberarenaDataUrl from "../assets/Unity/CyberArena/Build/CyberArena.data?url";
+import cyberarenaFrameworkUrl from "../assets/Unity/CyberArena/Build/CyberArena.framework.js?url";
+import cyberarenaCodeUrl from "../assets/Unity/CyberArena/Build/CyberArena.wasm?url";
+
+const cyberArenaAssets: GameAssets = {
+  loaderUrl: cyberarenaLoaderUrl,
+  dataUrl: cyberarenaDataUrl,
+  frameworkUrl: cyberarenaFrameworkUrl,
+  codeUrl: cyberarenaCodeUrl,
+};
+
 /**
  * Future Game Assets Template
  *
@@ -122,26 +124,30 @@ const embeddedSnakeAssets: GameAssets = {
  */
 export const gameConfigs: Record<string, GameConfig> = {
   // Production Games
-  "01-snake": {
-    id: "01-snake",
-    title: "Snake Game",
-    description: "Classic snake game with number merging mechanics",
-    assets: snake2048Assets,
+  "01-embedded-snake": {
+    id: "01-embedded-snake",
+    title: "Embedded Snake",
+    description:
+      "Classic arcade game where players control a growing snake, collecting food to increase its length while avoiding collisions with walls and its own tail.",
+    assets: embeddedSnakeAssets,
     backgroundImage: snakeBackground,
-    category: GameTypes.GameCategory.PUZZLE,
-    difficulty: GameTypes.GameDifficulty.MEDIUM,
-    estimatedPlayTime: 15,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
     isMultiplayer: false,
-    minAge: 8,
+    minAge: 5,
+    isPvE: true,
     instructions: [
-      "Use arrow keys to move the snake",
-      "Combine equal numbers to create larger numbers",
-      "Avoid hitting walls or yourself",
-      "Try to reach the number 2048!",
+      "Control the snake’s direction using swipe controls or arrow keys.",
+      "Move the snake around the play area continuously.",
+      "Eat the food that appears on the screen.",
+      "Escape from bigger snakes.",
+      "Use space bar or the button on mobile to speed up the snake.",
+      "Grow longer each time food is collected.",
+      "Survive as long as possible.",
     ],
   },
 
-  // Placeholder Games - These will be implemented in future releases
   "02-asteroids": {
     id: "02-asteroids",
     title: "Asteroids",
@@ -182,46 +188,90 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Eliminate your opponent!",
     ],
   },
+  "12-smugglers-run": {
+    id: "12-smugglers-run",
+    title: "Smugglers Run",
+    description:
+      "Fast paced kart racing game where players speed through colorful tracks, drifting around corners, using power ups to attack rivals or gain boosts, and racing to be the first to cross the finish line.",
+    assets: embeddedSpaceRaceAssets,
+    backgroundImage: smugglersPoster,
+    category: GameTypes.GameCategory.RACING,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 10,
+    isMultiplayer: false,
+    minAge: 5,
+    isPvE: true,
+    instructions: [
+      "Choose your racer and ship.",
+      "Use WASD or Joystick in mobile to control your ship.",
+      "Press Shift to use your powerup.",
+      "Drift around corners to maintain speed and gain boosts.",
+      "Use collected power-ups to attack opponents or gain advantages.",
+      "Complete all laps of the race.",
+      "Win the race by crossing the finish line in first place.",
+    ],
+  },
+  "13-cyber-arena": {
+    id: "13-cyber-arena",
+    title: "Cyber Arena",
+    description:
+      "Fast paced arena shooter where two players battle each other in a dynamic colosseum. Jump between platforms, dodge attacks, and use powerful guns to outshoot your opponent. Upgrade your weapons, master movement, and dominate the arena in intense one-on-one combat.",
+    assets: cyberArenaAssets,
+    backgroundImage: cyberArenaBackground,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 10,
+    isMultiplayer: true,
+    minAge: 6,
+    isPvE: false,
+    instructions: [
+      "Use arrow keys or joystick to move your character.",
+      "Jump between platforms to avoid enemy fire.",
+      "Use powerful guns to outshoot your opponent.",
+      "Be the last player standing to win the match.",
+    ],
+  },
 };
 
 // Add Smugglers Run
-gameConfigs["12-smugglers-run"] = {
-  id: "12-smugglers-run",
-  title: "Smugglers Run",
-  description: "A fast-paced PvE racing adventure.",
-  assets: embeddedSpaceRaceAssets,
-  backgroundImage: smugglersPoster,
-  category: GameTypes.GameCategory.RACING,
-  difficulty: GameTypes.GameDifficulty.MEDIUM,
-  estimatedPlayTime: 10,
-  isMultiplayer: false,
-  minAge: 5,
-  isPvE: true,
-  instructions: [
-    "Use WASD to control your ship.",
-    "Press Shift to use your powerup.",
-    "Press R to backtrack.",
-    "Win by getting to the finish line faster than your opponents!",
-  ],
-};
+// gameConfigs["12-smugglers-run"] = {
+//   id: "12-smugglers-run",
+//   title: "Smugglers Run",
+//   description: "A fast-paced PvE racing adventure.",
+//   assets: embeddedSpaceRaceAssets,
+//   backgroundImage: smugglersPoster,
+//   category: GameTypes.GameCategory.RACING,
+//   difficulty: GameTypes.GameDifficulty.MEDIUM,
+//   estimatedPlayTime: 10,
+//   isMultiplayer: false,
+//   minAge: 5,
+//   isPvE: true,
+//   instructions: [
+//     "Use WASD to control your ship.",
+//     "Press Shift to use your powerup.",
+//     "Press R to backtrack.",
+//     "Win by getting to the finish line faster than your opponents!",
+//   ],
+// };
 
 // Add Embedded Snake
-gameConfigs["01-embedded-snake"] = {
-  id: "01-embedded-snake",
-  title: "Snake",
-  description: "Survival of the fittest Snake!",
-  assets: embeddedSnakeAssets,
-  backgroundImage: snakeBackground,
-  category: GameTypes.GameCategory.ARCADE,
-  difficulty: GameTypes.GameDifficulty.EASY,
-  estimatedPlayTime: 5,
-  isMultiplayer: false,
-  minAge: 5,
-  isPvE: true,
-  instructions: [
-    "Use your cursor / finger to move the snake",
-    "Eat food with lower or equal numbers to grow longer",
-    "Avoid hitting walls, longer snakes or yourself",
-    "Survive as long as you can!",
-  ],
-};
+// gameConfigs["01-embedded-snake"] = {
+//   id: "01-embedded-snake",
+//   title: "Embedded Snake",
+//   description:
+//     "Classic arcade game where players control a growing snake, collecting food to increase its length while avoiding collisions with walls and its own tail.",
+//   assets: embeddedSnakeAssets,
+//   backgroundImage: snakeBackground,
+//   category: GameTypes.GameCategory.ARCADE,
+//   difficulty: GameTypes.GameDifficulty.EASY,
+//   estimatedPlayTime: 5,
+//   isMultiplayer: false,
+//   minAge: 5,
+//   isPvE: true,
+//   instructions: [
+//     "Use your cursor / finger to move the snake",
+//     "Eat food with lower or equal numbers to grow longer",
+//     "Avoid hitting walls, longer snakes or yourself",
+//     "Survive as long as you can!",
+//   ],
+// };

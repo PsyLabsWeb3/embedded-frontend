@@ -1,7 +1,7 @@
 /**
  * @fileoverview Game Display Data Registry
  *
- * This file contains the game data used for displaying game cards, lists,
+ * This file contains the game data used for displaying game cards on The HOME page ONLY, lists,
  * and navigation throughout the application. This data is separate from
  * the game configurations to maintain a clean separation between display
  * logic and game implementation details.

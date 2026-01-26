@@ -24,11 +24,6 @@ import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
 export type Game = GameTypes.GameData;
 
 /**
- * Game display data for cards, lists, and navigation
- *
- * This array contains the visual and routing information for all games
- * displayed in the application. Each entry corresponds to a game that
- * users can discover and play through the platform.
  *
  * Note: The slug field must match the game ID in gameConfigs.ts for
  * proper routing and configuration lookup.
