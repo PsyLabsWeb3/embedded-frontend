@@ -209,6 +209,7 @@ const PayEntryButton: React.FC<Props> = ({
 
   const handleDegenContinue = () => {
     if (!degenSelected) return;
+    setIsLoadingTransaction(true);
     // Convert selected USD -> SOL using cached price (with fallback)
     (async () => {
       try {
@@ -235,6 +236,7 @@ const PayEntryButton: React.FC<Props> = ({
       } catch (e) {
         console.error("Failed to get SOL price for degen flow", e);
         setDegenModalOpen(false);
+        setIsLoadingTransaction(false);
       }
     })();
   };
