@@ -524,7 +524,7 @@ const PayEntryPvEButton: React.FC<Props> = ({
       <div className="pay-entry-section">
         <div className="button-group">
           <button
-            className="pay-entry-button casual-play-button"
+            className="pay-entry-button degen-mode-button"
             onClick={handlePvEPayEntry}
             disabled={disabled}
             aria-busy={sending}

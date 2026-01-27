@@ -191,7 +191,9 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
                     alt=""
                     className="game-feature__icon"
                   />
-                  <span className="game-feature__label">Multiplayer</span>
+                  <span className="game-feature__label">
+                    {isPvE ? "Single Player" : "Multiplayer"}
+                  </span>
                 </div>
                 <div className="game-feature">
                   <img

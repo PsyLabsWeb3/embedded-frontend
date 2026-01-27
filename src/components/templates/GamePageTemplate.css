@@ -190,7 +190,7 @@
 
 /* Action Buttons */
 .game-main-card__actions {
-  display: flex;
+  display: block;
   justify-content: space-between;
   padding-top: 8px;
 }
@@ -380,6 +380,7 @@
   }
 
   .game-main-card__actions {
+    display: flex;
     gap: 92px;
   }
 

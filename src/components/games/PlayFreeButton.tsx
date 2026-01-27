@@ -23,7 +23,7 @@ const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
     <div className="pay-entry-section">
       <div className="button-group">
         <button
-          className="pay-entry-button casual-play-button play-free-button"
+          className="pay-entry-button casual-play-button"
           onClick={handlePlay}
           disabled={gameLoading || isLoadingGame}
           aria-busy={isLoadingGame}

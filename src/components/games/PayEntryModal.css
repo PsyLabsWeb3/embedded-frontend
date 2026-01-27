@@ -143,7 +143,7 @@
 }
 
 /* Single button layout for PvE */
-.pay-entry-section .button-group button[style*="width: 100%"] {
+.pay-entry-section .button-group {
   min-width: 200px;
   max-width: 400px;
   margin: 0 auto;

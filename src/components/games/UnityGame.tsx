@@ -48,7 +48,7 @@ const isPortraitNow = () =>
 
 /* ---------- Fullscreen API con fallback a pseudo (overlay fijo) ---------- */
 function useFullscreenWithFallback<T extends HTMLElement>(
-  targetRef: React.RefObject<T>
+  targetRef: React.RefObject<T>,
 ) {
   const [isNativeFs, setIsNativeFs] = useState(false);
   const [isPseudoFs, setIsPseudoFs] = useState(false);
@@ -131,7 +131,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
       frameworkUrl: gameAssets.frameworkUrl,
       codeUrl: gameAssets.codeUrl,
     }),
-    [gameAssets]
+    [gameAssets],
   );
 
   // Nota: 'unload' existe en react-unity-webgl >= 9
@@ -153,7 +153,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
         };
         console.log(
           "[Unity] sendMessage -> target=Global method=SetCredentialsJson payload=",
-          JSON.stringify(credsDto)
+          JSON.stringify(credsDto),
         );
         sendMessage("Global", "SetCredentialsJson", JSON.stringify(credsDto));
       }
@@ -167,7 +167,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
           if (typeof payloadBet === "string") {
             console.log(
               "[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=",
-              payloadBet
+              payloadBet,
             );
             sendMessage("WalletManager", "SetBetAmount", payloadBet);
           }
@@ -212,7 +212,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
   }, [unload, unityProvider]);
 
   const outerRef = useRef<HTMLDivElement>(
-    null
+    null,
   ) as React.RefObject<HTMLDivElement>;
   const { isActive, isPseudoFs, enter, exit } =
     useFullscreenWithFallback<HTMLDivElement>(outerRef);
@@ -449,10 +449,9 @@ const UnityGame: React.FC<UnityGameProps> = ({
               inset: 0,
               background: "rgba(0,0,0,.6)",
               display: "grid",
-              // placeItems: "center",
-              alignItems: "end",
+              alignItems: "start",
               justifyItems: "center",
-              padding: "0 16px calc(env(safe-area-inset-bottom) + 16px)",
+              padding: "calc(env(safe-area-inset-top) + 16px) 16px 0 16px",
               zIndex: 2147483647, // por encima de todo
             }}
             role="dialog"
@@ -460,13 +459,14 @@ const UnityGame: React.FC<UnityGameProps> = ({
           >
             <div
               style={{
-                background: "transparent",
+                background: "#121214",
                 color: "#ffffffff",
                 padding: "16px 18px",
                 borderRadius: 12,
                 width: "min(92vw, 420px)",
                 boxShadow: "0 10px 30px rgba(0,0,0,.25)",
                 textAlign: "center",
+                marginTop: "4.5rem",
               }}
             >
               <h3
