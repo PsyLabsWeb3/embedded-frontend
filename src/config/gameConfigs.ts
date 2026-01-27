@@ -21,6 +21,7 @@ import smugglersPoster from "../assets/gamesImages/SmugglersRun.png?url";
 import snakeBackground from "../assets/gamesImages/EmbeddedSnake.png?url";
 import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
 import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
+import tankieRacerAttackBackground from "../assets/gamesImages/TankieRacerAttack.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -88,6 +89,18 @@ const cyberArenaAssets: GameAssets = {
   dataUrl: cyberarenaDataUrl,
   frameworkUrl: cyberarenaFrameworkUrl,
   codeUrl: cyberarenaCodeUrl,
+};
+
+import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.loader.js?url";
+import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.data.gz?url";
+import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.framework.js.gz?url";
+import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.wasm.gz?url";
+
+const tankieRacerAttackAssets: GameAssets = {
+  loaderUrl: tankieRacerAttackLoaderUrl,
+  dataUrl: tankieRacerAttackDataUrl,
+  frameworkUrl: tankieRacerAttackFrameworkUrl,
+  codeUrl: tankieRacerAttackCodeUrl,
 };
 
 /**
@@ -234,47 +247,24 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Be the last player standing to win the match.",
     ],
   },
+  "14-tankie-racer-attack": {
+    id: "14-tankie-racer-attack",
+    title: "Tankie Racer Attack",
+    description:
+      "Endless tank racing game where you steer left or right on a zigzag track, race against enemy tanks, dodge obstacles, and battle your way through action-packed levels.",
+    assets: tankieRacerAttackAssets,
+    backgroundImage: tankieRacerAttackBackground,
+    category: GameTypes.GameCategory.RACING,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 10,
+    isMultiplayer: false,
+    minAge: 5,
+    isPvE: true,
+    instructions: [
+      "Use arrow keys or joystick to steer your tank left or right.",
+      "Navigate the zigzag track without falling off.",
+      "Race against enemy tanks and dodge obstacles.",
+      "Reach the highest score possible by surviving longer.",
+    ],
+  },
 };
-
-// Add Smugglers Run
-// gameConfigs["12-smugglers-run"] = {
-//   id: "12-smugglers-run",
-//   title: "Smugglers Run",
-//   description: "A fast-paced PvE racing adventure.",
-//   assets: embeddedSpaceRaceAssets,
-//   backgroundImage: smugglersPoster,
-//   category: GameTypes.GameCategory.RACING,
-//   difficulty: GameTypes.GameDifficulty.MEDIUM,
-//   estimatedPlayTime: 10,
-//   isMultiplayer: false,
-//   minAge: 5,
-//   isPvE: true,
-//   instructions: [
-//     "Use WASD to control your ship.",
-//     "Press Shift to use your powerup.",
-//     "Press R to backtrack.",
-//     "Win by getting to the finish line faster than your opponents!",
-//   ],
-// };
-
-// Add Embedded Snake
-// gameConfigs["01-embedded-snake"] = {
-//   id: "01-embedded-snake",
-//   title: "Embedded Snake",
-//   description:
-//     "Classic arcade game where players control a growing snake, collecting food to increase its length while avoiding collisions with walls and its own tail.",
-//   assets: embeddedSnakeAssets,
-//   backgroundImage: snakeBackground,
-//   category: GameTypes.GameCategory.ARCADE,
-//   difficulty: GameTypes.GameDifficulty.EASY,
-//   estimatedPlayTime: 5,
-//   isMultiplayer: false,
-//   minAge: 5,
-//   isPvE: true,
-//   instructions: [
-//     "Use your cursor / finger to move the snake",
-//     "Eat food with lower or equal numbers to grow longer",
-//     "Avoid hitting walls, longer snakes or yourself",
-//     "Survive as long as you can!",
-//   ],
-// };

@@ -14,7 +14,7 @@ import { GameTypes } from "../types";
 // import snakeGameImage from "../assets/snake_game.jpg";
 import sliceImage from "../assets/gamesImages/Slice.png";
 import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png";
-import bubbleImage from "../assets/bubble.jpg";
+import tankieRacerAttackImage from "../assets/gamesImages/TankieRacerAttack.png";
 import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
 
 /**
@@ -79,12 +79,13 @@ const completeFreeGames: Game[] = [
     comingSoon: false,
   },
   {
-    id: "bubble-merge-game",
-    title: "Bubble Merge",
-    slug: "bubblemerge",
-    image: bubbleImage,
+    id: "Tankie-Racer-Attack-game",
+    title: "Tankie Racer Attack",
+    slug: "tankieracerattack",
+    image: tankieRacerAttackImage,
     glowClass: "neon-purple",
-    description: "Merge colorful bubbles to score points",
+    description:
+      "Endless tank racing game where you steer left or right on a zigzag track, race against enemy tanks, dodge obstacles, and battle your way through action-packed levels.",
     isFeatured: true,
     isNew: true,
     createdAt: new Date("2024-01-03"),
