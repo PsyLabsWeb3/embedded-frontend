@@ -92,9 +92,9 @@ const cyberArenaAssets: GameAssets = {
 };
 
 import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.loader.js?url";
-import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.data.gz?url";
-import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.framework.js.gz?url";
-import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.wasm.gz?url";
+import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.data?url";
+import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.framework.js?url";
+import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.wasm?url";
 
 const tankieRacerAttackAssets: GameAssets = {
   loaderUrl: tankieRacerAttackLoaderUrl,
@@ -260,6 +260,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     isMultiplayer: false,
     minAge: 5,
     isPvE: true,
+    isFreeToPlay: true,
     instructions: [
       "Use arrow keys or joystick to steer your tank left or right.",
       "Navigate the zigzag track without falling off.",

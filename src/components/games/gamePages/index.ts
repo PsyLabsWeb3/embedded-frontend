@@ -20,7 +20,7 @@ export { default as EmbeddedWars } from "./03_EmbeddedWars";
 export { default as SmugglersRun } from "./12_SmugglersRun";
 export { default as EmbeddedSnake } from "./01_EmbeddedSnake";
 export { default as CyberArena } from "./13_CyberArena";
-
+export { default as TankieRacerAttack } from "./14_TankieRacerAttack";
 // Import components for internal mapping
 import Snake from "./01_Snake";
 import Asteroids from "./02_Asteroids";
@@ -28,6 +28,7 @@ import EmbeddedWars from "./03_EmbeddedWars";
 import SmugglersRun from "./12_SmugglersRun";
 import EmbeddedSnake from "./01_EmbeddedSnake";
 import CyberArena from "./13_CyberArena";
+import TankieRacerAttack from "./14_TankieRacerAttack";
 
 /**
  * Game component mapping for dynamic access
@@ -49,6 +50,7 @@ export const gamePageComponents = {
   "12-smugglers-run": SmugglersRun,
   "01-embedded-snake": EmbeddedSnake,
   "13-cyber-arena": CyberArena,
+  "14-tankie-racer-attack": TankieRacerAttack,
 } as const;
 
 /**

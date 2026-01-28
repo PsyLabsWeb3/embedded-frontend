@@ -56,6 +56,7 @@ import {
   EmbeddedSnake,
   CyberArena,
 } from "./components/games/gamePages";
+import TankieRacerAttack from "./components/games/gamePages/14_TankieRacerAttack";
 
 // Import constants for configuration
 import { WALLET_CONFIG } from "./constants";
@@ -106,31 +107,31 @@ const RPC = import.meta.env.VITE_SOLANA_RPC;
  * @returns JSX element representing the entire application
  */
 const App: React.FC = () => {
-  const geo = useGeoblock();
+  // const geo = useGeoblock();
 
-  if (geo.loading) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <p>Checking region eligibility…</p>
-        </div>
-      </div>
-    );
-  }
+  // if (geo.loading) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <p>Checking region eligibility…</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!geo.allowed) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <h1>Embedded is not available in your region</h1>
-          <p>
-            Due to regulatory restrictions, our platform cannot be accessed from
-            your current location.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // if (!geo.allowed) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <h1>Embedded is not available in your region</h1>
+  //         <p>
+  //           Due to regulatory restrictions, our platform cannot be accessed from
+  //           your current location.
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <ConnectionProvider endpoint={RPC}>
@@ -182,6 +183,10 @@ const App: React.FC = () => {
                   element={<EmbeddedSnake />}
                 />
                 <Route path="/game/13-cyber-arena" element={<CyberArena />} />
+                <Route
+                  path="/game/14-tankie-racer-attack"
+                  element={<TankieRacerAttack />}
+                />
               </Routes>
             </div>
           </Router>
