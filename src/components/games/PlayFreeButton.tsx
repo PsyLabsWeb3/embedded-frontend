@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./PayEntryModal.css";
+import AddReelMotionAIVideo from "../../assets/Adds/AddReelMotionAI.mp4";
 
 interface PlayFreeButtonProps {
   onPlay: () => void;
@@ -12,12 +13,22 @@ const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
   gameLoading = false,
   // gameLoaded = false,
 }) => {
-  const [isLoadingGame, setIsLoadingGame] = useState(false);
+  const [showAd, setShowAd] = useState(false);
+  const [adWatched, setAdWatched] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlay = () => {
-    setIsLoadingGame(true);
+    setShowAd(true);
+  };
+
+  const handleAdEnded = () => {
+    setShowAd(false);
+    setAdWatched(true);
     onPlay();
   };
+
+  // Prevent button from being clickable after ad is watched and game is loading
+  const isButtonDisabled = gameLoading || showAd || adWatched;
 
   return (
     <div className="pay-entry-section">
@@ -25,13 +36,47 @@ const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
         <button
           className="pay-entry-button casual-play-button"
           onClick={handlePlay}
-          disabled={gameLoading || isLoadingGame}
-          aria-busy={isLoadingGame}
+          disabled={isButtonDisabled}
+          aria-busy={showAd}
           style={{ width: "100%" }}
         >
-          {isLoadingGame ? "LOADING..." : "PLAY FREE"}
+          {showAd ? "LOADING..." : "PLAY FREE"}
         </button>
       </div>
+      {showAd && (
+        <div
+          className="pay-entry-ad-modal"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.85)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <video
+            ref={videoRef}
+            src={AddReelMotionAIVideo}
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleAdEnded}
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "60vh",
+              borderRadius: "16px",
+              boxShadow: "0 2px 24px #000a",
+              background: "#000",
+            }}
+            controls={false}
+          />
+        </div>
+      )}
     </div>
   );
 };
