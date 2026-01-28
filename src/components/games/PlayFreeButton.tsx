@@ -63,7 +63,6 @@ const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
             ref={videoRef}
             src={AddReelMotionAIVideo}
             autoPlay
-            muted
             playsInline
             onEnded={handleAdEnded}
             style={{
@@ -75,6 +74,28 @@ const PlayFreeButton: React.FC<PlayFreeButtonProps> = ({
             }}
             controls={false}
           />
+          {/* If browser blocks autoplay with audio, show a play button */}
+          {videoRef.current && videoRef.current.paused && (
+            <button
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                fontSize: "1.5rem",
+                padding: "1rem 2rem",
+                borderRadius: "8px",
+                background: "#5dd62c",
+                color: "#1a1d1f",
+                border: "none",
+                cursor: "pointer",
+                zIndex: 10000,
+              }}
+              onClick={() => videoRef.current && videoRef.current.play()}
+            >
+              ▶ Play Ad
+            </button>
+          )}
         </div>
       )}
     </div>
