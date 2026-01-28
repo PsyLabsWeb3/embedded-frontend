@@ -382,6 +382,7 @@
   .game-main-card__actions {
     display: flex;
     gap: 92px;
+    justify-content: center;
   }
 
   .game-instructions-box {

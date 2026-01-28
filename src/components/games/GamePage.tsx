@@ -202,7 +202,34 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
 
     if (gameConfig.placeholder) return <PlaceholderGame />;
 
+
     if (gameConfig.assets) {
+      // If FreeToPlay, skip wallet checks
+      if (gameConfig.isFreeToPlay) {
+        if (entryConfirmed) {
+          return (
+            <UnityGame
+              gameAssets={gameConfig.assets}
+              publicKey={publicKey?.toString() || mobileWalletAddress}
+              transactionId={txSig ?? ""}
+              degenMode={gameMode}
+              degenBetAmount={degenBetAmount}
+              enableFullscreen={true}
+            />
+          );
+        }
+        // Show empty container before entryConfirmed (button is in paymentComponent)
+        return (
+          <div
+            style={{
+              minHeight: "400px",
+              background: "transparent",
+            }}
+          ></div>
+        );
+      }
+
+      // For non-FreeToPlay, require wallet connection
       if ((!connected || !publicKey) && !isConnectedMobile) {
         const isMobileView = isMobile();
         return (
@@ -326,7 +353,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         );
       }
 
-      // Desktop (o mobile después de salir del fullscreen): embed 16:9 con botón FS
       if (entryConfirmed) {
         return (
           <UnityGame
@@ -367,6 +393,142 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const renderPaymentSection = (): React.ReactNode => {
     if (gameConfig.placeholder) return null;
 
+    // For FreeToPlay, always show PlayFreeButton if not confirmed
+    if (gameConfig.assets && gameConfig.isFreeToPlay && !entryConfirmed) {
+      const isMobileView = isMobile();
+      const buttons: React.ReactNode[] = [];
+      // Always show PlayFreeButton
+      buttons.push(
+        <PlayFreeButton
+          key="free"
+          onPlay={() => {
+            setGameMode("FreePlay");
+            setEntryConfirmed(true); // Unity game loads immediately
+            setShowAdOverlay(true); // Show ad overlay
+            if (isMobile()) setShowMobileFull(true);
+          }}
+          onAdEnd={() => setShowAdOverlay(false)}
+        />
+      );
+
+      // If wallet is connected, also show PvE and PvP buttons if applicable
+      if (connected || isConnectedMobile) {
+        if (gameConfig.isPvE) {
+          buttons.push(
+            <PayEntryPvEButton
+              key="pve"
+              onSent={(sig) => setTxSig(sig)}
+              onContinue={(sig) => {
+                setTxSig(sig);
+                setGameMode("PvE");
+                setGameLoading(true);
+                setGameLoaded(false);
+                setTimeout(() => {
+                  setEntryConfirmed(true);
+                  if (isMobile()) setShowMobileFull(true);
+                  setTimeout(() => {
+                    setGameLoaded(true);
+                    setGameLoading(false);
+                  }, 1000);
+                }, 500);
+              }}
+              gameLoading={gameLoading}
+              gameLoaded={gameLoaded}
+            />
+          );
+        }
+        if (gameConfig.isFriendlyPvP) {
+          buttons.push(
+            <PayEntryPvEButton
+              key="friendly"
+              onSent={(sig) => setTxSig(sig)}
+              onContinue={(sig) => {
+                setTxSig(sig);
+                setGameMode("PvE");
+                setGameLoading(true);
+                setGameLoaded(false);
+                setTimeout(() => {
+                  setEntryConfirmed(true);
+                  if (isMobile()) setShowMobileFull(true);
+                  setTimeout(() => {
+                    setGameLoaded(true);
+                    setGameLoading(false);
+                  }, 1000);
+                }, 500);
+              }}
+              gameLoading={gameLoading}
+              gameLoaded={gameLoaded}
+              playText="Friendly Match"
+            />
+          );
+        }
+        if (gameConfig.isPvP) {
+          buttons.push(
+            <PayEntryButton
+              key="pvp"
+              onSent={(sig) => setTxSig(sig)}
+              onContinue={(sig) => {
+                setTxSig(sig);
+                setGameLoading(true);
+                setGameLoaded(false);
+                setTimeout(() => {
+                  setEntryConfirmed(true);
+                  if (isMobile()) setShowMobileFull(true);
+                  setTimeout(() => {
+                    setGameLoaded(true);
+                    setGameLoading(false);
+                  }, 1000);
+                }, 500);
+              }}
+              onDegenPlay={(_betUsd: number) => {
+                setGameMode("Betting");
+                let betUsd;
+                if (_betUsd) {
+                  betUsd = _betUsd.toString();
+                }
+                setDegenBetAmount(betUsd ?? null);
+              }}
+              gameLoading={gameLoading}
+              gameLoaded={gameLoaded}
+            />
+          );
+        }
+      }
+
+      // Desktop: horizontal row, left-aligned, with spacing and max width
+      if (!isMobileView) {
+        return (
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            gap: "1.5rem",
+            minHeight: "80px",
+            maxWidth: "420px",
+            marginLeft: "24px",
+            marginTop: "24px"
+          }}>
+            {buttons}
+          </div>
+        );
+      }
+      // Mobile: column, centered
+      return (
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "180px",
+          gap: "0.75rem"
+        }}>
+          {buttons}
+        </div>
+      );
+    }
+
+    // For other modes, require wallet connection
     if (
       gameConfig.assets &&
       (connected || isConnectedMobile) &&
@@ -421,21 +583,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}
             playText="Friendly Match"
-          />,
-        );
-      }
-
-      if (gameConfig.isFreeToPlay) {
-        buttons.push(
-          <PlayFreeButton
-            key="free"
-            onPlay={() => {
-              setGameMode("FreePlay");
-              setEntryConfirmed(true); // Unity game loads immediately
-              setShowAdOverlay(true); // Show ad overlay
-              if (isMobile()) setShowMobileFull(true);
-            }}
-            onAdEnd={() => setShowAdOverlay(false)}
           />,
         );
       }
