@@ -1,3 +1,4 @@
+import AddReelMotionAIVideo from "../../assets/Adds/AddReelMotionAI.mp4";
 import React from "react";
 import GamePageTemplate from "../templates/GamePageTemplate";
 import UnityGame from "./UnityGame";
@@ -46,6 +47,21 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   );
   const [gameLoading, setGameLoading] = React.useState(false);
   const [gameLoaded, setGameLoaded] = React.useState(false);
+
+  // Ad overlay state for PlayFreeButton
+  const [showAdOverlay, setShowAdOverlay] = React.useState(false);
+  const [adCountdown, setAdCountdown] = React.useState(10);
+
+  // Countdown effect for ad overlay
+  React.useEffect(() => {
+    if (showAdOverlay && adCountdown > 0) {
+      const timer = setTimeout(() => setAdCountdown((c) => c - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+    if (!showAdOverlay && adCountdown !== 10) {
+      setAdCountdown(10);
+    }
+  }, [showAdOverlay, adCountdown]);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -107,15 +123,74 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         : null;
     localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
 
+    // Always mount UnityGameMobile, overlay ad if needed
     return (
-      <UnityGameMobile
-        gameAssets={gameConfig.assets}
-        publicKey={publicKey?.toString() || mobileWalletAddress || null}
-        transactionId={txSig ?? null}
-        degenMode={localGameMode}
-        degenBetAmount={localDegenBetAmount}
-        onExit={handleExitFromMobile}
-      />
+      <>
+        <UnityGameMobile
+          gameAssets={gameConfig.assets}
+          publicKey={publicKey?.toString() || mobileWalletAddress || null}
+          transactionId={txSig ?? null}
+          degenMode={localGameMode}
+          degenBetAmount={localDegenBetAmount}
+          onExit={handleExitFromMobile}
+        />
+        {showAdOverlay && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0,0,0,0.85)",
+              zIndex: 9999,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                color: "#ffffff",
+                fontSize: "1rem",
+                fontWeight: 600,
+                marginBottom: "1.5rem",
+                textAlign: "center",
+                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                textShadow: "0 2px 8px #000a",
+              }}
+            >
+              The game is loading, please bear with us
+              <br />
+              <span
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.05em",
+                  color: "#4bc123",
+                }}
+              >
+                {adCountdown}
+              </span>
+            </div>
+            <video
+              src={AddReelMotionAIVideo}
+              autoPlay
+              playsInline
+              onEnded={() => setShowAdOverlay(false)}
+              style={{
+                maxWidth: "90vw",
+                maxHeight: "60vh",
+                borderRadius: "16px",
+                boxShadow: "0 2px 24px #000a",
+                background: "#000",
+              }}
+              controls={false}
+            />
+          </div>
+        )}
+      </>
     );
   }
 
@@ -356,9 +431,11 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             key="free"
             onPlay={() => {
               setGameMode("FreePlay");
-              setEntryConfirmed(true);
+              setEntryConfirmed(true); // Unity game loads immediately
+              setShowAdOverlay(true); // Show ad overlay
               if (isMobile()) setShowMobileFull(true);
             }}
+            onAdEnd={() => setShowAdOverlay(false)}
           />,
         );
       }
@@ -402,20 +479,79 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   };
 
   return (
-    <GamePageTemplate
-      gameTitle={gameConfig.title}
-      gameComponent={renderGameComponent()}
-      paymentComponent={renderPaymentSection()}
-      instructions={gameConfig.instructions}
-      customContent={customContent}
-      backgroundImage={gameConfig.backgroundImage}
-      gameDescription={gameConfig.longDescription || gameConfig.description}
-      currentGameSlug={gameId}
-      isLive={!gameConfig.placeholder}
-      isPvE={gameConfig.isPvE}
-      feeText="Entry from 0.5 USD"
-      isGamePlaying={entryConfirmed}
-    />
+    <>
+      {/* Ad overlay, covers everything when active */}
+      {showAdOverlay && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.85)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              color: "#ffffff",
+              fontSize: "1.25rem",
+              fontWeight: 600,
+              marginBottom: "1.5rem",
+              textAlign: "center",
+              fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+              textShadow: "0 2px 8px #000a",
+            }}
+          >
+            The game is loading, please bear with us
+            <br />
+            <span
+              style={{
+                fontSize: "2.5rem",
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+                color: "#4bc123",
+              }}
+            >
+              {adCountdown}
+            </span>
+          </div>
+          <video
+            src={AddReelMotionAIVideo}
+            autoPlay
+            playsInline
+            onEnded={() => setShowAdOverlay(false)}
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "60vh",
+              borderRadius: "16px",
+              boxShadow: "0 2px 24px #000a",
+              background: "#000",
+            }}
+            controls={false}
+          />
+        </div>
+      )}
+      <GamePageTemplate
+        gameTitle={gameConfig.title}
+        gameComponent={renderGameComponent()}
+        paymentComponent={renderPaymentSection()}
+        instructions={gameConfig.instructions}
+        customContent={customContent}
+        backgroundImage={gameConfig.backgroundImage}
+        gameDescription={gameConfig.longDescription || gameConfig.description}
+        currentGameSlug={gameId}
+        isLive={!gameConfig.placeholder}
+        isPvE={gameConfig.isPvE}
+        feeText="Entry from 0.5 USD"
+        isGamePlaying={entryConfirmed}
+      />
+    </>
   );
 };
 
