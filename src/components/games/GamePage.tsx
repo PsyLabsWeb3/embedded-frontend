@@ -48,9 +48,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const [gameLoading, setGameLoading] = React.useState(false);
   const [gameLoaded, setGameLoaded] = React.useState(false);
 
-  // Mobile-specific states for degenMode and betAmount
-  const [mobileDegenMode, setMobileDegenMode] = React.useState<string | null>(null);
-  const [mobileDegenBetAmount, setMobileDegenBetAmount] = React.useState<string | null>(null);
+  // controla si mostramos la vista fullscreen móvil (para poder "volver")
+  const [showMobileFull, setShowMobileFull] = React.useState(false);
+  // evita renderizar Unity embebido durante la salida (y permite recargar limpio)
+  const [isExiting, setIsExiting] = React.useState(false);
 
   // Ad overlay state for PlayFreeButton
   const [showAdOverlay, setShowAdOverlay] = React.useState(false);
@@ -66,29 +67,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       setAdCountdown(10);
     }
   }, [showAdOverlay, adCountdown]);
-
-  // Retrieve and remove localStorage values when mobile view starts
-  React.useEffect(() => {
-    if (isMobile() && entryConfirmed && showMobileFull && !isExiting) {
-      const gm = typeof localStorage !== "undefined"
-        ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
-        : null;
-      const ba = typeof localStorage !== "undefined"
-        ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
-        : null;
-      setMobileDegenMode(gm);
-      setMobileDegenBetAmount(ba);
-      if (typeof localStorage !== "undefined") {
-        localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
-        localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
-      }
-    }
-  }, [entryConfirmed, showMobileFull, isExiting]);
-
-  // controla si mostramos la vista fullscreen móvil (para poder "volver")
-  const [showMobileFull, setShowMobileFull] = React.useState(false);
-  // evita renderizar Unity embebido durante la salida (y permite recargar limpio)
-  const [isExiting, setIsExiting] = React.useState(false);
 
   if (!gameConfig) {
     return (
@@ -133,9 +111,22 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     showMobileFull &&
     !isExiting
   ) {
-    // Use mobile states for degenMode and betAmount
-    console.log("[GamePage] Using mobileDegenMode:", mobileDegenMode);
-    console.log("[GamePage] Using mobileDegenBetAmount:", mobileDegenBetAmount);
+    //Si existe local storage GAME_MODE y DEGEN_BET_AMOUNT, los pasa a UnityGameMobile
+    const localGameMode =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
+        : null;
+    console.log("[GamePage] Retrieved localGameMode:", localGameMode);
+    localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+    const localDegenBetAmount =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
+        : null;
+    console.log(
+      "[GamePage] Retrieved localDegenBetAmount:",
+      localDegenBetAmount,
+    );
+    localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
 
     // Always mount UnityGameMobile, overlay ad if needed
     return (
@@ -144,8 +135,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           gameAssets={gameConfig.assets}
           publicKey={publicKey?.toString() || mobileWalletAddress || null}
           transactionId={txSig ?? null}
-          degenMode={mobileDegenMode}
-          degenBetAmount={mobileDegenBetAmount}
+          degenMode={localGameMode}
+          degenBetAmount={localDegenBetAmount}
           onExit={handleExitFromMobile}
         />
         {showAdOverlay && (
@@ -417,8 +408,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           onPlay={() => {
             setGameMode("FreePlay");
             if (isMobile()) {
-              setMobileDegenMode("FreePlay");
-              setMobileDegenBetAmount(null);
+              localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "FreePlay");
             }
             setEntryConfirmed(true); // Unity game loads immediately
             setShowAdOverlay(true); // Show ad overlay
@@ -439,8 +429,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 setTxSig(sig);
                 setGameMode("PvE");
                 if (isMobile()) {
-                  setMobileDegenMode("PvE");
-                  setMobileDegenBetAmount(null);
+                  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
                 }
                 setGameLoading(true);
                 setGameLoaded(false);
@@ -467,8 +456,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 setTxSig(sig);
                 setGameMode("PvE");
                 if (isMobile()) {
-                  setMobileDegenMode("PvE");
-                  setMobileDegenBetAmount(null);
+                  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
                 }
                 setGameLoading(true);
                 setGameLoaded(false);
@@ -513,8 +501,11 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 }
                 setDegenBetAmount(betUsd ?? null);
                 if (isMobile()) {
-                  setMobileDegenMode("Betting");
-                  setMobileDegenBetAmount(betUsd ?? null);
+                  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+                  localStorage.setItem(
+                    LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
+                    betUsd ?? "",
+                  );
                 }
               }}
               gameLoading={gameLoading}
@@ -578,8 +569,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               setTxSig(sig);
               setGameMode("PvE");
               if (isMobile()) {
-                setMobileDegenMode("PvE");
-                setMobileDegenBetAmount(null);
+                localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
               }
               setGameLoading(true);
               setGameLoaded(false);
@@ -607,8 +597,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               setTxSig(sig);
               setGameMode("PvE");
               if (isMobile()) {
-                setMobileDegenMode("PvE");
-                setMobileDegenBetAmount(null);
+                localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
               }
               setGameLoading(true);
               setGameLoaded(false);
@@ -653,10 +642,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 betUsd = _betUsd.toString();
               }
               setDegenBetAmount(betUsd ?? null);
-              if (isMobile()) {
-                setMobileDegenMode("Betting");
-                setMobileDegenBetAmount(betUsd ?? null);
-              }
             }}
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}
