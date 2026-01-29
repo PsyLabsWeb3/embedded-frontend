@@ -48,6 +48,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
   const [gameLoading, setGameLoading] = React.useState(false);
   const [gameLoaded, setGameLoaded] = React.useState(false);
 
+  // Mobile-specific states for degenMode and betAmount
+  const [mobileDegenMode, setMobileDegenMode] = React.useState<string | null>(null);
+  const [mobileDegenBetAmount, setMobileDegenBetAmount] = React.useState<string | null>(null);
+
   // Ad overlay state for PlayFreeButton
   const [showAdOverlay, setShowAdOverlay] = React.useState(false);
   const [adCountdown, setAdCountdown] = React.useState(10);
@@ -62,6 +66,24 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       setAdCountdown(10);
     }
   }, [showAdOverlay, adCountdown]);
+
+  // Retrieve and remove localStorage values when mobile view starts
+  React.useEffect(() => {
+    if (isMobile() && entryConfirmed && showMobileFull && !isExiting) {
+      const gm = typeof localStorage !== "undefined"
+        ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
+        : null;
+      const ba = typeof localStorage !== "undefined"
+        ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
+        : null;
+      setMobileDegenMode(gm);
+      setMobileDegenBetAmount(ba);
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+        localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+      }
+    }
+  }, [entryConfirmed, showMobileFull, isExiting]);
 
   // controla si mostramos la vista fullscreen móvil (para poder "volver")
   const [showMobileFull, setShowMobileFull] = React.useState(false);
@@ -111,17 +133,9 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     showMobileFull &&
     !isExiting
   ) {
-    //Si existe local storage GAME_MODE y DEGEN_BET_AMOUNT, los pasa a UnityGameMobile
-    const localGameMode =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem(LOCAL_STORAGE_CONF.GAME_MODE)
-        : null;
-    localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
-    const localDegenBetAmount =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT)
-        : null;
-    localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+    // Use mobile states for degenMode and betAmount
+    console.log("[GamePage] Using mobileDegenMode:", mobileDegenMode);
+    console.log("[GamePage] Using mobileDegenBetAmount:", mobileDegenBetAmount);
 
     // Always mount UnityGameMobile, overlay ad if needed
     return (
@@ -130,8 +144,8 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           gameAssets={gameConfig.assets}
           publicKey={publicKey?.toString() || mobileWalletAddress || null}
           transactionId={txSig ?? null}
-          degenMode={localGameMode}
-          degenBetAmount={localDegenBetAmount}
+          degenMode={mobileDegenMode}
+          degenBetAmount={mobileDegenBetAmount}
           onExit={handleExitFromMobile}
         />
         {showAdOverlay && (
@@ -201,7 +215,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     }
 
     if (gameConfig.placeholder) return <PlaceholderGame />;
-
 
     if (gameConfig.assets) {
       // If FreeToPlay, skip wallet checks
@@ -403,12 +416,16 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           key="free"
           onPlay={() => {
             setGameMode("FreePlay");
+            if (isMobile()) {
+              setMobileDegenMode("FreePlay");
+              setMobileDegenBetAmount(null);
+            }
             setEntryConfirmed(true); // Unity game loads immediately
             setShowAdOverlay(true); // Show ad overlay
             if (isMobile()) setShowMobileFull(true);
           }}
           onAdEnd={() => setShowAdOverlay(false)}
-        />
+        />,
       );
 
       // If wallet is connected, also show PvE and PvP buttons if applicable
@@ -421,6 +438,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               onContinue={(sig) => {
                 setTxSig(sig);
                 setGameMode("PvE");
+                if (isMobile()) {
+                  setMobileDegenMode("PvE");
+                  setMobileDegenBetAmount(null);
+                }
                 setGameLoading(true);
                 setGameLoaded(false);
                 setTimeout(() => {
@@ -434,7 +455,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               }}
               gameLoading={gameLoading}
               gameLoaded={gameLoaded}
-            />
+            />,
           );
         }
         if (gameConfig.isFriendlyPvP) {
@@ -445,6 +466,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               onContinue={(sig) => {
                 setTxSig(sig);
                 setGameMode("PvE");
+                if (isMobile()) {
+                  setMobileDegenMode("PvE");
+                  setMobileDegenBetAmount(null);
+                }
                 setGameLoading(true);
                 setGameLoaded(false);
                 setTimeout(() => {
@@ -459,7 +484,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
               gameLoading={gameLoading}
               gameLoaded={gameLoaded}
               playText="Friendly Match"
-            />
+            />,
           );
         }
         if (gameConfig.isPvP) {
@@ -487,10 +512,14 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                   betUsd = _betUsd.toString();
                 }
                 setDegenBetAmount(betUsd ?? null);
+                if (isMobile()) {
+                  setMobileDegenMode("Betting");
+                  setMobileDegenBetAmount(betUsd ?? null);
+                }
               }}
               gameLoading={gameLoading}
               gameLoaded={gameLoaded}
-            />
+            />,
           );
         }
       }
@@ -498,31 +527,35 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       // Desktop: horizontal row, left-aligned, with spacing and max width
       if (!isMobileView) {
         return (
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            gap: "1.5rem",
-            minHeight: "80px",
-            maxWidth: "420px",
-            marginLeft: "24px",
-            marginTop: "24px"
-          }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              gap: "1.5rem",
+              minHeight: "80px",
+              maxWidth: "420px",
+              marginLeft: "24px",
+              marginTop: "24px",
+            }}
+          >
             {buttons}
           </div>
         );
       }
       // Mobile: column, centered
       return (
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "180px",
-          gap: "0.75rem"
-        }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "180px",
+            gap: "0.75rem",
+          }}
+        >
           {buttons}
         </div>
       );
@@ -544,6 +577,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             onContinue={(sig) => {
               setTxSig(sig);
               setGameMode("PvE");
+              if (isMobile()) {
+                setMobileDegenMode("PvE");
+                setMobileDegenBetAmount(null);
+              }
               setGameLoading(true);
               setGameLoaded(false);
               setTimeout(() => {
@@ -569,6 +606,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             onContinue={(sig) => {
               setTxSig(sig);
               setGameMode("PvE");
+              if (isMobile()) {
+                setMobileDegenMode("PvE");
+                setMobileDegenBetAmount(null);
+              }
               setGameLoading(true);
               setGameLoaded(false);
               setTimeout(() => {
@@ -612,6 +653,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 betUsd = _betUsd.toString();
               }
               setDegenBetAmount(betUsd ?? null);
+              if (isMobile()) {
+                setMobileDegenMode("Betting");
+                setMobileDegenBetAmount(betUsd ?? null);
+              }
             }}
             gameLoading={gameLoading}
             gameLoaded={gameLoaded}

@@ -669,9 +669,16 @@ const PayEntryButton: React.FC<Props> = ({
           LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
           usdBetAmount.toString(),
         );
+        console.log(
+          "[PayEntryButton] Set localStorage GAME_MODE to Betting, amount:",
+          usdBetAmount,
+        );
       } else {
         localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
         localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+        console.log(
+          "[PayEntryButton] Removed localStorage GAME_MODE and DEGEN_BET_AMOUNT",
+        );
       }
 
       // 🚫 No reasignes recentBlockhash. Si necesitas refrescar, recompila el mensaje.

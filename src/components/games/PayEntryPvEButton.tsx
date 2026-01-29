@@ -293,6 +293,15 @@ const PayEntryPvEButton: React.FC<Props> = ({
     if (!usingDesktop && !phantomReady) return;
     if (!networkReady) return;
 
+    // Set localStorage for mobile early
+    if (isMobile()) {
+      localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
+      localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+      console.log(
+        "[PayEntryPvEButton] Set localStorage GAME_MODE to PvE early",
+      );
+    }
+
     try {
       setSending(true);
       setIsLoadingTransaction(true);
@@ -469,8 +478,7 @@ const PayEntryPvEButton: React.FC<Props> = ({
       }
 
       // Mark as PvE mode in localStorage
-      localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
-      localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+      console.log("[PayEntryPvEButton] Set localStorage GAME_MODE to PvE");
 
       // Serialize transaction for Phantom
       const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
