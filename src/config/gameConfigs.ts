@@ -91,10 +91,10 @@ const cyberArenaAssets: GameAssets = {
   codeUrl: cyberarenaCodeUrl,
 };
 
-import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.loader.js?url";
-import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.data?url";
-import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.framework.js?url";
-import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.wasm?url";
+import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.loader.js?url";
+import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.data?url";
+import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.framework.js?url";
+import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.wasm?url";
 
 const tankieRacerAttackAssets: GameAssets = {
   loaderUrl: tankieRacerAttackLoaderUrl,
