@@ -81,7 +81,6 @@ async function waitForFinalized(
           resolve(false);
           return;
         }
-
         // Continue polling
         setTimeout(checkStatus, pollMs);
       } catch (error) {
