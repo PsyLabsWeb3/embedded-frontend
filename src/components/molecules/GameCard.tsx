@@ -86,6 +86,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
     cyberarena: GAME_ROUTES.CYBER_ARENA,
     tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
+    endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
   };
 
   /**

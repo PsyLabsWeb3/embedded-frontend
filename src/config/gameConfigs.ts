@@ -22,6 +22,7 @@ import snakeBackground from "../assets/gamesImages/EmbeddedSnake.png?url";
 import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
 import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
 import tankieRacerAttackBackground from "../assets/gamesImages/TankieRacerAttack.png?url";
+import endlessRunnerBackground from "../assets/gamesImages/EndlessRunner.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -101,6 +102,18 @@ const tankieRacerAttackAssets: GameAssets = {
   dataUrl: tankieRacerAttackDataUrl,
   frameworkUrl: tankieRacerAttackFrameworkUrl,
   codeUrl: tankieRacerAttackCodeUrl,
+};
+
+import endlessRunnerLoaderUrl from "../assets/Unity/EndlessRunner/Build/EndlessRunner.loader.js?url";
+import endlessRunnerDataUrl from "../assets/Unity/EndlessRunner/Build/EndlessRunner.data?url";
+import endlessRunnerFrameworkUrl from "../assets/Unity/EndlessRunner/Build/EndlessRunner.framework.js?url";
+import endlessRunnerCodeUrl from "../assets/Unity/EndlessRunner/Build/EndlessRunner.wasm?url";
+
+const endlessRunnerAssets: GameAssets = {
+  loaderUrl: endlessRunnerLoaderUrl,
+  dataUrl: endlessRunnerDataUrl,
+  frameworkUrl: endlessRunnerFrameworkUrl,
+  codeUrl: endlessRunnerCodeUrl,
 };
 
 /**
@@ -266,6 +279,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Navigate the zigzag track without falling off.",
       "Race against enemy tanks and dodge obstacles.",
       "Reach the highest score possible by surviving longer.",
+    ],
+  },
+  "15-endless-runner": {
+    id: "15-endless-runner",
+    title: "Endless Runner",
+    description:
+      "Endless runner game where players control a character running through a dynamic environment, jumping over obstacles, collecting coins, and aiming for the highest score possible.",
+    assets: endlessRunnerAssets,
+    backgroundImage: endlessRunnerBackground,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    isPvE: true,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to jump over obstacles.",
+      "Collect coins along the way to increase your score.",
+      "Avoid hitting obstacles to keep running.",
+      "Aim for the highest score possible.",
     ],
   },
 };

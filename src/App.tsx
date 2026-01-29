@@ -64,6 +64,7 @@ import { WALLET_CONFIG } from "./constants";
 // Import Terms Modal
 import TermsModal from "./components/molecules/TermsModal";
 import "./styles/geoblock.css";
+import EndlessRunner from "./components/games/gamePages/15_EndlessRunner";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -186,6 +187,10 @@ const App: React.FC = () => {
                 <Route
                   path="/game/14-tankie-racer-attack"
                   element={<TankieRacerAttack />}
+                />
+                <Route
+                  path="/game/15-endless-runner"
+                  element={<EndlessRunner />}
                 />
               </Routes>
             </div>

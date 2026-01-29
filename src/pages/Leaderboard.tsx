@@ -85,14 +85,13 @@ const LeaderboardPage: React.FC = () => {
     embeddedwars: GAME_ROUTES.EMBEDDED_WARS,
     smugglersrun: GAME_ROUTES.SMUGGLERS_RUN,
     embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
-    cyberarena: GAME_ROUTES.CYBER_ARENA || "/game/cyberarena",
-    tankieracerattack:
-      GAME_ROUTES.TANKIE_RACER_ATTACK || "/game/tankieracerattack",
+    cyberarena: GAME_ROUTES.CYBER_ARENA,
+    tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
+    endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
     slice: "/game/slice",
     guerreromaya: "/game/guerreromaya",
-    endlessrunner: "/game/endlessrunner",
   };
 
   const handleGameClick = (slug: string) => {

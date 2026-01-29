@@ -120,11 +120,11 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
     embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
     cyberarena: GAME_ROUTES.CYBER_ARENA,
     tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
+    endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
     slice: "/game/slice",
     guerreromaya: "/game/guerreromaya",
-    endlessrunner: "/game/endlessrunner",
   };
 
   const handleGameClick = (slug: string) => {
