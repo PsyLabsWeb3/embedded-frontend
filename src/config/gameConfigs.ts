@@ -55,10 +55,10 @@ const embeddedWarsAssets: GameAssets = {
   codeUrl: embeddedWarsCodeUrl,
 };
 
-import embeddedSpaceRaceLoaderUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url";
-import embeddedSpaceRaceDataUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url";
-import embeddedSpaceRaceFrameworkUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url";
-import embeddedSpaceRaceCodeUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url";
+import embeddedSpaceRaceLoaderUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.loader.js?url";
+import embeddedSpaceRaceDataUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.data?url";
+import embeddedSpaceRaceFrameworkUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.framework.js?url";
+import embeddedSpaceRaceCodeUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.wasm?url";
 
 const embeddedSpaceRaceAssets: GameAssets = {
   loaderUrl: embeddedSpaceRaceLoaderUrl,

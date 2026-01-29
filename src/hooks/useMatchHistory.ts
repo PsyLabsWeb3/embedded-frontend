@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { groupByDay, type DayGroup as _DayGroup } from '../utils/groupByDay';
-import { computeStats } from '../utils/computeStats';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { groupByDay, type DayGroup as _DayGroup } from "../utils/groupByDay";
+import { computeStats } from "../utils/computeStats";
 
 export interface ApiItem {
   matchId: string;
   opponent: string;
-  result: 'WIN' | 'LOSS' | string;
+  result: "WIN" | "LOSS" | string;
   matchDate: string; // ISO
   mode?: string | null;
   amount?: string | number | null;
@@ -20,7 +20,7 @@ export interface ApiResponse {
 
 export type DayGroupItem = {
   opponent: string;
-  result: 'WIN' | 'LOSS' | string;
+  result: "WIN" | "LOSS" | string;
   matchDate: string;
   mode?: string | null;
   amount?: string | number | null;
@@ -41,9 +41,14 @@ export interface UseMatchHistoryResult {
   refetch: () => Promise<void>;
 }
 
-interface Options { pageSize?: number }
+interface Options {
+  pageSize?: number;
+}
 
-export const useMatchHistory = (walletAddress?: string, options?: Options): UseMatchHistoryResult => {
+export const useMatchHistory = (
+  walletAddress?: string,
+  options?: Options,
+): UseMatchHistoryResult => {
   const pageSize = options?.pageSize ?? 20;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +63,7 @@ export const useMatchHistory = (walletAddress?: string, options?: Options): UseM
       setLoading(false);
       return;
     }
-    
+
     abortRef.current?.abort();
     const ctrl = new AbortController();
     abortRef.current = ctrl;
@@ -69,33 +74,36 @@ export const useMatchHistory = (walletAddress?: string, options?: Options): UseM
     try {
       const url = `https://backend.embedded.games/api/matchHistory?walletAddress=${encodeURIComponent(walletAddress)}`;
       const res = await fetch(url, { signal: ctrl.signal });
-      
+
       if (!res.ok) {
         if (res.status === 404) {
-          throw new Error('No match history found for this wallet');
+          throw new Error("No match history found for this wallet");
         }
         throw new Error(`HTTP ${res.status}`);
       }
-      
+
       const json = (await res.json()) as ApiResponse;
 
       const history = Array.isArray(json?.history) ? json.history : [];
       // Sort DESC by matchDate
       const sorted = history
-        .filter((it): it is ApiItem => !!it && typeof it.matchDate === 'string')
-        .sort((a, b) => new Date(b.matchDate).getTime() - new Date(a.matchDate).getTime());
+        .filter((it): it is ApiItem => !!it && typeof it.matchDate === "string")
+        .sort(
+          (a, b) =>
+            new Date(b.matchDate).getTime() - new Date(a.matchDate).getTime(),
+        );
 
       const normalized: ApiResponse = {
         wallet: String(json?.wallet ?? walletAddress),
-        points: typeof json?.points === 'number' ? json.points : 0,
+        points: typeof json?.points === "number" ? json.points : 0,
         history: sorted,
       };
 
       setData(normalized);
       setVisibleCount(pageSize);
     } catch (e: any) {
-      if (e?.name === 'AbortError') return;
-      setError(e?.message ?? 'Failed to load history');
+      if (e?.name === "AbortError") return;
+      setError(e?.message ?? "Failed to load history");
       setData(null);
     } finally {
       setLoading(false);
@@ -141,5 +149,16 @@ export const useMatchHistory = (walletAddress?: string, options?: Options): UseM
     await fetchData();
   }, [fetchData]);
 
-  return { loading, error, data, stats, groups, visibleCount, totalCount, hasMore, showMore, refetch };
+  return {
+    loading,
+    error,
+    data,
+    stats,
+    groups,
+    visibleCount,
+    totalCount,
+    hasMore,
+    showMore,
+    refetch,
+  };
 };
