@@ -55,10 +55,10 @@ const embeddedWarsAssets: GameAssets = {
   codeUrl: embeddedWarsCodeUrl,
 };
 
-import embeddedSpaceRaceLoaderUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.loader.js?url";
-import embeddedSpaceRaceDataUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.data?url";
-import embeddedSpaceRaceFrameworkUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.framework.js?url";
-import embeddedSpaceRaceCodeUrl from "../assets/Unity/EmbeddedSpaceRace/Build/EmbeddedSpaceRace.wasm?url";
+import embeddedSpaceRaceLoaderUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.loader.js?url";
+import embeddedSpaceRaceDataUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.data?url";
+import embeddedSpaceRaceFrameworkUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.framework.js?url";
+import embeddedSpaceRaceCodeUrl from "../assets/Unity/SmugglersRun/Build/SmugglersRun.wasm?url";
 
 const embeddedSpaceRaceAssets: GameAssets = {
   loaderUrl: embeddedSpaceRaceLoaderUrl,
@@ -91,10 +91,10 @@ const cyberArenaAssets: GameAssets = {
   codeUrl: cyberarenaCodeUrl,
 };
 
-import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.loader.js?url";
-import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.data?url";
-import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.framework.js?url";
-import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack-Free/Build/TankieRacerAttack-Free.wasm?url";
+import tankieRacerAttackLoaderUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.loader.js?url";
+import tankieRacerAttackDataUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.data?url";
+import tankieRacerAttackFrameworkUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.framework.js?url";
+import tankieRacerAttackCodeUrl from "../assets/Unity/TankieRacerAttack/Build/TankieRacerAttack.wasm?url";
 
 const tankieRacerAttackAssets: GameAssets = {
   loaderUrl: tankieRacerAttackLoaderUrl,
