@@ -41,6 +41,7 @@ export const GAME_ROUTES = {
   CYBER_ARENA: "/game/13-cyber-arena",
   TANKIE_RACER_ATTACK: "/game/14-tankie-racer-attack",
   ENDLESS_RUNNER: "/game/15-endless-runner",
+  GUERRERO_MAYA: "/game/16-guerrero-maya",
 } as const;
 
 /**

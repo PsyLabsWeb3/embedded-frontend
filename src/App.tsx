@@ -65,6 +65,7 @@ import { WALLET_CONFIG } from "./constants";
 import TermsModal from "./components/molecules/TermsModal";
 import "./styles/geoblock.css";
 import EndlessRunner from "./components/games/gamePages/15_EndlessRunner";
+import GuerreroMaya from "./components/games/gamePages/16_GuerreroMaya.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -191,6 +192,10 @@ const App: React.FC = () => {
                 <Route
                   path="/game/15-endless-runner"
                   element={<EndlessRunner />}
+                />
+                <Route
+                  path="/game/16-guerrero-maya"
+                  element={<GuerreroMaya />}
                 />
               </Routes>
             </div>

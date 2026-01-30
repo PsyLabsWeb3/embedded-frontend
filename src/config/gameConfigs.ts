@@ -23,6 +23,7 @@ import asteroidsBackground from "../assets/gamesImages/Asteroids.png?url";
 import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
 import tankieRacerAttackBackground from "../assets/gamesImages/TankieRacerAttack.png?url";
 import endlessRunnerBackground from "../assets/gamesImages/EndlessRunner.png?url";
+import guerreroMayaBackground from "../assets/gamesImages/GuerreroMaya.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -114,6 +115,18 @@ const endlessRunnerAssets: GameAssets = {
   dataUrl: endlessRunnerDataUrl,
   frameworkUrl: endlessRunnerFrameworkUrl,
   codeUrl: endlessRunnerCodeUrl,
+};
+
+import guerreroMayaLoaderUrl from "../assets/Unity/GuerreroMayaPvE/Build/GuerreroMayaPvE.loader.js?url";
+import guerreroMayaDataUrl from "../assets/Unity/GuerreroMayaPvE/Build/GuerreroMayaPvE.data?url";
+import guerreroMayaFrameworkUrl from "../assets/Unity/GuerreroMayaPvE/Build/GuerreroMayaPvE.framework.js?url";
+import guerreroMayaCodeUrl from "../assets/Unity/GuerreroMayaPvE/Build/GuerreroMayaPvE.wasm?url";
+
+const guerreroMayaAssets: GameAssets = {
+  loaderUrl: guerreroMayaLoaderUrl,
+  dataUrl: guerreroMayaDataUrl,
+  frameworkUrl: guerreroMayaFrameworkUrl,
+  codeUrl: guerreroMayaCodeUrl,
 };
 
 /**
@@ -300,6 +313,26 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Collect coins along the way to increase your score.",
       "Avoid hitting obstacles to keep running.",
       "Aim for the highest score possible.",
+    ],
+  },
+  "16-guerrero-maya": {
+    id: "16-guerrero-maya",
+    title: "Guerrero Maya",
+    description:
+      "2D tower defense. Defend the Mezcal temple, plant agave to generate energy, and deploy units fast as enemy waves accelerate. Upgrade, adapt, and survive the chaos.",
+    assets: guerreroMayaAssets,
+    backgroundImage: guerreroMayaBackground,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 15,
+    isMultiplayer: false,
+    minAge: 7,
+    isPvE: true,
+    instructions: [
+      "Use arrow keys or joystick to move your warrior.",
+      "Explore ancient temples and environments.",
+      "Solve puzzles to unlock new areas.",
+      "Overcome challenges to protect your civilization's secrets.",
     ],
   },
 };
