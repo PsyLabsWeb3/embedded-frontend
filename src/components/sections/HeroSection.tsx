@@ -60,11 +60,11 @@ const HeroSection = () => {
 
           {/* Title with green emphasis per Figma */}
           <h1 className="hero-title" aria-label="Play. Win. Level up.">
-            <span className="hero-title__white">Play</span>
+            <span className="hero-title__white">Play </span>
             <span className="hero-title__green">.</span>
-            <span className="hero-title__white">&nbsp;Win</span>
+            <span className="hero-title__white">&nbsp;Win </span>
             <span className="hero-title__green">.</span>
-            <span className="hero-title__green">&nbsp;Level up.</span>
+            <span className="hero-title__green">&nbsp;Level up</span>
           </h1>
 
           {/* Description */}

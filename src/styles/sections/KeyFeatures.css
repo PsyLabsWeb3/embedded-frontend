@@ -1,3 +1,17 @@
+/* Responsive: Ensure feature cards fit on screens between 1200px and 1400px */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .key-features-cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-card {
+    min-width: 0;
+    max-width: 380px;
+    width: 100%;
+  }
+}
 /* Key features section styles */
 .key-features-section {
   color: var(--color-text);
