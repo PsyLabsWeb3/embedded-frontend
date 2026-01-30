@@ -15,7 +15,11 @@
 }
 
 .games-title {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 32px;
   font-weight: 700;
   line-height: normal;
@@ -24,7 +28,11 @@
 }
 
 .games-subtitle {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
@@ -33,7 +41,11 @@
 }
 
 .games-description {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;

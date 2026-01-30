@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import TermsModal from "../molecules/TermsModal";
 import "../../styles/sections/Footer.css";
+import "../../styles/no-hover.css";
 import discordIcon from "../../assets/discordIcon.png";
 import twitterIcon from "../../assets/iconX.png";
 import telegramIcon from "../../assets/telegramIcon.png";
 import { Logo } from "../atoms/common";
+import AdvertiseModal from "../organisms/AdvertiseModal";
+import rumIcon from "../../assets/icons/rumIcon.png";
+import tiktokIcon from "../../assets/icons/tiktokIcon.png";
+import instagramIcon from "../../assets/icons/instagramIcon.png";
+import youtubeIcon from "../../assets/icons/youtubeIcon.png";
 
 const Footer: React.FC = () => {
   const [showTerms, setShowTerms] = useState(false);
@@ -12,6 +18,16 @@ const Footer: React.FC = () => {
   const handleTermsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowTerms(true);
+  };
+  const [isAdvertiseModalOpen, setIsAdvertiseModalOpen] = useState(false);
+
+  const handleAdvertiseClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsAdvertiseModalOpen(true);
+  };
+
+  const handleCloseAdvertiseModal = () => {
+    setIsAdvertiseModalOpen(false);
   };
 
   const handleCloseTerms = () => setShowTerms(false);
@@ -55,7 +71,8 @@ const Footer: React.FC = () => {
               <li>
                 <a href="/faqs">FAQs</a>
               </li>
-              <li>
+
+              {/* <li>
                 <a
                   href="https://embedded.games/whitepaper.pdf"
                   target="_blank"
@@ -63,7 +80,7 @@ const Footer: React.FC = () => {
                 >
                   Whitepaper
                 </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
 
@@ -71,56 +88,74 @@ const Footer: React.FC = () => {
           <div className="ef-col ef-col--community">
             <h3 className="ef-community-title">Community</h3>
             <div className="ef-socials">
-              <a
-                className="ef-social-box"
-                href="https://x.com/Embedded_Games"
-                aria-label="X (Twitter)"
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                  alignItems: "center",
+                }}
               >
-                <img src={twitterIcon} alt="X" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://discord.gg/y9TkSUXF6G"
-                aria-label="Discord"
-              >
-                <img src={discordIcon} alt="Discord" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://t.me/EmbeddedGames"
-                aria-label="Telegram"
-              >
-                <img src={telegramIcon} alt="Telegram" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://t.me/EmbeddedGames"
-                aria-label="Telegram"
-              >
-                <img src={telegramIcon} alt="Telegram" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://t.me/EmbeddedGames"
-                aria-label="Telegram"
-              >
-                <img src={telegramIcon} alt="Telegram" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://t.me/EmbeddedGames"
-                aria-label="Telegram"
-              >
-                <img src={telegramIcon} alt="Telegram" />
-              </a>
-              <a
-                className="ef-social-box"
-                href="https://t.me/EmbeddedGames"
-                aria-label="Telegram"
-              >
-                <img src={telegramIcon} alt="Telegram" />
-              </a>
+                <a
+                  className="ef-social-box"
+                  href="https://x.com/Embedded_Games"
+                  aria-label="X (Twitter)"
+                >
+                  <img src={twitterIcon} alt="X" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://discord.gg/y9TkSUXF6G"
+                  aria-label="Discord"
+                >
+                  <img src={discordIcon} alt="Discord" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://t.me/EmbeddedGames"
+                  aria-label="Telegram"
+                >
+                  <img src={telegramIcon} alt="Telegram" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://rumble.com/user/Embedded_Games_Fun"
+                  aria-label="Rumble"
+                >
+                  <img src={rumIcon} alt="Rumble" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://www.tiktok.com/@embeddedgames?is_from_webapp=1&sender_device=pc"
+                  aria-label="TikTok"
+                >
+                  <img src={tiktokIcon} alt="TikTok" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://www.instagram.com/embedded.games?igsh=MWx2anJoc3hocWluNw=="
+                  aria-label="Instagram"
+                >
+                  <img src={instagramIcon} alt="Instagram" />
+                </a>
+                <a
+                  className="ef-social-box"
+                  href="https://www.youtube.com/@Embedded_Games"
+                  aria-label="YouTube"
+                >
+                  <img src={youtubeIcon} alt="YouTube" />
+                </a>
+              </div>
             </div>
+            <button
+              className="sidebar__item sidebar__item--button no-hover"
+              aria-label="Advertise with us"
+              onClick={handleAdvertiseClick}
+              type="button"
+              style={{ marginTop: "20px", padding: "0" }}
+            >
+              <span className="sidebar__text">Contact Us</span>
+            </button>
           </div>
         </div>
 
@@ -152,6 +187,12 @@ const Footer: React.FC = () => {
       </footer>
       {showTerms && (
         <TermsModal isOpen={showTerms} onClose={handleCloseTerms} forceShow />
+      )}
+      {isAdvertiseModalOpen && (
+        <AdvertiseModal
+          isOpen={isAdvertiseModalOpen}
+          onClose={handleCloseAdvertiseModal}
+        />
       )}
     </>
   );

@@ -347,7 +347,7 @@
 
   .history-main-card__content {
     max-width: 784px;
-    margin: 0 auto;
+    margin: 0 0;
   }
 
   /* Related Games Sidebar - Visible on Desktop */

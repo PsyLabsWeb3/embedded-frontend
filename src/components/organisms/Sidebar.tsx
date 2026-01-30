@@ -26,6 +26,7 @@ import advertiseIcon from "../../assets/icons/adIcon.svg";
 import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
 import AdvertiseModal from "./AdvertiseModal";
 import tournamentIcon from "../../assets/icons/tournamentIcon.svg";
+import faqIcon from "../../assets/icons/FAQIcon.svg";
 
 /**
  * Icon components using imported SVG assets
@@ -48,6 +49,10 @@ const WhitepaperIcon: React.FC = () => (
 
 const TournamentIcon: React.FC = () => (
   <img src={tournamentIcon} alt="" width="20" height="20" />
+);
+
+const FAQIcon: React.FC = () => (
+  <img src={faqIcon} alt="" width="20" height="20" />
 );
 
 /**
@@ -122,15 +127,27 @@ const Sidebar: React.FC = () => {
             <span className="sidebar__text">Tournaments</span>
           </Link>
 
+          {/* FAQs Link */}
+          <Link
+            to={ROUTES.FAQS}
+            className={`sidebar__item ${
+              location.pathname === ROUTES.FAQS ? "sidebar__item--active" : ""
+            }`}
+            aria-label="View FAQs"
+          >
+            <FAQIcon />
+            <span className="sidebar__text">FAQs</span>
+          </Link>
+
           {/* Advertise Link */}
           <button
-            className="sidebar__item sidebar__item--button"
+            className="sidebar__item sidebar__item--button no-hover"
             aria-label="Advertise with us"
             onClick={handleAdvertiseClick}
             type="button"
           >
             <AdvertiseIcon />
-            <span className="sidebar__text">Advertise</span>
+            <span className="sidebar__text">Contact Us</span>
           </button>
 
           {/* Whitepaper Link */}

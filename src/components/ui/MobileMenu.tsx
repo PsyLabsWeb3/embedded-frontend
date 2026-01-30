@@ -67,24 +67,13 @@ const MobileMenu = () => {
               </li>
               <li>
                 <Link
-                  to={ROUTES.LEADERBOARD}
+                  to={ROUTES.GAMES_FREE}
                   onClick={closeMenu}
                   className={
-                    location.pathname === ROUTES.LEADERBOARD ? "active" : ""
+                    location.pathname === ROUTES.GAMES_FREE ? "active" : ""
                   }
                 >
-                  Leaderboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={ROUTES.HISTORY}
-                  onClick={closeMenu}
-                  className={
-                    location.pathname === ROUTES.HISTORY ? "active" : ""
-                  }
-                >
-                  History
+                  Free To Play
                 </Link>
               </li>
               <li>
@@ -111,6 +100,29 @@ const MobileMenu = () => {
               </li>
               <li>
                 <Link
+                  to={ROUTES.LEADERBOARD}
+                  onClick={closeMenu}
+                  className={
+                    location.pathname === ROUTES.LEADERBOARD ? "active" : ""
+                  }
+                >
+                  Leaderboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={ROUTES.HISTORY}
+                  onClick={closeMenu}
+                  className={
+                    location.pathname === ROUTES.HISTORY ? "active" : ""
+                  }
+                >
+                  History
+                </Link>
+              </li>
+
+              <li>
+                <Link
                   to={ROUTES.TOURNAMENTS}
                   onClick={closeMenu}
                   className={
@@ -118,6 +130,15 @@ const MobileMenu = () => {
                   }
                 >
                   Tournaments
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={ROUTES.FAQS}
+                  onClick={closeMenu}
+                  className={location.pathname === ROUTES.FAQS ? "active" : ""}
+                >
+                  FAQs
                 </Link>
               </li>
 

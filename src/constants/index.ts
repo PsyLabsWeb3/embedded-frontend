@@ -22,6 +22,7 @@ export const ROUTES = {
   LEADERBOARD: "/leaderboard",
   REWARDS: "/rewards",
   TOURNAMENTS: "/tournaments",
+  FAQS: "/faqs",
   WHITEPAPER: "/whitepaper",
   SNAKE_2048: "/snake2048",
   EMBEDDED_GAME: "/embedded-game",
