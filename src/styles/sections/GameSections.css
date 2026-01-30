@@ -1,7 +1,11 @@
 /* Shared game sections styling matching existing theme */
 .games-section__title {
   color: #ffffff;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 800;
   font-size: 32px;
   line-height: normal;
@@ -14,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 px;
   margin-bottom: 1.8rem;
   max-height: 1rem;
 }

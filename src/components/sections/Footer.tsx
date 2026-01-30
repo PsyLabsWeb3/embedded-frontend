@@ -92,6 +92,34 @@ const Footer: React.FC = () => {
               >
                 <img src={telegramIcon} alt="Telegram" />
               </a>
+              <a
+                className="ef-social-box"
+                href="https://t.me/EmbeddedGames"
+                aria-label="Telegram"
+              >
+                <img src={telegramIcon} alt="Telegram" />
+              </a>
+              <a
+                className="ef-social-box"
+                href="https://t.me/EmbeddedGames"
+                aria-label="Telegram"
+              >
+                <img src={telegramIcon} alt="Telegram" />
+              </a>
+              <a
+                className="ef-social-box"
+                href="https://t.me/EmbeddedGames"
+                aria-label="Telegram"
+              >
+                <img src={telegramIcon} alt="Telegram" />
+              </a>
+              <a
+                className="ef-social-box"
+                href="https://t.me/EmbeddedGames"
+                aria-label="Telegram"
+              >
+                <img src={telegramIcon} alt="Telegram" />
+              </a>
             </div>
           </div>
         </div>

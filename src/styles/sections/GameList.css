@@ -188,6 +188,9 @@
   .game-list__grid--pve {
     display: flex;
   }
+  .game-list__grid--pve {
+    margin-bottom: 5rem;
+  }
 
   .game-list__button-container {
     display: flex;

@@ -16,7 +16,7 @@
 
   /* Backgrounds */
   --app-gradient: linear-gradient(
-    -90deg,
+    180deg,
     rgba(16, 16, 16, 1) 0%,
     rgba(15, 33, 24, 1) 100%
   );
