@@ -20,7 +20,7 @@ const gameVideos: Record<string, string> = {
 };
 
 const GamesPvE = () => (
-  <MainLayout>
+  <MainLayout gradientBackground={true}>
     <GamesPageLayout>
       <div className="games-page">
         <div className="games-header">

@@ -6,13 +6,24 @@ import "./MainLayout.css";
 interface MainLayoutProps {
   children: ReactNode;
   className?: string;
+  gradientBackground?: boolean;
 }
 
-const MainLayout = ({ children, className = "" }: MainLayoutProps) => (
-  <div className={`main-layout ${className}`}>
-    <Navbar />
-    <main className="main-content">{children}</main>
-    <Footer />
+const MainLayout = ({ children, className = "", gradientBackground = false }: MainLayoutProps) => (
+  <div
+    className={`main-layout ${className}`}
+    style={{
+      minHeight: "100vh",
+      ...(gradientBackground
+        ? { background: "linear-gradient(to bottom, #101010, #0f2118)" }
+        : {})
+    }}
+  >
+      <>
+        <Navbar />
+        <main className="main-content">{children}</main>
+        <Footer />
+      </>
   </div>
 );
 

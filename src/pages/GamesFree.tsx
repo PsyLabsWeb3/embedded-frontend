@@ -18,7 +18,7 @@ const gameVideos: Record<string, string> = {
 };
 
 const GamesFree = () => (
-  <MainLayout>
+  <MainLayout gradientBackground={true}>
     <GamesPageLayout>
       <div className="games-page">
         <div className="games-header">
