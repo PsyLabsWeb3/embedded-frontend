@@ -290,19 +290,21 @@ const TournamentsPage: React.FC = () => {
             </div>
           </section>
         </main>
-        {/* Right Sidebar - Related Games */}
-        <aside className="tournaments-page-related">
-          <div className="related-games-grid">
-            {relatedGames.map((game) => (
-              <RelatedGameCard
-                key={`${game.slug}-${game.position}`}
-                game={game}
-                sizeClass={getGridSizeClass(game.position)}
-                onClick={() => handleGameClick(game.slug)}
-              />
-            ))}
-          </div>
-        </aside>
+        {/* Right Sidebar - Related Games (Desktop only) */}
+        {typeof window !== "undefined" && window.innerWidth >= 1024 && (
+          <aside className="tournaments-page-related">
+            <div className="related-games-grid">
+              {relatedGames.map((game) => (
+                <RelatedGameCard
+                  key={`${game.slug}-${game.position}`}
+                  game={game}
+                  sizeClass={getGridSizeClass(game.position)}
+                  onClick={() => handleGameClick(game.slug)}
+                />
+              ))}
+            </div>
+          </aside>
+        )}
       </div>
       <TournamentModal
         open={modalOpen}
