@@ -43,9 +43,18 @@ const HeroSection = () => {
                 </span>{" "}
                 Free Games
               </li>
-              <li role="listitem">• Leaderboards</li>
-              <li role="listitem">• No accounts</li>
-              <li role="listitem">• Just Fun</li>
+              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+                {" "}
+                • Leaderboards
+              </li>
+              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+                {" "}
+                • No accounts
+              </li>
+              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+                {" "}
+                • Just Fun
+              </li>
             </ul>
           </div>
 
