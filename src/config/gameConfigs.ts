@@ -328,6 +328,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     isMultiplayer: false,
     minAge: 7,
     isPvE: true,
+    isFreeToPlay: true,
     instructions: [
       "Use arrow keys or joystick to move your warrior.",
       "Explore ancient temples and environments.",

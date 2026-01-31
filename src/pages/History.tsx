@@ -111,10 +111,10 @@ const History = () => {
     cyberarena: GAME_ROUTES.CYBER_ARENA || "/game/cyberarena",
     tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
     endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
+    guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
     slice: "/game/slice",
-    guerreromaya: "/game/guerreromaya",
   };
 
   const handleGameClick = (slug: string) => {

@@ -1,4 +1,12 @@
 /* Base styles - Mobile first */
+
+/* Super Small devices */
+@media (min-width: 390px) {
+  .hero-section__pill-list {
+    font-size: 6px;
+  }
+}
+
 .hero-section {
   background-image: linear-gradient(
     -90deg,

@@ -37,21 +37,30 @@ const HeroSection = () => {
           {/* Badge pill row */}
           <div className="hero-section__pill" aria-label="Platform highlights">
             <ul className="hero-section__pill-list" role="list">
-              <li role="listitem">
+              <li style={{ fontSize: "11px" }} role="listitem">
                 <span className="hero-section__pill-dot" aria-hidden="true">
                   ◉
                 </span>{" "}
                 Free Games
               </li>
-              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+              <li
+                style={{ marginLeft: "0.35rem", fontSize: "11px" }}
+                role="listitem"
+              >
                 {" "}
                 • Leaderboards
               </li>
-              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+              <li
+                style={{ marginLeft: "0.35rem", fontSize: "11px" }}
+                role="listitem"
+              >
                 {" "}
                 • No accounts
               </li>
-              <li style={{ marginLeft: "0.35rem" }} role="listitem">
+              <li
+                style={{ marginLeft: "0.35rem", fontSize: "11px" }}
+                role="listitem"
+              >
                 {" "}
                 • Just Fun
               </li>
