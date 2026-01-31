@@ -66,7 +66,7 @@ const RewardsOverviewSection: React.FC = () => {
               <img src={iconCoins} alt="SOL pool icon" />
             </div>
             <div className="rewards-card__value">{poolAmount} SOL</div>
-            <div className="rewards-card__label">Total Distributed</div>
+            <div className="rewards-card__label">To Distribute</div>
             <div className="rewards-card__sub">
               Real SOL rewards to be distributed at the end of the month
             </div>
@@ -77,7 +77,7 @@ const RewardsOverviewSection: React.FC = () => {
             <div className="rewards-card__icon" aria-hidden="true">
               <img src={iconArrow} alt="Total distributed icon" />
             </div>
-            <div className="rewards-card__value">$735.52</div>
+            <div className="rewards-card__value">$1053.52</div>
             <div className="rewards-card__label">Total Distributed</div>
             <div className="rewards-card__sub">
               Real SOL rewards paid to players so far
