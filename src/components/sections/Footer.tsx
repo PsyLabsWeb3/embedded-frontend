@@ -7,10 +7,10 @@ import twitterIcon from "../../assets/iconX.png";
 import telegramIcon from "../../assets/telegramIcon.png";
 import { Logo } from "../atoms/common";
 import AdvertiseModal from "../organisms/AdvertiseModal";
-import rumIcon from "../../assets/icons/rumIcon.png";
-import tiktokIcon from "../../assets/icons/tiktokIcon.png";
-import instagramIcon from "../../assets/icons/instagramIcon.png";
-import youtubeIcon from "../../assets/icons/youtubeIcon.png";
+import rumIcon from "../../assets/rumbleIcon1x.png";
+import tiktokIcon from "../../assets/tiktokIcon1x.png";
+import instagramIcon from "../../assets/instagramIcon1x.png";
+import youtubeIcon from "../../assets/youtubeIcon1x.png";
 
 const Footer: React.FC = () => {
   const [showTerms, setShowTerms] = useState(false);
