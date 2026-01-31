@@ -1,9 +1,12 @@
 /* Base styles - Mobile first */
 
 /* Super Small devices */
-@media (min-width: 390px) {
+@media (max-width: 390px) {
   .hero-section__pill-list {
     font-size: 6px;
+  }
+  .hero-title {
+    font-size: 2.1rem;
   }
 }
 
@@ -24,7 +27,7 @@
     -apple-system,
     sans-serif;
   font-weight: 800;
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   line-height: 1.2;
   margin-bottom: 0.1rem;
   text-align: left;
