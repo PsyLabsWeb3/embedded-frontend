@@ -25,6 +25,7 @@ import tankieRacerAttackBackground from "../assets/gamesImages/TankieRacerAttack
 import endlessRunnerBackground from "../assets/gamesImages/EndlessRunner.png?url";
 import guerreroMayaBackground from "../assets/gamesImages/GuerreroMaya.png?url";
 import donutMatch from "../assets/gamesImages/DonutMatch.png?url";
+import topDownShooterImage from "../assets/gamesImages/TopDownShooter.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -140,6 +141,18 @@ const guerreroMayaAssets: GameAssets = {
   dataUrl: guerreroMayaDataUrl,
   frameworkUrl: guerreroMayaFrameworkUrl,
   codeUrl: guerreroMayaCodeUrl,
+};
+
+import topDownShooterLoaderUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.loader.js?url";
+import topDownShooterDataUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.data.br?url";
+import topDownShooterFrameworkUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.framework.js.br?url";
+import topDownShooterCodeUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.wasm.br?url";
+
+const topDownShooterAssets: GameAssets = {
+  loaderUrl: topDownShooterLoaderUrl,
+  dataUrl: topDownShooterDataUrl,
+  frameworkUrl: topDownShooterFrameworkUrl,
+  codeUrl: topDownShooterCodeUrl,
 };
 
 /**
@@ -367,6 +380,26 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Explore ancient temples and environments.",
       "Solve puzzles to unlock new areas.",
       "Overcome challenges to protect your civilization's secrets.",
+    ],
+  },
+  "17-top-down-shooter": {
+    id: "17-top-down-shooter",
+    title: "Top Down Shooter",
+    description:
+      "Fast paced action game where players battle each other from a top-down view, using skill, strategy, in intense multiplayer arenas.",
+    assets: topDownShooterAssets,
+    backgroundImage: topDownShooterImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 10,
+    isMultiplayer: true,
+    minAge: 6,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or joystick to move your character.",
+      "Aim and shoot at opponents using mouse or touch controls.",
+      "Dodge incoming attacks and use cover effectively.",
+      "Be the last player standing to win the match.",
     ],
   },
 };
