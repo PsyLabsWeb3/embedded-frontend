@@ -124,6 +124,26 @@ const UnityGame: React.FC<UnityGameProps> = ({
   disableSafeAreaPadding = false,
   fitAspect,
 }) => {
+  useEffect(() => {
+    const originalAlert = window.alert;
+
+    window.alert = (msg: any) => {
+      const text = String(msg ?? "");
+      if (
+        text.includes("An error occurred running the Unity content") ||
+        text.includes("An unspecified error occurred")
+      ) {
+        console.warn("[Unity] Suppressed loader alert:", text);
+        return;
+      }
+      originalAlert(msg);
+    };
+
+    return () => {
+      window.alert = originalAlert;
+    };
+  }, []);
+
   const unityConfig = useMemo(
     () => ({
       loaderUrl: gameAssets.loaderUrl,
