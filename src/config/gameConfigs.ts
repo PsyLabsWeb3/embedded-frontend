@@ -27,6 +27,7 @@ import guerreroMayaBackground from "../assets/gamesImages/GuerreroMaya.png?url";
 import donutMatch from "../assets/gamesImages/DonutMatch.png?url";
 import topDownShooterImage from "../assets/gamesImages/TopDownShooter.png?url";
 import ballSliceImage from "../assets/gamesImages/Slice.png?url";
+import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -168,6 +169,18 @@ const topDownShooterAssets: GameAssets = {
   codeUrl: topDownShooterCodeUrl,
 };
 
+import underwaterAdventureLoaderUrl from "../assets/Unity/UnderwaterAdventure/Build/UnderwaterAdventure.loader.js?url";
+import underwaterAdventureDataUrl from "../assets/Unity/UnderwaterAdventure/Build/UnderwaterAdventure.data?url";
+import underwaterAdventureFrameworkUrl from "../assets/Unity/UnderwaterAdventure/Build/UnderwaterAdventure.framework.js?url";
+import underwaterAdventureCodeUrl from "../assets/Unity/UnderwaterAdventure/Build/UnderwaterAdventure.wasm?url";
+
+const underwaterAdventureAssets: GameAssets = {
+  loaderUrl: underwaterAdventureLoaderUrl,
+  dataUrl: underwaterAdventureDataUrl,
+  frameworkUrl: underwaterAdventureFrameworkUrl,
+  codeUrl: underwaterAdventureCodeUrl,
+};
+
 /**
  * Future Game Assets Template
  *
@@ -305,6 +318,26 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid slicing bombs to prevent losing points.",
       "Aim for combos by slicing multiple balls in one swipe.",
       "Try to achieve the highest score possible.",
+    ],
+  },
+  "06-underwater-adventure": {
+    id: "06-underwater-adventure",
+    title: "Underwater Adventure",
+    description:
+      "Endless runner underwater world, dodging obstacles, collecting treasures, and exploring the depths of the ocean.",
+    assets: underwaterAdventureAssets,
+    backgroundImage: underwaterAdventureImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to jump over obstacles.",
+      "Collect treasures along the way to increase your score.",
+      "Avoid hitting obstacles to keep swimming.",
+      "Aim for the highest score possible.",
     ],
   },
   "12-smugglers-run": {

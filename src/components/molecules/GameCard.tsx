@@ -91,6 +91,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     donutmatch: GAME_ROUTES.DONUT_MATCH,
     ballslice: GAME_ROUTES.BALL_SLICE,
     topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
+    underwateradventure: GAME_ROUTES.UNDERWATER_ADVENTURE,
   };
 
   /**

@@ -67,12 +67,12 @@ const GameListSection: React.FC = () => {
     embeddedwars: GAME_ROUTES.EMBEDDED_WARS,
     smugglersrun: GAME_ROUTES.SMUGGLERS_RUN,
     embeddedsnake: GAME_ROUTES.EMBEDDED_SNAKE,
-    cyberarena: GAME_ROUTES.CYBER_ARENA || "/game/cyberarena",
-    underwateradventure: "/game/underwateradventure",
-    topdownshooter: "/game/topdownshooter",
-    slice: "/game/slice",
-    guerreromaya: "/game/guerreromaya",
-    endlessrunner: "/game/endlessrunner",
+    cyberarena: GAME_ROUTES.CYBER_ARENA,
+    underwateradventure: GAME_ROUTES.UNDERWATER_ADVENTURE,
+    topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
+    ballslice: GAME_ROUTES.BALL_SLICE,
+    guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
+    endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
   };
 
   const handleGameClick = (slug: string) => {
@@ -297,7 +297,7 @@ const GameListSection: React.FC = () => {
                   video={gameVideos[game.slug]}
                 />
               </div>
-            )
+            ),
         )}
       </div>
       {/* Section Heading */}
@@ -403,7 +403,7 @@ const GameListSection: React.FC = () => {
                   video={gameVideos[game.slug]}
                 />
               </div>
-            )
+            ),
         )}
       </div>
     </section>

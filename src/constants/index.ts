@@ -46,6 +46,7 @@ export const GAME_ROUTES = {
   DONUT_MATCH: "/game/04-donut-match",
   TOP_DOWN_SHOOTER: "/game/17-top-down-shooter",
   BALL_SLICE: "/game/05-ball-slice",
+  UNDERWATER_ADVENTURE: "/game/06-underwater-adventure",
 } as const;
 
 /**

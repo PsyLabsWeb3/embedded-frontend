@@ -69,6 +69,7 @@ import GuerreroMaya from "./components/games/gamePages/16_GuerreroMaya.tsx";
 import DonutMatch from "./components/games/gamePages/04_DonutMatch.tsx";
 import TopDownShooter from "./components/games/gamePages/17_TopDownShooter.tsx";
 import BallSlice from "./components/games/gamePages/05_BallSlice.tsx";
+import UnderwaterAdventure from "./components/games/gamePages/06_UnderwaterAdventure.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -206,6 +207,10 @@ const App: React.FC = () => {
                   element={<TopDownShooter />}
                 />
                 <Route path="/game/05-ball-slice" element={<BallSlice />} />
+                <Route
+                  path="/game/06-underwater-adventure"
+                  element={<UnderwaterAdventure />}
+                />
               </Routes>
             </div>
           </Router>

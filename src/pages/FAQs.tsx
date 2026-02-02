@@ -371,7 +371,7 @@ const FAQsPage: React.FC = () => {
     tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
     endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
-    underwateradventure: "/game/underwateradventure",
+    underwateradventure: GAME_ROUTES.UNDERWATER_ADVENTURE,
     topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
     ballslice: GAME_ROUTES.BALL_SLICE,
   };
