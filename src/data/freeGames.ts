@@ -62,7 +62,7 @@ const freeGames: Game[] = [
   {
     id: "slice-game",
     title: "Slice",
-    slug: "slice",
+    slug: "ballslice",
     image: sliceImage,
     glowClass: "neon-white",
     description:

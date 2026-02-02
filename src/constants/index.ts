@@ -45,6 +45,7 @@ export const GAME_ROUTES = {
   GUERRERO_MAYA: "/game/16-guerrero-maya",
   DONUT_MATCH: "/game/04-donut-match",
   TOP_DOWN_SHOOTER: "/game/17-top-down-shooter",
+  BALL_SLICE: "/game/05-ball-slice",
 } as const;
 
 /**

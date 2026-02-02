@@ -89,6 +89,8 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     donutmatch: GAME_ROUTES.DONUT_MATCH,
+    ballslice: GAME_ROUTES.BALL_SLICE,
+    topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
   };
 
   /**

@@ -22,7 +22,7 @@ const gameVideos: Record<string, string> = {
   cyberarena: "/gameVideos/Outer Colosseum.mp4",
   underwateradventure: "/gameVideos/Underwater Adventure.mp4",
   topdownshooter: "/gameVideos/Multiplayer Top-Down Shooter.mp4",
-  slice: "/gameVideos/Ball Slizing.mp4",
+  ballslice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
   embeddedsnake: "/gameVideos/Embedded Snake.mp4",
@@ -91,7 +91,7 @@ const LeaderboardPage: React.FC = () => {
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
-    slice: "/game/slice",
+    ballslice: GAME_ROUTES.BALL_SLICE,
   };
 
   const handleGameClick = (slug: string) => {

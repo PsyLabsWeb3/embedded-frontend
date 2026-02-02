@@ -124,7 +124,7 @@ const GamePageTemplate: React.FC<GamePageTemplateProps> = ({
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
-    slice: "/game/slice",
+    ballslice: GAME_ROUTES.BALL_SLICE,
   };
 
   const handleGameClick = (slug: string) => {

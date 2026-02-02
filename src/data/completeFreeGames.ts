@@ -66,9 +66,9 @@ const completeFreeGames: Game[] = [
     comingSoon: false,
   },
   {
-    id: "slice-game",
+    id: "ballslice-game",
     title: "Slice",
-    slug: "slice",
+    slug: "ballslice",
     image: sliceImage,
     glowClass: "neon-white",
     description:

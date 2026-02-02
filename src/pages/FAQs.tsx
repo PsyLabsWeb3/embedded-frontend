@@ -373,7 +373,7 @@ const FAQsPage: React.FC = () => {
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     underwateradventure: "/game/underwateradventure",
     topdownshooter: "/game/topdownshooter",
-    slice: "/game/slice",
+    ballslice: GAME_ROUTES.BALL_SLICE,
   };
   const handleGameClick = (slug: string) => {
     const route = gameRoutes[slug];

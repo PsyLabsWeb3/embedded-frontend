@@ -26,6 +26,7 @@ import endlessRunnerBackground from "../assets/gamesImages/EndlessRunner.png?url
 import guerreroMayaBackground from "../assets/gamesImages/GuerreroMaya.png?url";
 import donutMatch from "../assets/gamesImages/DonutMatch.png?url";
 import topDownShooterImage from "../assets/gamesImages/TopDownShooter.png?url";
+import ballSliceImage from "../assets/gamesImages/Slice.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -93,6 +94,18 @@ const donutMatchAssets: GameAssets = {
   dataUrl: donutMatchDataUrl,
   frameworkUrl: donutMatchFrameworkUrl,
   codeUrl: donutMatchCodeUrl,
+};
+
+import ballSliceLoaderUrl from "../assets/Unity/BallSlice/Build/BallSlice.loader.js?url";
+import ballSliceDataUrl from "../assets/Unity/BallSlice/Build/BallSlice.data?url";
+import ballSliceFrameworkUrl from "../assets/Unity/BallSlice/Build/BallSlice.framework.js?url";
+import ballSliceCodeUrl from "../assets/Unity/BallSlice/Build/BallSlice.wasm?url";
+
+const ballSliceAssets: GameAssets = {
+  loaderUrl: ballSliceLoaderUrl,
+  dataUrl: ballSliceDataUrl,
+  frameworkUrl: ballSliceFrameworkUrl,
+  codeUrl: ballSliceCodeUrl,
 };
 
 import cyberarenaLoaderUrl from "../assets/Unity/CyberArena/Build/CyberArena.loader.js?url";
@@ -272,6 +285,26 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Matched donuts will be cleared from the board, earning you points.",
       "Use power-ups to clear larger sections of the board.",
       "Complete the level objectives to advance to the next stage.",
+    ],
+  },
+  "05-ball-slice": {
+    id: "05-ball-slice",
+    title: "Ball Slice",
+    description:
+      "Exciting slicing game where players use quick reflexes to slice through flying balls while avoiding bombs, aiming for high scores and combos.",
+    assets: ballSliceAssets,
+    backgroundImage: ballSliceImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    isFreeToPlay: true,
+    instructions: [
+      "Swipe across the screen to slice the balls.",
+      "Avoid slicing bombs to prevent losing points.",
+      "Aim for combos by slicing multiple balls in one swipe.",
+      "Try to achieve the highest score possible.",
     ],
   },
   "12-smugglers-run": {

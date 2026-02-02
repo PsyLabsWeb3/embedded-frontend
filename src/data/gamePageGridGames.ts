@@ -48,7 +48,7 @@ export const gridGames: GridGame[] = [
   { position: 1, slug: "underwateradventure" },
 
   // Row 2-3 - Small + Large
-  { position: 2, slug: "slice" },
+  { position: 2, slug: "ballslice" },
   { position: 3, slug: "embeddedwars" },
   { position: 4, slug: "cyberarena" },
 
@@ -66,7 +66,7 @@ export const gridGames: GridGame[] = [
   // Row 8-9 - Large + Small
   { position: 10, slug: "embeddedsnake" },
   { position: 11, slug: "tankieracerattack" },
-  { position: 12, slug: "slice" },
+  { position: 12, slug: "ballslice" },
 ];
 
 /**
