@@ -39,7 +39,7 @@ const gameVideos: Record<string, string> = {
   cyberarena: "/gameVideos/Outer Colosseum.mp4",
   underwateradventure: "/gameVideos/Underwater Adventure.mp4",
   topdownshooter: "/gameVideos/Multiplayer Top-Down Shooter.mp4",
-  slice: "/gameVideos/Ball Slizing.mp4",
+  ballslice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
 };

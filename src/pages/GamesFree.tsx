@@ -15,6 +15,7 @@ const gameVideos: Record<string, string> = {
   ballslice: "/gameVideos/Ball Slizing.mp4",
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
+  tankieracerattack: "/gameVideos/Tankie Racer Attack.mp4",
 };
 
 const GamesFree = () => (
