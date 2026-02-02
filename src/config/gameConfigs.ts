@@ -157,9 +157,9 @@ const guerreroMayaAssets: GameAssets = {
 };
 
 import topDownShooterLoaderUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.loader.js?url";
-import topDownShooterDataUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.data.br?url";
-import topDownShooterFrameworkUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.framework.js.br?url";
-import topDownShooterCodeUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.wasm.br?url";
+import topDownShooterDataUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.data?url";
+import topDownShooterFrameworkUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.framework.js?url";
+import topDownShooterCodeUrl from "../assets/Unity/TopDownShooter/Build/TopDownShooter.wasm?url";
 
 const topDownShooterAssets: GameAssets = {
   loaderUrl: topDownShooterLoaderUrl,

@@ -147,7 +147,7 @@ const TournamentsPage: React.FC = () => {
     endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
     underwateradventure: "/game/underwateradventure",
-    topdownshooter: "/game/topdownshooter",
+    topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
     ballslice: GAME_ROUTES.BALL_SLICE,
   };
   const handleGameClick = (slug: string) => {
