@@ -106,6 +106,20 @@ const completeFreeGames: Game[] = [
     updatedAt: new Date("2024-01-18"),
     comingSoon: false,
   },
+  {
+    id: "zigzag-endless-runner-game",
+    title: "ZigZag Endless Runner",
+    slug: "zigzagendlessrunner",
+    image: "", // Add appropriate image import and reference here
+    glowClass: "neon-orange",
+    description:
+      "Navigate a zigzag path in this endless runner, avoiding obstacles and collecting power-ups to achieve the highest score possible.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-01-05"),
+    updatedAt: new Date("2024-01-19"),
+    comingSoon: false,
+  },
 ];
 
 export default completeFreeGames;
