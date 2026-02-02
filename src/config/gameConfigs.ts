@@ -24,6 +24,7 @@ import cyberArenaBackground from "../assets/gamesImages/CyberArena.png?url";
 import tankieRacerAttackBackground from "../assets/gamesImages/TankieRacerAttack.png?url";
 import endlessRunnerBackground from "../assets/gamesImages/EndlessRunner.png?url";
 import guerreroMayaBackground from "../assets/gamesImages/GuerreroMaya.png?url";
+import donutMatch from "../assets/gamesImages/DonutMatch.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -79,6 +80,18 @@ const embeddedSnakeAssets: GameAssets = {
   dataUrl: embeddedSnakeDataUrl,
   frameworkUrl: embeddedSnakeFrameworkUrl,
   codeUrl: embeddedSnakeCodeUrl,
+};
+
+import donutMatchLoaderUrl from "../assets/Unity/DonutMatch/Build/DonutMatch.loader.js?url";
+import donutMatchDataUrl from "../assets/Unity/DonutMatch/Build/DonutMatch.data?url";
+import donutMatchFrameworkUrl from "../assets/Unity/DonutMatch/Build/DonutMatch.framework.js?url";
+import donutMatchCodeUrl from "../assets/Unity/DonutMatch/Build/DonutMatch.wasm?url";
+
+const donutMatchAssets: GameAssets = {
+  loaderUrl: donutMatchLoaderUrl,
+  dataUrl: donutMatchDataUrl,
+  frameworkUrl: donutMatchFrameworkUrl,
+  codeUrl: donutMatchCodeUrl,
 };
 
 import cyberarenaLoaderUrl from "../assets/Unity/CyberArena/Build/CyberArena.loader.js?url";
@@ -226,6 +239,26 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Shoot projectiles with left click to eliminate enemies",
       "Avoid hitting with the laser",
       "Eliminate your opponent!",
+    ],
+  },
+  "04-donut-match": {
+    id: "04-donut-match",
+    title: "Donut Match",
+    description:
+      "Fun and addictive match-3 puzzle game where players swap colorful donuts to create matches of three or more, clearing them from the board and earning points.",
+    assets: donutMatchAssets,
+    backgroundImage: donutMatch,
+    category: GameTypes.GameCategory.PUZZLE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    isFreeToPlay: true,
+    instructions: [
+      "Swap adjacent donuts to create a line of three or more matching donuts.",
+      "Matched donuts will be cleared from the board, earning you points.",
+      "Use power-ups to clear larger sections of the board.",
+      "Complete the level objectives to advance to the next stage.",
     ],
   },
   "12-smugglers-run": {

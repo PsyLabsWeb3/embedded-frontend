@@ -66,6 +66,7 @@ import TermsModal from "./components/molecules/TermsModal";
 import "./styles/geoblock.css";
 import EndlessRunner from "./components/games/gamePages/15_EndlessRunner";
 import GuerreroMaya from "./components/games/gamePages/16_GuerreroMaya.tsx";
+import DonutMatch from "./components/games/gamePages/04_DonutMatch.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -184,6 +185,7 @@ const App: React.FC = () => {
                   path="/game/01-embedded-snake"
                   element={<EmbeddedSnake />}
                 />
+                <Route path="/game/04-donut-match" element={<DonutMatch />} />
                 <Route path="/game/13-cyber-arena" element={<CyberArena />} />
                 <Route
                   path="/game/14-tankie-racer-attack"

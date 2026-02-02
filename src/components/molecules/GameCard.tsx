@@ -88,6 +88,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     tankieracerattack: GAME_ROUTES.TANKIE_RACER_ATTACK,
     endlessrunner: GAME_ROUTES.ENDLESS_RUNNER,
     guerreromaya: GAME_ROUTES.GUERRERO_MAYA,
+    donutmatch: GAME_ROUTES.DONUT_MATCH,
   };
 
   /**

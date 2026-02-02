@@ -43,6 +43,7 @@ export const GAME_ROUTES = {
   TANKIE_RACER_ATTACK: "/game/14-tankie-racer-attack",
   ENDLESS_RUNNER: "/game/15-endless-runner",
   GUERRERO_MAYA: "/game/16-guerrero-maya",
+  DONUT_MATCH: "/game/04-donut-match",
 } as const;
 
 /**

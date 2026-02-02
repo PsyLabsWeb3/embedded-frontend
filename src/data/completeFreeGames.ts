@@ -16,6 +16,7 @@ import sliceImage from "../assets/gamesImages/Slice.png";
 import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png";
 import tankieRacerAttackImage from "../assets/gamesImages/TankieRacerAttack.png";
 import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
+import donutMatchImage from "../assets/gamesImages/DonutMatch.png";
 
 /**
  * Game data interface for UI display
@@ -90,6 +91,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-01-03"),
     updatedAt: new Date("2024-01-17"),
+  },
+  {
+    id: "donut-match-game",
+    title: "Donut Match",
+    slug: "donutmatch",
+    image: donutMatchImage,
+    glowClass: "neon-pink",
+    description:
+      "Match three or more donuts in a row to clear them from the board and score points. Use power-ups to clear larger sections and complete level objectives.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-01-04"),
+    updatedAt: new Date("2024-01-18"),
+    comingSoon: false,
   },
 ];
 
