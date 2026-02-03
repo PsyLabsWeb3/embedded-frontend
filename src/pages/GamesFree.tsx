@@ -16,6 +16,8 @@ const gameVideos: Record<string, string> = {
   guerreromaya: "/gameVideos/GuerreroMaya.mp4",
   endlessrunner: "/gameVideos/Endless 3D Runner Templaten.mp4",
   tankieracerattack: "/gameVideos/Tankie Racer Attack.mp4",
+  donutmatch: "/gameVideos/Donut Match.mp4",
+  zigzagendlessrunner: "/gameVideos/Zigzag Endless Runner.mp4",
 };
 
 const GamesFree = () => (
