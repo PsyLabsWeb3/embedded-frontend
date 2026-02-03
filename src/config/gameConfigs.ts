@@ -33,6 +33,7 @@ import roundBallImage from "../assets/gamesImages/RoundBall.png?url";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
+import skyHover from "../assets/gamesImages/SkyHover.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -244,6 +245,18 @@ const colorCatchAssets: GameAssets = {
   dataUrl: colorCatchDataUrl,
   frameworkUrl: colorCatchFrameworkUrl,
   codeUrl: colorCatchCodeUrl,
+};
+
+import skyHoverLoaderUrl from "../assets/Unity/SkyHover/Build/SkyHover.loader.js?url";
+import skyHoverDataUrl from "../assets/Unity/SkyHover/Build/SkyHover.data?url";
+import skyHoverFrameworkUrl from "../assets/Unity/SkyHover/Build/SkyHover.framework.js?url";
+import skyHoverCodeUrl from "../assets/Unity/SkyHover/Build/SkyHover.wasm?url";
+
+const skyHoverAssets: GameAssets = {
+  loaderUrl: skyHoverLoaderUrl,
+  dataUrl: skyHoverDataUrl,
+  frameworkUrl: skyHoverFrameworkUrl,
+  codeUrl: skyHoverCodeUrl,
 };
 /**
  * Future Game Assets Template
@@ -647,6 +660,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Aim and shoot at opponents using mouse or touch controls.",
       "Dodge incoming attacks and use cover effectively.",
       "Be the last player standing to win the match.",
+    ],
+  },
+  "18-sky-hover": {
+    id: "18-sky-hover",
+    title: "Sky Hover",
+    description:
+      "Endless flying game where players control a hovering vehicle, navigating through the skies, avoiding obstacles, and collecting power-ups to achieve the highest score possible.",
+    assets: skyHoverAssets,
+    backgroundImage: skyHover,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to navigate the hovering vehicle.",
+      "Avoid obstacles in the sky to keep flying.",
+      "Collect power-ups along the way to boost your score.",
+      "Aim for the highest score possible.",
     ],
   },
 };

@@ -97,6 +97,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     crazyball: GAME_ROUTES.CRAZY_BALL,
     swipegame: GAME_ROUTES.SWIPE_GAME,
     colorcatch: GAME_ROUTES.COLOR_CATCH,
+    skyhover: GAME_ROUTES.SKY_HOVER,
   };
 
   /**

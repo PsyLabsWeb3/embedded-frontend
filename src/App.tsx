@@ -75,6 +75,7 @@ import RoundBall from "./components/games/gamePages/08_RoundBall.tsx";
 import CrazyBall from "./components/games/gamePages/09_CrazyBall.tsx";
 import SwipeGame from "./components/games/gamePages/10_SwipeGame.tsx";
 import ColorCatch from "./components/games/gamePages/11_ColorCatch.tsx";
+import SkyHover from "./components/games/gamePages/18_SkyHover.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -224,6 +225,7 @@ const App: React.FC = () => {
                 <Route path="/game/09-crazy-ball" element={<CrazyBall />} />
                 <Route path="/game/10-swipe-game" element={<SwipeGame />} />
                 <Route path="/game/11-color-catch" element={<ColorCatch />} />
+                <Route path="/game/18-sky-hover" element={<SkyHover />} />
               </Routes>
             </div>
           </Router>

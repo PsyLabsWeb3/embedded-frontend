@@ -22,6 +22,7 @@ import roundBallImage from "../assets/gamesImages/RoundBall.png";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
+import skyHoverImage from "../assets/gamesImages/SkyHover.png";
 
 /**
  * Game data interface for UI display
@@ -179,6 +180,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-06-20"),
     updatedAt: new Date("2024-06-30"),
+    comingSoon: false,
+  },
+  {
+    id: "sky-hover-game",
+    title: "Sky Hover",
+    slug: "skyhover",
+    image: skyHoverImage,
+    glowClass: "neon-sky",
+    description:
+      "Soar through the skies in this endless hover game, navigating through clouds and obstacles while collecting power-ups to enhance your flight experience.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-07-01"),
+    updatedAt: new Date("2024-07-15"),
     comingSoon: false,
   },
 ];
