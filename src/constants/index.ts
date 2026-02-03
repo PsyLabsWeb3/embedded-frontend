@@ -50,6 +50,7 @@ export const GAME_ROUTES = {
   ZIGZAG_ENDLESS_RUNNER: "/game/07-zigzag-endless-runner",
   ROUND_BALL: "/game/08-round-ball",
   CRAZY_BALL: "/game/09-crazy-ball",
+  SWIPE_GAME: "/game/10-swipe-game",
 } as const;
 
 /**

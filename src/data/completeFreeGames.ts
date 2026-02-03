@@ -20,6 +20,7 @@ import donutMatchImage from "../assets/gamesImages/DonutMatch.png";
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png";
 import roundBallImage from "../assets/gamesImages/RoundBall.png";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
+import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
 
 /**
  * Game data interface for UI display
@@ -149,6 +150,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-06-10"),
     updatedAt: new Date("2024-06-20"),
+    comingSoon: false,
+  },
+  {
+    id: "swipe-game",
+    title: "Swipe Game",
+    slug: "swipegame",
+    image: swipeGameImage,
+    glowClass: "neon-cyan",
+    description:
+      "Move a character around the screen to collect points while carefully avoiding dangerous black dots, testing quick reflexes and precise movement.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-06-15"),
+    updatedAt: new Date("2024-06-25"),
     comingSoon: false,
   },
 ];

@@ -31,6 +31,7 @@ import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png?url";
 import roundBallImage from "../assets/gamesImages/RoundBall.png?url";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
+import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -218,6 +219,18 @@ const crazyBallAssets: GameAssets = {
   dataUrl: crazyBallDataUrl,
   frameworkUrl: crazyBallFrameworkUrl,
   codeUrl: crazyBallCodeUrl,
+};
+
+import swipeGameLoaderUrl from "../assets/Unity/SwipeGame/Build/SwipeGame.loader.js?url";
+import swipeGameDataUrl from "../assets/Unity/SwipeGame/Build/SwipeGame.data?url";
+import swipeGameFrameworkUrl from "../assets/Unity/SwipeGame/Build/SwipeGame.framework.js?url";
+import swipeGameCodeUrl from "../assets/Unity/SwipeGame/Build/SwipeGame.wasm?url";
+
+const swipeGameAssets: GameAssets = {
+  loaderUrl: swipeGameLoaderUrl,
+  dataUrl: swipeGameDataUrl,
+  frameworkUrl: swipeGameFrameworkUrl,
+  codeUrl: swipeGameCodeUrl,
 };
 /**
  * Future Game Assets Template
@@ -447,6 +460,28 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Reach the finish line to complete the level.",
     ],
   },
+  "10-swipe-game": {
+    id: "10-swipe-game",
+    title: "Swipe Game",
+    description:
+      "Move a character around the screen to collect points while carefully avoiding dangerous black dots, testing quick reflexes and precise movement.",
+    assets: swipeGameAssets,
+    backgroundImage: swipeGameImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Swipe in the direction of the on-screen arrows.",
+      "Match as many arrows as possible within the time limit.",
+      "Avoid incorrect swipes to maintain your score.",
+      "Aim for the highest score possible.",
+    ],
+  },
+
   "12-smugglers-run": {
     id: "12-smugglers-run",
     title: "Smugglers Run",
