@@ -21,6 +21,7 @@ import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.
 import roundBallImage from "../assets/gamesImages/RoundBall.png";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
+import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
 
 /**
  * Game data interface for UI display
@@ -164,6 +165,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-06-15"),
     updatedAt: new Date("2024-06-25"),
+    comingSoon: false,
+  },
+  {
+    id: "color-catch-game",
+    title: "Color Catch",
+    slug: "colorcatch",
+    image: colorCatchImage,
+    glowClass: "neon-magenta",
+    description:
+      "Players rotate an object left or right to collect balls of the matching color while avoiding balls of different colors, testing timing, focus, and quick reactions.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-06-20"),
+    updatedAt: new Date("2024-06-30"),
     comingSoon: false,
   },
 ];

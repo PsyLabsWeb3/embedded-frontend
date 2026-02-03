@@ -32,6 +32,7 @@ import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.
 import roundBallImage from "../assets/gamesImages/RoundBall.png?url";
 import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
+import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -231,6 +232,18 @@ const swipeGameAssets: GameAssets = {
   dataUrl: swipeGameDataUrl,
   frameworkUrl: swipeGameFrameworkUrl,
   codeUrl: swipeGameCodeUrl,
+};
+
+import colorCatchLoaderUrl from "../assets/Unity/ColorCatch/Build/ColorCatch.loader.js?url";
+import colorCatchDataUrl from "../assets/Unity/ColorCatch/Build/ColorCatch.data?url";
+import colorCatchFrameworkUrl from "../assets/Unity/ColorCatch/Build/ColorCatch.framework.js?url";
+import colorCatchCodeUrl from "../assets/Unity/ColorCatch/Build/ColorCatch.wasm?url";
+
+const colorCatchAssets: GameAssets = {
+  loaderUrl: colorCatchLoaderUrl,
+  dataUrl: colorCatchDataUrl,
+  frameworkUrl: colorCatchFrameworkUrl,
+  codeUrl: colorCatchCodeUrl,
 };
 /**
  * Future Game Assets Template
@@ -481,7 +494,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Aim for the highest score possible.",
     ],
   },
-
+  "11-color-catch": {
+    id: "11-color-catch",
+    title: "Color Catch",
+    description:
+      "Players rotate an object left or right to collect balls of the matching color while avoiding balls of different colors, testing timing, focus, and quick reactions.",
+    assets: colorCatchAssets,
+    backgroundImage: colorCatchImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "On mobile devices, touch the left or right side of the screen to rotate in that direction.",
+      "Rotate carefully to control the game object.",
+      "Collect only the balls that match your current color.",
+      "Avoid collecting balls of a different color.",
+    ],
+  },
   "12-smugglers-run": {
     id: "12-smugglers-run",
     title: "Smugglers Run",

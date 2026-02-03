@@ -51,6 +51,7 @@ export const GAME_ROUTES = {
   ROUND_BALL: "/game/08-round-ball",
   CRAZY_BALL: "/game/09-crazy-ball",
   SWIPE_GAME: "/game/10-swipe-game",
+  COLOR_CATCH: "/game/11-color-catch",
 } as const;
 
 /**
