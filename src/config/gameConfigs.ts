@@ -29,6 +29,7 @@ import topDownShooterImage from "../assets/gamesImages/TopDownShooter.png?url";
 import ballSliceImage from "../assets/gamesImages/Slice.png?url";
 import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png?url";
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png?url";
+import roundBallImage from "../assets/gamesImages/RoundBall.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -194,6 +195,17 @@ const zigzagEndlessRunnerAssets: GameAssets = {
   codeUrl: zigzagEndlessRunnerCodeUrl,
 };
 
+import roundBallLoaderUrl from "../assets/Unity/RoundBall/Build/RoundBall.loader.js?url";
+import roundBallDataUrl from "../assets/Unity/RoundBall/Build/RoundBall.data?url";
+import roundBallFrameworkUrl from "../assets/Unity/RoundBall/Build/RoundBall.framework.js?url";
+import roundBallCodeUrl from "../assets/Unity/RoundBall/Build/RoundBall.wasm?url";
+
+const roundBallAssets: GameAssets = {
+  loaderUrl: roundBallLoaderUrl,
+  dataUrl: roundBallDataUrl,
+  frameworkUrl: roundBallFrameworkUrl,
+  codeUrl: roundBallCodeUrl,
+};
 /**
  * Future Game Assets Template
  *
@@ -378,6 +390,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid obstacles to keep running.",
       "Collect power-ups along the way to boost your score.",
       "Aim for the highest score possible.",
+    ],
+  },
+  "08-round-ball": {
+    id: "08-round-ball",
+    title: "Round Ball",
+    description:
+      "3D rolling ball game where players navigate a spherical character through dynamic environments, overcoming obstacles and collecting items to reach the finish line.",
+    assets: roundBallAssets,
+    backgroundImage: roundBallImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to roll the ball.",
+      "Navigate through dynamic environments.",
+      "Overcome obstacles and collect items.",
+      "Reach the finish line to complete the level.",
     ],
   },
   "12-smugglers-run": {

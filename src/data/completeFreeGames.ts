@@ -18,6 +18,7 @@ import tankieRacerAttackImage from "../assets/gamesImages/TankieRacerAttack.png"
 import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
 import donutMatchImage from "../assets/gamesImages/DonutMatch.png";
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png";
+import roundBallImage from "../assets/gamesImages/RoundBall.png";
 
 /**
  * Game data interface for UI display
@@ -119,6 +120,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-01-05"),
     updatedAt: new Date("2024-01-19"),
+    comingSoon: false,
+  },
+  {
+    id: "round-ball-game",
+    title: "Round Ball",
+    slug: "roundball",
+    image: roundBallImage,
+    glowClass: "neon-yellow",
+    description:
+      "3D rolling ball game where players navigate a spherical character through dynamic environments, overcoming obstacles and collecting items to reach the finish line.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-06-01"),
+    updatedAt: new Date("2024-06-15"),
     comingSoon: false,
   },
 ];

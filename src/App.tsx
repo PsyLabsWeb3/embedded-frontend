@@ -71,6 +71,7 @@ import TopDownShooter from "./components/games/gamePages/17_TopDownShooter.tsx";
 import BallSlice from "./components/games/gamePages/05_BallSlice.tsx";
 import UnderwaterAdventure from "./components/games/gamePages/06_UnderwaterAdventure.tsx";
 import ZigZagEndlessRunner from "./components/games/gamePages/07_ZigZagEndlessRunner.tsx";
+import RoundBall from "./components/games/gamePages/08_RoundBall.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -216,6 +217,7 @@ const App: React.FC = () => {
                   path="/game/07-zigzag-endless-runner"
                   element={<ZigZagEndlessRunner />}
                 />
+                <Route path="/game/08-round-ball" element={<RoundBall />} />
               </Routes>
             </div>
           </Router>

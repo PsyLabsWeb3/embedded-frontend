@@ -93,6 +93,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     topdownshooter: GAME_ROUTES.TOP_DOWN_SHOOTER,
     underwateradventure: GAME_ROUTES.UNDERWATER_ADVENTURE,
     zigzagendlessrunner: GAME_ROUTES.ZIGZAG_ENDLESS_RUNNER,
+    roundball: GAME_ROUTES.ROUND_BALL,
   };
 
   /**
