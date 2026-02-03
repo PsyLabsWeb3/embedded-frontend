@@ -53,7 +53,7 @@ const GamesPvE = () => (
               }`}
               comingSoon={game.comingSoon}
               video={gameVideos[game.slug]}
-              feeText="Entry from 0.5 USD"
+              feeText="Entry from 0.1 USD"
             />
           ))}
         </div>

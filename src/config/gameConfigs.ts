@@ -28,6 +28,7 @@ import donutMatch from "../assets/gamesImages/DonutMatch.png?url";
 import topDownShooterImage from "../assets/gamesImages/TopDownShooter.png?url";
 import ballSliceImage from "../assets/gamesImages/Slice.png?url";
 import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png?url";
+import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -227,6 +228,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 5,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0.1,
     isPvE: true,
     instructions: [
       "Control the snake’s direction using swipe controls or arrow keys.",
@@ -251,6 +253,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: true,
     minAge: 6,
+    minEntryFee: 0.5,
     isPvP: true,
     instructions: [
       "Use arrow keys to control the ship",
@@ -272,6 +275,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 12,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0.5,
     isPvP: true,
     instructions: [
       "Use arrow keys to move your drone",
@@ -292,6 +296,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 5,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0,
     isFreeToPlay: true,
     instructions: [
       "Swap adjacent donuts to create a line of three or more matching donuts.",
@@ -312,6 +317,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 5,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0,
     isFreeToPlay: true,
     instructions: [
       "Swipe across the screen to slice the balls.",
@@ -332,11 +338,33 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 5,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0,
     isFreeToPlay: true,
     instructions: [
       "Use arrow keys or swipe controls to jump over obstacles.",
       "Collect treasures along the way to increase your score.",
       "Avoid hitting obstacles to keep swimming.",
+      "Aim for the highest score possible.",
+    ],
+  },
+  "07-zigzag-endless-runner": {
+    id: "07-zigzag-endless-runner",
+    title: "ZigZag Endless Runner",
+    description:
+      "Navigate a zigzag path in this endless runner, avoiding obstacles and collecting power-ups to achieve the highest score possible.",
+    assets: endlessRunnerAssets,
+    backgroundImage: zigzagEndlessRunnerImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to navigate the zigzag path.",
+      "Avoid obstacles to keep running.",
+      "Collect power-ups along the way to boost your score.",
       "Aim for the highest score possible.",
     ],
   },
@@ -352,6 +380,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0.1,
     isPvE: true,
     instructions: [
       "Choose your racer and ship.",
@@ -375,6 +404,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: true,
     minAge: 6,
+    minEntryFee: 0.1,
     isPvE: false,
     isFriendlyPvP: true,
     isFreeToPlay: true,
@@ -397,6 +427,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0.1,
     isPvE: true,
     isFreeToPlay: true,
     instructions: [
@@ -418,6 +449,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 5,
     isMultiplayer: false,
     minAge: 5,
+    minEntryFee: 0.1,
     isPvE: true,
     isFreeToPlay: true,
     instructions: [
@@ -439,6 +471,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 15,
     isMultiplayer: false,
     minAge: 7,
+    minEntryFee: 0.1,
     isPvE: true,
     isFreeToPlay: true,
     instructions: [
@@ -460,6 +493,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     estimatedPlayTime: 10,
     isMultiplayer: true,
     minAge: 6,
+    minEntryFee: 0,
     isFreeToPlay: true,
     instructions: [
       "Use arrow keys or joystick to move your character.",

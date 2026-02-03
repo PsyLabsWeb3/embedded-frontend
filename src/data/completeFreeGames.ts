@@ -17,6 +17,7 @@ import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.
 import tankieRacerAttackImage from "../assets/gamesImages/TankieRacerAttack.png";
 import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
 import donutMatchImage from "../assets/gamesImages/DonutMatch.png";
+import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png";
 
 /**
  * Game data interface for UI display
@@ -110,7 +111,7 @@ const completeFreeGames: Game[] = [
     id: "zigzag-endless-runner-game",
     title: "ZigZag Endless Runner",
     slug: "zigzagendlessrunner",
-    image: "", // Add appropriate image import and reference here
+    image: zigzagEndlessRunnerImage,
     glowClass: "neon-orange",
     description:
       "Navigate a zigzag path in this endless runner, avoiding obstacles and collecting power-ups to achieve the highest score possible.",

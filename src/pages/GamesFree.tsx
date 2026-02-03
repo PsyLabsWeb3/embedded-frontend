@@ -52,7 +52,7 @@ const GamesFree = () => (
               }`}
               comingSoon={game.comingSoon}
               video={gameVideos[game.slug]}
-              feeText="Entry from 0.5 USD"
+              feeText="Free to Play"
             />
           ))}
         </div>

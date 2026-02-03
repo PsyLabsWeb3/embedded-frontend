@@ -70,6 +70,8 @@ export namespace GameTypes {
     isMultiplayer?: boolean;
     /** Minimum age recommendation */
     minAge?: number;
+    /** Minimum entry fee for the game */
+    minEntryFee: number;
     /** Whether the game is player vs player */
     isPvP?: boolean;
     /** Whether the game is player vs environment */
