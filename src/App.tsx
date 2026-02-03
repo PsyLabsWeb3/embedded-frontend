@@ -70,6 +70,7 @@ import DonutMatch from "./components/games/gamePages/04_DonutMatch.tsx";
 import TopDownShooter from "./components/games/gamePages/17_TopDownShooter.tsx";
 import BallSlice from "./components/games/gamePages/05_BallSlice.tsx";
 import UnderwaterAdventure from "./components/games/gamePages/06_UnderwaterAdventure.tsx";
+import ZigZagEndlessRunner from "./components/games/gamePages/07_ZigZagEndlessRunner.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -210,6 +211,10 @@ const App: React.FC = () => {
                 <Route
                   path="/game/06-underwater-adventure"
                   element={<UnderwaterAdventure />}
+                />
+                <Route
+                  path="/game/07-zigzag-endless-runner"
+                  element={<ZigZagEndlessRunner />}
                 />
               </Routes>
             </div>

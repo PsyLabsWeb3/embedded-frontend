@@ -725,7 +725,13 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
         currentGameSlug={gameId}
         isLive={!gameConfig.placeholder}
         isPvE={gameConfig.isPvE}
-        feeText="Entry from 0.5 USD"
+        feeText={
+          typeof gameConfig.minEntryFee !== "undefined"
+            ? gameConfig.minEntryFee === 0
+              ? "Free to play"
+              : `Entry from ${String(gameConfig.minEntryFee)} USD`
+            : undefined
+        }
         isGamePlaying={entryConfirmed}
       />
     </>

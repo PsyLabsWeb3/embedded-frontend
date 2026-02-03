@@ -182,6 +182,18 @@ const underwaterAdventureAssets: GameAssets = {
   codeUrl: underwaterAdventureCodeUrl,
 };
 
+import zigzagEndlessRunnerLoaderUrl from "../assets/Unity/ZigZagEndlessRunner/Build/ZigZagEndlessRunner.loader.js?url";
+import zigzagEndlessRunnerDataUrl from "../assets/Unity/ZigZagEndlessRunner/Build/ZigZagEndlessRunner.data?url";
+import zigzagEndlessRunnerFrameworkUrl from "../assets/Unity/ZigZagEndlessRunner/Build/ZigZagEndlessRunner.framework.js?url";
+import zigzagEndlessRunnerCodeUrl from "../assets/Unity/ZigZagEndlessRunner/Build/ZigZagEndlessRunner.wasm?url";
+
+const zigzagEndlessRunnerAssets: GameAssets = {
+  loaderUrl: zigzagEndlessRunnerLoaderUrl,
+  dataUrl: zigzagEndlessRunnerDataUrl,
+  frameworkUrl: zigzagEndlessRunnerFrameworkUrl,
+  codeUrl: zigzagEndlessRunnerCodeUrl,
+};
+
 /**
  * Future Game Assets Template
  *
@@ -352,7 +364,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     title: "ZigZag Endless Runner",
     description:
       "Navigate a zigzag path in this endless runner, avoiding obstacles and collecting power-ups to achieve the highest score possible.",
-    assets: endlessRunnerAssets,
+    assets: zigzagEndlessRunnerAssets,
     backgroundImage: zigzagEndlessRunnerImage,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.EASY,

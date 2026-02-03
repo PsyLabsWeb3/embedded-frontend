@@ -47,6 +47,7 @@ export const GAME_ROUTES = {
   TOP_DOWN_SHOOTER: "/game/17-top-down-shooter",
   BALL_SLICE: "/game/05-ball-slice",
   UNDERWATER_ADVENTURE: "/game/06-underwater-adventure",
+  ZIGZAG_ENDLESS_RUNNER: "/game/07-zigzag-endless-runner",
 } as const;
 
 /**
