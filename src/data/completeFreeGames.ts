@@ -19,6 +19,7 @@ import topdownshooterImage from "../assets/gamesImages/TopDownShooter.png";
 import donutMatchImage from "../assets/gamesImages/DonutMatch.png";
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png";
 import roundBallImage from "../assets/gamesImages/RoundBall.png";
+import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
 
 /**
  * Game data interface for UI display
@@ -134,6 +135,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-06-01"),
     updatedAt: new Date("2024-06-15"),
+    comingSoon: false,
+  },
+  {
+    id: "crazy-ball-game",
+    title: "Crazy Ball",
+    slug: "crazyball",
+    image: crazyBallImage,
+    glowClass: "neon-red",
+    description:
+      "Control a rolling ball through dynamic levels, avoiding obstacles, collecting rewards, and testing their reflexes as the speed and challenge increase.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-06-10"),
+    updatedAt: new Date("2024-06-20"),
     comingSoon: false,
   },
 ];

@@ -49,6 +49,7 @@ export const GAME_ROUTES = {
   UNDERWATER_ADVENTURE: "/game/06-underwater-adventure",
   ZIGZAG_ENDLESS_RUNNER: "/game/07-zigzag-endless-runner",
   ROUND_BALL: "/game/08-round-ball",
+  CRAZY_BALL: "/game/09-crazy-ball",
 } as const;
 
 /**

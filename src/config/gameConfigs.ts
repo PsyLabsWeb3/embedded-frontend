@@ -30,6 +30,7 @@ import ballSliceImage from "../assets/gamesImages/Slice.png?url";
 import underwaterAdventureImage from "../assets/gamesImages/UnderwaterAdventure.png?url";
 import zigzagEndlessRunnerImage from "../assets/gamesImages/ZigZagEndlessRunner.png?url";
 import roundBallImage from "../assets/gamesImages/RoundBall.png?url";
+import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -205,6 +206,18 @@ const roundBallAssets: GameAssets = {
   dataUrl: roundBallDataUrl,
   frameworkUrl: roundBallFrameworkUrl,
   codeUrl: roundBallCodeUrl,
+};
+
+import crazyBallLoaderUrl from "../assets/Unity/CrazyBall/Build/CrazyBall.loader.js?url";
+import crazyBallDataUrl from "../assets/Unity/CrazyBall/Build/CrazyBall.data?url";
+import crazyBallFrameworkUrl from "../assets/Unity/CrazyBall/Build/CrazyBall.framework.js?url";
+import crazyBallCodeUrl from "../assets/Unity/CrazyBall/Build/CrazyBall.wasm?url";
+
+const crazyBallAssets: GameAssets = {
+  loaderUrl: crazyBallLoaderUrl,
+  dataUrl: crazyBallDataUrl,
+  frameworkUrl: crazyBallFrameworkUrl,
+  codeUrl: crazyBallCodeUrl,
 };
 /**
  * Future Game Assets Template
@@ -399,6 +412,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "3D rolling ball game where players navigate a spherical character through dynamic environments, overcoming obstacles and collecting items to reach the finish line.",
     assets: roundBallAssets,
     backgroundImage: roundBallImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to roll the ball.",
+      "Navigate through dynamic environments.",
+      "Overcome obstacles and collect items.",
+      "Reach the finish line to complete the level.",
+    ],
+  },
+  "09-crazy-ball": {
+    id: "09-crazy-ball",
+    title: "Crazy Ball",
+    description:
+      "Control a rolling ball through dynamic levels, avoiding obstacles, collecting rewards, and testing their reflexes as the speed and challenge increase.",
+    assets: crazyBallAssets,
+    backgroundImage: crazyBallImage,
     category: GameTypes.GameCategory.ARCADE,
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 5,
