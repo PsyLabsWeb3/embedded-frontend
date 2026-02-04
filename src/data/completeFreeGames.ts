@@ -27,6 +27,7 @@ import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png";
+import smashyBallImage from "../assets/gamesImages/SmashyBall.png";
 
 /**
  * Game data interface for UI display
@@ -254,6 +255,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-08-01"),
     updatedAt: new Date("2024-08-15"),
+    comingSoon: false,
+  },
+  {
+    id: "smashy-ball-game",
+    title: "Smashy Ball",
+    slug: "smashyball",
+    image: smashyBallImage,
+    glowClass: "neon-yellow",
+    description:
+      "Roll the ball forward and collect balls of the same color. Avoid different colors to grow bigger and score higher. Aim carefully and time your smashes to clear levels and earn points.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-08-10"),
+    updatedAt: new Date("2024-08-20"),
     comingSoon: false,
   },
 ];

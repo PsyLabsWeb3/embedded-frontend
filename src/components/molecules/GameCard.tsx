@@ -102,6 +102,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     jumpsky: GAME_ROUTES.JUMP_SKY,
     downhillrush: GAME_ROUTES.DOWNHILL_RUSH,
     mazerotator: GAME_ROUTES.MAZE_ROTATOR,
+    smashyball: GAME_ROUTES.SMASHY_BALL,
   };
 
   /**

@@ -38,6 +38,7 @@ import stackBreakerImage from "../assets/gamesImages/StackBreaker.png?url";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png?url";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png?url";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png?url";
+import smashyBallImage from "../assets/gamesImages/SmashyBall.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -309,6 +310,18 @@ const mazeRotatorAssets: GameAssets = {
   dataUrl: mazeRotatorDataUrl,
   frameworkUrl: mazeRotatorFrameworkUrl,
   codeUrl: mazeRotatorCodeUrl,
+};
+
+import smashyBallLoaderUrl from "../assets/Unity/SmashyBall/Build/SmashyBall.loader.js?url";
+import smashyBallDataUrl from "../assets/Unity/SmashyBall/Build/SmashyBall.data?url";
+import smashyBallFrameworkUrl from "../assets/Unity/SmashyBall/Build/SmashyBall.framework.js?url";
+import smashyBallCodeUrl from "../assets/Unity/SmashyBall/Build/SmashyBall.wasm?url";
+
+const smashyBallAssets: GameAssets = {
+  loaderUrl: smashyBallLoaderUrl,
+  dataUrl: smashyBallDataUrl,
+  frameworkUrl: smashyBallFrameworkUrl,
+  codeUrl: smashyBallCodeUrl,
 };
 
 /**
@@ -821,6 +834,28 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Guide emojis toward the tube opening.",
       "Avoid tipping them out of the maze.",
       "The goal is to collect as many emojis as possible.",
+    ],
+  },
+  "23-smashy-ball": {
+    id: "23-smashy-ball",
+    title: "Smashy Ball",
+    description:
+      "Roll the ball forward and collect balls of the same color. Avoid different colors to grow bigger and score higher.",
+    assets: smashyBallAssets,
+    backgroundImage: smashyBallImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 10,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Swipe or drag to move the ball left and right.",
+      "Collect balls that match your color.",
+      "Avoid balls with different colors.",
+      "Matching balls increases your size and score.",
+      "Hitting the wrong color reduces progress or ends the run.",
     ],
   },
 };
