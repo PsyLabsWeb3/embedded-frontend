@@ -53,6 +53,7 @@ export const GAME_ROUTES = {
   SWIPE_GAME: "/game/10-swipe-game",
   COLOR_CATCH: "/game/11-color-catch",
   SKY_HOVER: "/game/18-sky-hover",
+  STACK_BREAKER: "/game/19-stack-breaker",
 } as const;
 
 /**
