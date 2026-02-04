@@ -77,20 +77,6 @@ const pvpGames: Game[] = [
     updatedAt: new Date("2024-01-16"),
     comingSoon: false,
   },
-  {
-    id: "smugglers-run-game",
-    title: "Smugglers Run",
-    slug: "smugglersrun",
-    image: smugglersRunImage,
-    glowClass: "neon-smugglers",
-    description:
-      "Racing game where players speed through colorful tracks, using power ups to attack rivals or gain boosts, and racing to be the first to cross the finish line.",
-    isFeatured: true,
-    isNew: true,
-    createdAt: new Date("2024-11-01"),
-    updatedAt: new Date("2024-11-15"),
-    comingSoon: false,
-  },
 ];
 
 export default pvpGames;

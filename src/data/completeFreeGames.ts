@@ -30,6 +30,7 @@ import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png";
 import smashyBallImage from "../assets/gamesImages/SmashyBall.png";
 import hoppyRampageImage from "../assets/gamesImages/HoppyRampage.png";
 import klondikeSolitaireImage from "../assets/gamesImages/KlondikeSolitaire.png";
+import cyberArenaImage from "../assets/gamesImages/CyberArena.png";
 
 /**
  * Game data interface for UI display
@@ -49,6 +50,21 @@ export type Game = GameTypes.GameData;
  */
 
 const completeFreeGames: Game[] = [
+  //Cyber Arena
+  {
+    id: "cyber-arena-game",
+    title: "Cyber Arena",
+    slug: "cyberarena",
+    image: cyberArenaImage,
+    glowClass: "neon-cyber",
+    description:
+      "Futuristic arena combat game where players engage in fast-paced battles using advanced weaponry and tactics in a cyberpunk setting.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-12-01"),
+    updatedAt: new Date("2024-12-15"),
+    comingSoon: false,
+  },
   // Underwater Adventure
   {
     id: "underwater-adventure-game",
