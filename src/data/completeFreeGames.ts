@@ -28,6 +28,7 @@ import jumpSkyImage from "../assets/gamesImages/JumpSky.png";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png";
 import smashyBallImage from "../assets/gamesImages/SmashyBall.png";
+import hoppyRampageImage from "../assets/gamesImages/HoppyRampage.png";
 
 /**
  * Game data interface for UI display
@@ -269,6 +270,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-08-10"),
     updatedAt: new Date("2024-08-20"),
+    comingSoon: false,
+  },
+  {
+    id: "hoppy-rampage-game",
+    title: "Hoppy Rampage",
+    slug: "hoppyrampage",
+    image: hoppyRampageImage,
+    glowClass: "neon-pink",
+    description:
+      "Jump between platforms to earn points. Choose wisely, some platforms add points, others subtract. avoiding obstacles and collecting carrots to achieve the highest score possible.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-08-15"),
+    updatedAt: new Date("2024-08-25"),
     comingSoon: false,
   },
 ];

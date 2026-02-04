@@ -39,6 +39,7 @@ import jumpSkyImage from "../assets/gamesImages/JumpSky.png?url";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png?url";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png?url";
 import smashyBallImage from "../assets/gamesImages/SmashyBall.png?url";
+import hoppyRampageImage from "../assets/gamesImages/HoppyRampage.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -322,6 +323,18 @@ const smashyBallAssets: GameAssets = {
   dataUrl: smashyBallDataUrl,
   frameworkUrl: smashyBallFrameworkUrl,
   codeUrl: smashyBallCodeUrl,
+};
+
+import hoppyRampageLoaderUrl from "../assets/Unity/HoppyRampage/Build/HoppyRampage.loader.js?url";
+import hoppyRampageDataUrl from "../assets/Unity/HoppyRampage/Build/HoppyRampage.data?url";
+import hoppyRampageFrameworkUrl from "../assets/Unity/HoppyRampage/Build/HoppyRampage.framework.js?url";
+import hoppyRampageCodeUrl from "../assets/Unity/HoppyRampage/Build/HoppyRampage.wasm?url";
+
+const hoppyRampageAssets: GameAssets = {
+  loaderUrl: hoppyRampageLoaderUrl,
+  dataUrl: hoppyRampageDataUrl,
+  frameworkUrl: hoppyRampageFrameworkUrl,
+  codeUrl: hoppyRampageCodeUrl,
 };
 
 /**
@@ -856,6 +869,29 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid balls with different colors.",
       "Matching balls increases your size and score.",
       "Hitting the wrong color reduces progress or ends the run.",
+    ],
+  },
+  "24-hoppy-rampage": {
+    id: "24-hoppy-rampage",
+    title: "Hoppy Rampage",
+    description:
+      "Jump between platforms to earn points. Choose wisely, some platforms add points, others subtract. Aim for the highest score possible.",
+    assets: hoppyRampageAssets,
+    backgroundImage: hoppyRampageImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Tap to make the square avatar jump.",
+      "Land on platforms with higher point values.",
+      "Some platforms add points, others subtract.",
+      "Platforms appear at different heights and distances.",
+      "Timing and decision-making are key.",
+      "The game ends if you miss a platform or fall.",
     ],
   },
 };

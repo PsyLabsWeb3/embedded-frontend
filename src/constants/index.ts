@@ -58,6 +58,7 @@ export const GAME_ROUTES = {
   DOWNHILL_RUSH: "/game/21-downhill-rush",
   MAZE_ROTATOR: "/game/22-maze-rotator",
   SMASHY_BALL: "/game/23-smashy-ball",
+  HOPPY_RAMPAGE: "/game/24-hoppy-rampage",
 } as const;
 
 /**

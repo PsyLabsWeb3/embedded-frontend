@@ -81,6 +81,7 @@ import JumpSky from "./components/games/gamePages/20_JumpSky.tsx";
 import DownhillRush from "./components/games/gamePages/21_DownhillRush.tsx";
 import MazeRotator from "./components/games/gamePages/22_MazeRotator.tsx";
 import SmashyBall from "./components/games/gamePages/23_SmashyBall.tsx";
+import HoppyRampage from "./components/games/gamePages/24_HoppyRampage.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -242,6 +243,10 @@ const App: React.FC = () => {
                 />
                 <Route path="/game/22-maze-rotator" element={<MazeRotator />} />
                 <Route path="/game/23-smashy-ball" element={<SmashyBall />} />
+                <Route
+                  path="/game/24-hoppy-rampage"
+                  element={<HoppyRampage />}
+                />
               </Routes>
             </div>
           </Router>
