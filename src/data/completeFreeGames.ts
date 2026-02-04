@@ -23,7 +23,6 @@ import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
 import skyHoverImage from "../assets/gamesImages/SkyHover.png";
-import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
 
 /**
  * Game data interface for UI display
@@ -201,7 +200,7 @@ const completeFreeGames: Game[] = [
     id: "stack-breaker-game",
     title: "Stack Breaker",
     slug: "stackbreaker",
-    image: stackBreakerImage,
+    image: "stackBreakerImage",
     glowClass: "neon-sky",
     description:
       "Soar through the skies in this endless hover game, navigating through clouds and obstacles while collecting power-ups to enhance your flight experience.",
