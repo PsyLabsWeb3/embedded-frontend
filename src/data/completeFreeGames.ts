@@ -23,6 +23,7 @@ import crazyBallImage from "../assets/gamesImages/CrazyBall.png";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
 import skyHoverImage from "../assets/gamesImages/SkyHover.png";
+import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
 
 /**
  * Game data interface for UI display
@@ -194,6 +195,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-07-01"),
     updatedAt: new Date("2024-07-15"),
+    comingSoon: false,
+  },
+  {
+    id: "stack-breaker-game",
+    title: "Stack Breaker",
+    slug: "stackbreaker",
+    image: stackBreakerImage,
+    glowClass: "neon-lime",
+    description:
+      "Test your precision and timing in Stack Breaker, where players aim to break through stacked blocks by dropping a ball at the right moment to score points and clear levels.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-07-10"),
+    updatedAt: new Date("2024-07-20"),
     comingSoon: false,
   },
 ];

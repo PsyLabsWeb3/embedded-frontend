@@ -34,6 +34,7 @@ import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 import skyHover from "../assets/gamesImages/SkyHover.png?url";
+import stackBreakerImage from "../assets/gamesImages/StackBreaker.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -258,6 +259,19 @@ const skyHoverAssets: GameAssets = {
   frameworkUrl: skyHoverFrameworkUrl,
   codeUrl: skyHoverCodeUrl,
 };
+
+import stackBreakerLoaderUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.loader.js?url";
+import stackBreakerDataUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.data?url";
+import stackBreakerFrameworkUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.framework.js?url";
+import stackBreakerCodeUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.wasm?url";
+
+const stackBreakerAssets: GameAssets = {
+  loaderUrl: stackBreakerLoaderUrl,
+  dataUrl: stackBreakerDataUrl,
+  frameworkUrl: stackBreakerFrameworkUrl,
+  codeUrl: stackBreakerCodeUrl,
+};
+
 /**
  * Future Game Assets Template
  *
@@ -681,6 +695,29 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid obstacles in the sky to keep flying.",
       "Collect power-ups along the way to boost your score.",
       "Aim for the highest score possible.",
+    ],
+  },
+  "19-stack-breaker": {
+    id: "19-stack-breaker",
+    title: "Stack Breaker",
+    description:
+      "Bounce the emoji ball down the tower, breaking platforms as you fall. Smash through floors, avoid danger zones, and keep the streak going.",
+    assets: stackBreakerAssets,
+    backgroundImage: stackBreakerImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Tap and hold to make the emoji ball drop.",
+      "Break platforms by landing on them.",
+      "Avoid special or dangerous platforms.",
+      "Build combos by breaking multiple floors in a row.",
+      "Falling without stopping increases your score.",
+      "One wrong hit ends the run.",
     ],
   },
 };
