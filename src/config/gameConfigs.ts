@@ -40,6 +40,7 @@ import downhillRushImage from "../assets/gamesImages/DownhillRush.png?url";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png?url";
 import smashyBallImage from "../assets/gamesImages/SmashyBall.png?url";
 import hoppyRampageImage from "../assets/gamesImages/HoppyRampage.png?url";
+import klondikeSolitaireImage from "../assets/gamesImages/KlondikeSolitaire.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -335,6 +336,18 @@ const hoppyRampageAssets: GameAssets = {
   dataUrl: hoppyRampageDataUrl,
   frameworkUrl: hoppyRampageFrameworkUrl,
   codeUrl: hoppyRampageCodeUrl,
+};
+
+import klondikeSolitaireLoaderUrl from "../assets/Unity/KlondikeSolitaire/Build/KlondikeSolitaire.loader.js?url";
+import klondikeSolitaireDataUrl from "../assets/Unity/KlondikeSolitaire/Build/KlondikeSolitaire.data?url";
+import klondikeSolitaireFrameworkUrl from "../assets/Unity/KlondikeSolitaire/Build/KlondikeSolitaire.framework.js?url";
+import klondikeSolitaireCodeUrl from "../assets/Unity/KlondikeSolitaire/Build/KlondikeSolitaire.wasm?url";
+
+const klondikeSolitaireAssets: GameAssets = {
+  loaderUrl: klondikeSolitaireLoaderUrl,
+  dataUrl: klondikeSolitaireDataUrl,
+  frameworkUrl: klondikeSolitaireFrameworkUrl,
+  codeUrl: klondikeSolitaireCodeUrl,
 };
 
 /**
@@ -892,6 +905,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Platforms appear at different heights and distances.",
       "Timing and decision-making are key.",
       "The game ends if you miss a platform or fall.",
+    ],
+  },
+  "25-klondike-solitaire": {
+    id: "25-klondike-solitaire",
+    title: "Klondike Solitaire",
+    description:
+      "Classic Klondike Solitaire card game where players arrange cards in descending order and alternating colors to build four foundation piles from Ace to King.",
+    assets: klondikeSolitaireAssets,
+    backgroundImage: klondikeSolitaireImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 15,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Arrange cards in descending order and alternating colors on the tableau.",
+      "Build four foundation piles from Ace to King for each suit.",
+      "Draw cards from the stockpile to help with moves.",
+      "Use strategy to uncover hidden cards and complete the game.",
     ],
   },
 };

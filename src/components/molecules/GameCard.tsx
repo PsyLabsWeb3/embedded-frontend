@@ -104,6 +104,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     mazerotator: GAME_ROUTES.MAZE_ROTATOR,
     smashyball: GAME_ROUTES.SMASHY_BALL,
     hoppyrampage: GAME_ROUTES.HOPPY_RAMPAGE,
+    klondikesolitaire: GAME_ROUTES.KLONDIKE_SOLITAIRE,
   };
 
   /**

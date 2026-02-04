@@ -29,6 +29,7 @@ import downhillRushImage from "../assets/gamesImages/DownhillRush.png";
 import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png";
 import smashyBallImage from "../assets/gamesImages/SmashyBall.png";
 import hoppyRampageImage from "../assets/gamesImages/HoppyRampage.png";
+import klondikeSolitaireImage from "../assets/gamesImages/KlondikeSolitaire.png";
 
 /**
  * Game data interface for UI display
@@ -284,6 +285,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-08-15"),
     updatedAt: new Date("2024-08-25"),
+    comingSoon: false,
+  },
+  {
+    id: "klondike-solitaire-game",
+    title: "Klondike Solitaire",
+    slug: "klondikesolitaire",
+    image: klondikeSolitaireImage,
+    glowClass: "neon-cyan",
+    description:
+      "Classic Klondike Solitaire game where players arrange cards in descending order and alternating colors to build foundation piles from Ace to King. Use strategy and patience to clear the board and win.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-08-20"),
+    updatedAt: new Date("2024-08-30"),
     comingSoon: false,
   },
 ];
