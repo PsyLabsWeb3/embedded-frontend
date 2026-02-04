@@ -1,0 +1,61 @@
+/* Shared game sections styling matching existing theme */
+.games-section__title {
+  color: #ffffff;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: normal;
+  text-align: left;
+  margin-top: 2rem;
+  margin-bottom: 2px;
+}
+
+.games-section__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 px;
+  margin-bottom: 1.8rem;
+  max-height: 1rem;
+}
+
+.games-section__subtitle {
+  color: #959698;
+  font-size: 14px;
+  line-height: 0.1;
+}
+
+.games-section__viewall {
+  color: #ffffff;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.games-section__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-top: 0;
+}
+
+@media (min-width: 900px) {
+  .games-section__title {
+    text-align: left;
+    font-size: 32px;
+    margin-top: 3rem;
+    margin-bottom: 0px;
+  }
+  .games-section__subtitle {
+    font-size: 14px;
+  }
+  .games-section__grid {
+    flex-direction: row;
+    gap: 26px;
+    justify-content: center;
+    align-items: center;
+  }
+}

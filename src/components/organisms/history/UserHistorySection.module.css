@@ -1,58 +1,106 @@
+/* UserHistorySection - Figma Design Implementation */
+
 .wrapper {
-  background: transparent;
+  background: #121214;
   border: none;
-  border-radius: 0;
-  overflow: visible;
+  border-radius: 16px;
+  overflow: hidden;
   padding: 0;
 }
 
 .title {
-  font-family: var(--font-heading);
-  color: #FFFFFF;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
+  display: none; /* Title handled by parent History page */
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding-inline: 0;
+  gap: 0;
+  padding: 0;
+}
+
+.group {
+  display: contents;
 }
 
 .groupItems {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 0;
 }
 
 .empty {
-  font-family: var(--font-body);
-  font-weight: 300;
-  color: var(--color-accent-blue);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #959698;
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-lg);
+  padding: 60px 20px;
 }
 
-.error { color: #ff6b6b; text-align: center; }
-.loading { opacity: 0.8; }
+.error {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ff6b6b;
+  text-align: center;
+  padding: 20px;
+}
 
-.moreWrapper { margin-top: var(--spacing-md); text-align: center; }
+.loading {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #959698;
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0.8;
+}
+
+.moreWrapper {
+  margin-top: 0;
+  padding: 20px;
+  text-align: center;
+  background: #171717;
+  border-top: 1px solid #2d2d2d;
+}
+
 .moreBtn {
-  background: #5DD62C;
+  background: #5dd62c;
   border: none;
-  border-radius: var(--radius-sm);
-  color: #1A1D1F;
+  border-radius: 6px;
+  color: #1a1d1f;
   cursor: pointer;
-  font-size: 1rem;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
   font-weight: 600;
-  padding: var(--spacing-md) var(--spacing-lg);
-  transition: var(--transition-fast);
-  min-width: 160px;
+  padding: 10px 24px;
+  transition: background 0.2s ease;
+  min-width: 140px;
 }
-.moreBtn:hover { background: #4BC123; }
+
+.moreBtn:hover {
+  background: #4bc123;
+}
 
 @media (min-width: 1024px) {
-  .list { padding-inline: 0; }
+  .list {
+    padding: 0;
+  }
 }

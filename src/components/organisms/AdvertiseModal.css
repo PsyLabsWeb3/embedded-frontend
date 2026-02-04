@@ -1,0 +1,214 @@
+/* Advertise Modal Component Styles - Based on Figma Design */
+
+/* Modal Overlay with Backdrop Blur */
+.advertise-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.advertise-modal {
+  background: #121214;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 874px;
+  padding: 40px;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Close Button */
+.advertise-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #39a148;
+  font-size: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  line-height: 1;
+}
+
+.advertise-modal__close:hover {
+  opacity: 0.8;
+}
+
+/* Icon Container */
+.advertise-modal__icon {
+  width: 47px;
+  height: 47px;
+  background: #292929;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+/* Title */
+.advertise-modal__title {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  color: #f8f8f8;
+  margin: 0 0 12px 0;
+}
+
+/* Description */
+.advertise-modal__description {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #959698;
+  margin: 0 0 32px 0;
+  max-width: 823px;
+}
+
+/* Form */
+.advertise-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Input Fields */
+.advertise-modal__input,
+.advertise-modal__textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #636363;
+  border-radius: 6px;
+  padding: 10px;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.advertise-modal__input::placeholder,
+.advertise-modal__textarea::placeholder {
+  color: #4f4f4f;
+}
+
+.advertise-modal__input:focus,
+.advertise-modal__textarea:focus {
+  border-color: #5dd62c;
+}
+
+.advertise-modal__input {
+  height: 41px;
+}
+
+.advertise-modal__textarea {
+  height: 140px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Submit Button */
+.advertise-modal__submit {
+  background: #ae43ff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  height: 41px;
+  width: 100%;
+  max-width: 286px;
+  align-self: flex-end;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.advertise-modal__submit:hover {
+  opacity: 0.9;
+}
+
+.advertise-modal__submit:active {
+  transform: scale(0.98);
+}
+
+.advertise-modal__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .advertise-modal {
+    padding: 24px;
+    max-width: 100%;
+  }
+
+  .advertise-modal__description {
+    font-size: 11px;
+  }
+
+  .advertise-modal__submit {
+    max-width: 100%;
+  }
+}

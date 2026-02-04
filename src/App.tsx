@@ -37,12 +37,15 @@ import EmbeddedGamePage from "./pages/EmbeddedGame";
 import History from "./pages/History";
 import GamesPvP from "./pages/GamesPvP";
 import GamesPvE from "./pages/GamesPvE";
+import GamesFree from "./pages/GamesFree";
 import Leaderboard from "./pages/Leaderboard";
 import Rewards from "./pages/Rewards";
 import Tournaments from "./pages/Tournaments";
 import PhantomCallback from "./pages/PhantomCallback";
 import PhantomSignCallback from "./pages/PhantomSignCallback";
 import Whitepaper from "./pages/Whitepaper";
+import FAQsPage from "./pages/FAQs";
+import ScrollToTop from "./components/atoms/ScrollToTop";
 
 // Import game page components
 import {
@@ -51,7 +54,9 @@ import {
   EmbeddedWars,
   SmugglersRun,
   EmbeddedSnake,
+  CyberArena,
 } from "./components/games/gamePages";
+import TankieRacerAttack from "./components/games/gamePages/14_TankieRacerAttack";
 
 // Import constants for configuration
 import { WALLET_CONFIG } from "./constants";
@@ -59,9 +64,22 @@ import { WALLET_CONFIG } from "./constants";
 // Import Terms Modal
 import TermsModal from "./components/molecules/TermsModal";
 import "./styles/geoblock.css";
+import EndlessRunner from "./components/games/gamePages/15_EndlessRunner";
+import GuerreroMaya from "./components/games/gamePages/16_GuerreroMaya.tsx";
+import DonutMatch from "./components/games/gamePages/04_DonutMatch.tsx";
+import TopDownShooter from "./components/games/gamePages/17_TopDownShooter.tsx";
+import BallSlice from "./components/games/gamePages/05_BallSlice.tsx";
+import UnderwaterAdventure from "./components/games/gamePages/06_UnderwaterAdventure.tsx";
+import ZigZagEndlessRunner from "./components/games/gamePages/07_ZigZagEndlessRunner.tsx";
+import RoundBall from "./components/games/gamePages/08_RoundBall.tsx";
+import CrazyBall from "./components/games/gamePages/09_CrazyBall.tsx";
+import SwipeGame from "./components/games/gamePages/10_SwipeGame.tsx";
+import ColorCatch from "./components/games/gamePages/11_ColorCatch.tsx";
+import SkyHover from "./components/games/gamePages/18_SkyHover.tsx";
+import StackBreaker from "./components/games/gamePages/19_StackBreaker.tsx";
 
 // Import Geoblocker
-import { useGeoblock } from './hooks/useGeoblock';
+// import { useGeoblock } from "./hooks/useGeoblock";
 
 /**
  * Wallet adapter configuration
@@ -102,30 +120,31 @@ const RPC = import.meta.env.VITE_SOLANA_RPC;
  * @returns JSX element representing the entire application
  */
 const App: React.FC = () => {
-  const geo = useGeoblock();
+  // const geo = useGeoblock();
 
-  if (geo.loading) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <p>Checking region eligibility…</p>
-        </div>
-      </div>
-    );
-  }
+  // if (geo.loading) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <p>Checking region eligibility…</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!geo.allowed) {
-    return (
-      <div className="geoblock-message-bg">
-        <div className="geoblock-message">
-          <h1>Embedded is not available in your region</h1>
-          <p>
-            Due to regulatory restrictions, our platform cannot be accessed from your current location.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // if (!geo.allowed) {
+  //   return (
+  //     <div className="geoblock-message-bg">
+  //       <div className="geoblock-message">
+  //         <h1>Embedded is not available in your region</h1>
+  //         <p>
+  //           Due to regulatory restrictions, our platform cannot be accessed from
+  //           your current location.
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <ConnectionProvider endpoint={RPC}>
@@ -136,6 +155,8 @@ const App: React.FC = () => {
               {/* Terms and Conditions Modal - shown on first visit */}
               <TermsModal />
 
+              <ScrollToTop />
+
               <Routes>
                 {/* Main Application Routes */}
                 <Route path="/" element={<Home />} />
@@ -144,6 +165,7 @@ const App: React.FC = () => {
                 <Route path="/history" element={<History />} />
                 <Route path="/games-pvp" element={<GamesPvP />} />
                 <Route path="/games-pve" element={<GamesPvE />} />
+                <Route path="/games-free" element={<GamesFree />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/rewards" element={<Rewards />} />
                 <Route path="/tournaments" element={<Tournaments />} />
@@ -155,6 +177,9 @@ const App: React.FC = () => {
 
                 <Route path="/whitepaper" element={<Whitepaper />} />
 
+                {/* FAQs Page */}
+                <Route path="/faqs" element={<FAQsPage />} />
+
                 {/* Game-Specific Routes */}
                 <Route path="/game/01-snake" element={<Snake />} />
                 <Route path="/game/02-asteroids" element={<Asteroids />} />
@@ -162,8 +187,50 @@ const App: React.FC = () => {
                   path="/game/03-embedded-wars"
                   element={<EmbeddedWars />}
                 />
-                <Route path="/game/12-smugglers-run" element={<SmugglersRun />} />
-                <Route path="/game/01-embedded-snake" element={<EmbeddedSnake />} />
+                <Route
+                  path="/game/12-smugglers-run"
+                  element={<SmugglersRun />}
+                />
+                <Route
+                  path="/game/01-embedded-snake"
+                  element={<EmbeddedSnake />}
+                />
+                <Route path="/game/04-donut-match" element={<DonutMatch />} />
+                <Route path="/game/13-cyber-arena" element={<CyberArena />} />
+                <Route
+                  path="/game/14-tankie-racer-attack"
+                  element={<TankieRacerAttack />}
+                />
+                <Route
+                  path="/game/15-endless-runner"
+                  element={<EndlessRunner />}
+                />
+                <Route
+                  path="/game/16-guerrero-maya"
+                  element={<GuerreroMaya />}
+                />
+                <Route
+                  path="/game/17-top-down-shooter"
+                  element={<TopDownShooter />}
+                />
+                <Route path="/game/05-ball-slice" element={<BallSlice />} />
+                <Route
+                  path="/game/06-underwater-adventure"
+                  element={<UnderwaterAdventure />}
+                />
+                <Route
+                  path="/game/07-zigzag-endless-runner"
+                  element={<ZigZagEndlessRunner />}
+                />
+                <Route path="/game/08-round-ball" element={<RoundBall />} />
+                <Route path="/game/09-crazy-ball" element={<CrazyBall />} />
+                <Route path="/game/10-swipe-game" element={<SwipeGame />} />
+                <Route path="/game/11-color-catch" element={<ColorCatch />} />
+                <Route path="/game/18-sky-hover" element={<SkyHover />} />
+                <Route
+                  path="/game/19-stack-breaker"
+                  element={<StackBreaker />}
+                />
               </Routes>
             </div>
           </Router>

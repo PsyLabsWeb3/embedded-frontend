@@ -1,26 +1,134 @@
 /* Base navbar styles */
 .navbar {
-  background: var(--color-bg);
-  border-bottom: none;
-  box-shadow: none;
-  position: relative;
+  background: linear-gradient(180deg, #0e0f11 0%, rgba(14, 15, 17, 0.98) 100%);
+  border-bottom: 1px solid rgba(85, 85, 85, 0.75);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   z-index: var(--z-above);
+  transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.3s ease,
+    background 0.4s ease;
+  backdrop-filter: blur(0px);
+  transform: translateY(0);
+}
+
+/* Scrolled state with enhanced animation */
+.navbar--scrolled {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 15, 17, 0.98) 0%,
+    rgba(14, 15, 17, 0.92) 100%
+  );
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(85, 85, 85, 0.4);
+  transform: translateY(0);
+}
+
+.navbar--scrolled .navbar__content {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  transition: padding 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Add subtle scale animation to links on scroll */
+.navbar--scrolled .navbar__link {
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.navbar--scrolled .navbar__actions > * {
+  animation: fadeInScale 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .navbar__content {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  min-height: 56px;
-  padding: var(--spacing-sm) 0;
+  min-height: 64px; /* Figma */
+  padding: 9px 26px; /* Figma px */
   position: relative;
+}
+
+/* Remove outer container margins inside navbar to match Figma padding */
+.navbar .mx-container {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .navbar__actions {
   align-items: center;
   display: flex;
   gap: var(--spacing-lg);
+}
+
+/* Center links matching Figma */
+.navbar__links {
+  display: none; /* hidden on small screens; MobileMenu handles nav */
+}
+
+.navbar__link {
+  color: #adafae; /* muted by default */
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600; /* Semi-bold */
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: relative;
+}
+
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform: translateX(-50%);
+}
+
+.navbar__link:hover {
+  color: var(--color-text);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+.navbar__link.is-active {
+  color: #ffffff; /* active: bright */
+}
+
+.navbar__link.is-active::after {
+  width: 60%;
+  background: var(--color-primary);
+}
+
+.navbar__link.is-muted {
+  color: #adafae; /* explicit muted variant */
 }
 
 .navbar__search-btn {
@@ -31,37 +139,45 @@
   cursor: pointer;
   display: flex;
   padding: var(--spacing-xs);
-  transition: var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.navbar__search-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar__search-btn:active {
+  transform: scale(0.95);
 }
 
 .navbar__search-btn:focus {
   outline: 2px solid var(--color-primary);
+  transform: scale(1.05);
 }
 
 .navbar::after {
-  background: var(--color-primary);
-  border-radius: 2px 2px 0 0;
-  bottom: 0;
-  content: '';
-  display: block;
-  height: 0.5px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: var(--z-above);
+  /* disable green underline for Figma */
+  content: "";
+  height: 0;
+  display: none;
 }
 
 /* Desktop styles */
 @media (min-width: 768px) {
   .navbar__content {
     min-height: 64px;
-    padding-bottom: var(--spacing-md);
-    padding-left: var(--container-padding-desktop);
-    padding-right: var(--container-padding-desktop);
-    padding-top: var(--spacing-md);
+    padding: 9px 26px; /* keep Figma spacing on desktop */
   }
-  
+
   .navbar__actions {
-    gap: var(--spacing-xl);
+    gap: 26px; /* tighter spacing (Figma shows compact controls) */
+  }
+
+  .navbar__links {
+    align-items: center;
+    display: flex;
+    gap: 73px; /* Figma spacing */
+    padding: 17px 70px; /* center block visual spacing per Figma */
   }
 }

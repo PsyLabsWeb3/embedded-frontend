@@ -1,16 +1,15 @@
-import Navbar from '../components/sections/Navbar';
-import HeroSection from '../components/sections/HeroSection';
-import RewardsSection from '../components/sections/RewardsSection';
-import PoolRewardsBanner from '../components/sections/PoolRewardsBanner';
-import GameListSection from '../components/sections/GameListSection';
-import CategoryListSection from '../components/sections/CategoryListSection';
-import KeyFeatures from '../components/sections/KeyFeatures';
-import RewardSystemSection from '../components/sections/RewardSystemSection';
-import RewardsBannerSection from '../components/sections/RewardsBannerSection';
-import MobileGameSections from '../components/sections/MobileGameSections';
+import Navbar from "../components/sections/Navbar";
+import HeroSection from "../components/sections/HeroSection";
+import KeyFeatures from "../components/sections/KeyFeatures";
+// import FreeToPlaySection from "../components/sections/FreeToPlaySection";
+// import PvPSection from "../components/sections/PvPSection";
+// import PvESection from "../components/sections/PvESection";
+import RewardsOverviewSection from "../components/sections/RewardsOverviewSection";
+import MobileGameSections from "../components/sections/MobileGameSections";
+import CursorGlow from "../components/ui/CursorGlow";
 
-import { useState, useEffect } from 'react';
-import { Footer } from '../components/sections';
+import { useState, useEffect } from "react";
+import { Footer } from "../components/sections";
 
 const Home = () => {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -20,30 +19,33 @@ const Home = () => {
       setIsMobileView(window.innerWidth <= 768);
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   console.log("isMobileView:", isMobileView);
 
   return (
     <>
+      <CursorGlow />
       <Navbar />
-      {!isMobileView && <HeroSection />}
-      {isMobileView && <h1 className="hero-title gradient-title">Play, Compete, Earn</h1>}
-      {isMobileView && <MobileGameSections />}
-      {isMobileView ? (
-        <>
+      <HeroSection />
+
+      {/* <>
           <PoolRewardsBanner />
           <RewardsSection />
-        </>
-      ) : (
-        <RewardsBannerSection />
-      )}
-      {!isMobileView && <GameListSection />}
-      {!isMobileView && <CategoryListSection />}
+        </> */}
+
+      {/* <RewardsBannerSection /> */}
+
+      <MobileGameSections />
+
+      {/* <FreeToPlaySection />
+      <PvPSection />
+      <PvESection /> */}
+      <RewardsOverviewSection />
       <KeyFeatures />
-      <RewardSystemSection />
+      {/* <RewardSystemSection /> */}
       <Footer />
     </>
   );

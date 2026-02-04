@@ -9,7 +9,7 @@ import {
   ComputeBudgetProgram,
   TransactionMessage,
   VersionedTransaction,
-  SendTransactionError, 
+  SendTransactionError,
 } from "@solana/web3.js";
 import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
@@ -19,11 +19,11 @@ import "./PayEntryModal.css";
 
 // Program constants for mainnet
 const PROGRAM_ID = new PublicKey(
-  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8"
+  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8",
 );
 
 const TREASURY_PDA = new PublicKey(
-  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM"
+  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM",
 );
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -39,13 +39,14 @@ type Props = {
   onContinue?: (sig: string) => void;
   gameLoading?: boolean;
   gameLoaded?: boolean;
+  playText?: string; // Optional prop to set play button text
 };
 
 // Helper function to wait for transaction finalization - simplified polling approach
 async function waitForFinalized(
   connection: ReturnType<typeof useConnection>["connection"],
   signature: string,
-  opts: { timeoutMs?: number; pollMs?: number } = {}
+  opts: { timeoutMs?: number; pollMs?: number } = {},
 ): Promise<boolean> {
   const timeoutMs = opts.timeoutMs ?? 120_000;
   const pollMs = opts.pollMs ?? 2000;
@@ -66,15 +67,15 @@ async function waitForFinalized(
         const statuses = await connection.getSignatureStatuses([signature], {
           searchTransactionHistory: true,
         });
-        
+
         const status = statuses.value[0];
-        
+
         if (status?.confirmationStatus === "finalized") {
           console.log("Transaction finalized successfully");
           resolve(true);
           return;
         }
-        
+
         if (status?.err) {
           console.error("Transaction failed:", status.err);
           resolve(false);
@@ -99,7 +100,7 @@ async function buildPvEPayEntryTx(
   connection: ReturnType<typeof useConnection>["connection"],
   payer: PublicKey,
   lamports: BN,
-  program: Program
+  program: Program,
 ): Promise<VersionedTransaction> {
   const computeIxs = [
     ComputeBudgetProgram.setComputeUnitLimit({ units: 350_000 }),
@@ -126,7 +127,13 @@ async function buildPvEPayEntryTx(
   return new VersionedTransaction(msgV0);
 }
 
-const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = false, gameLoaded = false }) => {
+const PayEntryPvEButton: React.FC<Props> = ({
+  onSent,
+  onContinue,
+  gameLoading = false,
+  gameLoaded = false,
+  playText = "PLAY",
+}) => {
   const { connection } = useConnection();
   const wallet = useWallet();
 
@@ -238,7 +245,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
   // Set PvE amount (0.10 USD) on component mount
   useEffect(() => {
     const last = localStorage.getItem(
-      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION
+      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION,
     );
     if (last) {
       setTxSig(last);
@@ -259,13 +266,13 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
     (async () => {
       try {
         const r = await fetch(
-          "https://backend.embedded.games/api/solanaPriceUSD"
+          "https://backend.embedded.games/api/solanaPriceUSD",
         );
         const data = await r.json();
         const price = Number(data?.priceUsd);
         if (!price || !isFinite(price) || price <= 0) return;
         setSolPriceUsd(price);
-        const pveUsdAmount = 0.10; // PvE fixed amount
+        const pveUsdAmount = 0.1; // PvE fixed amount
         setAmountSol(Number((pveUsdAmount / price).toFixed(8)));
       } catch {
         /* ignore */
@@ -285,6 +292,15 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
     if (usingDesktop && !anchorReady) return;
     if (!usingDesktop && !phantomReady) return;
     if (!networkReady) return;
+
+    // Set localStorage for mobile early
+    if (isMobile()) {
+      localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
+      localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+      console.log(
+        "[PayEntryPvEButton] Set localStorage GAME_MODE to PvE early",
+      );
+    }
 
     try {
       setSending(true);
@@ -306,7 +322,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
           connection,
           anchorWallet.publicKey,
           lamports,
-          program
+          program,
         );
 
         // Pre-simulation
@@ -316,23 +332,29 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
         });
 
         if (sim.value.err) {
-          console.error("Pre-sim failed (desktop):", sim.value.err, sim.value.logs);
+          console.error(
+            "Pre-sim failed (desktop):",
+            sim.value.err,
+            sim.value.logs,
+          );
           setIsLoadingTransaction(false);
           setSending(false);
-          setModalError(formatTxError("Pre-simulation failed.", sim.value.logs));
+          setModalError(
+            formatTxError("Pre-simulation failed.", sim.value.logs),
+          );
           setModalOpen(true);
           return;
         }
 
         // Sign and send
         const signed = await wallet.signTransaction!(vtx as any);
-        
+
         // Try to derive computed signature
         let computedSig: string | null = null;
         try {
           const maybe = signed.signatures?.[0];
           if (maybe) {
-            computedSig = bs58.encode((maybe as unknown) as Uint8Array);
+            computedSig = bs58.encode(maybe as unknown as Uint8Array);
           }
         } catch {
           computedSig = null;
@@ -360,7 +382,9 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
         } catch (err: any) {
           console.error("sendRawTransaction error:", err);
 
-          const isSendTxErr = err instanceof SendTransactionError || err?.name === "SendTransactionError";
+          const isSendTxErr =
+            err instanceof SendTransactionError ||
+            err?.name === "SendTransactionError";
           if (isSendTxErr) {
             let logs: string[] | null = null;
             try {
@@ -406,7 +430,12 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       }
 
       // Mobile Phantom deep-link flow
-      if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
+      if (
+        !phantomSession ||
+        !phantomEncPub ||
+        !dappKpRaw ||
+        !phantomWalletPubStr
+      ) {
         console.warn("Missing Phantom mobile prerequisites");
         setSending(false);
         setIsLoadingTransaction(false);
@@ -418,7 +447,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       const tempProvider = new AnchorProvider(
         connection,
         { publicKey: tempWalletPub } as any,
-        { commitment: "confirmed" }
+        { commitment: "confirmed" },
       );
       const tempProgram = new Program(idl as Idl, tempProvider);
 
@@ -426,7 +455,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
         connection,
         tempWalletPub,
         lamports,
-        tempProgram
+        tempProgram,
       );
 
       // Pre-simulation
@@ -436,7 +465,11 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       });
 
       if (sim.value.err) {
-        console.error("Pre-sim failed (mobile):", sim.value.err, sim.value.logs);
+        console.error(
+          "Pre-sim failed (mobile):",
+          sim.value.err,
+          sim.value.logs,
+        );
         setIsLoadingTransaction(false);
         setSending(false);
         setModalError(formatTxError("Pre-simulation failed.", sim.value.logs));
@@ -445,8 +478,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       }
 
       // Mark as PvE mode in localStorage
-      localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "PvE");
-      localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+      console.log("[PayEntryPvEButton] Set localStorage GAME_MODE to PvE");
 
       // Serialize transaction for Phantom
       const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
@@ -459,7 +491,7 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
         payloadObj,
         phantomEncPub,
-        dappKp.secretKeyBase58
+        dappKp.secretKeyBase58,
       );
 
       const currentPath = window.location.pathname + window.location.search;
@@ -467,8 +499,8 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
 
       const redirectLink = encodeURIComponent(
         `${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(
-          currentPath
-        )}`
+          currentPath,
+        )}`,
       );
       const appUrl = encodeURIComponent(window.location.origin);
       const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
@@ -500,17 +532,13 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
       <div className="pay-entry-section">
         <div className="button-group">
           <button
-            className="pay-entry-button casual-play-button"
+            className="pay-entry-button degen-mode-button"
             onClick={handlePvEPayEntry}
             disabled={disabled}
             aria-busy={sending}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           >
-            {sending ? (
-              "PROCESSING"
-            ) : (
-              "PLAY"
-            )}
+            {sending ? "PROCESSING" : playText}
           </button>
         </div>
         {solPriceUsd && (
@@ -525,7 +553,13 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
         <div className="pay-entry-modal-backdrop">
           <div className="pay-entry-modal">
             <h3>
-              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : isLoadingGame ? "Loading Game..." : "Transaction Complete"}
+              {modalError
+                ? "Transaction Error"
+                : isLoadingTransaction
+                  ? "Processing..."
+                  : isLoadingGame
+                    ? "Loading Game..."
+                    : "Transaction Complete"}
             </h3>
 
             {modalError ? (
@@ -546,7 +580,8 @@ const PayEntryPvEButton: React.FC<Props> = ({ onSent, onContinue, gameLoading = 
             ) : isLoadingTransaction ? (
               <>
                 <p className="modal-disclaimer-text">
-                  Do not refresh or disconnect once the transaction has been processed or you could lose your entry fee.
+                  Do not refresh or disconnect once the transaction has been
+                  processed or you could lose your entry fee.
                 </p>
                 <p className="modal-secondary-text">
                   You can check the status in the link below

@@ -1,25 +1,25 @@
 .text {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   line-height: 1.4;
 }
 
 .primary {
   font-size: 1rem;
   font-weight: 300;
-  color: #5DD62C;
+  color: #5dd62c;
 }
 
 .secondary {
   font-size: 0.875rem;
   font-weight: 300;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .highlight {
-  font-family: 'Alumni Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.125rem;
   font-weight: 700;
-  color: #5DD62C;
+  color: #5dd62c;
 }
 
 @media (max-width: 768px) {

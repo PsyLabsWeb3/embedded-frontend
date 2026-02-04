@@ -1,8 +1,6 @@
 /* Main Layout Styles */
 .main-layout {
-  min-height: 100vh;
-  background: var(--color-bg);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .main-content {
@@ -14,13 +12,13 @@
 @media (min-width: 768px) {
   .main-content {
     padding: var(--spacing-xl) var(--container-padding-desktop);
+    margin: 0;
   }
 }
 
 /* Background image for desktop */
 @media (min-width: 900px) {
   .main-layout {
-    background-image: url('/web_hero.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

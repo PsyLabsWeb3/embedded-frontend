@@ -1,25 +1,32 @@
-import React from 'react';
-import styles from './HistoryItem.module.css';
-import PillResult from '../../atoms/history/PillResult';
+import React from "react";
+import styles from "./HistoryItem.module.css";
 
 interface HistoryItemProps {
   opponent: string;
-  result: 'WIN' | 'LOSS' | string;
+  result: "WIN" | "LOSS" | string;
   dateText?: string;
   mode?: string | null;
   amount?: string | number | null;
   game?: string | null;
 }
 
-export const HistoryItem: React.FC<HistoryItemProps> = ({ opponent, result, dateText, mode, amount, game }) => {
+export const HistoryItem: React.FC<HistoryItemProps> = ({
+  opponent,
+  result,
+  dateText,
+  mode,
+  amount,
+  game,
+}) => {
   const upperResult = String(result).toUpperCase();
-  const variant = upperResult === 'WIN' ? 'win' : 'loss';
-  const isLoss = upperResult === 'LOSS';
-  const isPvE = mode?.toLowerCase() === 'pve';
-  
+  const isWin = upperResult === "WIN";
+  const isLoss = upperResult === "LOSS";
+  const isPvE = mode?.toLowerCase() === "pve";
+
   // Format amount text differently for PvE vs PvP
   const getAmountText = () => {
-    if (amount === null || amount === undefined || amount === '') return undefined;
+    if (amount === null || amount === undefined || amount === "")
+      return undefined;
     if (isPvE) {
       // For PvE, show integer (remove decimals)
       const numAmount = parseFloat(String(amount));
@@ -28,55 +35,80 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ opponent, result, date
     // For PvP, show as-is
     return String(amount);
   };
-  
+
   const amountText = getAmountText();
-  
-  const truncateOpponent = (text: string): string => {
-    if (text.length <= 8) return text;
-    return `${text.slice(0, 4)}...${text.slice(-4)}`;
+
+  // Format mode text to match Figma design, with special case for Cyber Arena PvE
+  const getModeText = (
+    mode: string | null | undefined,
+    game: string | null | undefined,
+  ): string => {
+    if (
+      game &&
+      game.toLowerCase() === "cyberarena" &&
+      mode?.toLowerCase() === "pve"
+    ) {
+      return "Friendly PvP";
+    }
+    if (!mode) return "Match";
+    const lowerMode = mode.toLowerCase();
+    if (lowerMode === "casual") return "Casual Match";
+    if (lowerMode === "pve") return "PVE Match";
+    if (lowerMode === "degen") return "Degen Match";
+    return `${mode} Match`;
   };
 
-  const displayOpponent = isPvE && opponent === 'Environment' ? 'Environment' : truncateOpponent(opponent);
-  
-  const getModeClass = (mode: string) => {
-    const lowerMode = mode.toLowerCase();
-    if (lowerMode === 'casual') return styles.modeCasual;
-    if (lowerMode === 'pve') return styles.modePvE;
-    return '';
+  // Format date to short format like "Dec 19"
+  const formatShortDate = (dateText: string | undefined): string => {
+    if (!dateText) return "";
+    const parsed = new Date(dateText);
+    if (isNaN(parsed.getTime())) return dateText;
+    const month = parsed.toLocaleString("en-US", { month: "short" });
+    const day = parsed.getDate();
+    return `${month} ${day}`;
   };
-  
+
   return (
     <div className={styles.item} role="listitem">
-      <div className={styles.row}>
-        <div className={styles.leftMeta}>
-          {mode && (
-            <span className={`${styles.modePill} ${getModeClass(mode)}`.trim()}>
-              {mode}
-            </span>
+      {/* Header Row: Match Type | Date | Result */}
+      <div className={styles.headerRow}>
+        <span className={styles.matchType}>{getModeText(mode, game)}</span>
+        <span className={styles.matchDate}>{formatShortDate(dateText)}</span>
+        <span
+          className={`${styles.matchResult} ${isWin ? styles.resultWin : styles.resultLoss}`}
+        >
+          {isWin ? "Win" : "Loss"}
+        </span>
+      </div>
+
+      {/* Content Row: Game Name | vs: Opponent | Amount */}
+      <div className={styles.contentRow}>
+        <span className={styles.gameName}>{game || "Unknown Game"}</span>
+        <span className={styles.opponent}>
+          {game &&
+          game.toLowerCase() === "cyberarena" &&
+          mode?.toLowerCase() === "pve"
+            ? "vs: Friendly PvP"
+            : `vs: ${opponent}`}
+        </span>
+        <div className={styles.amountWrapper}>
+          {isWin && amountText && (
+            <img
+              src="/trophy_icon.svg"
+              alt=""
+              className={styles.trophyIcon}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
           )}
-          {dateText && <div className={styles.date}>{dateText}</div>}
-          <div className={styles.vsRow}>
-            <span className={styles.metaLabel}>vs:</span>
-            <span className={styles.metaValue}>{displayOpponent}</span>
-          </div>
-          <div className={styles.gameRow}>
-            <span className={styles.metaLabel}>Game:</span>
-            <span className={styles.metaValue}>{game === null ? 'null' : game}</span>
-          </div>
-        </div>
-        <div className={styles.rightCol}>
-          <div className={styles.resultSlot}>
-            <PillResult variant={variant}>{String(result).toUpperCase()}</PillResult>
-          </div>
           {amountText && (
-            <div className={styles.amountRow}>
-              <span className={`${styles.amountValue} ${isLoss ? styles.amountLoss : ''}`.trim()}>
-                {amountText}
-                <span className={styles.amountCurrency}>
-                  {isPvE && !isLoss ? ' Leaderboard Point' : ' USD'}
-                </span>
-              </span>
-            </div>
+            <span
+              className={`${styles.amount} ${isLoss ? styles.amountLoss : ""}`}
+            >
+              {amountText}
+              {isPvE && !isLoss ? "" : "USD"}
+            </span>
           )}
         </div>
       </div>
