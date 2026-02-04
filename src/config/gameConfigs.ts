@@ -36,7 +36,7 @@ import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 import skyHover from "../assets/gamesImages/SkyHover.png?url";
 
 /**
- * Snake2048 Unity WebGL Assets Configuration
+ * GAMES UNITY ASSETS CONFIGURATION
  *
  * These assets are loaded using Vite's explicit URL imports to ensure
  * proper bundling and asset optimization. The ?url suffix tells Vite
