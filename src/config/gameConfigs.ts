@@ -35,6 +35,7 @@ import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 import skyHover from "../assets/gamesImages/SkyHover.png?url";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png?url";
+import jumpSkyImage from "../assets/gamesImages/JumpSky.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -270,6 +271,18 @@ const stackBreakerAssets: GameAssets = {
   dataUrl: stackBreakerDataUrl,
   frameworkUrl: stackBreakerFrameworkUrl,
   codeUrl: stackBreakerCodeUrl,
+};
+
+import jumpSkyLoaderUrl from "../assets/Unity/JumpSky/Build/JumpSky.loader.js?url";
+import jumpSkyDataUrl from "../assets/Unity/JumpSky/Build/JumpSky.data?url";
+import jumpSkyFrameworkUrl from "../assets/Unity/JumpSky/Build/JumpSky.framework.js?url";
+import jumpSkyCodeUrl from "../assets/Unity/JumpSky/Build/JumpSky.wasm?url";
+
+const jumpSkyAssets: GameAssets = {
+  loaderUrl: jumpSkyLoaderUrl,
+  dataUrl: jumpSkyDataUrl,
+  frameworkUrl: jumpSkyFrameworkUrl,
+  codeUrl: jumpSkyCodeUrl,
 };
 
 /**
@@ -718,6 +731,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Build combos by breaking multiple floors in a row.",
       "Falling without stopping increases your score.",
       "One wrong hit ends the run.",
+    ],
+  },
+  "20-jump-sky": {
+    id: "20-jump-sky",
+    title: "Jump Sky",
+    description:
+      "Ascend through the sky by jumping on platforms, avoiding obstacles, and collecting power-ups to reach new heights and achieve the highest score possible.",
+    assets: jumpSkyAssets,
+    backgroundImage: jumpSkyImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to jump on platforms.",
+      "Avoid obstacles while ascending.",
+      "Collect power-ups to boost your jump height.",
+      "Aim for the highest score possible by reaching new heights.",
     ],
   },
 };

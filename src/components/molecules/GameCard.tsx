@@ -99,6 +99,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     colorcatch: GAME_ROUTES.COLOR_CATCH,
     skyhover: GAME_ROUTES.SKY_HOVER,
     stackbreaker: GAME_ROUTES.STACK_BREAKER,
+    jumpsky: GAME_ROUTES.JUMP_SKY,
   };
 
   /**

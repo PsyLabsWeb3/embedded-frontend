@@ -24,6 +24,7 @@ import swipeGameImage from "../assets/gamesImages/SwipeGame.png";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
 import skyHoverImage from "../assets/gamesImages/SkyHover.png";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
+import jumpSkyImage from "../assets/gamesImages/JumpSky.png";
 
 /**
  * Game data interface for UI display
@@ -209,6 +210,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-07-10"),
     updatedAt: new Date("2024-07-20"),
+    comingSoon: false,
+  },
+  {
+    id: "jump-sky-game ",
+    title: "Jump Sky",
+    slug: "jumpsky",
+    image: jumpSkyImage,
+    glowClass: "neon-blue",
+    description:
+      "Leap through the sky in this thrilling jump game, avoiding obstacles Jump between rising platforms as a one-eyed cube. Collect coins, dodge spikes and lava, and survive as the levels move upward.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-07-15"),
+    updatedAt: new Date("2024-07-25"),
     comingSoon: false,
   },
 ];
