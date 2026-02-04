@@ -55,6 +55,7 @@ export const GAME_ROUTES = {
   SKY_HOVER: "/game/18-sky-hover",
   STACK_BREAKER: "/game/19-stack-breaker",
   JUMP_SKY: "/game/20-jump-sky",
+  DOWNHILL_RUSH: "/game/21-downhill-rush",
 } as const;
 
 /**

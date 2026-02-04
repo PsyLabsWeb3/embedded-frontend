@@ -25,6 +25,7 @@ import colorCatchImage from "../assets/gamesImages/ColorCatch.png";
 import skyHoverImage from "../assets/gamesImages/SkyHover.png";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png";
+import downhillRushImage from "../assets/gamesImages/DownhillRush.png";
 
 /**
  * Game data interface for UI display
@@ -224,6 +225,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-07-15"),
     updatedAt: new Date("2024-07-25"),
+    comingSoon: false,
+  },
+  {
+    id: "downhill-rush-game",
+    title: "Downhill Rush",
+    slug: "downhillrush",
+    image: downhillRushImage,
+    glowClass: "neon-red",
+    description:
+      "Experience the thrill of high-speed downhill racing in Downhill Rush, where players navigate treacherous slopes, avoid obstacles, and perform stunts to reach the finish line first.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-07-20"),
+    updatedAt: new Date("2024-07-30"),
     comingSoon: false,
   },
 ];

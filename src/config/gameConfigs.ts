@@ -36,6 +36,7 @@ import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 import skyHover from "../assets/gamesImages/SkyHover.png?url";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png?url";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png?url";
+import downhillRushImage from "../assets/gamesImages/DownhillRush.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -283,6 +284,18 @@ const jumpSkyAssets: GameAssets = {
   dataUrl: jumpSkyDataUrl,
   frameworkUrl: jumpSkyFrameworkUrl,
   codeUrl: jumpSkyCodeUrl,
+};
+
+import downhillRushLoaderUrl from "../assets/Unity/DownhillRush/Build/DownhillRush.loader.js?url";
+import downhillRushDataUrl from "../assets/Unity/DownhillRush/Build/DownhillRush.data?url";
+import downhillRushFrameworkUrl from "../assets/Unity/DownhillRush/Build/DownhillRush.framework.js?url";
+import downhillRushCodeUrl from "../assets/Unity/DownhillRush/Build/DownhillRush.wasm?url";
+
+const downhillRushAssets: GameAssets = {
+  loaderUrl: downhillRushLoaderUrl,
+  dataUrl: downhillRushDataUrl,
+  frameworkUrl: downhillRushFrameworkUrl,
+  codeUrl: downhillRushCodeUrl,
 };
 
 /**
@@ -752,6 +765,27 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid obstacles while ascending.",
       "Collect power-ups to boost your jump height.",
       "Aim for the highest score possible by reaching new heights.",
+    ],
+  },
+  "21-downhill-rush": {
+    id: "21-downhill-rush",
+    title: "Downhill Rush",
+    description:
+      "Experience the thrill of high-speed downhill racing in Downhill Rush, where players navigate treacherous slopes, avoid obstacles, and perform stunts to reach the finish line first.",
+    assets: downhillRushAssets,
+    backgroundImage: downhillRushImage,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 10,
+    isMultiplayer: false,
+    minAge: 6,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to navigate your racer downhill.",
+      "Avoid obstacles and perform stunts to earn points.",
+      "Reach the finish line as quickly as possible.",
+      "Compete for the highest score on the leaderboard.",
     ],
   },
 };
