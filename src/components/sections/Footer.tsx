@@ -100,6 +100,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://x.com/Embedded_Games"
                   aria-label="X (Twitter)"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={twitterIcon} alt="X" />
                 </a>
@@ -107,6 +109,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://discord.gg/y9TkSUXF6G"
                   aria-label="Discord"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={discordIcon} alt="Discord" />
                 </a>
@@ -114,6 +118,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://t.me/EmbeddedGames"
                   aria-label="Telegram"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={telegramIcon} alt="Telegram" />
                 </a>
@@ -121,6 +127,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://rumble.com/user/Embedded_Games_Fun"
                   aria-label="Rumble"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={rumIcon} alt="Rumble" />
                 </a>
@@ -128,6 +136,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://www.tiktok.com/@embeddedgames?is_from_webapp=1&sender_device=pc"
                   aria-label="TikTok"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={tiktokIcon} alt="TikTok" />
                 </a>
@@ -135,6 +145,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://www.instagram.com/embedded.games?igsh=MWx2anJoc3hocWluNw=="
                   aria-label="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={instagramIcon} alt="Instagram" />
                 </a>
@@ -142,6 +154,8 @@ const Footer: React.FC = () => {
                   className="ef-social-box"
                   href="https://www.youtube.com/@Embedded_Games"
                   aria-label="YouTube"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <img src={youtubeIcon} alt="YouTube" />
                 </a>
