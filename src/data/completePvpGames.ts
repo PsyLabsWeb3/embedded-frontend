@@ -13,7 +13,6 @@
 import { GameTypes } from "../types";
 import asteroidsImage from "../assets/gamesImages/Asteroids.png";
 import cyberarenaImage from "../assets/gamesImages/CyberArena.png";
-import smugglersRunImage from "../assets/gamesImages/SmugglersRun.png";
 import embeddedwarsImage from "../assets/gamesImages/EmbeddedWars.png";
 
 /**

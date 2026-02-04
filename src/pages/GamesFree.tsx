@@ -18,6 +18,18 @@ const gameVideos: Record<string, string> = {
   tankieracerattack: "/gameVideos/Tankie Racer Attack.mp4",
   donutmatch: "/gameVideos/Donut Match.mp4",
   zigzagendlessrunner: "/gameVideos/Zigzag Endless Runner.mp4",
+  roundball: "/gameVideos/Roundball.mp4",
+  crazyball: "/gameVideos/Crazy Ball.mp4",
+  swipegame: "/gameVideos/Swipe Game.mp4",
+  colorcatch: "/gameVideos/Color Catch.mp4",
+  skyhover: "/gameVideos/Sky Hover.mp4",
+  stackbreaker: "/gameVideos/Stack Breaker.mp4",
+  jumpsky: "/gameVideos/Jumpy Sky.mp4",
+  downhillrush: "/gameVideos/DownHill Rush.mp4",
+  mazerotator: "/gameVideos/Maze Rotator.mp4",
+  smashyball: "/gameVideos/Smashy Ball.mp4",
+  hoppyrampage: "/gameVideos/Hoppy Rampage.mp4",
+  klondikesolitaire: "/gameVideos/Solitaire.mp4",
 };
 
 const GamesFree = () => (
