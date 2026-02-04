@@ -34,6 +34,7 @@ import crazyBallImage from "../assets/gamesImages/CrazyBall.png?url";
 import swipeGameImage from "../assets/gamesImages/SwipeGame.png?url";
 import colorCatchImage from "../assets/gamesImages/ColorCatch.png?url";
 import skyHover from "../assets/gamesImages/SkyHover.png?url";
+import stackBreaker from "../assets/gamesImages/StackBreaker.png?url";
 
 /**
  * Snake2048 Unity WebGL Assets Configuration
@@ -257,6 +258,18 @@ const skyHoverAssets: GameAssets = {
   dataUrl: skyHoverDataUrl,
   frameworkUrl: skyHoverFrameworkUrl,
   codeUrl: skyHoverCodeUrl,
+};
+
+import stackBreakerLoaderUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.loader.js?url";
+import stackBreakerDataUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.data?url";
+import stackBreakerFrameworkUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.framework.js?url";
+import stackBreakerCodeUrl from "../assets/Unity/StackBreaker/Build/StackBreaker.wasm?url";
+
+const stackBreakerAssets: GameAssets = {
+  loaderUrl: stackBreakerLoaderUrl,
+  dataUrl: stackBreakerDataUrl,
+  frameworkUrl: stackBreakerFrameworkUrl,
+  codeUrl: stackBreakerCodeUrl,
 };
 /**
  * Future Game Assets Template
@@ -681,6 +694,28 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid obstacles in the sky to keep flying.",
       "Collect power-ups along the way to boost your score.",
       "Aim for the highest score possible.",
+    ],
+  },
+  "19-stack-breaker": {
+    id: "19-stack-breaker",
+    title: "Stack Breaker",
+    description:
+      "Stack breaker game where players control a ball that breaks through layers of blocks, aiming to break as many blocks as possible while avoiding obstacles and collecting power-ups.",
+    assets: stackBreakerAssets,
+    backgroundImage: stackBreaker,
+    category: GameTypes.GameCategory.ARCADE,
+    difficulty: GameTypes.GameDifficulty.EASY,
+    estimatedPlayTime: 5,
+    isMultiplayer: false,
+    minAge: 5,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Use arrow keys or swipe controls to move the ball left or right.",
+      "Break through layers of blocks by falling onto them.",
+      "Avoid obstacles that can end the game.",
+      "Collect power-ups to enhance your breaking ability.",
+      "Aim for the highest score possible by breaking as many blocks as you can.",
     ],
   },
 };
