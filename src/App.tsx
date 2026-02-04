@@ -79,6 +79,7 @@ import SkyHover from "./components/games/gamePages/18_SkyHover.tsx";
 import StackBreaker from "./components/games/gamePages/19_StackBreaker.tsx";
 import JumpSky from "./components/games/gamePages/20_JumpSky.tsx";
 import DownhillRush from "./components/games/gamePages/21_DownhillRush.tsx";
+import MazeRotator from "./components/games/gamePages/22_MazeRotator.tsx";
 
 // Import Geoblocker
 // import { useGeoblock } from "./hooks/useGeoblock";
@@ -238,6 +239,7 @@ const App: React.FC = () => {
                   path="/game/21-downhill-rush"
                   element={<DownhillRush />}
                 />
+                <Route path="/game/22-maze-rotator" element={<MazeRotator />} />
               </Routes>
             </div>
           </Router>

@@ -26,6 +26,7 @@ import skyHoverImage from "../assets/gamesImages/SkyHover.png";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png";
+import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png";
 
 /**
  * Game data interface for UI display
@@ -239,6 +240,20 @@ const completeFreeGames: Game[] = [
     isNew: true,
     createdAt: new Date("2024-07-20"),
     updatedAt: new Date("2024-07-30"),
+    comingSoon: false,
+  },
+  {
+    id: "maze-rotator-game",
+    title: "Maze Rotator",
+    slug: "mazerotator",
+    image: mazeRotatorImage,
+    glowClass: "neon-green",
+    description:
+      "Rotate the maze to guide emoji balls into the tube. Use gravity and timing to fit as many emojis inside without letting them fall out.",
+    isFeatured: true,
+    isNew: true,
+    createdAt: new Date("2024-08-01"),
+    updatedAt: new Date("2024-08-15"),
     comingSoon: false,
   },
 ];

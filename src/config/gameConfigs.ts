@@ -37,6 +37,7 @@ import skyHover from "../assets/gamesImages/SkyHover.png?url";
 import stackBreakerImage from "../assets/gamesImages/StackBreaker.png?url";
 import jumpSkyImage from "../assets/gamesImages/JumpSky.png?url";
 import downhillRushImage from "../assets/gamesImages/DownhillRush.png?url";
+import mazeRotatorImage from "../assets/gamesImages/MazeRotator.png?url";
 
 /**
  * GAMES UNITY ASSETS CONFIGURATION
@@ -296,6 +297,18 @@ const downhillRushAssets: GameAssets = {
   dataUrl: downhillRushDataUrl,
   frameworkUrl: downhillRushFrameworkUrl,
   codeUrl: downhillRushCodeUrl,
+};
+
+import mazeRotatorLoaderUrl from "../assets/Unity/MazeRotator/Build/MazeRotator.loader.js?url";
+import mazeRotatorDataUrl from "../assets/Unity/MazeRotator/Build/MazeRotator.data?url";
+import mazeRotatorFrameworkUrl from "../assets/Unity/MazeRotator/Build/MazeRotator.framework.js?url";
+import mazeRotatorCodeUrl from "../assets/Unity/MazeRotator/Build/MazeRotator.wasm?url";
+
+const mazeRotatorAssets: GameAssets = {
+  loaderUrl: mazeRotatorLoaderUrl,
+  dataUrl: mazeRotatorDataUrl,
+  frameworkUrl: mazeRotatorFrameworkUrl,
+  codeUrl: mazeRotatorCodeUrl,
 };
 
 /**
@@ -786,6 +799,28 @@ export const gameConfigs: Record<string, GameConfig> = {
       "Avoid obstacles and perform stunts to earn points.",
       "Reach the finish line as quickly as possible.",
       "Compete for the highest score on the leaderboard.",
+    ],
+  },
+  "22-maze-rotator": {
+    id: "22-maze-rotator",
+    title: "Maze Rotator",
+    description:
+      "Navigate through complex mazes by rotating the environment to find the exit. Solve puzzles, avoid traps, and reach the goal in this challenging maze adventure.",
+    assets: mazeRotatorAssets,
+    backgroundImage: mazeRotatorImage,
+    category: GameTypes.GameCategory.PUZZLE,
+    difficulty: GameTypes.GameDifficulty.MEDIUM,
+    estimatedPlayTime: 15,
+    isMultiplayer: false,
+    minAge: 7,
+    minEntryFee: 0,
+    isFreeToPlay: true,
+    instructions: [
+      "Rotate the base left or right.",
+      "Emojis roll and fall based on gravity.",
+      "Guide emojis toward the tube opening.",
+      "Avoid tipping them out of the maze.",
+      "The goal is to collect as many emojis as possible.",
     ],
   },
 };
