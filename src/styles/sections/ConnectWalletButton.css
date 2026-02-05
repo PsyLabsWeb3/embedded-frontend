@@ -1,29 +1,46 @@
 /* Connect wallet button styles */
 .connect-wallet-btn {
   align-items: center;
-  background: var(--color-primary);
+  background: var(--color-accent-pink); /* Figma: #AE43FF */
   border: none;
-  border-radius: 1.2rem;
+  border-radius: 6px; /* Figma */
   box-shadow: none;
   color: #FFFFFF;
   cursor: pointer;
-  display: flex;
-  font-size: 0.95rem;
-  height: clamp(1.2rem, 4vw, 1.6rem);
+  display: inline-flex;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 14px; /* Figma */
+  height: 38px; /* Figma */
   justify-content: center;
-  min-height: 0;
-  min-width: 0;
-  padding: 0;
+  min-height: 38px;
+  min-width: 118px; /* Figma */
+  padding: 10px; /* Figma */
   position: relative;
   transition: var(--transition-fast);
-  width: clamp(2.4rem, 12vw, 3.2rem);
+  width: 118px; /* Figma */
 }
 
 .connect-wallet-btn:focus {
   outline: 2px solid var(--color-primary-dark);
 }
 
-.connect-wallet-text,
+.connect-wallet-text {
+  display: inline; /* show full label on desktop */
+}
 .connect-wallet-text-short {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .connect-wallet-btn {
+    min-width: 44px;
+    width: auto;
+    padding: 0 10px;
+  }
+  .connect-wallet-text {
+    display: none; /* hide long text on mobile */
+  }
+  .connect-wallet-text-short {
+    display: inline; /* allow short text when present */
+  }
 }

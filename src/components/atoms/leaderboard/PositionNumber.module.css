@@ -1,22 +1,29 @@
+.positionContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .positionNumber {
-  font-family: 'Lobster', cursive;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #FFFFFF;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
 }
 
-.position1 {
-  color: #FFFFFF;
-}
-
-.position2 {
-  color: #FFFFFF;
-}
-
-.position3 {
-  color: #FFFFFF;
+.positionTop3 {
+  color: #5dd62c;
 }
 
 .positionDefault {
-  color: #FFFFFF;
+  color: #ffffff;
+}
+
+.trophyIcon {
+  flex-shrink: 0;
 }

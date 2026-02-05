@@ -1,19 +1,15 @@
-
-
 // Reward System Section displays the reward model for the platform.
 // Desktop and mobile layouts differ: desktop uses individual cards with gradients and green shadow, mobile uses a single card.
 
-import RewardListItem from '../molecules/RewardListItem';
-import '../../styles/sections/RewardSystemSection.css';
-
+import RewardListItem from "../molecules/RewardListItem";
+import "../../styles/sections/RewardSystemSection.css";
 
 // List of reward system points to display as cards
 const rewardItems: string[] = [
-  'We reward players who compete in skill-based PvE and PvP games and tournaments by airdropping 20% of total platform revenue in SOL each month to the top 500 players.',
-  'No hidden fees, no subscriptions',
-  'Revenue is used for platform development, audits, and a rewards system for participants who actively and frequently engage with the platform.'
+  "We reward players who compete in skill-based PvE and PvP games and tournaments by airdropping 20% of total platform revenue in SOL each month to the top 500 players.",
+  "No hidden fees, no subscriptions",
+  "Revenue is used for platform development, audits, and a rewards system for participants who actively and frequently engage with the platform.",
 ];
-
 
 /**
  * RewardSystemSection
@@ -24,21 +20,23 @@ const rewardItems: string[] = [
 const RewardSystemSection = () => (
   <section className="reward-system-section section container mx-container">
     {/* Section title styled with Alumni Sans Regular */}
-  <h2 className="reward-title-custom">Reward System</h2>
+    <h2 className="reward-title-custom">How Rewards Works</h2>
     <div className="reward-system-card">
       {/* Description is centered, styled with Nunito Medium, and only visible on desktop */}
-      <p className="reward-system-desc-custom">Embedded operates on a simple, transparent model.</p>
+      <p className="reward-system-desc-custom">
+        Embedded operates on a simple, transparent model.
+      </p>
       <ul className="reward-list">
         {rewardItems.map((text, idx) => {
           // Alternate gradient: even indices use gradient-a, odd use gradient-b
-          const cardClass = idx % 2 === 0 ? 'reward-card--gradient-a' : 'reward-card--gradient-b';
+          const cardClass =
+            idx % 2 === 0
+              ? "reward-card--gradient-a"
+              : "reward-card--gradient-b";
           return (
-            <li key={idx} className="reward-list-item-wrapper">
-              {/* Each reward item is wrapped in a card with gradient and green shadow (desktop only) */}
-              <div className={`reward-card-desktop ${cardClass}`}>
-                <RewardListItem>{text}</RewardListItem>
-              </div>
-            </li>
+            <RewardListItem key={idx} cardClass={cardClass}>
+              {text}
+            </RewardListItem>
           );
         })}
       </ul>

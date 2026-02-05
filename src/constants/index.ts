@@ -1,10 +1,10 @@
 /**
  * @fileoverview Application-wide constants and configuration values
- * 
+ *
  * This file centralizes all constant values used throughout the application,
  * promoting consistency and maintainability. Constants are organized by
  * functional areas and follow naming conventions for easy identification.
- * 
+ *
  * @author Embedded Frontend Team
  * @version 1.0.0
  */
@@ -14,16 +14,19 @@
  * Centralized route definitions to prevent typos and ensure consistency
  */
 export const ROUTES = {
-  HOME: '/',
-  GAMES_PVE: '/games-pve',
-  GAMES_PVP: '/games-pvp',
-  HISTORY: '/history',
-  LEADERBOARD: '/leaderboard',
-  REWARDS: '/rewards',
-  TOURNAMENTS: '/tournaments',
-  SNAKE_2048: '/snake2048',
-  EMBEDDED_GAME: '/embedded-game',
-  GAME_BASE: '/game',
+  HOME: "/",
+  GAMES_FREE: "/games-free",
+  GAMES_PVE: "/games-pve",
+  GAMES_PVP: "/games-pvp",
+  HISTORY: "/history",
+  LEADERBOARD: "/leaderboard",
+  REWARDS: "/rewards",
+  TOURNAMENTS: "/tournaments",
+  FAQS: "/faqs",
+  WHITEPAPER: "/whitepaper",
+  SNAKE_2048: "/snake2048",
+  EMBEDDED_GAME: "/embedded-game",
+  GAME_BASE: "/game",
 } as const;
 
 /**
@@ -31,11 +34,32 @@ export const ROUTES = {
  * These patterns are used for generating game-specific URLs
  */
 export const GAME_ROUTES = {
-  SNAKE: '/game/01-snake',
-  ASTEROIDS: '/game/02-asteroids',
-  EMBEDDED_WARS: '/game/03-embedded-wars',
-  SMUGGLERS_RUN: '/game/12-smugglers-run',
-  EMBEDDED_SNAKE: '/game/01-embedded-snake',
+  SNAKE: "/game/01-snake",
+  ASTEROIDS: "/game/02-asteroids",
+  EMBEDDED_WARS: "/game/03-embedded-wars",
+  SMUGGLERS_RUN: "/game/12-smugglers-run",
+  EMBEDDED_SNAKE: "/game/01-embedded-snake",
+  CYBER_ARENA: "/game/13-cyber-arena",
+  TANKIE_RACER_ATTACK: "/game/14-tankie-racer-attack",
+  ENDLESS_RUNNER: "/game/15-endless-runner",
+  GUERRERO_MAYA: "/game/16-guerrero-maya",
+  DONUT_MATCH: "/game/04-donut-match",
+  TOP_DOWN_SHOOTER: "/game/17-top-down-shooter",
+  BALL_SLICE: "/game/05-ball-slice",
+  UNDERWATER_ADVENTURE: "/game/06-underwater-adventure",
+  ZIGZAG_ENDLESS_RUNNER: "/game/07-zigzag-endless-runner",
+  ROUND_BALL: "/game/08-round-ball",
+  CRAZY_BALL: "/game/09-crazy-ball",
+  SWIPE_GAME: "/game/10-swipe-game",
+  COLOR_CATCH: "/game/11-color-catch",
+  SKY_HOVER: "/game/18-sky-hover",
+  STACK_BREAKER: "/game/19-stack-breaker",
+  JUMP_SKY: "/game/20-jump-sky",
+  DOWNHILL_RUSH: "/game/21-downhill-rush",
+  MAZE_ROTATOR: "/game/22-maze-rotator",
+  SMASHY_BALL: "/game/23-smashy-ball",
+  HOPPY_RAMPAGE: "/game/24-hoppy-rampage",
+  KLONDIKE_SOLITAIRE: "/game/25-klondike-solitaire",
 } as const;
 
 /**
@@ -54,9 +78,9 @@ export const UI_CONSTANTS = {
  * Solana network and wallet connection settings
  */
 export const WALLET_CONFIG = {
-  NETWORK: 'mainnet-beta',
-  PROJECT_ID: '3de88ccc3439125e3b797794ef92929b',
-  RELAY_URL: 'wss://relay.walletconnect.com',
+  NETWORK: "mainnet-beta",
+  PROJECT_ID: "3de88ccc3439125e3b797794ef92929b",
+  RELAY_URL: "wss://relay.walletconnect.com",
 } as const;
 
 /**
@@ -72,43 +96,43 @@ export const GAME_CONSTANTS = {
  * Error messages for consistent user communication
  */
 export const ERROR_MESSAGES = {
-  GAME_NOT_FOUND: 'Game not found or unavailable',
-  NETWORK_ERROR: 'Network connection error. Please try again.',
-  WALLET_CONNECTION_FAILED: 'Failed to connect wallet. Please try again.',
-  INVALID_ROUTE: 'Invalid route or page not found',
-  GAME_LOAD_FAILED: 'Failed to load game. Please refresh and try again.',
+  GAME_NOT_FOUND: "Game not found or unavailable",
+  NETWORK_ERROR: "Network connection error. Please try again.",
+  WALLET_CONNECTION_FAILED: "Failed to connect wallet. Please try again.",
+  INVALID_ROUTE: "Invalid route or page not found",
+  GAME_LOAD_FAILED: "Failed to load game. Please refresh and try again.",
 } as const;
 
 /**
  * Success messages for positive user feedback
  */
 export const SUCCESS_MESSAGES = {
-  WALLET_CONNECTED: 'Wallet connected successfully',
-  GAME_LOADED: 'Game loaded successfully',
-  SCORE_SUBMITTED: 'Score submitted successfully',
+  WALLET_CONNECTED: "Wallet connected successfully",
+  GAME_LOADED: "Game loaded successfully",
+  SCORE_SUBMITTED: "Score submitted successfully",
 } as const;
 
 /**
  * Accessibility labels and ARIA attributes
  */
 export const A11Y_LABELS = {
-  LOGO: 'Embedded Gaming Platform Logo',
-  SEARCH_BUTTON: 'Search games and content',
-  WALLET_CONNECT: 'Connect cryptocurrency wallet',
-  WALLET_DISCONNECT: 'Disconnect wallet',
-  MOBILE_MENU: 'Open mobile navigation menu',
-  GAME_CARD: 'Open game',
-  BACK_TO_HOME: 'Return to homepage',
-  PLAY_GAME: 'Start playing game',
+  LOGO: "Embedded Gaming Platform Logo",
+  SEARCH_BUTTON: "Search games and content",
+  WALLET_CONNECT: "Connect cryptocurrency wallet",
+  WALLET_DISCONNECT: "Disconnect wallet",
+  MOBILE_MENU: "Open mobile navigation menu",
+  GAME_CARD: "Open game",
+  BACK_TO_HOME: "Return to homepage",
+  PLAY_GAME: "Start playing game",
 } as const;
 
 /**
  * Development and debugging constants
  */
 export const DEV_CONFIG = {
-  ENABLE_LOGGING: process.env.NODE_ENV === 'development',
+  ENABLE_LOGGING: process.env.NODE_ENV === "development",
   STRICT_MODE: true,
-  PERFORMANCE_MONITORING: process.env.NODE_ENV === 'production',
+  PERFORMANCE_MONITORING: process.env.NODE_ENV === "production",
 } as const;
 
 /**
@@ -117,7 +141,7 @@ export const DEV_CONFIG = {
 export const LOCAL_STORAGE_CONF = {
   LOCAL_KEYS: "phantom_dapp_keypair",
   LOCAL_SESSION: "phantom_session",
-  LOCAL_WALLET_PUBKEY : "phantom_wallet_pubkey",
+  LOCAL_WALLET_PUBKEY: "phantom_wallet_pubkey",
   LOCAL_PHANTOM_ENC: "phantom_encryption_public_key",
   LOCAL_REDIRECT: "phantom_post_connect_redirect",
   HANDLED_KEY: "phantom_callback_handled",
@@ -125,7 +149,7 @@ export const LOCAL_STORAGE_CONF = {
   PHANTOM_LAST_TRANSACTION: "phantom_last_tx",
   GAME_MODE: "game_mode",
   DEGEN_BET_AMOUNT: "degen_bet_amount",
-}
+};
 
 /**
  * Type definitions for constant objects

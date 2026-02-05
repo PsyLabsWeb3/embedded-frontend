@@ -48,7 +48,7 @@ const isPortraitNow = () =>
 
 /* ---------- Fullscreen API con fallback a pseudo (overlay fijo) ---------- */
 function useFullscreenWithFallback<T extends HTMLElement>(
-  targetRef: React.RefObject<T>
+  targetRef: React.RefObject<T>,
 ) {
   const [isNativeFs, setIsNativeFs] = useState(false);
   const [isPseudoFs, setIsPseudoFs] = useState(false);
@@ -124,6 +124,26 @@ const UnityGame: React.FC<UnityGameProps> = ({
   disableSafeAreaPadding = false,
   fitAspect,
 }) => {
+  useEffect(() => {
+    const originalAlert = window.alert;
+
+    window.alert = (msg: any) => {
+      const text = String(msg ?? "");
+      if (
+        text.includes("An error occurred running the Unity content") ||
+        text.includes("An unspecified error occurred")
+      ) {
+        console.warn("[Unity] Suppressed loader alert:", text);
+        return;
+      }
+      originalAlert(msg);
+    };
+
+    return () => {
+      window.alert = originalAlert;
+    };
+  }, []);
+
   const unityConfig = useMemo(
     () => ({
       loaderUrl: gameAssets.loaderUrl,
@@ -131,7 +151,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
       frameworkUrl: gameAssets.frameworkUrl,
       codeUrl: gameAssets.codeUrl,
     }),
-    [gameAssets]
+    [gameAssets],
   );
 
   // Nota: 'unload' existe en react-unity-webgl >= 9
@@ -144,33 +164,44 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   useEffect(() => {
     if (isLoaded && publicKey) {
+      console.log("degenMode:", degenMode, "transactionId:", transactionId);
       // Handle PvE mode - only send credentials to "Global" GameObject
       if (degenMode === "PvE" && transactionId) {
         const credsDto = {
           wallet: publicKey.toString(),
-          tx: transactionId
+          tx: transactionId,
         };
-        console.log("[Unity] sendMessage -> target=Global method=SetCredentialsJson payload=", JSON.stringify(credsDto));
+        console.log(
+          "[Unity] sendMessage -> target=Global method=SetCredentialsJson payload=",
+          JSON.stringify(credsDto),
+        );
         sendMessage("Global", "SetCredentialsJson", JSON.stringify(credsDto));
       }
       // Handle PvP modes - use WalletManager as before
       else {
         sendMessage("WalletManager", "SetWalletAddress", publicKey.toString());
-        
+
         if (degenMode === "Betting" && typeof degenMode === "string") {
           sendMessage("WalletManager", "SetGameMode", degenMode);
           const payloadBet = degenBetAmount;
           if (typeof payloadBet === "string") {
             console.log(
               "[Unity] sendMessage -> target=WalletManager method=SetBetAmount payload=",
-              payloadBet
+              payloadBet,
             );
             sendMessage("WalletManager", "SetBetAmount", payloadBet);
           }
         }
       }
     }
-  }, [isLoaded, publicKey, sendMessage, degenMode, degenBetAmount, transactionId]);
+  }, [
+    isLoaded,
+    publicKey,
+    sendMessage,
+    degenMode,
+    degenBetAmount,
+    transactionId,
+  ]);
 
   useEffect(() => {
     if (degenMode || typeof degenBetAmount === "string") {
@@ -201,7 +232,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
   }, [unload, unityProvider]);
 
   const outerRef = useRef<HTMLDivElement>(
-    null
+    null,
   ) as React.RefObject<HTMLDivElement>;
   const { isActive, isPseudoFs, enter, exit } =
     useFullscreenWithFallback<HTMLDivElement>(outerRef);
@@ -326,7 +357,6 @@ const UnityGame: React.FC<UnityGameProps> = ({
   const [defaultWin, setDefaultWin] = useState<boolean>(false);
   const reloadingRef = useRef(false);
 
-
   // Listener del mensaje desde Unity (o iframe)
   useEffect(() => {
     const onMsg = (e: MessageEvent) => {
@@ -434,37 +464,45 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
         {gameOver && (
           <div
-         style={{
-      position: "fixed",
-      inset: 0,
-      background: "rgba(0,0,0,.6)",
-      display: "grid",
-      // placeItems: "center",
-      alignItems: "end",
-      justifyItems: "center",
-      padding: "0 16px calc(env(safe-area-inset-bottom) + 16px)",
-      zIndex: 2147483647, // por encima de todo
-    }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,.6)",
+              display: "grid",
+              alignItems: "start",
+              justifyItems: "center",
+              padding: "calc(env(safe-area-inset-top) + 16px) 16px 0 16px",
+              zIndex: 2147483647, // por encima de todo
+            }}
             role="dialog"
             aria-modal="true"
           >
             <div
               style={{
-                background: "transparent",
+                background: "#121214",
                 color: "#ffffffff",
                 padding: "16px 18px",
                 borderRadius: 12,
                 width: "min(92vw, 420px)",
                 boxShadow: "0 10px 30px rgba(0,0,0,.25)",
                 textAlign: "center",
+                marginTop: "4.5rem",
               }}
             >
-              <h3 style={{ fontFamily: 'Nunito, sans-serif', fontSize: 26, fontWeight: 900, marginBottom: 6 }}>
+              <h3
+                style={{
+                  fontFamily: "Nunito, sans-serif",
+                  fontSize: 26,
+                  fontWeight: 900,
+                  marginBottom: 6,
+                }}
+              >
                 ¡Game Over!
               </h3>
               {defaultWin && (
                 <p style={{ fontSize: 16, marginBottom: 12 }}>
-               Lucky day, degen! 🎰 Since your opponent didn’t show up, you’ve struck gold — automatic victory is yours! 🏆💎
+                  Lucky day, degen! 🎰 Since your opponent didn’t show up,
+                  you’ve struck gold — automatic victory is yours! 🏆💎
                 </p>
               )}
               {lastMatchId && (

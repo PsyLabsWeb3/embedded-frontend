@@ -37,6 +37,17 @@
   margin-right: var(--container-margin);
 }
 
+/* Generic section vertical rhythm for Home (and elsewhere) */
+.section {
+  padding-block: var(--home-padding-block-mobile);
+}
+
+@media (min-width: 1200px) {
+  .section {
+    padding-block: var(--home-padding-block-desktop);
+  }
+}
+
 /* Button component */
 .btn {
   align-items: center;
@@ -65,7 +76,7 @@
 
 @media (max-width: 600px) {
   .btn {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
   }
 }
 

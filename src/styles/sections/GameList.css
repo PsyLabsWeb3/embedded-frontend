@@ -1,6 +1,6 @@
 /* Game list section styles */
 .game-list__title {
-  color: #FFFFFF;
+  color: #ffffff;
   filter: none;
   font-family: var(--font-heading);
   font-size: 2.5rem;
@@ -13,6 +13,84 @@
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
+}
+
+/* Free-to-Play: mobile gallery layout (visible only on mobile) */
+.free-games-gallery {
+  background: #121214;
+  border-radius: 16px;
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  width: 100%;
+  aspect-ratio: 608 / 486;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: 62.3% 29.8%;
+  grid-template-rows: 29% 28.8% 29%;
+  gap: 12px;
+}
+.free-games-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0;
+}
+.free-games-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.free-games-gallery__item figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 2;
+}
+.free-games-gallery__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 78%,
+    rgba(0, 0, 0, 0.38) 92%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.free-games-gallery__item--main {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.free-games-gallery__item--top-right {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.free-games-gallery__item--mid-right {
+  grid-column: 2;
+  grid-row: 2;
+}
+.free-games-gallery__item--bottom {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+
+/* Hide the standard list for Free to Play on mobile; show gallery instead */
+.game-list__grid--free {
+  display: none;
+}
+/* Hide PVP/PVE lists on mobile; show galleries instead */
+.game-list__grid--free,
+.game-list__grid--pvp,
+.game-list__grid--pve {
+  display: none;
 }
 
 /* Description text - hidden by default, shown only on desktop */
@@ -30,11 +108,9 @@
   display: none;
 }
 
-/* Specific styles for GameListSection cards - remove any border/outline */
+/* Specific styles for GameListSection cards - remove borders from containers only */
 .game-list__grid .game-card-outer-wrapper,
-.game-list__grid .game-card-outer-wrapper *,
-.game-list__grid .game-card,
-.game-list__grid .game-card * {
+.game-list__grid .game-card {
   border: none !important;
   outline: none !important;
 }
@@ -45,7 +121,7 @@
     font-size: 2.7rem;
     text-align: left;
   }
-  
+
   .game-list__grid {
     gap: 2.7rem;
   }
@@ -53,15 +129,15 @@
 
 /* Desktop styles */
 @media (min-width: 900px) {
- .game-list-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
-      background-image:  url('/Home-3bg.jpg');
-          background-size: cover;
+  .game-list-section {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-        min-height: 100vh;
-  } 
+    min-height: 100vh;
+  }
 
   .game-list__title {
     font-size: 4rem;
@@ -69,49 +145,67 @@
     margin-top: 5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .game-list__description {
     display: block;
-    font-family: 'Alumni Sans', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 1.8rem;
     text-align: center;
     margin-top: 0;
     margin-bottom: 1.5rem;
   }
-  
+
   .game-list__divider {
     display: block;
     width: 120px;
     height: 2px;
-    background: linear-gradient(to right, #317017, #5DD62C);
+    background: linear-gradient(to right, #317017, #5dd62c);
     margin: 0 auto 2rem auto;
     margin-top: 2rem;
     margin-bottom: 4rem;
   }
-  
+
   .game-list__grid {
     flex-direction: row;
-    gap: 3rem;
-    justify-content: center;
+    gap: clamp(16px, 2.5vw, 32px);
+    justify-content: center; /* center cards on each row */
     align-items: stretch;
+    flex-wrap: wrap; /* allow wrapping at 1280 widths */
+    margin-bottom: 10rem;
   }
-  
+
+  /* Desktop: hide mobile gallery, show standard list */
+  .free-games-gallery {
+    display: none;
+  }
+  .game-list__grid--free {
+    display: flex;
+  }
+  /* Desktop: show PVP/PVE lists */
+  .game-list__grid--pvp,
+  .game-list__grid--pve {
+    display: flex;
+  }
+  .game-list__grid--pve {
+    margin-bottom: 5rem;
+  }
+
   .game-list__button-container {
     display: flex;
     justify-content: center;
     margin-top: 3rem;
     margin-bottom: 2rem;
   }
-  
+
   .game-list__view-all-button {
-    background: linear-gradient(to right, #38454C, #171D20);
-    border: 1px solid #38454C;
+    background: linear-gradient(to right, #38454c, #171d20);
+    border: 1px solid #38454c;
     border-radius: 8px;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 1rem;
     padding: 0.75rem 2rem;
@@ -120,9 +214,9 @@
     margin-top: 1.7rem;
     margin-bottom: 1.7rem;
   }
-  
+
   .game-list__view-all-button:hover {
-    background: linear-gradient(to right, #4A585F, #252C30);
+    background: linear-gradient(to right, #4a585f, #252c30);
     transform: translateY(-1px);
   }
 }

@@ -1,7 +1,10 @@
 .degen-modal-backdrop {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.45);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -9,9 +12,9 @@
 }
 
 .degen-modal {
-  background: linear-gradient(135deg, #38454C, #171D20);
+  background: linear-gradient(135deg, #38454c, #171d20);
   border-radius: 14px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
   padding: 32px 28px 24px 28px;
   min-width: 340px;
   max-width: 95vw;
@@ -25,9 +28,9 @@
   font-weight: 700;
   margin-bottom: 8px;
   text-align: left;
-  color: #5DD62C;
+  color: #5dd62c;
   font-family: Lobster, cursive;
-    width: 100%;
+  width: 100%;
 }
 
 .degen-modal-subtitle {
@@ -36,16 +39,16 @@
   margin-bottom: 12px;
   text-align: left;
   font-family: Nunito, sans-serif;
-    font-weight: 900;
-    align-self: left;
-    display: flex;
-    justify-content: left;
-    width: 100%;
+  font-weight: 900;
+  align-self: left;
+  display: flex;
+  justify-content: left;
+  width: 100%;
 }
 
 .degen-modal-description {
   font-size: 1rem;
-  color: #AE43FF;
+  color: #ae43ff;
   margin-bottom: 18px;
   text-align: center;
   margin-top: 2rem;
@@ -60,30 +63,39 @@
 }
 
 .degen-option-button {
-  padding: .5rem 1rem;
-  border-radius: 8px;
-  border: 0px solid #ccc;
-  background: #38454C;
-  font-weight: 600;
-  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(57, 161, 72, 0.42);
+  background: rgba(57, 161, 72, 0.15);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
   cursor: pointer;
   transition: border 0.2s, background 0.2s;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.degen-option-button:hover {
+  background: rgba(57, 161, 72, 0.25);
+  border-color: rgba(57, 161, 72, 0.6);
 }
 
 .degen-option-button.selected {
-  border: 2px solid #5DD62C;
-  background: #5DD62C;
+  border: 1px solid #5dd62c;
+  background: #5dd62c;
 }
 
 .degen-modal-actions {
-    margin-top: 4rem;
-    margin-bottom: 1rem;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
   display: flex;
   gap: 16px;
   justify-content: flex-end;
   width: 100%;
-  color: #FFF;
+  color: #fff;
 }
 
 .degen-cancel-button,
@@ -103,7 +115,7 @@
 }
 
 .degen-continue-button {
-  background: #AE43FF;
+  background: #ae43ff;
   color: #fff;
 }
 

@@ -9,7 +9,7 @@ import {
   ComputeBudgetProgram,
   TransactionMessage,
   VersionedTransaction,
-  SendTransactionError, 
+  SendTransactionError,
 } from "@solana/web3.js";
 import bs58 from "bs58";
 import { encryptPayloadForPhantom } from "../../utils/phantomCrypto";
@@ -17,14 +17,13 @@ import idl from "../../constants/embedded.json";
 import { LOCAL_STORAGE_CONF } from "../../constants";
 import "./PayEntryModal.css";
 import "./DegenModeModal.css";
-import gameboyIcon from "../../assets/gameboy.svg";
 
 // Program constants for mainet
 const PROGRAM_ID = new PublicKey(
-  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8"
+  "BUQFRUJECRCADvdtStPUgcBgnvcNZhSWbuqBraPWPKf8",
 );
 const TREASURY_PDA = new PublicKey(
-  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM"
+  "EqderqcKvGtQKmYWuneRAb7xdgBXRNPpv21qBKF4JqdM",
 );
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -51,7 +50,7 @@ type Props = {
 async function waitForFinalized(
   connection: ReturnType<typeof useConnection>["connection"],
   signature: string,
-  opts: { timeoutMs?: number; pollMs?: number } = {}
+  opts: { timeoutMs?: number; pollMs?: number } = {},
 ): Promise<boolean> {
   const timeoutMs = opts.timeoutMs ?? 120_000;
   const pollMs = opts.pollMs ?? 1500;
@@ -81,7 +80,7 @@ async function waitForFinalized(
         void res;
         cleanup();
       },
-      "finalized"
+      "finalized",
     );
   } catch {
     // Fallback to polling if WebSocket subscription fails
@@ -128,7 +127,7 @@ async function buildPayEntryV0Tx(
   connection: ReturnType<typeof useConnection>["connection"],
   payer: PublicKey,
   lamports: BN,
-  program: Program
+  program: Program,
 ): Promise<VersionedTransaction> {
   const computeIxs = [
     ComputeBudgetProgram.setComputeUnitLimit({ units: 350_000 }),
@@ -155,7 +154,6 @@ async function buildPayEntryV0Tx(
 
   return new VersionedTransaction(msgV0);
 }
-
 
 const PayEntryButton: React.FC<Props> = ({
   onSent,
@@ -186,7 +184,7 @@ const PayEntryButton: React.FC<Props> = ({
 
   // Modal
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalError, setModalError] = useState<string | null>(null); 
+  const [modalError, setModalError] = useState<string | null>(null);
   const [txSig, setTxSig] = useState<string | null>(null);
   const [isLoadingGame, setIsLoadingGame] = useState(false);
 
@@ -211,13 +209,14 @@ const PayEntryButton: React.FC<Props> = ({
 
   const handleDegenContinue = () => {
     if (!degenSelected) return;
+    setIsLoadingTransaction(true);
     // Convert selected USD -> SOL using cached price (with fallback)
     (async () => {
       try {
         let price = solPriceUsd;
         if (!price || !(price > 0)) {
           const r = await fetch(
-            "https://backend.embedded.games/api/solanaPriceUSD"
+            "https://backend.embedded.games/api/solanaPriceUSD",
           );
           const data = await r.json();
           price = Number(data?.priceUsd);
@@ -227,7 +226,7 @@ const PayEntryButton: React.FC<Props> = ({
         }
 
         const solAmount = Number(
-          (degenSelected / (price as number)).toFixed(8)
+          (degenSelected / (price as number)).toFixed(8),
         );
         setDegenModalOpen(false);
         // notify parent that a degen play is about to happen (USD and SOL)
@@ -237,6 +236,7 @@ const PayEntryButton: React.FC<Props> = ({
       } catch (e) {
         console.error("Failed to get SOL price for degen flow", e);
         setDegenModalOpen(false);
+        setIsLoadingTransaction(false);
       }
     })();
   };
@@ -294,7 +294,7 @@ const PayEntryButton: React.FC<Props> = ({
   // Handle price loading and Phantom wallet return flow
   useEffect(() => {
     const last = localStorage.getItem(
-      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION
+      LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION,
     );
     if (last) {
       setTxSig(last);
@@ -320,7 +320,7 @@ const PayEntryButton: React.FC<Props> = ({
     (async () => {
       try {
         const r = await fetch(
-          "https://backend.embedded.games/api/solanaPriceUSD"
+          "https://backend.embedded.games/api/solanaPriceUSD",
         );
         const data = await r.json();
         const price = Number(data?.priceUsd);
@@ -426,7 +426,6 @@ const PayEntryButton: React.FC<Props> = ({
   const disabled = sending || !prereqsReady || gameLoading || isLoadingGame;
   const preparing = !sending && !prereqsReady;
 
-
   // Debug: log de prerequisites y señales relacionadas
   useEffect(() => {
     console.table({
@@ -456,12 +455,10 @@ const PayEntryButton: React.FC<Props> = ({
     amountSol,
   ]);
 
-
-
   // now accepts optional overrideSol (useful for degen flow where amountSol may not be the current state)
   const handlePayEntry = async (
     overrideSol?: number,
-    usdBetAmount?: number
+    usdBetAmount?: number,
   ) => {
     // check wallet/provider readiness depending on desktop/mobile flow
     const anchorReady = !!anchorWallet && !!program;
@@ -486,226 +483,252 @@ const PayEntryButton: React.FC<Props> = ({
         setSending(false);
         return;
       }
-     // Desktop adapter flow
-if (usingDesktop) {
-  if (!program || !anchorWallet)
-    throw new Error("Program or anchorWallet not ready");
+      // Desktop adapter flow
+      if (usingDesktop) {
+        if (!program || !anchorWallet)
+          throw new Error("Program or anchorWallet not ready");
 
-  // Construye VT v0
-  const vtx = await buildPayEntryV0Tx(
-    connection,
-    anchorWallet.publicKey,
-    lamports,
-    program
-  );
+        // Construye VT v0
+        const vtx = await buildPayEntryV0Tx(
+          connection,
+          anchorWallet.publicKey,
+          lamports,
+          program,
+        );
 
-  // Pre-simulación (sin verificación de firma y pudiendo reemplazar blockhash)
-  const sim = await connection.simulateTransaction(vtx, {
-    sigVerify: false,
-    replaceRecentBlockhash: true,
-  });
+        // Pre-simulación (sin verificación de firma y pudiendo reemplazar blockhash)
+        const sim = await connection.simulateTransaction(vtx, {
+          sigVerify: false,
+          replaceRecentBlockhash: true,
+        });
 
-  if (sim.value.err) {
-    console.error("Pre-sim failed (desktop):", sim.value.err, sim.value.logs);
-    setIsLoadingTransaction(false);
-    setShowMatchConfirmation(false);
-    setCurrentTransactionId(null);
-    setSending(false);
-    setModalError(formatTxError("Pre-simulation failed.", sim.value.logs));
-    setModalOpen(true);
-    return;
-  }
-
-  // Firmar y enviar
-  const signed = await wallet.signTransaction!(vtx as any);
-  // Try to derive a computed signature (useful if send fails with "already been processed")
-  let computedSig: string | null = null;
-  try {
-    const maybe = signed.signatures?.[0];
-    if (maybe) {
-      // signatures item may be a Uint8Array or object depending on env - coerce
-      computedSig = bs58.encode((maybe as unknown) as Uint8Array);
-    }
-  } catch {
-    computedSig = null;
-  }
-
-  try {
-    const sig = await connection.sendRawTransaction(signed.serialize(), {
-      skipPreflight: false,
-    });
-
-    onSent?.(sig);
-    setCurrentTransactionId(sig);
-    setTxSig(sig);
-    setModalError(null);
-    setModalOpen(true);
-
-    console.log("payEntry desktop sig:", sig);
-
-    const ok = await waitForFinalized(connection, sig);
-    if (ok) {
-      setShowMatchConfirmation(false);
-      setIsLoadingTransaction(false);
-      setCurrentTransactionId(null);
-      onContinue?.(sig);
-    }
-    setSending(false);
-    return;
-  } catch (err: any) {
-    console.error("sendRawTransaction error:", err);
-
-    // Handle SendTransactionError specifically and try to surface logs
-    const isSendTxErr = err instanceof SendTransactionError || err?.name === "SendTransactionError";
-    if (isSendTxErr) {
-      let logs: string[] | null = null;
-      try {
-        if (typeof err.getLogs === "function") {
-          logs = (await err.getLogs(connection)) ?? err.logs ?? null;
-        } else {
-          logs = err.logs ?? null;
+        if (sim.value.err) {
+          console.error(
+            "Pre-sim failed (desktop):",
+            sim.value.err,
+            sim.value.logs,
+          );
+          setIsLoadingTransaction(false);
+          setShowMatchConfirmation(false);
+          setCurrentTransactionId(null);
+          setSending(false);
+          setModalError(
+            formatTxError("Pre-simulation failed.", sim.value.logs),
+          );
+          setModalOpen(true);
+          return;
         }
-      } catch (le) {
-        console.warn("Failed to get logs from SendTransactionError", le);
-        logs = err.logs ?? null;
+
+        // Firmar y enviar
+        const signed = await wallet.signTransaction!(vtx as any);
+        // Try to derive a computed signature (useful if send fails with "already been processed")
+        let computedSig: string | null = null;
+        try {
+          const maybe = signed.signatures?.[0];
+          if (maybe) {
+            // signatures item may be a Uint8Array or object depending on env - coerce
+            computedSig = bs58.encode(maybe as unknown as Uint8Array);
+          }
+        } catch {
+          computedSig = null;
+        }
+
+        try {
+          const sig = await connection.sendRawTransaction(signed.serialize(), {
+            skipPreflight: false,
+          });
+
+          onSent?.(sig);
+          setCurrentTransactionId(sig);
+          setTxSig(sig);
+          setModalError(null);
+          setModalOpen(true);
+
+          console.log("payEntry desktop sig:", sig);
+
+          const ok = await waitForFinalized(connection, sig);
+          if (ok) {
+            setShowMatchConfirmation(false);
+            setIsLoadingTransaction(false);
+            setCurrentTransactionId(null);
+            onContinue?.(sig);
+          }
+          setSending(false);
+          return;
+        } catch (err: any) {
+          console.error("sendRawTransaction error:", err);
+
+          // Handle SendTransactionError specifically and try to surface logs
+          const isSendTxErr =
+            err instanceof SendTransactionError ||
+            err?.name === "SendTransactionError";
+          if (isSendTxErr) {
+            let logs: string[] | null = null;
+            try {
+              if (typeof err.getLogs === "function") {
+                logs = (await err.getLogs(connection)) ?? err.logs ?? null;
+              } else {
+                logs = err.logs ?? null;
+              }
+            } catch (le) {
+              console.warn("Failed to get logs from SendTransactionError", le);
+              logs = err.logs ?? null;
+            }
+
+            const msg = err.message ?? "Transaction failed.";
+
+            // If the node says the tx was already processed, treat as success using the computed signature
+            if (/already been processed/i.test(msg) && computedSig) {
+              onSent?.(computedSig);
+              setCurrentTransactionId(computedSig);
+              setTxSig(computedSig);
+              setModalError(null);
+              setModalOpen(true);
+
+              const ok = await waitForFinalized(connection, computedSig);
+              if (ok) {
+                setShowMatchConfirmation(false);
+                setIsLoadingTransaction(false);
+                setCurrentTransactionId(null);
+                onContinue?.(computedSig);
+              }
+              setSending(false);
+              return;
+            }
+
+            setModalError(formatTxError(msg, logs));
+            setModalOpen(true);
+          } else {
+            setModalError(err?.message ?? "Transaction failed. Try again.");
+            setModalOpen(true);
+          }
+
+          setIsLoadingTransaction(false);
+          setShowMatchConfirmation(false);
+          setCurrentTransactionId(null);
+          setSending(false);
+          return;
+        }
       }
 
-      const msg = err.message ?? "Transaction failed.";
-
-      // If the node says the tx was already processed, treat as success using the computed signature
-      if (/already been processed/i.test(msg) && computedSig) {
-        onSent?.(computedSig);
-        setCurrentTransactionId(computedSig);
-        setTxSig(computedSig);
-        setModalError(null);
-        setModalOpen(true);
-
-        const ok = await waitForFinalized(connection, computedSig);
-        if (ok) {
-          setShowMatchConfirmation(false);
-          setIsLoadingTransaction(false);
-          setCurrentTransactionId(null);
-          onContinue?.(computedSig);
-        }
+      // Mobile Phantom deep-link flow
+      // Mobile Phantom deep-link flow
+      if (
+        !phantomSession ||
+        !phantomEncPub ||
+        !dappKpRaw ||
+        !phantomWalletPubStr
+      ) {
+        console.warn("Missing Phantom mobile prerequisites");
         setSending(false);
         return;
       }
 
-      setModalError(formatTxError(msg, logs));
-      setModalOpen(true);
-    } else {
-      setModalError(err?.message ?? "Transaction failed. Try again.");
-      setModalOpen(true);
-    }
+      // Program temporal sin signer (solo pubkey)
+      const tempWalletPub = new PublicKey(phantomWalletPubStr);
+      const tempProvider = new AnchorProvider(
+        connection,
+        { publicKey: tempWalletPub } as any,
+        { commitment: "confirmed" },
+      );
+      const tempProgram = new Program(idl as Idl, tempProvider);
 
-    setIsLoadingTransaction(false);
-    setShowMatchConfirmation(false);
-    setCurrentTransactionId(null);
-    setSending(false);
-    return;
-  }
-}
+      // Construye VT v0
+      const vtx = await buildPayEntryV0Tx(
+        connection,
+        tempWalletPub,
+        lamports,
+        tempProgram,
+      );
 
-      // Mobile Phantom deep-link flow
-// Mobile Phantom deep-link flow
-if (!phantomSession || !phantomEncPub || !dappKpRaw || !phantomWalletPubStr) {
-  console.warn("Missing Phantom mobile prerequisites");
-  setSending(false);
-  return;
-}
+      // Pre-simulación
+      const sim = await connection.simulateTransaction(vtx, {
+        sigVerify: false,
+        replaceRecentBlockhash: true,
+      });
 
-// Program temporal sin signer (solo pubkey)
-const tempWalletPub = new PublicKey(phantomWalletPubStr);
-const tempProvider = new AnchorProvider(
-  connection,
-  { publicKey: tempWalletPub } as any,
-  { commitment: "confirmed" }
-);
-const tempProgram = new Program(idl as Idl, tempProvider);
+      if (sim.value.err) {
+        console.error(
+          "Pre-sim failed (mobile):",
+          sim.value.err,
+          sim.value.logs,
+        );
+        setIsLoadingTransaction(false);
+        setShowMatchConfirmation(false);
+        setCurrentTransactionId(null);
+        setSending(false);
+        setModalError(formatTxError("Pre-simulation failed.", sim.value.logs));
+        setModalOpen(true);
+        return;
+      }
 
-// Construye VT v0
-const vtx = await buildPayEntryV0Tx(
-  connection,
-  tempWalletPub,
-  lamports,
-  tempProgram
-);
+      // Persistir modo (nueva pestaña)
+      if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
+        localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
+        localStorage.setItem(
+          LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
+          usdBetAmount.toString(),
+        );
+        console.log(
+          "[PayEntryButton] Set localStorage GAME_MODE to Betting, amount:",
+          usdBetAmount,
+        );
+      } else {
+        localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
+        localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
+        console.log(
+          "[PayEntryButton] Removed localStorage GAME_MODE and DEGEN_BET_AMOUNT",
+        );
+      }
 
-// Pre-simulación
-const sim = await connection.simulateTransaction(vtx, {
-  sigVerify: false,
-  replaceRecentBlockhash: true,
-});
+      // 🚫 No reasignes recentBlockhash. Si necesitas refrescar, recompila el mensaje.
+      // const { blockhash } = await connection.getLatestBlockhash("finalized");
+      // vtx.message.recentBlockhash = blockhash; // <- no
 
-if (sim.value.err) {
-  console.error("Pre-sim failed (mobile):", sim.value.err, sim.value.logs);
-  setIsLoadingTransaction(false);
-  setShowMatchConfirmation(false);
-  setCurrentTransactionId(null);
-  setSending(false);
-  setModalError(formatTxError("Pre-simulation failed.", sim.value.logs));
-  setModalOpen(true);
-  return;
-}
+      // Serializar VT para Phantom
+      const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
 
-// Persistir modo (nueva pestaña)
-if (typeof usdBetAmount === "number" && usdBetAmount > 0) {
-  localStorage.setItem(LOCAL_STORAGE_CONF.GAME_MODE, "Betting");
-  localStorage.setItem(
-    LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT,
-    usdBetAmount.toString()
-  );
-} else {
-  localStorage.removeItem(LOCAL_STORAGE_CONF.GAME_MODE);
-  localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
-}
+      const payloadObj = {
+        transaction: unsignedBase58,
+        session: phantomSession,
+      };
+      const dappKp = JSON.parse(dappKpRaw);
+      const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
+        payloadObj,
+        phantomEncPub,
+        dappKp.secretKeyBase58,
+      );
 
-// 🚫 No reasignes recentBlockhash. Si necesitas refrescar, recompila el mensaje.
-// const { blockhash } = await connection.getLatestBlockhash("finalized");
-// vtx.message.recentBlockhash = blockhash; // <- no
+      const currentPath = window.location.pathname + window.location.search;
+      localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
 
-// Serializar VT para Phantom
-const unsignedBase58 = bs58.encode(Buffer.from(vtx.serialize()));
+      const redirectLink = encodeURIComponent(
+        `${
+          window.location.origin
+        }/phantom-sign-callback?state=${encodeURIComponent(currentPath)}`,
+      );
+      const appUrl = encodeURIComponent(window.location.origin);
+      const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
 
-const payloadObj = {
-  transaction: unsignedBase58,
-  session: phantomSession,
-};
-const dappKp = JSON.parse(dappKpRaw);
-const { payloadBase58, nonceBase58 } = encryptPayloadForPhantom(
-  payloadObj,
-  phantomEncPub,
-  dappKp.secretKeyBase58
-);
+      const deeplink =
+        `https://phantom.app/ul/v1/signTransaction?` +
+        `app_url=${appUrl}` +
+        `&redirect_link=${redirectLink}` +
+        `&dapp_encryption_public_key=${dappPubEnc}` +
+        `&payload=${encodeURIComponent(payloadBase58)}` +
+        `&nonce=${encodeURIComponent(nonceBase58)}`;
 
-const currentPath = window.location.pathname + window.location.search;
-localStorage.setItem(LOCAL_STORAGE_CONF.LOCAL_REDIRECT, currentPath);
-
-const redirectLink = encodeURIComponent(
-  `${window.location.origin}/phantom-sign-callback?state=${encodeURIComponent(
-    currentPath
-  )}`
-);
-const appUrl = encodeURIComponent(window.location.origin);
-const dappPubEnc = encodeURIComponent(dappKp.publicKeyBase58);
-
-const deeplink =
-  `https://phantom.app/ul/v1/signTransaction?` +
-  `app_url=${appUrl}` +
-  `&redirect_link=${redirectLink}` +
-  `&dapp_encryption_public_key=${dappPubEnc}` +
-  `&payload=${encodeURIComponent(payloadBase58)}` +
-  `&nonce=${encodeURIComponent(nonceBase58)}`;
-
-window.location.href = deeplink;
+      window.location.href = deeplink;
     } catch (e: any) {
       console.error("pay_entry error:", e);
       // Surface SendTransactionError logs when possible
-      const isSendTxErr = e instanceof SendTransactionError || e?.name === "SendTransactionError";
+      const isSendTxErr =
+        e instanceof SendTransactionError || e?.name === "SendTransactionError";
       if (isSendTxErr) {
         let logs: string[] | null = null;
         try {
-          if (typeof e.getLogs === "function") logs = (await e.getLogs(connection)) ?? e.logs ?? null;
+          if (typeof e.getLogs === "function")
+            logs = (await e.getLogs(connection)) ?? e.logs ?? null;
           else logs = e.logs ?? null;
         } catch {
           logs = e.logs ?? null;
@@ -713,7 +736,9 @@ window.location.href = deeplink;
         setModalError(formatTxError(e.message || "Transaction failed.", logs));
         setModalOpen(true);
       } else {
-        setModalError((e as Error)?.message ?? "Transaction failed. Try again.");
+        setModalError(
+          (e as Error)?.message ?? "Transaction failed. Try again.",
+        );
         setModalOpen(true);
       }
 
@@ -780,43 +805,24 @@ window.location.href = deeplink;
       {casualModalOpen && (
         <div className="match-confirmation-backdrop">
           <div className="match-confirmation-modal">
-            {/* Header row: Title + Icon */}
-            <div className="modal-header-row">
-              <div className="modal-title-section">
-                <h1 className="modal-title">
-                  Match
-                  <br />
-                  Confirmation
-                </h1>
-              </div>
-              <div className="modal-icon-section">
-                <img
-                  src={gameboyIcon}
-                  alt="Game Console"
-                  className="gameboy-icon"
-                />
-              </div>
-            </div>
+            {/* Title */}
+            <p className="modal-title">Match Confirmation</p>
 
             {/* Main text */}
             <p className="modal-main-text">
-              You are about to confirm a match, you will be charged with{" "}
-              <span className="sol-amount">{amountSol.toFixed(8)} SOL</span>.
+              You are about to confirm a match, you will
+              <br />
+              be charged with{" "}
+              <span className="sol-amount">{amountSol.toFixed(8)} SOL.</span>
             </p>
 
             {/* Secondary text */}
             <p className="modal-secondary-text">
-              This will push you up in the 500x Leaderboard.
-            </p>
-            {/* Error Text */}
-            {modalError && (
-              <p className="modal-error-text">{modalError}</p>
-            )}
-
-            {/* Additional text */}
-            <p className="modal-additional-text">
               Please confirm your wallet transaction after.
             </p>
+
+            {/* Error Text */}
+            {modalError && <p className="modal-error-text">{modalError}</p>}
 
             {/* Action Buttons */}
             <div className="modal-buttons">
@@ -825,7 +831,7 @@ window.location.href = deeplink;
                 onClick={handleCasualCancel}
                 disabled={isLoadingTransaction}
               >
-                RETURN
+                Cancel
               </button>
               <button
                 className="modal-button confirm-button"
@@ -836,7 +842,7 @@ window.location.href = deeplink;
                 {isLoadingTransaction ? (
                   <div className="loading-spinner-button" />
                 ) : (
-                  "CONFIRM MATCH"
+                  "Confirm match"
                 )}
               </button>
             </div>
@@ -848,32 +854,17 @@ window.location.href = deeplink;
       {degenModalOpen && (
         <div className="match-confirmation-backdrop">
           <div className="match-confirmation-modal">
-            {/* Header row: Title + Icon */}
-            <div className="modal-header-row">
-              <div className="modal-title-section">
-                <h1 className="modal-title">
-                  Degen Mode
-                  <br />
-                  Confirmation
-                </h1>
-              </div>
-              <div className="modal-icon-section">
-                <img
-                  src={gameboyIcon}
-                  alt="Game Console"
-                  className="gameboy-icon"
-                />
-              </div>
-            </div>
+            {/* Title */}
+            <p className="modal-title">Degen Mode Confirmation</p>
 
-            <div className="degen-modal-subtitle">
+            <p className="modal-main-text">
               Degen Mode selected! If the match goes through, your selected USD
               amount will be converted to SOL at the current rate and deducted
               from your wallet.
-            </div>
-            <div className="degen-modal-description">
+            </p>
+            <p className="modal-secondary-text">
               Select your entry amount for Degen Mode:
-            </div>
+            </p>
             <div className="degen-options-row">
               {degenOptions.map((opt) => (
                 <button
@@ -887,11 +878,9 @@ window.location.href = deeplink;
                 </button>
               ))}
             </div>
-               {/* Error Text */}
-            {modalError && (
-              <p className="modal-error-text">{modalError}</p>
-            )}
-            <div style={{ marginTop: "4rem" }} className="modal-buttons">
+            {/* Error Text */}
+            {modalError && <p className="modal-error-text">{modalError}</p>}
+            <div className="modal-buttons">
               <button
                 onClick={handleDegenCancel}
                 className="modal-button return-button"
@@ -915,7 +904,13 @@ window.location.href = deeplink;
         <div className="pay-entry-modal-backdrop">
           <div className="pay-entry-modal">
             <h3>
-              {modalError ? "Transaction Error" : isLoadingTransaction ? "Processing..." : isLoadingGame ? "Loading Game..." : "Transaction Complete"}
+              {modalError
+                ? "Transaction Error"
+                : isLoadingTransaction
+                  ? "Processing..."
+                  : isLoadingGame
+                    ? "Loading Game..."
+                    : "Transaction Complete"}
             </h3>
 
             {modalError ? (
@@ -936,7 +931,8 @@ window.location.href = deeplink;
             ) : isLoadingTransaction ? (
               <>
                 <p className="modal-disclaimer-text">
-                  Do not refresh or disconnect once the transaction has been processed or you could lose your entry fee.
+                  Do not refresh or disconnect once the transaction has been
+                  processed or you could lose your entry fee.
                 </p>
                 <p className="modal-secondary-text">
                   You can check the status in the link below
@@ -1007,8 +1003,6 @@ window.location.href = deeplink;
           </div>
         </div>
       )}
-
-      
     </>
   );
 };

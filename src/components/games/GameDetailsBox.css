@@ -1,5 +1,5 @@
 .game-details-box {
-  background: #38454C;
+  background: #38454c;
   border-radius: 16px;
   padding: 2rem;
   margin: 2rem auto 0 auto;
@@ -9,9 +9,9 @@
 }
 
 .game-details-title {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
-  color: #5DD62C;
+  color: #5dd62c;
   font-size: 1.6rem;
   margin-bottom: 1.2rem;
 }
@@ -31,18 +31,18 @@
 }
 
 .game-details-label {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1rem;
   min-width: 150px;
   opacity: 0.8;
 }
 
 .game-details-value {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1rem;
   text-align: right;
   flex: 1;

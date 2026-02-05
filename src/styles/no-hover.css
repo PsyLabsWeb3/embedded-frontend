@@ -1,0 +1,10 @@
+.no-hover:hover,
+.no-hover:focus,
+.no-hover:active {
+  background: none !important;
+  color: #5dd62c !important;
+  filter: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  cursor: pointer;
+}
