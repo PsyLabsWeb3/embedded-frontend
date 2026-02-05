@@ -111,7 +111,7 @@ const HeroSection = () => {
             </span>
             {/* <span className="hero-stats__label">players</span> */}
             <span className="hero-stats__sep" aria-hidden="true"></span>
-            <span className="hero-stats__item">$735.52 distributed</span>
+            <span className="hero-stats__item">$1053.52 distributed</span>
             <span
               className="hero-stats__dot hero-stats__dot--red"
               aria-hidden="true"

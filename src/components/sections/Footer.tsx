@@ -186,9 +186,9 @@ const Footer: React.FC = () => {
             © 2026 Embedded Games. All rights reserved.
           </div>
           <div className="ef-legal-links">
-            <a href="/privacy" className="ef-legal-link">
+            {/* <a href="/privacy" className="ef-legal-link">
               Privacy Policy
-            </a>
+            </a> */}
             <a
               href="#terms"
               className="ef-legal-link"
