@@ -155,12 +155,12 @@
   margin: 0;
 }
 .tournament-card__status {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   font-weight: 500;
   border: 1px solid;
   border-radius: 6px;
   padding: 2px 12px;
-  margin-left: 8px;
+  margin-left: 0px;
   background: rgba(174, 67, 255, 0.16);
   color: #fff;
 }
@@ -348,14 +348,17 @@
   margin: 0;
 }
 .tournament-card__status {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 500;
   border: 1px solid;
   border-radius: 6px;
-  padding: 2px 12px;
+  padding: 2px 18px;
   margin-left: 8px;
   background: rgba(174, 67, 255, 0.16);
   color: #fff;
+
+  text-align: center;
+  white-space: nowrap;
 }
 .tournament-card__description {
   color: #bdbdbd;

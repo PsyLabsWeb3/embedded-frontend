@@ -12,16 +12,18 @@ export interface Tournament {
   details?: string; // Optional rich details for modal (HTML or JSX string)
 }
 
+import gmTournamentImage from "../assets/GM3Bottles.jpg";
+import ewTournamentImage from "../assets/EmbeddedWarsCoverNEON.png";
+
 const TOURNAMENTS: Tournament[] = [
   {
     title: "Guerrero Maya PvE Tournament",
-    image:
-      "https://www.figma.com/api/mcp/asset/1d017c60-0939-4004-8982-b0dd94a7c356",
-    status: "LIVE",
+    image: gmTournamentImage,
+    status: "COMING SOON",
     statusColor: "#ae43ff",
     description:
       "Classic arcade space shooter where players pilot a spaceship, destroying drifting asteroids and enemy threats while avoiding collisions in the depths of space.",
-    reward: "Rewards 50 USD",
+    reward: "Rewards 100 USD",
     date: "2026-02-10",
     time: "18:00 UTC",
     game: "Guerrero Maya",
@@ -34,7 +36,7 @@ const TOURNAMENTS: Tournament[] = [
           <hr style="border:0;border-top:1.5px solid #333;margin:18px 0;">
           <div style="margin-bottom:10px;">
             <b style='color:#5dd62c;font-size:1.15em'>🏆 Grand Prize – 1st Place</b><br>
-            <span>The top-ranked player will win an all-inclusive luxury stay in the Mayan jungle at Solmare Hotel in Akumal, where they will live the Guerrero Maya experience in real life:</span>
+            <span>The top-ranked player will win an all-inclusive luxury stay in the Mayan jungle at Solmare accommodation in Akumal, where they will live the Guerrero Maya experience in real life:</span>
             <ul style='margin-left:1.2em;color:#bdbdbd;margin-top:8px;'>
               <li>Authentic Mayan gastronomy</li>
               <li>Premium cocktail experiences featuring Guerrero Maya mezcal</li>
@@ -54,9 +56,8 @@ const TOURNAMENTS: Tournament[] = [
       `,
   },
   {
-    title: "Asteroids",
-    image:
-      "https://www.figma.com/api/mcp/asset/9d22348c-f3d8-4f3c-8d2b-00349d3a810b",
+    title: "Embedded Wars Tournament",
+    image: ewTournamentImage,
     status: "ENDED",
     statusColor: "#ff4343",
     description:
@@ -64,7 +65,7 @@ const TOURNAMENTS: Tournament[] = [
     reward: "Rewards 100 USD",
     date: "2025-12-15",
     time: "20:00 UTC",
-    game: "Asteroids",
+    game: "Embedded Wars",
     details: "",
   },
 ];

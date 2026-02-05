@@ -114,8 +114,8 @@ const TournamentCard = ({
         <span
           className="tournament-card__status"
           style={{
-            borderColor: "#5dd62c",
-            background: "rgba(93, 214, 44, 0.16)",
+            borderColor: tournament.statusColor,
+            background: `${tournament.statusColor}29`,
             color: "#fff",
           }}
         >
@@ -124,9 +124,20 @@ const TournamentCard = ({
       </div>
       <p className="tournament-card__description">{tournament.description}</p>
       <div className="tournament-card__footer">
-        <button className="tournament-card__view-btn" onClick={onView}>
-          View
-        </button>
+        {
+          <button
+            className="tournament-card__view-btn"
+            onClick={onView}
+            disabled={tournament.status === "COMING SOON"}
+            style={
+              tournament.status === "COMING SOON"
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            View
+          </button>
+        }
         <span className="tournament-card__reward">{tournament.reward}</span>
       </div>
     </div>
