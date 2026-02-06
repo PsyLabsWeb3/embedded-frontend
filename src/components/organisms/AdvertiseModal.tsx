@@ -47,6 +47,11 @@ const AdvertiseModal: React.FC<AdvertiseModalProps> = ({ isOpen, onClose }) => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  type Status =
+    | { type: "idle" }
+    | { type: "success"; message: string }
+    | { type: "error"; message: string };
+  const [status, setStatus] = useState<Status>({ type: "idle" });
 
   // Handle escape key to close modal
   const handleEscapeKey = useCallback(
@@ -83,12 +88,19 @@ const AdvertiseModal: React.FC<AdvertiseModalProps> = ({ isOpen, onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setStatus({ type: "idle" });
     try {
       await sendContactEmail(formData);
       setFormData({ name: "", email: "", message: "" });
-      onClose();
+      setStatus({
+        type: "success",
+        message: "Message sent successfully! We'll get back to you soon.",
+      });
     } catch (err: any) {
-      alert(err?.message || "Failed to send email");
+      setStatus({
+        type: "error",
+        message: err?.message || "Failed to send email",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -189,6 +201,17 @@ const AdvertiseModal: React.FC<AdvertiseModalProps> = ({ isOpen, onClose }) => {
           >
             {isSubmitting ? "Sending..." : "Send"}
           </button>
+
+          {status.type === "success" && (
+            <div className="advertise-modal__status advertise-modal__status--success">
+              {status.message}
+            </div>
+          )}
+          {status.type === "error" && (
+            <div className="advertise-modal__status advertise-modal__status--error">
+              {status.message}
+            </div>
+          )}
         </form>
       </div>
     </div>
