@@ -12,6 +12,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./AdvertiseModal.css";
 
+type Payload = { name: string; email: string; message: string };
+
+export async function sendContactEmail(payload: Payload) {
+  const r = await fetch("/api/send-email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data?.error || "Failed");
+  return data;
+}
+
 interface AdvertiseModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -70,16 +83,15 @@ const AdvertiseModal: React.FC<AdvertiseModalProps> = ({ isOpen, onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // TODO: Implement actual form submission logic
-    console.log("Form submitted:", formData);
-
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await sendContactEmail(formData);
       setFormData({ name: "", email: "", message: "" });
       onClose();
-    }, 1000);
+    } catch (err: any) {
+      alert(err?.message || "Failed to send email");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
