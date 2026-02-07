@@ -31,7 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     await resend.emails.send({
-      from: "Embedded <onboarding@resend.dev>", // ideal: tu dominio verificado en Resend
+      from: "Embedded <contact@embedded.games>", // ideal: tu dominio verificado en Resend
       to: [process.env.CONTACT_TO_EMAIL!], // tu correo destino
       replyTo: email,
       subject: `Nuevo mensaje de ${name}`,
