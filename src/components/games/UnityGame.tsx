@@ -348,9 +348,21 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const containerClass = className || styles.container;
 
+  // Track orientation reactively so the rotate hint hides when the user rotates
+  const [isPortrait, setIsPortrait] = useState(isPortraitNow());
+  useEffect(() => {
+    const onChange = () => setIsPortrait(isPortraitNow());
+    window.addEventListener("orientationchange", onChange);
+    window.addEventListener("resize", onChange);
+    return () => {
+      window.removeEventListener("orientationchange", onChange);
+      window.removeEventListener("resize", onChange);
+    };
+  }, []);
+
   // Hint solo en layout fullscreen (mobile shell o FS nativo) y portrait, unless explicitly hidden
   const showRotateHint =
-    !hideRotateHint && useFsLayout && isMobile() && isPortraitNow();
+    !hideRotateHint && useFsLayout && isMobile() && isPortrait;
 
   // Game Over listener
   const [gameOver, setGameOver] = useState(false);
