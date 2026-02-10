@@ -36,6 +36,9 @@ interface UnityGameProps {
 
   /** Ajuste por CSS "contain" al aspect objetivo (p.ej. 1280x720) cuando está en layout fullscreen */
   fitAspect?: { width: number; height: number };
+
+  /** If true, suppress the "rotate your device" hint (used for vertical games) */
+  hideRotateHint?: boolean;
 }
 
 const isMobile = () =>
@@ -123,6 +126,7 @@ const UnityGame: React.FC<UnityGameProps> = ({
   forceFullscreenLayout = false,
   disableSafeAreaPadding = false,
   fitAspect,
+  hideRotateHint = false,
 }) => {
   useEffect(() => {
     const originalAlert = window.alert;
@@ -322,15 +326,12 @@ const UnityGame: React.FC<UnityGameProps> = ({
       };
 
   // Caja 16:9 (contain) solo en full-window layout
+  // Only apply aspect fit if fitAspect is explicitly provided (not just baseResolution default)
   const fitBoxStyle: React.CSSProperties =
-    useFsLayout && (fitAspect || baseResolution)
+    useFsLayout && fitAspect
       ? {
-          width: `min(100vw, calc(100${vhUnit} * ${
-            fitAspect?.width ?? baseResolution.width
-          } / ${fitAspect?.height ?? baseResolution.height}))`,
-          height: `min(100${vhUnit}, calc(100vw * ${
-            fitAspect?.height ?? baseResolution.height
-          } / ${fitAspect?.width ?? baseResolution.width}))`,
+          width: `min(100vw, calc(100${vhUnit} * ${fitAspect.width} / ${fitAspect.height}))`,
+          height: `min(100${vhUnit}, calc(100vw * ${fitAspect.height} / ${fitAspect.width}))`,
           position: "relative",
         }
       : { width: "100%", height: "100%", position: "relative" };
@@ -348,8 +349,9 @@ const UnityGame: React.FC<UnityGameProps> = ({
 
   const containerClass = className || styles.container;
 
-  // Hint solo en layout fullscreen (mobile shell o FS nativo) y portrait
-  const showRotateHint = useFsLayout && isMobile() && isPortraitNow();
+  // Hint solo en layout fullscreen (mobile shell o FS nativo) y portrait, unless explicitly hidden
+  const showRotateHint =
+    !hideRotateHint && useFsLayout && isMobile() && isPortraitNow();
 
   // Game Over listener
   const [gameOver, setGameOver] = useState(false);

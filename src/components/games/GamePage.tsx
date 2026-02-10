@@ -138,6 +138,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
           degenMode={localGameMode}
           degenBetAmount={localDegenBetAmount}
           onExit={handleExitFromMobile}
+          rotateOnMobile={gameConfig.rotateOnMobile !== false}
         />
         {showAdOverlay && (
           <div

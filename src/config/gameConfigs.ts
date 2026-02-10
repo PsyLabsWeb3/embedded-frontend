@@ -398,6 +398,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0.1,
     isPvE: true,
+    rotateOnMobile: true,
     instructions: [
       "Control the snake’s direction using swipe controls or arrow keys.",
       "Move the snake around the play area continuously.",
@@ -423,6 +424,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 6,
     minEntryFee: 0.5,
     isPvP: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys to control the ship",
       "Shoot the asteroids to destroy them",
@@ -445,6 +447,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0.5,
     isPvP: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys to move your drone",
       "Shoot projectiles with left click to eliminate enemies",
@@ -463,6 +466,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     difficulty: GameTypes.GameDifficulty.EASY,
     estimatedPlayTime: 5,
     isMultiplayer: false,
+    rotateOnMobile: false,
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
@@ -487,6 +491,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Swipe across the screen to slice the balls.",
       "Avoid slicing bombs to prevent losing points.",
@@ -508,6 +513,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys or swipe controls to jump over obstacles.",
       "Collect treasures along the way to increase your score.",
@@ -529,6 +535,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or swipe controls to navigate the zigzag path.",
       "Avoid obstacles to keep running.",
@@ -550,6 +557,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or swipe controls to roll the ball.",
       "Navigate through dynamic environments.",
@@ -571,6 +579,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or swipe controls to roll the ball.",
       "Navigate through dynamic environments.",
@@ -592,6 +601,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Swipe in the direction of the on-screen arrows.",
       "Match as many arrows as possible within the time limit.",
@@ -634,6 +644,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0.1,
     isPvE: true,
+    rotateOnMobile: true,
     instructions: [
       "Choose your racer and ship.",
       "Use WASD or Joystick in mobile to control your ship.",
@@ -660,6 +671,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     isPvE: false,
     isFriendlyPvP: true,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys or joystick to move your character.",
       "Jump between platforms to avoid enemy fire.",
@@ -682,6 +694,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minEntryFee: 0.1,
     isPvE: true,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or joystick to steer your tank left or right.",
       "Navigate the zigzag track without falling off.",
@@ -704,6 +717,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minEntryFee: 0.1,
     isPvE: true,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys or swipe controls to jump over obstacles.",
       "Collect coins along the way to increase your score.",
@@ -722,6 +736,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     difficulty: GameTypes.GameDifficulty.MEDIUM,
     estimatedPlayTime: 15,
     isMultiplayer: false,
+    rotateOnMobile: true,
     minAge: 7,
     minEntryFee: 0.1,
     isPvE: true,
@@ -747,6 +762,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 6,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys or joystick to move your character.",
       "Aim and shoot at opponents using mouse or touch controls.",
@@ -768,6 +784,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Use arrow keys or swipe controls to navigate the hovering vehicle.",
       "Avoid obstacles in the sky to keep flying.",
@@ -789,6 +806,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Tap and hold to make the emoji ball drop.",
       "Break platforms by landing on them.",
@@ -812,6 +830,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or swipe controls to jump on platforms.",
       "Avoid obstacles while ascending.",
@@ -833,6 +852,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 6,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Use arrow keys or swipe controls to navigate your racer downhill.",
       "Avoid obstacles and perform stunts to earn points.",
@@ -854,6 +874,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 7,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Rotate the base left or right.",
       "Emojis roll and fall based on gravity.",
@@ -876,6 +897,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Swipe or drag to move the ball left and right.",
       "Collect balls that match your color.",
@@ -898,6 +920,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: false,
     instructions: [
       "Tap to make the square avatar jump.",
       "Land on platforms with higher point values.",
@@ -921,6 +944,7 @@ export const gameConfigs: Record<string, GameConfig> = {
     minAge: 5,
     minEntryFee: 0,
     isFreeToPlay: true,
+    rotateOnMobile: true,
     instructions: [
       "Arrange cards in descending order and alternating colors on the tableau.",
       "Build four foundation piles from Ace to King for each suit.",
