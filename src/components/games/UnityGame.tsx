@@ -325,7 +325,6 @@ const UnityGame: React.FC<UnityGameProps> = ({
         position: "relative",
       };
 
-  // Caja 16:9 (contain) solo en full-window layout
   // Only apply aspect fit if fitAspect is explicitly provided (not just baseResolution default)
   const fitBoxStyle: React.CSSProperties =
     useFsLayout && fitAspect
