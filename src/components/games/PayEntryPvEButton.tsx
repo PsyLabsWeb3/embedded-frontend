@@ -253,11 +253,12 @@ const PayEntryPvEButton: React.FC<Props> = ({
       setModalError(null);
       localStorage.removeItem(LOCAL_STORAGE_CONF.PHANTOM_LAST_TRANSACTION);
 
-      // Verify transaction and continue to game
+      // Verify transaction and show modal; do NOT auto-continue — wait for user action
       (async () => {
-        const ok = await waitForFinalized(connection, last);
-        if (ok) {
-          onContinue?.(last);
+        try {
+          await waitForFinalized(connection, last);
+        } catch {
+          // ignore — user will click Continue when ready
         }
       })();
     }

@@ -93,15 +93,44 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     setShowMobileFull(false);
     setEntryConfirmed(false);
     setTxSig(null);
-    // recarga la misma ruta del juego para exigir pago nuevamente
+    // Give Unity time to unload and browser to exit fullscreen before reloading
     setTimeout(() => {
       const url =
         window.location.pathname +
         window.location.search +
         window.location.hash;
       window.location.replace(url);
-    }, 30);
+    }, 500);
   };
+
+  // Try to enter fullscreen and lock orientation on mobile
+  const enterFullscreen = async () => {
+    const el = document.documentElement;
+
+    try {
+      if (el.requestFullscreen) {
+        await el.requestFullscreen();
+      }
+
+      // Only lock orientation when the game's config allows rotation on mobile
+      if (
+        (screen as any).orientation?.lock &&
+        // default behavior: rotate unless explicitly disabled
+        gameConfig?.rotateOnMobile !== false
+      ) {
+        try {
+          await (screen as any).orientation.lock("landscape");
+        } catch (e) {
+          // ignore orientation lock failures
+        }
+      }
+
+    } catch (err) {
+      console.log("Fullscreen failed:", err);
+    }
+  };
+
+  
 
   // Vista hija de mobile: full-window por layout
   if (
@@ -128,7 +157,6 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
     );
     localStorage.removeItem(LOCAL_STORAGE_CONF.DEGEN_BET_AMOUNT);
 
-    // Always mount UnityGameMobile, overlay ad if needed
     return (
       <>
         <UnityGameMobile
@@ -413,7 +441,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             }
             setEntryConfirmed(true); // Unity game loads immediately
             setShowAdOverlay(true); // Show ad overlay
-            if (isMobile()) setShowMobileFull(true);
+            if (isMobile()) {
+              // attempt to enter fullscreen, then show mobile full window
+              void enterFullscreen().finally(() => setShowMobileFull(true));
+            }
           }}
           onAdEnd={() => setShowAdOverlay(false)}
         />,
@@ -423,10 +454,10 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
       if (connected || isConnectedMobile) {
         if (gameConfig.isPvE) {
           buttons.push(
-            <PayEntryPvEButton
+              <PayEntryPvEButton
               key="pve"
               onSent={(sig) => setTxSig(sig)}
-              onContinue={(sig) => {
+              onContinue={async (sig) => {
                 setTxSig(sig);
                 setGameMode("PvE");
                 if (isMobile()) {
@@ -434,9 +465,14 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 }
                 setGameLoading(true);
                 setGameLoaded(false);
+                if (isMobile()) {
+                  try {
+                    await enterFullscreen();
+                  } catch {}
+                  setShowMobileFull(true);
+                }
                 setTimeout(() => {
                   setEntryConfirmed(true);
-                  if (isMobile()) setShowMobileFull(true);
                   setTimeout(() => {
                     setGameLoaded(true);
                     setGameLoading(false);
@@ -453,7 +489,7 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             <PayEntryPvEButton
               key="friendly"
               onSent={(sig) => setTxSig(sig)}
-              onContinue={(sig) => {
+              onContinue={async (sig) => {
                 setTxSig(sig);
                 setGameMode("PvE");
                 if (isMobile()) {
@@ -461,9 +497,14 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
                 }
                 setGameLoading(true);
                 setGameLoaded(false);
+                if (isMobile()) {
+                  try {
+                    await enterFullscreen();
+                  } catch {}
+                  setShowMobileFull(true);
+                }
                 setTimeout(() => {
                   setEntryConfirmed(true);
-                  if (isMobile()) setShowMobileFull(true);
                   setTimeout(() => {
                     setGameLoaded(true);
                     setGameLoading(false);
@@ -481,13 +522,18 @@ const GamePage: React.FC<GamePageProps> = ({ gameId, customContent }) => {
             <PayEntryButton
               key="pvp"
               onSent={(sig) => setTxSig(sig)}
-              onContinue={(sig) => {
+              onContinue={async (sig) => {
                 setTxSig(sig);
                 setGameLoading(true);
                 setGameLoaded(false);
+                if (isMobile()) {
+                  try {
+                    await enterFullscreen();
+                  } catch {}
+                  setShowMobileFull(true);
+                }
                 setTimeout(() => {
                   setEntryConfirmed(true);
-                  if (isMobile()) setShowMobileFull(true);
                   setTimeout(() => {
                     setGameLoaded(true);
                     setGameLoading(false);

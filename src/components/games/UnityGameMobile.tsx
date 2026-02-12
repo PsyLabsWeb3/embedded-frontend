@@ -228,14 +228,33 @@ const UnityGameMobile: React.FC<Props> = ({
               </button>
               <button
                 onClick={() => {
-                  // 1) desmonta Unity para disparar unload() (ver UnityGame cleanup)
+                  // Attempt graceful exit: leave fullscreen and unlock orientation
                   setConfirmOpen(false);
-                  // desmonta el Unity "child" antes de notificar al padre
-                  // (no necesitamos esperar mucho, 30ms basta para que React procese el unmount)
-                  // si tuvieras una bandera visible: setVisible(false);
-                  // en este caso desmontamos al volver al padre igualmente
-                  setVisible(false);
-                  setTimeout(() => onExit && onExit(), 30);
+                  (async () => {
+                    try {
+                      const exitFn:
+                        | (() => Promise<void>)
+                        | undefined =
+                        (document.exitFullscreen as any) ||
+                        (document as any).webkitExitFullscreen;
+                      if (exitFn) {
+                        try {
+                          await exitFn.call(document);
+                        } catch {}
+                      }
+
+                      if ((screen as any).orientation?.unlock) {
+                        try {
+                          (screen as any).orientation.unlock();
+                        } catch {}
+                      }
+                    } catch {}
+
+                    // desmonta el Unity "child" antes de notificar al padre
+                    // give Unity some time to clean up after exiting fullscreen
+                    setVisible(false);
+                    setTimeout(() => onExit && onExit(), 350);
+                  })();
                 }}
                 style={{
                   background: "#e11d48",
