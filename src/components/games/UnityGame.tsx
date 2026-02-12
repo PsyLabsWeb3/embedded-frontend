@@ -2,6 +2,7 @@
  * @fileoverview UnityGame Component
  * - Desktop: embebido 16:9 con botón Fullscreen (nativo).
  * - Mobile (cuando se usa desde UnityGameMobile): full-window por layout, contain 16:9.
+ * FULL SCREEN ANDROID
  */
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
