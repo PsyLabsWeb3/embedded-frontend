@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
             </div>
             <p className="ef-desc">
               Play skill-based games, compete for real rewards in SOL, and join
-              a thriving community of 250K players worldwide.
+              a thriving community of 5K players worldwide.
             </p>
           </div>
 

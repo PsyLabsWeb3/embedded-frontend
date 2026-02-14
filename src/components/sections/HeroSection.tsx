@@ -107,7 +107,7 @@ const HeroSection = () => {
           {/* Desktop hero stats row */}
           <div className="hero-section__stats" aria-label="Platform stats">
             <span className="hero-stats__item hero-stats__item--strong">
-              250k+ players
+              5k+ players
             </span>
             {/* <span className="hero-stats__label">players</span> */}
             <span className="hero-stats__sep" aria-hidden="true"></span>

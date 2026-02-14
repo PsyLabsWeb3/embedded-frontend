@@ -25,14 +25,26 @@ const GamesPvP = () => (
           <h1 className="games-title">Player vs Player</h1>
           <p className="games-subtitle">Player vs Player - Web3 Feature</p>
           <p className="games-description">
-            Head to head skill matches against other players.
+            Head to head skill matches against other players. Choose amongst our
+            three modalities:
             <br />
             <br />
-            Choose a low entry match or a high stakes match when you're ready.
+            <span className="mode-title">Casual mode</span> - Small entry fee of
+            $.5 per player. Winner takes both entry fees (Minus the match fees)
+            plus 2 leaderboard points while the loser only takes 1 point.
             <br />
             <br />
-            Winners take the match's pool and earn 2 leaderboard point or take 1
-            point of you lose the match.
+            <span style={{ color: "#ae43ff" }} className="mode-title">
+              Degen mode
+            </span>{" "}
+            - Bigger entry fee of $5 per player. Winner takes both entry fees
+            (Minus the match fees) plus 2 leaderboard points while the loser
+            only takes 1 point.
+            <br />
+            <br />
+            <span className="mode-title">Friendly mode</span> - Small entry fee
+            of $.1 per player. The result doesn't matter. Each player gets 1
+            leaderboard point.
           </p>
         </div>
 

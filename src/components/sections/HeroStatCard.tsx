@@ -69,9 +69,9 @@ const HeroStatCard: React.FC = () => (
         <div
           className="hero-stat-card__stat-main"
           id="hero-stat-gradient"
-          aria-label="Over 250,000 registered players"
+          aria-label="Over 5,000 registered players"
         >
-          +250K
+          +5K
         </div>
         <span className="hero-stat-card__players">PLAYERS</span>
       </div>
