@@ -1,6 +1,7 @@
 // Tournament data for display and modal info
 export interface Tournament {
   title: string;
+  subtitle?: string; // Optional subtitle for modal
   image: string;
   status: string;
   statusColor: string;
@@ -10,6 +11,10 @@ export interface Tournament {
   time: string;
   game: string;
   details?: string; // Optional rich details for modal (HTML or JSX string)
+  actionButton?: {
+    label: string;
+    href: string;
+  };
 }
 
 import gmTournamentImage from "../assets/GM3Bottles.jpg";
@@ -57,16 +62,21 @@ const TOURNAMENTS: Tournament[] = [
   },
   {
     title: "Embedded Wars Tournament",
+    subtitle: "The Ultimate PvP Showdown",
     image: ewTournamentImage,
-    status: "ENDED",
-    statusColor: "#ff4343",
+    status: "LIVE",
+    statusColor: "#5dd62c",
     description:
       "Classic arcade space shooter where players pilot a spaceship, destroying drifting asteroids and enemy threats while avoiding collisions in the depths of space.",
-    reward: "Rewards 100 USD",
-    date: "2025-12-15",
-    time: "20:00 UTC",
+    reward: "Rewards 50 USD",
+    date: "2026-02-21",
+    time: "17:00 UTC",
     game: "Embedded Wars",
-    details: "",
+    details: "For all the instructions, join our discord here:",
+    actionButton: {
+      label: "Join Discord",
+      href: "https://discord.gg/y9TkSUXF6G",
+    },
   },
 ];
 

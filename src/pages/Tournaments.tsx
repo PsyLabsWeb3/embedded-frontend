@@ -59,6 +59,9 @@ const TournamentModal: React.FC<TournamentModalProps> = ({
           <h2 className="tournament-modal__title" style={{ color: "#5dd62c" }}>
             {tournament.title}
           </h2>
+          {tournament.subtitle && (
+            <p className="tournament-modal__subtitle">{tournament.subtitle}</p>
+          )}
           <div className="tournament-modal__meta">
             <div>
               <b>Status:</b>{" "}
@@ -86,6 +89,18 @@ const TournamentModal: React.FC<TournamentModalProps> = ({
               tournament.description
             )}
           </p>
+          {tournament.actionButton && (
+            <div className="tournament-modal__button-wrapper">
+              <a
+                href={tournament.actionButton.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tournament-modal__action-button"
+              >
+                {tournament.actionButton.label}
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
