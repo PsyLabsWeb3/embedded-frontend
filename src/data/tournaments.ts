@@ -64,8 +64,8 @@ const TOURNAMENTS: Tournament[] = [
     title: "Embedded Wars Tournament",
     subtitle: "The Ultimate PvP Showdown",
     image: ewTournamentImage,
-    status: "LIVE",
-    statusColor: "#5dd62c",
+    status: "ENDED",
+    statusColor: "#d62c2c",
     description:
       "Classic arcade space shooter where players pilot a spaceship, destroying drifting asteroids and enemy threats while avoiding collisions in the depths of space.",
     reward: "Rewards 50 USD",
