@@ -5,7 +5,7 @@
  * including routing, wallet connectivity, and provider context. This
  * component orchestrates the entire application architecture and provides
  * the foundation for all user interactions.
- *
+ * Blocked Countries: AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,JP,SG,AU,US,CA,PR
  *
  * @author Embedded Frontend Team
  * @version 1.0.0
