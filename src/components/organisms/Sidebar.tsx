@@ -151,7 +151,7 @@ const Sidebar: React.FC = () => {
           </button>
 
           {/* Whitepaper Link */}
-          <Link
+          {/* <Link
             to={ROUTES.WHITEPAPER}
             className={`sidebar__item ${
               location.pathname === ROUTES.WHITEPAPER
@@ -162,7 +162,7 @@ const Sidebar: React.FC = () => {
           >
             <WhitepaperIcon />
             <span className="sidebar__text">Whitepaper</span>
-          </Link>
+          </Link> */}
 
           {/* Rewards - Coming Soon */}
           <div

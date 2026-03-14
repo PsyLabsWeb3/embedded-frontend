@@ -43,7 +43,7 @@ import Rewards from "./pages/Rewards";
 import Tournaments from "./pages/Tournaments";
 import PhantomCallback from "./pages/PhantomCallback";
 import PhantomSignCallback from "./pages/PhantomSignCallback";
-import Whitepaper from "./pages/Whitepaper";
+// import Whitepaper from "./pages/Whitepaper";
 import FAQsPage from "./pages/FAQs";
 import ScrollToTop from "./components/atoms/ScrollToTop";
 
@@ -181,7 +181,7 @@ const App: React.FC = () => {
                   element={<PhantomSignCallback />}
                 />
 
-                <Route path="/whitepaper" element={<Whitepaper />} />
+                {/* <Route path="/whitepaper" element={<Whitepaper />} /> */}
 
                 {/* FAQs Page */}
                 <Route path="/faqs" element={<FAQsPage />} />
