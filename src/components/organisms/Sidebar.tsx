@@ -23,7 +23,7 @@ import "./Sidebar.css";
 import leaderboardIcon from "../../assets/icons/leaderboardIcon.svg";
 import historyIcon from "../../assets/icons/historyIcon.svg";
 import advertiseIcon from "../../assets/icons/adIcon.svg";
-import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
+// import whitepaperIcon from "../../assets/icons/whitepaperIcon.svg";
 import AdvertiseModal from "./AdvertiseModal";
 import tournamentIcon from "../../assets/icons/tournamentIcon.svg";
 import faqIcon from "../../assets/icons/FAQIcon.svg";
@@ -43,9 +43,9 @@ const AdvertiseIcon: React.FC = () => (
   <img src={advertiseIcon} alt="" width="20" height="20" />
 );
 
-const WhitepaperIcon: React.FC = () => (
-  <img src={whitepaperIcon} alt="" width="20" height="20" />
-);
+// const WhitepaperIcon: React.FC = () => (
+//   <img src={whitepaperIcon} alt="" width="20" height="20" />
+// );
 
 const TournamentIcon: React.FC = () => (
   <img src={tournamentIcon} alt="" width="20" height="20" />
